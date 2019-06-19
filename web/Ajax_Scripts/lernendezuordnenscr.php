@@ -29,7 +29,7 @@ include 'db.php';
         echo '</script>';
 
     }
-
+$test;
 
 mysqli_close($con);
 ?>

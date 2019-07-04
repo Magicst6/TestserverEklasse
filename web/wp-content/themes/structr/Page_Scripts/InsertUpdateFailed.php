@@ -1,1 +1,15 @@
-<script>    alert("Lehrperson unbekannt! Bitte erneut eintragen");</script><?phpecho '<meta http-equiv="refresh" content="0; url=https://schulverwaltungheimtest.ch/test1" />';?>
+<script>
+
+    alert("Lehrperson unbekannt! Bitte erneut eintragen");
+
+</script>
+
+
+
+<?php
+
+
+
+echo '<meta http-equiv="refresh" content="0; url=/test1" />';
+
+?>

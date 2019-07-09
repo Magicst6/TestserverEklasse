@@ -93,7 +93,7 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
         echo "<option>".''. "</option>";
 
         $isEntry= "Select * From sv_users INNER JOIN sv_usermeta ON sv_users.ID = sv_usermeta.user_id WHERE sv_usermeta.meta_key = 'sv_capabilities' AND (sv_usermeta.meta_value LIKE '%kv%' or sv_usermeta.meta_value LIKE '%hs%'  or sv_usermeta.meta_value LIKE '%sveb%') Order By user_login ASC";
-        $result = mysqli_query($con, $isEntry);
+        $result = mysqli_query($con1, $isEntry);
         while( $line3= mysqli_fetch_array($result))
         {
             $Login = $line3['user_login'];

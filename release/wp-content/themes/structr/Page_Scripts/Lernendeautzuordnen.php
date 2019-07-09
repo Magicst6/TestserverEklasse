@@ -78,7 +78,7 @@ while( $line2= mysqli_fetch_array($result))
 
     $isEntry1= "Select * From sv_users INNER JOIN sv_usermeta ON (sv_users.ID = sv_usermeta.user_id) INNER JOIN sv_usermeta AS w1 ON (sv_users.ID = w1.user_id) INNER JOIN sv_usermeta AS w2 ON (sv_users.ID = w2.user_id) WHERE sv_usermeta.meta_key = 'sv_capabilities'  AND w1.meta_key = 'last_name' AND w1.meta_value='$Name' AND w2.meta_key = 'first_name' AND w2.meta_value='$Vorname' ";
 
-    $result1 = mysqli_query($con, $isEntry1);
+    $result1 = mysqli_query($con1, $isEntry1);
 
     while( $line3= mysqli_fetch_array($result1))
 

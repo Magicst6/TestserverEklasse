@@ -12,81 +12,56 @@ include 'db.php';
 
 $y=0;
 $Kursname=$_GET['q'];
-$ID='112';
+$KlasseInput=$_GET['k'];
 $Lehrer=$_GET['l'];
 
 preg_match("/:(.*)/", $Lehrer, $output_array);
 $Lehrer=$output_array[1];
 
+$Kursname='kv1-wil.bball.FS19';
 
-
-
+$KurseTab1="sv_LernendeModule";
+$KurseTab="sv_Lernenderkurs";
 				
+ $isEntry1 = "Select Klasse From $KurseTab where KursID = '$Kursname'  ";
+    $result1 = mysqli_query($con, $isEntry1);
+   
+	
 
+    while ($line1 = mysqli_fetch_array($result1)) {
+		
+		$Klasse= $line1['Klasse'];
 
-    $isEntry = "Select * From sv_AbwesenheitenKompakt where SchülerID=$ID  ";
+    $isEntry = "Select * From $KurseTab1  Where Modul1='$Klasse' or Modul2='$Klasse' or Modul3='$Klasse' or Modul4='$Klasse' or Modul5='$Klasse' or Modul6='$Klasse' or Modul7='$Klasse' or Modul8='$Klasse' or Modul9='$Klasse' or Modul10='$Klasse' or Modul11='$Klasse' or Modul12='$Klasse'  ";
     $result = mysqli_query($con, $isEntry);
     $events = array();
+
+	
 
 	
 	
 
     while ($line2 = mysqli_fetch_array($result)) {
-		$Kursname =$line2['Kursname'];
 		
-		
-		 $isEntry3 = "Select * From sv_AbwesenheitenGesamt where SchülerID=$ID and KursID ='$Kursname' ";
-    $result3 = mysqli_query($con, $isEntry3);
-        while ($line3 = mysqli_fetch_array($result3)) {
-		if($line3['Abwesenheit']<>0){
-		$data1 =  array(
-			 'AbwesenheitenGesamt' => $line3['Abwesenheit']);
-			$abwges=$line3['Abwesenheit'];
+		$data[] = array(
 			
-		}
-		}
-
-	
-		 $isEntry1 = "Select * From sv_AbwesenheitenKompakt where SchülerID=$ID and Kursname ='$Kursname' ";
-    $result1 = mysqli_query($con, $isEntry1);
-       
-		$y=0;
-
-    while ($line1 = mysqli_fetch_array($result1)) {
-		
-		${'datac'.$y} =  array(
-			 'Klasse'.$y => $line1['Klasse'],
-			'Kursname'.$y => $line1['Kursname'],
-			'Datum'.$y => $line1['Datum'],
-			'Kommentar'.$y => $line1['Kommentar'],
-			'KommentVer'.$y => $line1['KommentarVerwaltung'],
-			'Abwesenheitsdauer'.$y => $line1['Abwesenheitsdauer'],
-			'Lehrer'.$y => $line1['Lehrer']);
-       
-		if ($y==0){
-			$data2=${'datac'.$y};
-		}
-		else{
-		
-		 $data2=array_merge($data2,${'datac'.$y});
-		}
-		$y++;
+			 'ID' => $line2['ID'],
+			'Name' => $line2['Name'],
+			'Vorname' => $line2['Vorname'],
+			'User ID' => $line2['User_ID'],
+			'EMail' => $line2['EMail'],
+			'Profil' => $line2['Profil'],	
+			'Modul1' => $line2['Modul1'],
+			'Modul2' => $line2['Modul2'],
+			'Modul3' => $line2['Modul3'],
+			'Modul4' => $line2['Modul4'],
+			'Modul5' => $line2['Modul5']
+		);
+           
 	
     }
-		$data3 =  array(
-			 'Rows' => $y);
-		$data1 = array(
-			 'Kursname' => $Kursname,
-	         'AbwesenheitenGesamt' => $abwges);
+		
+}
+	
 
-            $datages[]=array_merge($data1,$data2,$data3);
-       
-	}
- 
-
-
-
-	echo json_encode($datages);
-
-
-
+	echo json_encode($data);

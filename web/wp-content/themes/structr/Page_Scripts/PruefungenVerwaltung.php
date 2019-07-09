@@ -60,7 +60,7 @@
 
                 var y = document.querySelector("#Lehrpersondrop").value;
 
-                window.location.href = "/pruefungen?&klasse=" + x + "&Lehrpersondr=" + y;
+                window.location.href = "/pruefungen-verwaltung-2?&klasse=" + x + "&Lehrpersondr=" + y;
 
             }
 

@@ -22,7 +22,7 @@ if( $_POST['Senden'])
 
     $AnzahlSch = $_POST['AnzahlSch'];
 
-    echo $Anzahlsch;
+  
 
     for($x = 0; $x < $AnzahlSch; $x++)
 
@@ -66,7 +66,7 @@ if( $_POST['Senden'])
 
                 echo "Fehler: Eintrag unvollständig. Bitte neu beginnen!";
 
-                echo '<meta http-equiv="refresh" content="0; url=https://schulverwaltungheimtest.ch/klassen-und-lernendenverwaltung/" />';
+                echo '<meta http-equiv="refresh" content="0; url=/klassen-und-lernendenverwaltung/" />';
 
             }
 
@@ -92,7 +92,7 @@ if( $_POST['Senden'])
 
     }
 
-    echo '<meta http-equiv="refresh" content="0; url=https://schulverwaltungheimtest.ch/lernende" />';
+    echo '<meta http-equiv="refresh" content="0; url=/lernende" />';
 
 
 
@@ -112,7 +112,7 @@ $isEntry= "Select * From sv_Lernende Order by ID asc ";
 
 $result = mysqli_query($con, $isEntry);
 
-echo "test1";
+
 
 while ($row = mysqli_fetch_array($result)) {
 
@@ -162,7 +162,7 @@ $x=1;
 
     while ($row1= mysqli_fetch_array($result1)) {
 
-        echo "test";
+        
 
         $isEntry2= "Select *  From sv_LernendeModule Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail'";
 
@@ -190,7 +190,7 @@ $x=1;
 
             $x++;
 
-            echo "Insert";
+        
 
         }
 		
@@ -208,8 +208,7 @@ $x=1;
                 $query2 = "Update sv_LernendeModule Set Modul1='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
-
-
+			
 
             }if ($x==2) {
 
@@ -217,80 +216,121 @@ $x=1;
 
                 mysqli_query($con, $query2);
 
-                echo "fvbnfn";
+            
+
+
 
             }if ($x==3) {
 
                 $query2 = "Update sv_LernendeModule Set Modul3='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+					}
+				
+				else{ $query2 = "Update sv_LernendeModule Set Modul3='' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
+
+                mysqli_query($con, $query2);
+
+
+
+				
+					
 
             }if ($x==4) {
 
                 $query2 = "Update sv_LernendeModule Set Modul4='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+				
+
+
 
             }if ($x==5) {
 
                 $query2 = "Update sv_LernendeModule Set Modul5='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+					
+
 
             }if ($x==6) {
 
                 $query2 = "Update sv_LernendeModule Set Modul6='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+				
+
 
             }if ($x==7) {
 
                 $query2 = "Update sv_LernendeModule Set Modul7='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+				
+
+
+
 
             }if ($x==8) {
 
                 $query2 = "Update sv_LernendeModule Set Modul8='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+					
+
 
             }if ($x==9) {
 
                 $query2 = "Update sv_LernendeModule Set Modul9='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+				
+
 
             }if ($x==10) {
 
                 $query2 = "Update sv_LernendeModule Set Modul10='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+				
+
+
 
             }if ($x==11) {
 
                 $query2 = "Update sv_LernendeModule Set Modul11='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+				
+
+
 
             }if ($x==12) {
 
                 $query2 = "Update sv_LernendeModule Set Modul12='$Klasse1' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
                 mysqli_query($con, $query2);
+			
 
             }
 
             $x++;
 
-            echo "Update";
+      
 
-        }
+		}
 
     }
 
+for($z=$x;$z<13;$z++)
+{
+	$Modul="Modul".$z;
 
+$query2 = "Update sv_LernendeModule Set $Modul='' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
+                mysqli_query($con, $query2);
+			
+}
 
 
 
@@ -667,7 +707,7 @@ while( $row5= mysqli_fetch_array($result1))
 
 }
 
-echo '<meta http-equiv="refresh" content="0; url=https://schulverwaltungheimtest.ch/klassen-und-lernendenverwaltung/" />';
+
 
 
 

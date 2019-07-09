@@ -11,7 +11,11 @@ if( $_POST['Senden'])
     $AnzahlSch = $_POST['AnzahlSch'];
     $AnzahlSch1 = $_POST['AnzahlSch1'];
     if ($AnzahlSch==''){$AnzahlSch=$AnzahlSch1;}
-    $Klasse=  $_POST['Klassenname'];
+   
+	$Klasse=  $_POST['klasse'];
+		
+
+	
     for($x = 0; $x < $AnzahlSch; $x++)
     {
         $Vorname =  $_POST['Vorname'.$x];
@@ -20,20 +24,48 @@ if( $_POST['Senden'])
         $Loginname = $_POST['Loginname'.$x];
         $Profil= $_POST['Profil'.$x];
 
+if ($Vorname=="" and $Nachname=="" and $EMail=="" and $Loginname=="" and $Profil=="")
+{
+	
+	$Schueler =  $_POST['schueler'.$x];
+	
 
+        preg_match("/:(.*)/", $Schueler, $output_array);
+
+        $SchuelerID=$output_array[1];
+
+	 $isEntry1= "Select *  From sv_Lernende where ID='$SchuelerID'";
+
+    $result1 = mysqli_query($con, $isEntry1);
+    
+    while ($row1= mysqli_fetch_array($result1)) {
+	
+	
+	 $Vorname =  $row1['Vorname'];
+        $Nachname = $row1['Name'];
+        $EMail = $row1['EMail'];
+        $Loginname = $row1['Loginname'];
+        $Profil= $row1['Profil'];
+	
+	}
+
+}
+		
 
 //Daten in DB speichern
         $sql_befehl = "INSERT INTO sv_Lernende (Name, Vorname, Klasse, Loginname, EMail, Profil) VALUES ('$Nachname', '$Vorname', '$Klasse', '$Loginname', '$EMail', '$Profil' )";
 //echo $sql_befehl1;
         if (("" == $Vorname) OR (""== $Nachname) ) {
             echo "Fehler: Eintrag unvollständig. Bitte neu beginnen!";
+			header('Location:'.$_SERVER['HTTP_REFERER']);
 //echo '<meta http-equiv="refresh" content="0; url=http://wios.eklasse.ch/Klassenverwaltung" />';
 
         }
         else {
             mysqli_query($con,$sql_befehl);
 //echo "Eintrag hinzugefügt.";
-            echo '<meta http-equiv="refresh" content="0; url=https://schulverwaltungheimtest.ch/lernende" />';
+           header('Location:'.$_SERVER['HTTP_REFERER']);
+
 
 
         }
@@ -133,6 +165,16 @@ $x=1;
             echo "Update";
         }
     }
+	
+for($z=$x;$z<13;$z++)
+{
+	$Modul="Modul".$z;
+
+$query2 = "Update sv_LernendeModule Set $Modul='' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
+
+                mysqli_query($con, $query2);
+			
+}
 
 
 
@@ -232,13 +274,10 @@ while( $row5= mysqli_fetch_array($result1))
         }
     }
 }
+header('Location:'.$_SERVER['HTTP_REFERER']);
 
 
 ?>
 
-<meta http-equiv="refresh" content="5; URL=https://schulverwaltungheimtest.ch/klassen-und-lernendenverwaltung/">
-<form action="https://schulverwaltungheimtest.ch/klassen-und-lernendenverwaltung/"> <input type="submit" value="Zurück" /></form>
-
-&nbsp;
 
 &nbsp;

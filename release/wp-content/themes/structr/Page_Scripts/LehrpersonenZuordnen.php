@@ -186,7 +186,7 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
 
         $isEntry= "Select * From sv_users Order By user_login ASC";
 
-        $result = mysqli_query($con, $isEntry);
+        $result = mysqli_query($con1, $isEntry);
 
         while( $line3= mysqli_fetch_array($result))
 

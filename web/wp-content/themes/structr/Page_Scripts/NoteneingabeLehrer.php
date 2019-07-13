@@ -1,4 +1,10 @@
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
 <em>Hier können die Lehrer die Noten der Schüler eintragen oder bearbeiten </em>
+
 <?php
 include 'db.php';
 $Kursname=$_GET['Kursname'];
@@ -258,14 +264,14 @@ else{
         }
         $uniquearr = array_unique($resultarr);
 
-if ($Kursname==null and $_GET['Schuler']==null )
+if ($Kursname==null and $_GET['Schueler']==null )
 {
 	 echo "<option></option>";
 }
 if($_GET['Schueler']==null and $Kursname<>null ) {
  echo "<option>" . "-Select-". "</option>";
 		}
-   if($_GET['Schueler']<>null and $$Kursname<>null  ){
+   if($_GET['Schueler']<>null and $Kursname<>null  ){
         echo "<option>" . $_GET['Schueler'] . "</option>";
         echo "<option>".''. "</option>";
    }
@@ -314,10 +320,10 @@ if($_GET['Schueler']==null and $Kursname<>null ) {
                   echo '<br/>';
 
                   if ($Note == "Note1") {
-                      echo "  ---  Note 1:  ";
+                      echo "<i class='far fa-clock'></i> Note 1:  ";
                       echo "<strong>" . $NoteValue . "</strong>";
                   } else {
-                      echo " ---   " . $Note . ":  ";
+                      echo " --- " . $Note . ":  ";
                       echo "<strong>" . $NoteValue . "</strong>";
                   }
 

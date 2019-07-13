@@ -14,12 +14,12 @@ echo '<br>Hier die momentan in dieser Klasse befindlichen Schüler:<br><br>';
                 echo "<tr>";
                 //Schreibe Spaltennamen
 
-                echo "<th width=100>".'ID'."</th>";
-                echo "<th width= 240>".'Nachname'. "</th>";
-                echo "<th width=240>".'Vorname'. "</th>";
-                echo "<th width=240>".'Profil'. "</th>";
-                echo "<th width= 240>".'Loginname'. "</th>";
-                echo "<th width=300>".'E-Mail'. "</th>";
+                echo "<th width=80>".'ID'."</th>";
+                echo "<th width= 200>".'Nachname'. "</th>";
+                echo "<th width=200>".'Vorname'. "</th>";
+                echo "<th width=75>".'Profil'. "</th>";
+                echo "<th width= 200>".'Loginname'. "</th>";
+                echo "<th width=220>".'E-Mail'. "</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
@@ -41,12 +41,12 @@ echo '<br>Hier die momentan in dieser Klasse befindlichen Schüler:<br><br>';
                     $Profil=$value['Profil'];
 
                     echo "<tr>";
-                    echo '<td><input name="ID1'.$y.'" style="width: 100px" type="text" readonly  value='.$ID.' ></td>';
-                    echo '<td><input name="Nachname1'.$y.'" style="width: 240px" type="text" readonly value='.$Name.'  ></td>';
-                    echo '<td><input name="Vorname1'.$y.'" type="text" value='.$Vorname.' readonly style="width: 240px"   ></td>';
+                    echo '<td><input name="ID1'.$y.'" style="width: 80px" type="text" readonly  value='.$ID.' ></td>';
+                    echo '<td><input name="Nachname1'.$y.'" style="width: 200px" type="text" readonly value='.$Name.'  ></td>';
+                    echo '<td><input name="Vorname1'.$y.'" type="text" value='.$Vorname.' readonly style="width: 200px"   ></td>';
                     echo '<td><input name="Profil'.$y.'" type="text" style="width: 75px" readonly   value='.$Profil.'  ></td>';
-                    echo '<td><input name="Loginname1'.$y.'" type="text" style="width: 240px" readonly  value='.$Loginname.'  ></td>';
-                    echo '<td><input name="EMail1'.$y.'" type="text" style="width: 300px" readonly value='.$EMail.'   ></td>';
+                    echo '<td><input name="Loginname1'.$y.'" type="text" style="width: 200px" readonly  value='.$Loginname.'  ></td>';
+                    echo '<td><input name="EMail1'.$y.'" type="text" style="width: 220px" readonly value='.$EMail.'   ></td>';
                     echo "</tr>";
 
                     $y=$y+1;
@@ -136,27 +136,27 @@ for($x = 0; $x < $AnzahlSch; $x++)
 	
 	echo '<br><br>Wenn der Schüler nicht im Dropdown zu finden ist kann hier ein neuer Lernender eingetragen werden:<br>';
 					
-                echo '<table id="table_id1" class="display">';
+                echo '<table id="table_id" class="display" >';
                 echo "<thead>";
                 echo "<tr>";
                 //Schreibe Spaltennamen
 
-                echo "<th width=100>".'ID'."</th>";
-                echo "<th width= 240>".'Nachname'. "</th>";
-                echo "<th width=240>".'Vorname'. "</th>";
-                echo "<th width=240>".'Profil'. "</th>";
-                echo "<th width= 240>".'Loginname'. "</th>";
-                echo "<th width=300>".'E-Mail'. "</th>";
+                echo "<th width=80>".'ID'."</th>";
+                echo "<th width= 200>".'Nachname'. "</th>";
+                echo "<th width=200>".'Vorname'. "</th>";
+                echo "<th width=75>".'Profil'. "</th>";
+                echo "<th width= 200>".'Loginname'. "</th>";
+                echo "<th width=220>".'E-Mail'. "</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
                     echo "<tr>";
-                    echo '<td><input name="ID'.$x.'" style="width: 100px" type="text"  value='.$i.'  readonly/></td>';
-                    echo '<td><input name="Nachname'.$x.'" style="width: 240px" type="text"  /></td>';
-                    echo '<td><input name="Vorname'.$x.'" type="text" style="width: 240px" /></td>';
+                    echo '<td><input name="ID'.$x.'" style="width: 80px" type="text"  value='.$i.'  readonly/></td>';
+                    echo '<td><input name="Nachname'.$x.'" style="width: 200px" type="text"  /></td>';
+                    echo '<td><input name="Vorname'.$x.'" type="text" style="width: 200px" /></td>';
                     echo '<td><input name="Profil'.$x.'" type="text" style="width: 75px"  /></td>';
-                    echo '<td><input name="Loginname'.$x.'" type="text" style="width: 240px" /></td>';
-                    echo '<td><input name="EMail'.$x.'" type="text" style="width: 300px" /></td>';
+                    echo '<td><input name="Loginname'.$x.'" type="text" style="width: 200px" /></td>';
+                    echo '<td><input name="EMail'.$x.'" type="text" style="width: 220px" /></td>';
                     echo "</tr>";
 					 echo "</tbody>";
 

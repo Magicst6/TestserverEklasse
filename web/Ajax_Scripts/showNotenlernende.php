@@ -127,11 +127,11 @@ echo '<table id="table_id" class="blueTable">';
 			
 		
 			
-echo '<table id="table_id" class="blueTable">';
+echo '<table style="width:100%" id="table_id" class="blueTable">';
 			echo "<thead>";
 			echo "<tr>";
 			echo "<th width=240>" . 'Note' . "</th>";
-			echo "<th width= 240>" . 'Name' . "</th>";
+			echo "<th width=240>" . 'Name' . "</th>";
 			echo "<th width=240>" . 'Gewichtung (in %)' . "</th>";
 			echo "<th width=240>" . 'Datum' . "</th>";
 			echo "</tr>";

@@ -1,18 +1,5 @@
 <?php
-$con = @mysqli_connect('9b1qp.myd.infomaniak.com', "9b1qp_heimmart", "St1180!!ST");
-
-if (!$con) {
-    echo "Error: " . mysqli_connect_error();
-    exit();
-}
-//echo 'Connected to MySQL';
-$verbunden=mysqli_select_db($con, "9b1qp_heimmart_test");
-if($verbunden)
-//echo('DB-Verbindung hergestellt! ');
-    $dummy=1;
-else
-    die('DB-Verbindung fehlgeschlagen! ');
-
+include 'db.php';
 $isEntry2 = "Select Semesterkuerzel From sv_Settings";
 $result2 = mysqli_query($con, $isEntry2);
 
@@ -177,17 +164,17 @@ $Sem_Users= $SemesterkuerzelDB.'_users';
 
 $query3 = "DROP TABLE $Sem_Users";
 
-mysqli_query($con,$query3);
+mysqli_query($con1,$query3);
 
 
 
 $query4 = "CREATE TABLE $Sem_Users LIKE sv_users";
 
-mysqli_query($con,$query4);
+mysqli_query($con1,$query4);
 
 $query5 = "INSERT INTO $Sem_Users SELECT * FROM sv_users";
 
-mysqli_query($con,$query5);
+mysqli_query($con1,$query5);
 
 $isEntry2 = "Select Semesterkuerzel From sv_SemesterArchiv";
 $result2 = mysqli_query($con, $isEntry2);

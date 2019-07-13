@@ -25,7 +25,7 @@ $KurseTab=$Semester."_users";
 
 
     $isEntry = "Select * From $KurseTab  ";
-    $result = mysqli_query($con, $isEntry);
+    $result = mysqli_query($con1, $isEntry);
     $events = array();
 if ($Semester<>""){
 	

@@ -157,17 +157,17 @@ $query2 = "Update sv_LernendeModule Set $Modul='' Where Name='$Name' and Vorname
 
         echo "<tr>";
 
-        echo "<th width=100>".'ID'."</th>";
+        echo "<th width=80>".'ID'."</th>";
 
-        echo "<th width=240>".'Nachname'. "</th>";
+        echo "<th width=200>".'Nachname'. "</th>";
 
-        echo "<th width= 240>".'Vorname'. "</th>";
+        echo "<th width= 200>".'Vorname'. "</th>";
 
-        echo "<th width= 100>".'Profil'. "</th>";
+        echo "<th width= 75>".'Profil'. "</th>";
 
-        echo "<th width=240>".'Loginname'. "</th>";
+        echo "<th width=200>".'Loginname'. "</th>";
 
-        echo "<th width= 300>".'E-Mail'. "</th>";
+        echo "<th width= 220>".'E-Mail'. "</th>";
 
         echo "</tr>";
 
@@ -213,21 +213,21 @@ $query2 = "Update sv_LernendeModule Set $Modul='' Where Name='$Name' and Vorname
 
             echo "<tr>";
 
-            echo '<td><input name="ID1'.$y.'"  id="ID1'.$y.'" style="width: 100px" type="text"  value='.$ID.'  readonly></td>';
+            echo '<td><input name="ID1'.$y.'"  id="ID1'.$y.'" style="width: 80px" type="text"  value='.$ID.'  readonly></td>';
 
-            echo '<td><input  name="Nachname1'.$y.'"  id="Nachname1'.$y.'" style="width: 240px" type="text"  value='.$Name.'   ></td>';
+            echo '<td><input  name="Nachname1'.$y.'"  id="Nachname1'.$y.'" style="width: 200px" type="text"  value='.$Name.'   ></td>';
 
-            echo '<td><input name="Vorname1'.$y.'"  id="Vorname1'.$y.'" type="text" value='.$Vorname.' style="width: 240px"  ></td>';
+            echo '<td><input name="Vorname1'.$y.'"  id="Vorname1'.$y.'" type="text" value='.$Vorname.' style="width: 200px"  ></td>';
 
-            echo '<td><input name="Profil'.$y.'" id="Profil'.$y.'" type="text" style="width: 100px" value='.$Profil.'  ></td>';
+            echo '<td><input name="Profil'.$y.'" id="Profil'.$y.'" type="text" style="width: 75px" value='.$Profil.'  ></td>';
 
-            echo '<td><input name="Loginname1'.$y.'" id="Loginname1'.$y.'" type="text" style="width: 240px" value='.$Loginname.'  ></td>';
+            echo '<td><input name="Loginname1'.$y.'" id="Loginname1'.$y.'" type="text" style="width: 200px" value='.$Loginname.'  ></td>';
 
-            echo '<td><input name="EMail1'.$y.'" id="EMail1'.$y.'" type="text" style="width: 300px" value='.$EMail.'  ></td>';
+            echo '<td><input name="EMail1'.$y.'" id="EMail1'.$y.'" type="text" style="width: 220px" value='.$EMail.'  ></td>';
 			 
-			echo '<td><input name="Delete'.$y.'" onclick="del('.$ID.')" type="button" value="Löschen"   style="width: 150px" ></td>';
+			echo '<td><input name="Delete'.$y.'" onclick="del('.$ID.')" type="button" value="Löschen"   style="width: 75px" ></td>';
 			
-			echo '<td><input name="Update'.$y.'" onclick="updateSchueler('.$y.')"  type="button" value="Update" style="width: 150px" ></td>';
+			echo '<td><input name="Update'.$y.'" onclick="updateSchueler('.$y.')"  type="button" value="Update" style="width: 70px" ></td>';
 
 
 

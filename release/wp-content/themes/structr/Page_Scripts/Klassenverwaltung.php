@@ -1,9 +1,12 @@
 <script> function insert(z){
-		
-		
+		if (document.getElementById("klasse").value != ""){
+		if (document.getElementById("AnzahlSch").value!="")
+			{
 			
 document.getElementById("add").style.visibility = "hidden"; 
 		document.getElementById("add1").style.visibility = "hidden"; 
+			}
+		
             if (window.XMLHttpRequest) {
 
                 // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -31,15 +34,19 @@ document.getElementById("add").style.visibility = "hidden";
             xmlhttp.open("GET","/Ajax_Scripts/addLernende.php?k="+ document.getElementById("AnzahlSch").value + "&l="+ z,true);
 
             xmlhttp.send();
-
+		}
+		else alert('die zu erstellende Klasse hat keinen Namen!');
         }
 
 	function insert1(z){
-		
-		
+			if (document.getElementById("klasse1").value !=""){
+		if (document.getElementById("AnzahlSch2").value!="")
+			{
 			
 document.getElementById("add").style.visibility = "hidden"; 
 		document.getElementById("add1").style.visibility = "hidden"; 
+			}
+	
             if (window.XMLHttpRequest) {
 
                 // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -69,6 +76,8 @@ document.getElementById("add").style.visibility = "hidden";
             xmlhttp.send();
 
         }
+		else alert('Bitte wählen Sie eine Klasse aus!');
+	}
 
 	function edit(){
 		
@@ -237,12 +246,26 @@ document.getElementById("add").style.visibility = "hidden";
             padding-top: 100px; /* Location of the box */
             left: 0;
             top: 0;
-            width: 80%; /* Full width */
+            width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
+		.modal1{
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
 
         /* Modal Content */
         .modal-content {
@@ -250,8 +273,17 @@ document.getElementById("add").style.visibility = "hidden";
             margin: auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 1200px;
         }
+		
+		.modal-content1 {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 1400px;
+        }
+
 
         /* The Close Button */
         .close {
@@ -422,10 +454,10 @@ document.getElementById("add").style.visibility = "hidden";
 		</div>
 
 
-	<div id="myModal3" class="modal">
+	<div id="myModal3" class="modal1">
 
     <!-- Modal content -->
-    <div class="modal-content">
+    <div class="modal-content1">
      
     
         <h2><strong>Klasse bearbeiten</strong></h2>

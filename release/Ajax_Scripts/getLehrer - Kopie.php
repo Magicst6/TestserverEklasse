@@ -5,10 +5,6 @@ $semester =$_GET['s'];
 
 $Tab=$semester."_Lehrpersonen";
 
-if ($semester==""){
-	$Tab="sv_Lehrpersonen";
-}
-
 $isEntry= "Select ID From $Tab ";
 $result = mysqli_query($con,$isEntry);
 $resultarr = array();

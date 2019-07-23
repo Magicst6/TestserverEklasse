@@ -1,9 +1,8 @@
 
-<head>
+
 
 <link rel="stylesheet" type="text/css" href="/wp-content/themes/structr/Page_Scripts/DataTables-1.10.19/media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="/wp-content/themes/structr/Page_Scripts/DataTables-1.10.19/examples/resources/syntax/shCore.css">
-	<link rel="stylesheet" type="text/css" href="/wp-content/themes/structr/Page_Scripts/DataTablesEditor/css/editor.dataTables.min.css">
 	<!--	<link rel="stylesheet" type="text/css" href="/wp-content/themes/structr/Page_Scripts/DataTables-1.10.19/examples/resources/demo.css">-->
 	<style type="text/css" class="init">
 
@@ -13,84 +12,161 @@
 	<script type="text/javascript" language="javascript" src="/wp-content/themes/structr/Page_Scripts/DataTables-1.10.19/examples/resources/syntax/shCore.js"></script>
 	<script type="text/javascript" language="javascript" src="/wp-content/themes/structr/Page_Scripts/DataTables-1.10.19/examples/resources/demo.js"></script>
 	<script type="text/javascript" language="javascript" src="/wp-content/themes/structr/Page_Scripts/DataTablesEditor/js/dataTables.editor.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 	<script type="text/javascript" language="javascript" class="init">
-	</script>
-</head>
+  
 
-<?php
-include 'db.php';
- $Kursname=$_GET['Kursname'];
- $Schueler=$_GET['Schueler'];
- 
-	 preg_match("/:(.*)/", $Schueler, $output_array);
-    $SchuelerID=$output_array[1];
-?>
 
     <script type='text/javascript'>
-		 function myFunction(){
-            var x   = document.querySelector("#Kursname").value;
-	
-	  
-            var y   = document.querySelector("#Schueler").value;
-	
-            window.location.href = "?&Schueler="+y+"&Kursname="+x;
-        }
-
-		
    var editor;
  var table;
 	$(document).ready(function() {
-		
-	
-	
-	});
-		
-	function loadeditor(){	
-		
     editor = new $.fn.dataTable.Editor( {
-        ajax: {
-            url: "/wp-content/themes/structr/Page_Scripts/notenvalues.php",
-            type: 'POST',
-            data: {
-              'SchID': document . getElementById( "Schueler" ) . value,
-				'KID':  document.getElementById( "Kursname" ).value
-				
-			
-			}
-        }, 
-		
+        ajax: "/wp-content/themes/structr/Page_Scripts/notenvalues.php",
         table: ".datatables",
         fields: [ {
-			 label: "KursID:",
-                name: "KursID",
-                type: "readonly",
-                def: document.getElementById( "Kursname" ).value
-		},		
-				  {
-			 label: "SchülerID:",
-                name: "SchuelerID",
-                type: "readonly",
-              
-		},			
-				 { 
-                label: "Name:",
-                name: "Name"
+                label: "Vorname:",
+                name: "Vorname"
             }, {
-                label: "Gewichtung:",
-                name: "Gewichtung"
+                label: "Nachname:",
+                name: "Nachname"
             }, {
-                label: "Note:",
-                name: "Note",
+                label: "SchülerID:",
+                name: "SchülerID"
+            }, {
+                label: "Name1:",
+                name: "Name1"
+            }, {
+                label: "Gewichtung1:",
+                name: "Gewichtung1"
+            }, {
+                label: "Note1:",
+                name: "Note1",
                
             }, {
-                label: "Datum:",
-                name: "Datum",
-				 type: "date"
-            }
-				
+                label: "Datum1:",
+                name: "Datum1",
+				 type: "datetime"
+            },
+				 {
+                label: "Name2:",
+                name: "Name2"
+            }, {
+                label: "Gewichtung2:",
+                name: "Gewichtun2"
+            }, {
+                label: "Note2:",
+                name: "Note2",
+               
+            }, {
+                label: "Datum2:",
+                name: "Datum2",
+				 type: "datetime"
+            },
+				 {
+                label: "Name3:",
+                name: "Name3"
+            }, {
+                label: "Gewichtung3:",
+                name: "Gewichtung3"
+            }, {
+                label: "Note3:",
+                name: "Note3",
+               
+            }, {
+                label: "Datum3:",
+                name: "Datum3",
+				 type: "datetime"
+            },
+				 {
+                label: "Name4:",
+                name: "Name4"
+            }, {
+                label: "Gewichtung4:",
+                name: "Gewichtung4"
+            }, {
+                label: "Note4:",
+                name: "Note4",
+               
+            }, {
+                label: "Datum4:",
+                name: "Datum4",
+				 type: "datetime"
+            },
+				 {
+                label: "Name5:",
+                name: "Name5"
+            }, {
+                label: "Gewichtung5:",
+                name: "Gewichtung5"
+            }, {
+                label: "Note5:",
+                name: "Note5",
+               
+            }, {
+                label: "Datum5:",
+                name: "Datum5",
+				 type: "datetime"
+            },
+				 {
+                label: "Name6:",
+                name: "Name6"
+            }, {
+                label: "Gewichtung6:",
+                name: "Gewichtung6"
+            }, {
+                label: "Note6:",
+                name: "Note6",
+               
+            }, {
+                label: "Datum6:",
+                name: "Datum6",
+				 type: "datetime"
+            },
+				 {
+                label: "Name7:",
+                name: "Name7"
+            }, {
+                label: "Gewichtung7:",
+                name: "Gewichtung7"
+            }, {
+                label: "Note7:",
+                name: "Note7",
+               
+            }, {
+                label: "Datum7:",
+                name: "Datum7",
+				 type: "datetime"
+            },
+				 {
+                label: "Name8:",
+                name: "Name8"
+            }, {
+                label: "Gewichtung8:",
+                name: "Gewichtung8"
+            }, {
+                label: "Note8:",
+                name: "Note8",
+               
+            }, {
+                label: "Datum8:",
+                name: "Datum8",
+				 type: "datetime"
+            },
+				 {
+                label: "Name9:",
+                name: "Name9"
+            }, {
+                label: "Gewichtung9:",
+                name: "Gewichtung9"
+            }, {
+                label: "Note9:",
+                name: "Note9",
+               
+            }, {
+                label: "Datum9:",
+                name: "Datum9",
+				 type: "datetime"
+            },
         ]
     } );
 		
@@ -98,82 +174,49 @@ include 'db.php';
 		  // Activate an inline edit on click of a table cell
     $('.datatables').on( 'click', 'tbody td:not(:first-child)', function (e) {
         editor.inline( this, {
-            buttons: { label: '&gt;', fn: function () { this.submit();
-													  
-													  
-													  } }
+            buttons: { label: '&gt;', fn: function () { this.submit(); } }
         } );
     } );
 		
- 
-	 
-	}
-	
 		
-	
-function loadtable(){
-		
-			table = $( '.datatables' ).DataTable( {
+		table = $( '.datatables' ).DataTable( {
 
 
 			dom: "Bfrtip",
-        ajax:{
-            url: "/wp-content/themes/structr/Page_Scripts/notenvalues.php",
-            type: 'POST',
-            data: {
-                  'SchID': document . getElementById( "Schueler" ) . value,
-				'KID':  document.getElementById( "Kursname" ).value
-				
-				
-			
-			}
-        }, 
-		
-				 columns: [
-           
-				 {
-                data: null,
-                defaultContent: '',
-                className: 'select-checkbox',
-                orderable: false
-            },
+        ajax: "/wp-content/themes/structr/Page_Scripts/notenvalues.php",
+			columns: [ {
+					data: null
+					
+				},
 
-
-	{
-					data: 'Name'
 				
+				{
+					data: 'Name1'
 				},
 					  {
-					      data: 'Gewichtung'
-						 
+					data: 'Gewichtung1'
 				},
 					  {
-				
-						  data: 'Note'
-						
+					data: 'Note1'
 				},
 					 
 					  {
-		
-						  data: 'Datum'
-						 
+					data: 'Datum1'
 				}
 			],
 			select: true,
         buttons: [
-            { extend: "create", editor: editor ,text: 'Neue Note' },
-            { extend: "edit",   editor: editor,text: 'Note bearbeiten' },
-            { extend: "remove", editor: editor,text: 'Note löschen' }
+            { extend: "create", editor: editor },
+            { extend: "edit",   editor: editor },
+            { extend: "remove", editor: editor }
         ]
 
 		} );
-	
-}
-   
-		
+
+    
 	function getSchueler( str ) {
 
-		
+		location.reload;
 
 		if ( str == "" ) {
 
@@ -214,51 +257,16 @@ function loadtable(){
 		}
 
 	}
-function tableshow() {
-	
-	if ( table ) {
-		table.destroy();
-	}
-	
-	if ( editor ) {
-		editor.destroy();
-	}
-	loadeditor();
-	
-	
-	loadtable();
 
-
-	var str = document . getElementById( "Schueler" ) . value;
-	var patt = /:(.*)/;
-	var result = str . match( patt );
 		
-	editor . field( 'SchuelerID' ) . def( result[ 1 ] );
-	editor . field( 'KursID' ) . def( document . getElementById( "Kursname" ) . value );
-	editor . submit();
-
-	
-	
-
-
-	
-}
-
-  
-
+ 
 
  
 </script>
-
-	
-
 <br><br>
 <html>
 <body>
-	
 <em>Hier können Verwaltungsmitarbeiter Noten eintragen </em>
-	
-	<br><br>
 <?php
 include 'db.php';
 
@@ -328,7 +336,7 @@ include 'db.php';
 <br><br>
     Schüler:<br>
  
-<select name="Schueler"   id="Schueler" onChange="tableshow()" >
+<select name="Schueler"   id="Schueler" >
 <?php
 	$Tab="sv_LernenderKurs";
 
@@ -376,17 +384,15 @@ echo "<option>" .'-Select-'. "</option>";
 
        
     </select><br><br>
-	
-	
+<?php
 
+     
+    preg_match("/:(.*)/", $Schueler, $output_array);
+    $Schueler=$output_array[1];
+    if ($Schueler==""){$vr3=0;}
+   ?>
 
-	<html>
-		
-		<style>
-	 button {
-          color: white;
-        }
-	</style>
+	
 	<style>
 	.container {
 		margin-top: 15px;
@@ -454,11 +460,10 @@ echo "<option>" .'-Select-'. "</option>";
 		<div class="col md12">
 			<table class="table table-striped table-hover datatables">
 				<thead>
-					<tr>	
-						<th></th>
-						<th>Name</th>
-	                    <th>Gewichtung</th>
+					<tr>
 						<th>Note</th>
+	                    <th>Gewichtung</th>
+						<th>Name</th>
 						<th>Datum</th>
 					</tr>
 				</thead>
@@ -469,8 +474,7 @@ echo "<option>" .'-Select-'. "</option>";
 </div>
 
 
-		
-	</body>
+
+</body>
 </html>
-	
 

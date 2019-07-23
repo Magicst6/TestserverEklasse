@@ -1,8 +1,88 @@
 <em>Hier können Kurse erstellt werden, die nicht im Stundenplan der Klasse erscheinen. </em>
 
+<script>
+	
+	  $(document).ready(function() {
+		
 
+	  });
+function getKursname(str){
 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("kursid").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","/Ajax_Scripts/getKursname.php?q="+str,true);
+        xmlhttp.send();
+       
+     getcolor();
+}
+	
+	
+	function getlehrperson(str1){
+if (str1 == "-Select-" || str1=="") {
+	
+	document.getElementById("Kursname").disabled = false;
+		document.getElementById("Kuerzel").disabled = false;
+		document.getElementById("semester").disabled= false;
+	
 
+}
+	else{
+				
+       
+		document.getElementById("Kursname").disabled = true;
+		document.getElementById("Kuerzel").disabled = true;
+		document.getElementById("semester").disabled= true;
+		
+	
+        
+    } 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("lehrer").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","/Ajax_Scripts/getLehrerAK.php?q="+str1,true);
+        xmlhttp.send();
+       
+		getcolor(str1);
+   
+		
+}
+	function getcolor(str1){
+	 if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("farbediv").innerHTML = this.responseText ;
+            }
+        };
+        xmlhttp.open("GET","/Ajax_Scripts/getcolorAK.php?q="+str1,true);
+        xmlhttp.send();
+		
+	}
+</script>
 
 
 
@@ -18,7 +98,7 @@
 
     <br>
 
-    <select name="Klasse"  id="Klasse" >
+    <select name="Klasse"  id="Klasse" onchange="getKursname(this.value)" required="required"  >
 
 
 
@@ -74,19 +154,24 @@
 
     <br />
 
-    Kurs:
+    Kurs(entweder im Dropdown wählen oder im das Kürzel für einen neuen Kurs angeben):
+	
+	Existierender Kurs:<br>
+	<select id="kursid" name="kursid" onChange="getlehrperson(this.value)" value=""></select>
+
+    <br>
+	<label id="knlabel">Neuer Kurs:<br>
+	 ->Kursname:<br></label>
+
+    <input id="Kursname" name="Kursname" type="text" /><br />
 
     <br>
 
-    <input name="Kursname" type="text" /><br />
+    <label id="kklabel"> ->Kurskürzel:
 
-    <br>
+		<br></label>
 
-    Kurskürzel:
-
-    <br>
-
-    <input name="Kuerzel" type="text" /><br />
+    <input  id="Kuerzel" name="Kuerzel"  type="text" /><br />
 
     <br>
 
@@ -140,7 +225,7 @@
 
     <br>
 
-    Wählen Sie das Semester aus :
+	<label id="semlabel"> Wählen Sie das Semester aus :</label>
 
     <br>
 
@@ -166,7 +251,7 @@
 
     <br>
 
-    <input name="Lektionen" type="text" /><br />
+    <input name="Lektionen" type="text"  /><br />
 
     <br>
 
@@ -187,71 +272,17 @@
     <br>
 	
     Lehrperson:
-<br><br>
+<br>
 
-     <select name="Lehrperson" onchange="getKursname(this.value)"  id="lehrer" >
-
-
-
-        <?php
-
-
-
-        $isEntry= "Select ID From sv_Lehrpersonen ";
-
-        $result = mysqli_query($con, $isEntry);
-
-        $resultarr = array();
-
-
-
-
-
-        while( $line2= mysqli_fetch_assoc($result))
-
-        {
-
-            $resultarr[] = $line2['ID'];
-
-        }
-
-        $uniquearr = array_unique($resultarr);
-
-
-
-
-
-        echo "<option>".'--Select--'. "</option>";
-
-
-
-        foreach ($uniquearr as $value) {
-
-            $isEntry= "Select Nachname, Vorname From sv_Lehrpersonen WHERE ID='$value'";
-
-            $result = mysqli_query($con, $isEntry);
-
-            while( $line3= mysqli_fetch_array($result))
-
-            {
-
-                $Name = $line3['Nachname'];
-
-                $Vorname = $line3['Vorname'];
-
-
-
-            }
-
-            echo "<option>". $Name .":".$value."</option>";
-
-        }
-
-        ?>
-
-    </select>
-<br><br>
+     <select name="lehrer" id="lehrer" ></select>
+<br>
   
+	Farbe <label id="lblcol">(Farbe wird von existierendem Kurs übernommen,falls ausgewählt)</label>:
+
+    <br>
+
+   <div id="farbediv"></div>
+<br><br>
     <input name="Senden" type="submit" value="Senden" />
 
 </form>

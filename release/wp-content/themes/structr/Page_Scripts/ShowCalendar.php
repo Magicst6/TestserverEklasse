@@ -47,9 +47,17 @@
     
 
     ?>
-
+<input id="kidhidden" type="hidden">
+	
+	<input id="farbehid" type="hidden">
+    
+	
     <script>
 
+		function alertcol(){
+			
+			alert(document.getElementById('test').value);
+		}
 
 
             function reload() {
@@ -62,7 +70,69 @@
 
             }
 
-
+function getKursname(str){
+if (str == "") {
+       
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("kursid").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str,true);
+        xmlhttp.send();
+       
+    }
+}
+		function getKursnamepre(str){
+if (str == "") {
+       
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("kursid").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str+ "&k="+ document.getElementById('kidhidden').value,true);
+        xmlhttp.send();
+       
+    }
+}
+function getcolor(str1){
+		
+		
+	 if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("farbediv").innerHTML = this.responseText ;
+            }
+        };
+        xmlhttp.open("GET","/Ajax_Scripts/getcolorAK.php?q="+str1+"&c="+document.getElementById('farbehid').value.substring(1,7),true);
+        xmlhttp.send();
+		
+	}
 
     </script>
 
@@ -70,11 +140,15 @@
 
     <br>
 
-    <br>
-
-    </br>Klasse:<br>
-
-    <select name="klassedrop" id="klassedrop" onchange="reload()" >
+   
+   <table  id="tab1 "width="1300" >
+  <tbody>
+    <tr>
+      <td><strong>Klasse</strong></td>
+      <td><strong>Lehrperson</strong></td>
+    </tr>
+    <tr>
+      <td><select name="klassedrop" id="klassedrop" onchange="reload()" >
 
 
 
@@ -139,14 +213,8 @@
 
 
     </select>
-
-    <br>
-
-    Lehrperson:
-
-    <br>
-
-    <select name="Lehrpersondrop"  id="Lehrpersondrop" onchange="reload()"   >
+</td>
+      <td> <select name="Lehrpersondrop"  id="Lehrpersondrop" onchange="reload()"   >
 
 
 
@@ -187,7 +255,10 @@
 
 
     </select>
-
+</td>
+    </tr>
+  </tbody>
+</table>
     <script>
 
         $(document).ready(function() {
@@ -222,7 +293,7 @@
 
                 eventLimit: true, // allow "more" link when too many events
 
-                events:  "/wp-content/themes/structr/Page_Scripts/GetCalendarValues.php?q="+ document.getElementById('curruser').value + "&k="+ document.getElementById('klassedrop').value + "&l="+ document.getElementById('Lehrpersondrop').value,
+                events:  "/wp-content/themes/structr/Page_Scripts/GetCalendarValues.php?q=1000000"+  "&k="+ document.getElementById('klassedrop').value + "&l="+ document.getElementById('Lehrpersondrop').value,
 
                 eventTextColor: 'black',
 
@@ -311,6 +382,8 @@
                                 document.getElementById('lehrpers').value = "";
 
                                 document.getElementById('farbe').value = "";
+								
+								document.getElementById('kursidinp').value = "";
 
                             },
 
@@ -390,7 +463,7 @@
 
 
 
-                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&color=" + document.getElementById('farbe').value + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrpers').value, true);
+                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&farbe=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrpers').value +"&kursidinp=" + document.getElementById('kursidinp').value, true);
 
                                     xmlhttp.send();
 
@@ -413,6 +486,7 @@
                                 Cancel: function () {
 
                                     dialog.dialog("close");
+									 calendar.fullCalendar('refetchEvents');
 
                                 },
 
@@ -617,17 +691,26 @@
                             document.getElementById('title').value = event.title;
 
                             document.getElementById('zimmer').value = event.zimmer;
+							document.getElementById('kidhidden').value=event.kursid;
 
-                            document.getElementById('kursname').value = event.kursname;
+                            
+							getKursnamepre(event.klasse);
+							
+							 document.getElementById('farbehid').value = event.color;
+							
+							getcolor(event.kursid);
+                           
+							document.getElementById('kursname').value = event.kursname;
 
                             document.getElementById('kursid').value = event.kursid;
+							
+							 document.getElementById('kursidinp').value = "";
 
                             document.getElementById('klasse').value = event.klasse;
 
                             document.getElementById('lehrpers').value = event.lehrperson;
 
-                            document.getElementById('farbe').value = event.color.substring(1, 7);
-
+                            document.getElementById('farbe').value = event.color;
                         },
 
 
@@ -636,7 +719,7 @@
 
                             "Speichern": function(){
 
-
+           var farbe= document.getElementById('farbe').value.substring(1,7);
 
                                 title = $("#title");
 
@@ -706,7 +789,7 @@
 
 
 
-                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value  + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrpers').value + "&klasse=" + document.getElementById('klasse').value + "&color=" + document.getElementById('farbe').value, true);
+                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value  + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrpers').value + "&klasse=" + document.getElementById('klasse').value + "&farbe=" + farbe +"&kursidinp=" + document.getElementById('kursidinp').value, true);
 
                                 xmlhttp.send();
 
@@ -771,6 +854,7 @@
                             Cancel: function () {
 
                                 dialog.dialog("close");
+								 calendar.fullCalendar('refetchEvents');
 
                             },
 
@@ -926,7 +1010,7 @@
 
 
 
-            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&farbe=" + document.getElementById('farbe').value + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value, true);
+            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&farbe=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&l=" + document.getElementById('lehrpers').value +"&kursidinp=" + document.getElementById('kursidinp').value, true);
 
             xmlhttp.send();
 
@@ -1038,6 +1122,53 @@
 
     </script>
 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {}
+
+        /* The Modal (background) */
+        .modal{
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 40%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        button {
+          color: white;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -1050,13 +1181,13 @@
 
     <form>
 
-        <fieldset>
+       <fieldset>
 
             <label for="Title">Titel:</label>
 
             <br>
 
-            <input type="text" name="title" id="title" value="" class="text ui-widget-content ui-corner-all" readonly >
+            <input type="text" name="title" id="title" value="" width="400px" readonly>
 
             <br>
 
@@ -1064,9 +1195,9 @@
 
             <br>
 
-            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all">
+            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" required="required">
 
-            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all">
+            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" required="required">
 
             <br>
 
@@ -1074,18 +1205,13 @@
 
             <br>
 
-            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all">
+            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" required="required">
 
-            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all">
+            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all"required="required" >
 
-            <br>
+            
 
-            <label for="kursid">KursID:</label>
-
-            <br>
-
-            <input type="text" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" >
-
+           
             <br>
 
             <label for="kursname">Kursname:</label>
@@ -1100,9 +1226,87 @@
 
             <br>
 
-            <input type="text" name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" >
+           <select name="klasse" id="klasse" onchange="getKursname(this.value)"   required="required">
+
+
+
+        <?php
+
+
+
+        include 'db.php';
+
+
+
+
+
+
+
+        $isEntry= "Select Klasse From sv_Lernende";
+
+        $result1 = mysqli_query($con,$isEntry);
+
+        $resultarr1 = array();
+
+        echo "<option>".$_GET['klasse']."</option>";
+
+        echo "<option></option>";
+
+        while( $line2= mysqli_fetch_assoc($result1))
+
+        {
+
+            $resultarr1[] = $line2['Klasse'];
+
+        }
+
+        $uniquearr1 = array_unique($resultarr1);
+
+        asort($uniquearr1);
+
+
+
+
+
+        foreach ($uniquearr1 as $value)
+
+        {
+
+            if ($value == $_GET['klasse']){}
+
+            else
+
+            {
+
+                echo "<option>" . $value . "</option>";
+
+            }
+
+        }
+
+
+
+        ?>
+																		</select>
+
 
             <br>
+																			     <br>
+
+            <label for="kursid">KursID:</label>
+
+            <br>
+
+             <select name="kursid" id="kursid" onChange="getcolor(this.value)" >
+			
+
+																		</select>
+		   
+		   <input name="kursidinp" id="kursidinp" value="" type="hidden" class="text ui-widget-content ui-corner-all" >
+			
+
+																		
+<br><br>
 
             <label for="zimmer">Zimmer:</label>
 
@@ -1116,17 +1320,55 @@
 
             <br>
 
-            <input type="text" name="lehrpers" id="lehrpers" value="" class="text ui-widget-content ui-corner-all" >
+              <select name="lehrpers"  id="lehrpers"    >
+
+
+
+        <?php
+
+        $isEntry= "Select * From sv_Lehrpersonen Order By Nachname ASC";
+
+        $result = mysqli_query($con, $isEntry);
+
+
+
+        echo "<option>".$_GET['Lehrpersondr']."</option>";
+
+        echo "<option></option>";
+
+        while( $line2= mysqli_fetch_array($result))
+
+        {
+
+            $ID = $line2['ID'];
+
+            $Name = $line2['Nachname'];
+
+            $Vorname = $line2['Vorname'];
+
+
+
+
+
+            echo "<option>".$Name."</option>";
+
+        }
+
+        ?>
+
+
+
+
+
+    </select>
+
 
             <br>
 
             <label for="farbe">Farbe:</label>
 
             <br>
-
-            <input type="text" name="farbe" id="farbe" value="" class="text ui-widget-content ui-corner-all" >
-
-
+            <div id="farbediv"></div>
 
             <!-- Allow form submission with keyboard without duplicating the dialog button -->
 
@@ -1136,19 +1378,36 @@
 
         </fieldset>
 
+       
+
     </form>
 
 </div>
 
-
-
-
-
-Wenn Sie sich Ihre Termine für den Outlook Kalender zusenden lassen möchten, geben Sie hier Ihre Mailadresse an. Klicken Sie dann "Mail versenden" und es wird eine Mail an die eingegebene Adresse gesendet. Es wird dann eine Datei im Anhang der Mail sein, mit der alle Ihre Termine durch Öffnen der Datei automatisch in den Outlook Kalender eingetragen werden.
 <br>
-<br>Bitte die Mailadresse eingeben:   <input name="Mail" type="email" id="Mail" /></form>     <input name="Button1" type="button" value="Mail versenden" onclick="Mail()" /></form>
+
+<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
+<br><br>
+<div id="myModal1" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+       Wenn Sie sich Ihre Termine für den Outlook Kalender zusenden lassen möchten, geben Sie hier Ihre Mailadresse an. Klicken Sie dann "Mail versenden" und es wird eine Mail an die eingegebene Adresse gesendet. Es wird dann eine Datei im Anhang der Mail sein, mit der alle Ihre Termine durch Öffnen der Datei automatisch in den Outlook Kalender eingetragen werden.
+<br>
+<br>Bitte die Mailadresse eingeben:   <input name="Mail" type="email" id="Mail" />    <input name="Button1" type="button" value="Mail versenden" onclick="Mail()" />
 
 <br><br><br>
+<div id='status'></div>
+
+        <span class="close" id="span1">&times;</span>
+
+
+       
+    </div>
+
+</div>
+
+
 
 <div id='calendar'></div>
 
@@ -1161,8 +1420,6 @@ Wenn Sie sich Ihre Termine für den Outlook Kalender zusenden lassen möchten, g
 </html>
 
 <style>
-
-
 
     body {
 
@@ -1181,16 +1438,42 @@ Wenn Sie sich Ihre Termine für den Outlook Kalender zusenden lassen möchten, g
         margin: 0 auto;
 
     }
+table td{
+border:none;
+}
+table {
+border:none;
+}
 
 
 
 </style>
 
 <script>
+											 
+											    // Get the modal
+       
+
+		document.getElementById("myBtn"+1).onclick = function() {
+			document.getElementById("myModal"+1).style.display = "block"; 
+		}
+   // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("myModal"+1)) {
+         document.getElementById("myModal"+1).style.display = "none";
+        }
+    }
+	
+	 //When the user clicks on <span> (x), close the modal
+     document.getElementById("span"+1).onclick = function() {
+       document.getElementById("myModal"+1).style.display = "none";
+    }
+		  
+  
     function Mail(){
 
 
-            document.getElementById("lernende").innerHTML = "gbfgnffbnn";
+            document.getElementById("status").innerHTML = "start sending...";
 
 
 
@@ -1212,13 +1495,13 @@ Wenn Sie sich Ihre Termine für den Outlook Kalender zusenden lassen möchten, g
 
             if (this.readyState == 4 && this.status == 200) {
 
-                 document.getElementById("lernende").innerHTML = this.responseText;
+                 document.getElementById("status").innerHTML = this.responseText;
 
             }
 
         };
 
-        xmlhttp.open("GET","/wp-content/themes/structr/Page_Scripts/GetCalendarValuesMail.php?q="+ document.getElementById('curruser').value + "&k="+ document.getElementById('klassedrop').value + "&l="+ document.getElementById('Lehrpersondrop').value + "&m="+ document.getElementById('Mail').value,true);
+        xmlhttp.open("GET","/wp-content/themes/structr/Page_Scripts/GetCalendarValuesMail.php?q=1000000" + "&k="+ document.getElementById('klassedrop').value + "&l="+ document.getElementById('Lehrpersondrop').value + "&m="+ document.getElementById('Mail').value,true);
 
         xmlhttp.send();
 

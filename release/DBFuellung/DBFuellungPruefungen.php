@@ -41,7 +41,15 @@ if( $_POST['Senden'])
 
     $lehrperson= $_POST['Lehrperson'];
 
-    $farbe = "#".$_POST['farbe'];
+	
+		 $isEntryCL= "Select Farbe From sv_KurseAll Where KursID='$kursid'";
+    $resultCL = mysqli_query($con, $isEntryCL);
+
+    while ($valueCL= mysqli_fetch_array($resultCL)) {
+        $farbe = $valueCL['Farbe'];
+    }
+	
+	
 	
 	$gewichtung = $_POST['gewicht'];
 

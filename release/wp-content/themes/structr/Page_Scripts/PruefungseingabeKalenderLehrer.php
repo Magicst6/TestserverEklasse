@@ -44,16 +44,16 @@
 
     get_currentuserinfo();
 
-	
+    
 
     ?>
-	<input id="kidhidden" type="hidden">
-    
-<input id="farbehid" type="hidden">
-    
+      <input id="kidhidden" type="hidden">
+	
+	<input id="farbehid" type="hidden">
     <script>
 
 function getKursname(str){
+	
 if (str == "") {
        
         return;
@@ -75,7 +75,9 @@ if (str == "") {
        
     }
 }
-		function getKursnamepre(str){
+		
+function getKursnamepre(str){
+	
 if (str == "") {
        
         return;
@@ -92,12 +94,12 @@ if (str == "") {
                 document.getElementById("kursid").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str+ "&k="+ document.getElementById('kidhidden').value,true);
+        xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str+"&k="+ document.getElementById('kidhidden').value ,true);
         xmlhttp.send();
        
     }
 }
-
+		
             function reload() {
 
                 var x = document.querySelector("#klassedrop").value;
@@ -108,8 +110,7 @@ if (str == "") {
 
             }
 
-
-	function getcolor(str1){
+function getcolor(str1){
 		
 		
 	 if (window.XMLHttpRequest) {
@@ -137,130 +138,67 @@ if (str == "") {
 
     <br>
 
+  
+<body>
+<h4>Lehrperson:
+</h4>
+<br>
+
+<?php
+
+include 'db.php';
+
+$isEntry= "Select ID From sv_Lehrpersonen where User_ID='$current_user->ID'";
+
+$result = mysqli_query($con, $isEntry);
+
+
+
+while( $line2= mysqli_fetch_assoc($result))
+
+{
+
+    $value=$line2['ID'];
+
+
+
+    $isEntry= "Select Nachname, Vorname From sv_Lehrpersonen WHERE ID='$value'";
+
+    $result = mysqli_query($con, $isEntry);
+
+    while( $line3= mysqli_fetch_array($result))
+
+    {
+
+        $Name = $line3['Nachname'];
+		
+		
+
+        $Vorname = $line3['Vorname'];
+
+
+
+    }
+
+
+
+
+
+
+
     
 
-   <table  id="tab1 "width="1300" >
-  <tbody>
-    <tr>
-      <td><strong>Klasse</strong></td>
-      <td><strong>Lehrperson</strong></td>
-    </tr>
-    <tr>
-      <td><select name="klassedrop" id="klassedrop" onchange="reload()" >
-
-
-
-        <?php
-
-
-
-        include 'db.php';
-
-
-
-
-
-
-
-        $isEntry= "Select Klasse From sv_Lernende";
-
-        $result1 = mysqli_query($con,$isEntry);
-
-        $resultarr1 = array();
-
-        echo "<option>".$_GET['klasse']."</option>";
-
-        echo "<option></option>";
-
-        while( $line2= mysqli_fetch_assoc($result1))
-
-        {
-
-            $resultarr1[] = $line2['Klasse'];
-
-        }
-
-        $uniquearr1 = array_unique($resultarr1);
-
-        asort($uniquearr1);
-
-
-
-
-
-        foreach ($uniquearr1 as $value)
-
-        {
-
-            if ($value == $_GET['klasse']){}
-
-            else
-
-            {
-
-                echo "<option>" . $value . "</option>";
-
-            }
-
-        }
-
-
-
-        ?>
-
-
-
-    </select>
-</td>
-      <td> <select name="Lehrpersondrop"  id="Lehrpersondrop" onchange="reload()"   >
-
-
-
-        <?php
-
-        $isEntry= "Select * From sv_Lehrpersonen Order By Nachname ASC";
-
-        $result = mysqli_query($con, $isEntry);
-
-
-
-        echo "<option>".$_GET['Lehrpersondr']."</option>";
-
-        echo "<option></option>";
-
-        while( $line2= mysqli_fetch_array($result))
-
-        {
-
-            $ID = $line2['ID'];
-
-            $Name = $line2['Nachname'];
-
-            $Vorname = $line2['Vorname'];
-
-
-
-
-
-            echo "<option>" . $Name.' '. $Vorname .' ID:'. $ID. "</option>";
-
-        }
-
-        ?>
-
-
-
-
-
-    </select>
-</td>
-    </tr>
-  </tbody>
-</table>
 
    
+    $Lehrer=$Vorname .' '.$Name .' ID:'. $value;
+	
+}
 
-   
+$IDLP=$value;
+
+?>
+	
+	<input  id="lehrer" name="lehrer" readonly="readonly" type="text" value="<?php echo $Lehrer; ?>" />
 
     <script>
 
@@ -301,7 +239,7 @@ if (str == "") {
 
                 eventLimit: true, // allow "more" link when too many events
 
-                events:  "/wp-content/themes/structr/Page_Scripts/GetPruefterminValues.php?q=1000000" + "&k="+ document.getElementById('klassedrop').value + "&l="+ document.getElementById('Lehrpersondrop').value,
+                events:  "/wp-content/themes/structr/Page_Scripts/GetPruefterminValues.php?q="+ document.getElementById('curruser').value,
 
                 eventTextColor: 'black',
 
@@ -387,7 +325,7 @@ if (str == "") {
 
                                 document.getElementById('klasse').value = "";
 
-                                document.getElementById('lehrperson').value = "";
+                                document.getElementById('lehrperson').value = <?php echo $Name; ?>;
 								document.getElementById('gewicht').value = "";
 
                                 document.getElementById('farbe').value = "";
@@ -710,8 +648,7 @@ if (str == "") {
 							 document.getElementById('farbehid').value = event.color;
 							
 							getcolor(event.kursid);
-
-                            document.getElementById('kursid').value = event.kursid;
+							document.getElementById('kursid').value = event.kursid;
 
                             document.getElementById('klasse').value = event.klasse;
 
@@ -720,6 +657,7 @@ if (str == "") {
 							document.getElementById('gewicht').value = event.gewichtung;
 
                             document.getElementById('farbe').value = event.color;
+						
 
                         },
 
@@ -730,7 +668,7 @@ if (str == "") {
 
                             "Speichern": function(){
 
-                       var farbe= document.getElementById('farbe').value.substring(1,7);
+
 
                                 title = $("#title");
 
@@ -800,7 +738,7 @@ if (str == "") {
 
 
 
-                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value  + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value + "&klasse=" + document.getElementById('klasse').value + "&color=" + farbe + "&gewichtung=" + document.getElementById('gewicht').value, true);
+                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value  + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value + "&klasse=" + document.getElementById('klasse').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&gewichtung=" + document.getElementById('gewicht').value, true);
 
                                 xmlhttp.send();
 
@@ -1108,8 +1046,6 @@ if (str == "") {
 
         } );
 
-		
-		
 
 
     </script>
@@ -1117,7 +1053,6 @@ if (str == "") {
 
 
     <script>
-
 		
 		function pruefungerfassen() {
 
@@ -1181,7 +1116,7 @@ if (str == "") {
 
                                 document.getElementById('klasse').value = "";
 
-                                document.getElementById('lehrperson').value = "";
+                                 document.getElementById('lehrperson').value = <?php echo $Name; ?>;
 								document.getElementById('gewicht').value = "";
 
                                 document.getElementById('farbe').value = "";
@@ -1326,7 +1261,6 @@ if (str == "") {
 
 
 
-		
         $(function(){
 
 
@@ -1436,7 +1370,7 @@ if (str == "") {
 
             <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" required="required">
 
-            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all"required="required" >
+            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all"required="required" ><br>
 
              <label for="gewicht">Gewichtung:</label>
 
@@ -1455,13 +1389,13 @@ if (str == "") {
 
             <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" >
 
-            <br>
+            <br><br>
 
             <label for="klasse">Klasse:</label>
 
             <br>
 
-           <select name="klasse" id="klasse" onchange="getKursname(this.value)"   required="required">
+           <select name="klasse" id="klasse" onchange="getKursname(this.value)"  onload="getKursname(this.value)"  required="required">
 
 
 
@@ -1477,7 +1411,7 @@ if (str == "") {
 
 
 
-        $isEntry= "Select Klasse From sv_Lernende";
+        $isEntry= "Select Klasse From sv_Kurse where Lehrperson='$IDLP' ";
 
         $result1 = mysqli_query($con,$isEntry);
 
@@ -1485,7 +1419,7 @@ if (str == "") {
 
         echo "<option>".$_GET['klasse']."</option>";
 
-        echo "<option></option>";
+        
 
         while( $line2= mysqli_fetch_assoc($result1))
 
@@ -1532,7 +1466,7 @@ if (str == "") {
 
             <br>
 
-             <select name="kursid" id="kursid"   onChange="getcolor(this.value)" required="required">
+             <select name="kursid" id="kursid" onChange="getcolor(this.value)" required="required">
 			
 
 																		</select><br>
@@ -1544,61 +1478,25 @@ if (str == "") {
 
             <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" >
 
-            <br>
+            <br><br>
 
             <label for="lehrperson">Lehrperson:</label>
 
             <br>
 
-              <select name="lehrperson"  id="lehrperson"    >
+             <input name="lehrperson"  id="lehrperson" value="<?php echo $Name; ?>"  readonly="readonly" class="text ui-widget-content ui-corner-all" >
 
 
 
-        <?php
+       
 
-        $isEntry= "Select * From sv_Lehrpersonen Order By Nachname ASC";
-
-        $result = mysqli_query($con, $isEntry);
-
-
-
-        echo "<option>".$_GET['Lehrpersondr']."</option>";
-
-        echo "<option></option>";
-
-        while( $line2= mysqli_fetch_array($result))
-
-        {
-
-            $ID = $line2['ID'];
-
-            $Name = $line2['Nachname'];
-
-            $Vorname = $line2['Vorname'];
-
-
-
-
-
-            echo "<option>".$Name."</option>";
-
-        }
-
-        ?>
-
-
-
-
-
-    </select>
-
-
-            <br>
+            <br><br>
 
             <label for="farbe">Farbe:</label>
 
             <br>
-         <div id="farbediv"></div>
+            <div id="farbediv"></div>
+
             <!-- Allow form submission with keyboard without duplicating the dialog button -->
 
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
@@ -1635,14 +1533,12 @@ if (str == "") {
 
 
 <div id='calendar'></div>
-	
-	
 
 <div id='respond'></div>
 
 <div id='lernende'></div>
 	
-	<br><br><input name="pruefungerf" id="pruefungserf" type="button" value="Prüfung erfassen"  onClick="pruefungerfassen()" /><br><br>
+		<br><br><input name="pruefungerf" id="pruefungserf" type="button" value="Prüfung erfassen"  onClick="pruefungerfassen()" /><br><br>
 
 </body>
 
@@ -1668,14 +1564,8 @@ if (str == "") {
 
     }
 
-table td{
-border:none;
-}
-table {
-border:none;
-}
 
-	
+
 </style>
 
 <script>
@@ -1729,7 +1619,7 @@ border:none;
 
         };
 
-        xmlhttp.open("GET","/wp-content/themes/structr/Page_Scripts/GetPruefterminValuesMail.php?q=1000000" + "&k="+ document.getElementById('klassedrop').value + "&l="+ document.getElementById('Lehrpersondrop').value + "&m="+ document.getElementById('Mail').value,true);
+        xmlhttp.open("GET","/wp-content/themes/structr/Page_Scripts/GetPruefterminValuesMail.php?q="+ document.getElementById('curruser').value+ "&m=" +document.getElementById('Mail').value,true);
 
         xmlhttp.send();
 

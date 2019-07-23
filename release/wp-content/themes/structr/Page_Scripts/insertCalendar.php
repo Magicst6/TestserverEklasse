@@ -35,6 +35,8 @@ if(isset($_GET["q"]))
     $end = $_GET['g'];
 
     $kursid= $_GET['kursid'];
+	
+	$kursidinp= $_GET['kursidinp'];
 
     $klasse = $_GET['klasse'];
 
@@ -42,7 +44,7 @@ if(isset($_GET["q"]))
 
     $lehrperson= $_GET['l'];
 
-    $farbe = $_GET['farbe'];
+    $farbe = "#".$_GET['farbe'];
 
 
 
@@ -63,8 +65,14 @@ if(isset($_GET["q"]))
     }
 
     if ($lp_id) {
+		if ($kursidinp==""){
 
         $query = "INSERT INTO sv_KurseAll (Kursname, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe)  VALUES ('$kursname', '$start', '$end','$kursid','$klasse','$zimmer','$lehrperson','$lp_id','$farbe')";
+			
+		}
+		else{
+			  $query = "INSERT INTO sv_KurseAll (Kursname, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe)  VALUES ('$kursname', '$start', '$end','$kursidinp','$klasse','$zimmer','$lehrperson','$lp_id','$farbe')";
+		}
 
         mysqli_query($con, $query);
 

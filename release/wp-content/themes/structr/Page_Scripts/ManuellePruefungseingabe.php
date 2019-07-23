@@ -300,13 +300,7 @@ if (str == "") {
     <br>
     <br>
   
-<label for="farbe">Farbe(optional):</label>
 
-            <br>
-
-            <input type="text" name="farbe" id="farbe" value="" class="text ui-widget-content ui-corner-all" >
-   <br>
-																											<br>
 
     <input name="Senden" type="submit" value="Senden"  />
 	

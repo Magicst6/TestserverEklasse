@@ -18,7 +18,7 @@ $Lehrer=$_GET['l'];
 preg_match("/:(.*)/", $Lehrer, $output_array);
 $Lehrer=$output_array[1];
 
-if ($userID=="1000000" and $KlasseInput == "" and $Lehrer == "") {
+if ($userID=="1000000") {
     $isEntry = "Select * From sv_Pruefungen";
     $result = mysqli_query($con, $isEntry);
     $events = array();

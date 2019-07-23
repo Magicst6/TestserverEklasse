@@ -1,3 +1,5 @@
+
+
 <script> function insert(z){
 		if (document.getElementById("klasse").value != ""){
 		if (document.getElementById("AnzahlSch").value!="")
@@ -211,23 +213,14 @@ document.getElementById("add").style.visibility = "hidden";
 	
 
 </script>
-
-
-
-
-
-    <h2><strong>Klasse erstellen</strong></h2>
-
-   
 	
-<button type="button" id="myBtn1" >Klasse erstellen</button>
 
-  <h2><strong>Klasse erweitern</strong></h2>
+<i class="icon-plus-sign"></i>	
+<button type="button" id="myBtn1" >Klasse erstellen</button>
+I 
 
 <button type="button" id="myBtn2" >Klasse erweitern</button>
-
-  <h2><strong>Klasse bearbeiten</strong></h2>
-
+I
 <button type="button" id="myBtn3" >Klasse bearbeiten</button>
 	
 

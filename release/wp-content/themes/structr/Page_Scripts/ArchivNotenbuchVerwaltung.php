@@ -354,6 +354,50 @@
         }
 
     }
+	
+	 function getKursnameAll(str){
+
+        location.reload;
+
+        if (str == "") {
+
+            document.getElementById("Kursname").innerHTML = "";
+
+            return;
+
+        } else {
+
+            if (window.XMLHttpRequest) {
+
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+
+                xmlhttp = new XMLHttpRequest();
+
+            } else {
+
+                // code for IE6, IE5
+
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+
+            xmlhttp.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                    document.getElementById("Kursname").innerHTML = this.responseText;
+
+                }
+
+            };
+
+            xmlhttp.open("GET","/Ajax_Scripts/getKursnameAll.php?s="+str,true);
+
+            xmlhttp.send();
+
+        }
+
+    }
 
 	 function getLehrer(str){
 
@@ -449,7 +493,7 @@ $heute=date("Y-m-d");
 
 
 Semester:<br>
-<select id="Semester" name="Semester" onchange="getLehrer(this.value)">
+<select id="Semester" name="Semester" onchange="getLehrer(this.value),getKursnameAll(this.value)">
     <?php
 
     //Den aktuell eingeloggten Schüler anzeigen

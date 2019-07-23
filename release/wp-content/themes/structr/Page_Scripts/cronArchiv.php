@@ -159,6 +159,22 @@ $query5 = "INSERT INTO $Sem_ZeitenStundenplan SELECT * FROM sv_ZeitenStundenplan
 mysqli_query($con,$query5);
 
 
+$Sem_Noten= $SemesterkuerzelDB.'_Noten';
+
+$query3 = "DROP TABLE $Sem_Noten";
+
+mysqli_query($con,$query3);
+
+
+$query4 = "CREATE TABLE $Sem_Noten LIKE sv_Noten";
+
+mysqli_query($con,$query4);
+
+$query5 = "INSERT INTO $Sem_Noten SELECT * FROM sv_Noten";
+
+mysqli_query($con,$query5);
+
+
 
 $Sem_Users= $SemesterkuerzelDB.'_users';
 

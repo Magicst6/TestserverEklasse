@@ -41,7 +41,7 @@ $Lehrer=$output_array[1];
 $ical_content = 'BEGIN:VCALENDAR
 VERSION:2.0
 PRODID://Drupal iCal API//EN';
-if ($userID=="1000000") {
+if ($userID=="1000000" and $KlasseInput == "" and $Lehrer == "") {
     $isEntry = "Select * From sv_Pruefungen";
     $result = mysqli_query($con, $isEntry);
     $events = array();
@@ -313,7 +313,7 @@ $mail->Port       = 587;                   // set the SMTP port for the GMAIL se
 
 $mail->Username   = "noreplyeventmailer@schulverwaltungheimtest.ch";  // GMAIL username info@gaming-machines.net
 
-$mail->Password   = "St1180!!ST";            // GMAIL password
+$mail->Password   = "t4xrayEklasse!!!!";            // GMAIL password
 
 $mail->SetFrom('noreplyeventmailer@schulverwaltungheimtest.ch', 'Stefan Heim');
 

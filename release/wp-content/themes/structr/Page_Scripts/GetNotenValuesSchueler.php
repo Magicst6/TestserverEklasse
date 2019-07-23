@@ -21,25 +21,50 @@ $Lehrer=$output_array[1];
 
 
 
+
+
+  $isEntry = "Select * From sv_LernenderKurs where SchülerID='$ID' order by Nachname asc ";
+    $result = mysqli_query($con, $isEntry);
+    $events = array();
+if ($Kursname<>"-Select-"){
+	
+	$Notenschnitt=null;
+		$Notegesamt=0;	
+$c=0;
+	
+	$a=0;
+    while ($line1 = mysqli_fetch_array($result)) {
+		$Kursname=$line1['KursID'];
+		
+		$data0 = array(
+			
+		  'Vorname' => $line1['Vorname'],
+			 'Nachname' => $line1['Nachname'],
+			 'IDSchueler' => $line1['SchülerID'],
+			 'Kursname' => $line1['KursID']
+			);
 				
 
 
-    $isEntry = "Select * From sv_LernenderKurs where SchülerID=$ID ";
-    $result = mysqli_query($con, $isEntry);
+    $isEntry1 = "Select * From sv_Noten where KursID='$Kursname' and SchuelerID='$ID'  ";
+    $result1 = mysqli_query($con, $isEntry1);
     $events = array();
 
 	
-	
-
-    while ($line2 = mysqli_fetch_array($result)) {
-		$Notenschnitt=null;
+	$Notenschnitt=null;
 		$Notegesamt=0;	
-		$c=0;
-		for ( $b = 1; $b < 10; $b++ ) {
-					$Dateb = "Datum" . $b;
-					$Noteb = "Note" . $b;
-					$Gewb = "Gewichtung" . $b;
-					$Nameb = "Name" . $b;
+$c=0;
+	
+	$a=0;
+		$data11 = null;
+    while ($line2 = mysqli_fetch_array($result1)) {
+		if ($a<9){
+		$a++;
+		
+					$Dateb = "Datum"; 
+					$Noteb = "Note";
+					$Gewb = "Gewichtung";
+					$Nameb = "Name";
 						$DatumAK = $line2[ $Dateb ];
 						$NameAK = $line2[ $Nameb ];
 						$GewAK = $line2[ $Gewb ];
@@ -53,57 +78,68 @@ $Lehrer=$output_array[1];
 							$Notegesamt = $Notegesamt + ( $NoteAK * $GewAK / 100 );
 							$c = $c + $GewAK / 100;
 						}
-						}
-if ($c>0){
-		$Notenschnitt=$Notegesamt/$c;
-}
-               
-		$data[] = array(
-			'Notenschnitt' => $Notenschnitt,	  
-			 'Kursname' => $line2['KursID'],
-           	'Datum1' => $line2['Datum1' ],
-		    'Name1' => $line2[ 'Name1' ],
-		  'Gewichtung1' => $line2[ 'Gewichtung1' ],
-			'Note1' => $line2[ 'Note1' ],
-		'Datum2' => $line2['Datum2' ],
-		    'Name2' => $line2[ 'Name2' ],
-		  'Gewichtung2' => $line2[ 'Gewichtung2' ],
-			'Note2' => $line2[ 'Note2' ],
-		'Datum3' => $line2['Datum3' ],
-		    'Name3' => $line2[ 'Name3' ],
-		  'Gewichtung3' => $line2[ 'Gewichtung3' ],
-			'Note3' => $line2[ 'Note3' ],
-		'Datum4' => $line2['Datum4' ],
-		    'Name4' => $line2[ 'Name4' ],
-		  'Gewichtung4' => $line2[ 'Gewichtung4' ],
-			'Note4' => $line2[ 'Note4' ],
-		'Datum5' => $line2['Datum5' ],
-		    'Name5' => $line2[ 'Name5' ],
-		  'Gewichtung5' => $line2[ 'Gewichtung5' ],
-			'Note5' => $line2[ 'Note5' ],
-		'Datum6' => $line2['Datum6' ],
-		    'Name6' => $line2[ 'Name6' ],
-		  'Gewichtung6' => $line2[ 'Gewichtung6' ],
-			'Note6' => $line2[ 'Note6' ],
-		'Datum7' => $line2['Datum7' ],
-		    'Name7' => $line2[ 'Name7' ],
-		  'Gewichtung7' => $line2[ 'Gewichtung7' ],
-			'Note7' => $line2[ 'Note7' ],
-		'Datum8' => $line2['Datum8' ],
-		    'Name8' => $line2[ 'Name8' ],
-		  'Gewichtung8' => $line2[ 'Gewichtung8' ],
-			'Note8' => $line2[ 'Note8' ],
-		'Datum9' => $line2['Datum9' ],
-		    'Name9' => $line2[ 'Name9' ],
-		  'Gewichtung9' => $line2[ 'Gewichtung9' ],
-			'Note9' => $line2[ 'Note9' ]);
-	
+						
+		
+		
+			
+			${"data".$a}=array(
+           	'Datum'.$a => $line2['Datum' ],
+		    'Name'.$a => $line2[ 'Name' ],
+		  'Gewichtung'.$a => $line2[ 'Gewichtung' ],
+			'Note'.$a => $line2[ 'Note' ]);
+			
+			if ( $a == 1 ) {
+			$data11 = $ {
+				'data' . $a
+			};
+		} else {
+
+			$data11 = array_merge( $data11, $ {
+				'data' . $a
+			} );
+		}
+		
+		}
+		
     }
 		
+			do {
+				$a++;
+				${"data".$a}=array(
+           	'Datum'.$a => null,
+		    'Name'.$a => null,
+		  'Gewichtung'.$a => null,
+			'Note'.$a => null);
+			
+			if ( $a == 1 ) {
+			$data11 = $ {
+				'data' . $a
+			};
+		} else {
 
-	
+			$data11 = array_merge( $data11, $ {
+				'data' . $a
+			} );
+		}
+			}while ($a<=9);
+		
+
+		if ($c>0){
+		$Notenschnitt=$Notegesamt/$c;
+		}
+		$data10=array('Notenschnitt' => $Notenschnitt);
+		
+		
+		$data[] = array_merge( $data0,$data11,$data10);
+			
+	}
+
+}
+
 
 	echo json_encode($data);
+
+
 
 
 

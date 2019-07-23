@@ -140,13 +140,13 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
 
 
 
-            $isEntry1 = "SELECT Note1, Datum1,SchülerID From sv_LernenderKurs Where Name1='$Pruefungsname' and KursID='$Kursnme'  ";
+            $isEntry1 = "SELECT Note, Datum,SchuelerID From sv_Noten Where Name='$Pruefungsname' and KursID='$Kursnme' and SchuelerID='$ID'  ";
 
             $result1 = mysqli_query($con, $isEntry1);
 
             while ($value2 = mysqli_fetch_array($result1)) {
 
-                if (($ID == $value2['SchülerID']) and ($value2['Datum1'] == $datum)) {
+                if  ($value2['Datum'] == $datum) {
 
                     $y++;
                     $u = "Note" . "$y";
@@ -156,7 +156,7 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
                     echo '<br>';
                     echo 'Note:';
                     echo '<br>';
-                    echo '<input name=' . $u . ' type="number" value=' . $value2['Note1'] . ' min="0" max="6" required="required">';
+                    echo '<input name=' . $u . ' type="number" value=' . $value2['Note'] . ' min="0" max="6" required="required">';
                     echo '<br>';
                     echo '<br>';
                     echo '<hr>';
@@ -164,188 +164,7 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
                 }
             }
 
-              $isEntry1 = "SELECT Note2, Datum2,SchülerID From sv_LernenderKurs Where Name2='$Pruefungsname' and KursID='$Kursnme'  ";
-
-            $result1 = mysqli_query($con, $isEntry1);
-
-            while ($value2 = mysqli_fetch_array($result1)) {
-
-                if (($ID == $value2['SchülerID']) and ($value2['Datum2'] == $datum)) {
-                    $y++;
-                    $u = "Note" . "$y";
-                    echo '<br>';
-                    echo '<label for=' . $ID . '><b>' . $Vorname . ' ' . $Name . '   </b></label>';
-                    echo '<input type="hidden" name=' . $y . ' value=' . $ID . '><br>';
-                    echo '<br>';
-                    echo 'Note:';
-                    echo '<br>';
-                      echo '<input name=' . $u . ' type="number" value=' . $value2['Note2'] . ' min="0" max="6" required="required">';
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<hr>';
-                    $isfilled = 1;
-                }
-            }
-
-             $isEntry1 = "SELECT Note3, Datum3,SchülerID From sv_LernenderKurs Where Name3='$Pruefungsname' and KursID='$Kursnme'  ";
-
-            $result1 = mysqli_query($con, $isEntry1);
-
-            while ($value2 = mysqli_fetch_array($result1)) {
-
-                if (($ID == $value2['SchülerID']) and ($value2['Datum3'] == $datum)) {
-                    $y++;
-                    $u = "Note" . "$y";
-                    echo '<br>';
-                    echo '<label for=' . $ID . '><b>' . $Vorname . ' ' . $Name . '   </b></label>';
-                    echo '<input type="hidden" name=' . $y . ' value=' . $ID . '><br>';
-                    echo '<br>';
-                    echo 'Note:';
-                    echo '<br>';
-                    echo '<input name=' . $u . ' type="number" value=' . $value2['Note3'] . ' min="0" max="6" required="required">';
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<hr>';
-                    $isfilled = 1;
-                }
-            }
-              $isEntry1 = "SELECT Note4, Datum4,SchülerID From sv_LernenderKurs Where Name4='$Pruefungsname' and KursID='$Kursnme'  ";
-
-            $result1 = mysqli_query($con, $isEntry1);
-
-            while ($value2 = mysqli_fetch_array($result1)) {
-
-                if (($ID == $value2['SchülerID']) and ($value2['Datum4'] == $datum)) {
-                    $y++;
-                    $u = "Note" . "$y";
-                    echo '<br>';
-                    echo '<label for=' . $ID . '><b>' . $Vorname . ' ' . $Name . '   </b></label>';
-                    echo '<input type="hidden" name=' . $y . ' value=' . $ID . '><br>';
-                    echo '<br>';
-                    echo 'Note:';
-                    echo '<br>';
-                      echo '<input name=' . $u . ' type="number" value=' . $value2['Note4'] . ' min="0" max="6" required="required">';
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<hr>';
-                    $isfilled = 1;
-                }
-            }
-               $isEntry1 = "SELECT Note5, Datum5,SchülerID From sv_LernenderKurs Where Name5='$Pruefungsname' and KursID='$Kursnme'  ";
-
-            $result1 = mysqli_query($con, $isEntry1);
-
-            while ($value2 = mysqli_fetch_array($result1)) {
-
-                if (($ID == $value2['SchülerID']) and ($value2['Datum5'] == $datum)) {
-                    $y++;
-                    $u = "Note" . "$y";
-                    echo '<br>';
-                    echo '<label for=' . $ID . '><b>' . $Vorname . ' ' . $Name . '   </b></label>';
-                    echo '<input type="hidden" name=' . $y . ' value=' . $ID . '><br>';
-                    echo '<br>';
-                    echo 'Note:';
-                    echo '<br>';
-                    echo '<input name=' . $u . ' type="number" value=' . $value2['Note5'] . ' min="0" max="6" required="required">';
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<hr>';
-                    $isfilled = 1;
-                }
-            }
-
-            $isEntry1 = "SELECT Note6, Datum6,SchülerID From sv_LernenderKurs Where Name6='$Pruefungsname' and KursID='$Kursnme'  ";
-
-            $result1 = mysqli_query($con, $isEntry1);
-
-            while ($value2 = mysqli_fetch_array($result1)) {
-
-                if (($ID == $value2['SchülerID']) and ($value2['Datum6'] == $datum)) {
-                    $y++;
-                    $u = "Note" . "$y";
-                    echo '<br>';
-                    echo '<label for=' . $ID . '><b>' . $Vorname . ' ' . $Name . '   </b></label>';
-                    echo '<input type="hidden" name=' . $y . ' value=' . $ID . '><br>';
-                    echo '<br>';
-                    echo 'Note:';
-                    echo '<br>';
-                    echo '<input name=' . $u . ' type="number" value=' . $value2['Note6'] . ' min="0" max="6" required="required">';
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<hr>';
-                    $isfilled = 1;
-                }
-            }
-
-             $isEntry1 = "SELECT Note7, Datum7,SchülerID From sv_LernenderKurs Where Name7='$Pruefungsname' and KursID='$Kursnme'  ";
-
-            $result1 = mysqli_query($con, $isEntry1);
-
-            while ($value2 = mysqli_fetch_array($result1)) {
-
-                if (($ID == $value2['SchülerID']) and ($value2['Datum7'] == $datum)) {
-                    $y++;
-                    $u = "Note" . "$y";
-                    echo '<br>';
-                    echo '<label for=' . $ID . '><b>' . $Vorname . ' ' . $Name . '   </b></label>';
-                    echo '<input type="hidden" name=' . $y . ' value=' . $ID . '><br>';
-                    echo '<br>';
-                    echo 'Note:';
-                    echo '<br>';
-                    echo '<input name=' . $u . ' type="number" value=' . $value2['Note7'] . ' min="0" max="6" required="required">';
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<hr>';
-                    $isfilled = 1;
-                }
-            }
-             $isEntry1 = "SELECT Note8, Datum8,SchülerID From sv_LernenderKurs Where Name8='$Pruefungsname' and KursID='$Kursnme'  ";
-
-            $result1 = mysqli_query($con, $isEntry1);
-
-            while ($value2 = mysqli_fetch_array($result1)) {
-
-                if (($ID == $value2['SchülerID']) and ($value2['Datum8'] == $datum)) {
-                    $y++;
-                    $u = "Note" . "$y";
-                    echo '<br>';
-                    echo '<label for=' . $ID . '><b>' . $Vorname . ' ' . $Name . '   </b></label>';
-                    echo '<input type="hidden" name=' . $y . ' value=' . $ID . '><br>';
-                    echo '<br>';
-                    echo 'Note:';
-                    echo '<br>';
-                    echo '<input name=' . $u . ' type="number" value=' . $value2['Note8'] . ' min="0" max="6" required="required">';
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<hr>';
-                    $isfilled = 1;
-                }
-            }
-
-
-
-           $isEntry1 = "SELECT Note9, Datum9,SchülerID From sv_LernenderKurs Where Name9='$Pruefungsname' and KursID='$Kursnme'  ";
-
-            $result1 = mysqli_query($con, $isEntry1);
-
-            while ($value2 = mysqli_fetch_array($result1)) {
-
-                if (($ID == $value2['SchülerID']) and ($value2['Datum9'] == $datum)) {
-                    $y++;
-                    $u = "Note" . "$y";
-                    echo '<br>';
-                    echo '<label for=' . $ID . '><b>' . $Vorname . ' ' . $Name . '   </b></label>';
-                    echo '<input type="hidden" name=' . $y . ' value=' . $ID . '><br>';
-                    echo '<br>';
-                    echo 'Note:';
-                    echo '<br>';
-                     echo '<input name=' . $u . ' type="number" value=' . $value2['Note9'] . ' min="0" max="6" required="required">';
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<hr>';
-                    $isfilled = 1;
-                }
-            }
+          
 
 
             if ($isfilled == 0) {

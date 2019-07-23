@@ -302,7 +302,7 @@ $mail->Port       = 587;                   // set the SMTP port for the GMAIL se
 
 $mail->Username   = "noreplyeventmailer@schulverwaltungheimtest.ch";  // GMAIL username info@gaming-machines.net
 
-$mail->Password   = "St1180!!ST";            // GMAIL password
+$mail->Password   = "t4xrayEklasse!!!!";            // GMAIL password
 
 $mail->SetFrom('noreplyeventmailer@schulverwaltungheimtest.ch', 'Stefan Heim');
 

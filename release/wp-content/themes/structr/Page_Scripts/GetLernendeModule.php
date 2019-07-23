@@ -32,7 +32,7 @@ $KurseTab="sv_LernenderKurs";
 		
 		$Klasse= $line1['Klasse'];
 	}
-
+if ($Klasse<>""){
     $isEntry = "Select * From $KurseTab1  Where Modul1='$Klasse' or Modul2='$Klasse' or Modul3='$Klasse' or Modul4='$Klasse' or Modul5='$Klasse' or Modul6='$Klasse' or Modul7='$Klasse' or Modul8='$Klasse' or Modul9='$Klasse' or Modul10='$Klasse' or Modul11='$Klasse' or Modul12='$Klasse'  ";
     $result = mysqli_query($con, $isEntry);
     $events = array();
@@ -63,7 +63,7 @@ $KurseTab="sv_LernenderKurs";
     
 		
 }
-	
+}
 
 	echo json_encode($data);
 

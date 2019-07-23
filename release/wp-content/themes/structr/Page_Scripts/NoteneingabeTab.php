@@ -255,171 +255,74 @@ function tableshow() {
 <br><br>
 <html>
 <body>
-<?
-include 'db.php';
-
-
-
-global $current_user;
-
-get_currentuserinfo();
-
-
-
-/* echo 'Username: ' . $current_user-&gt;user_login . "\n";
-
-echo 'User email: ' . $current_user-&gt;user_email . "\n";
-
-echo 'User level: ' . $current_user-&gt;user_level . "\n";
-
-echo 'User first name: ' . $current_user-&gt;user_firstname . "\n";
-
-echo 'User last name: ' . $current_user-&gt;user_lastname . "\n";
-
-echo 'User display name: ' . $current_user-&gt;display_name . "\n";
-
-echo 'User ID: ' . $current_user-&gt;ID . "\n";
-
-
-
-*/
-
-$heute=date("Y-m-d");
-
-
-
-?>
-
-<br><br>
-
-Lehrperson:
-
-<br>
-
-<?php
-
-
-
-$isEntry= "Select ID From sv_Lehrpersonen where User_ID=$current_user->ID";
-
-$result = mysqli_query($con, $isEntry);
-
-
-
-while( $line2= mysqli_fetch_assoc($result))
-
-{
-
-    $value=$line2['ID'];
-
-
-
-    $isEntry= "Select Nachname, Vorname From sv_Lehrpersonen WHERE ID='$value'";
-
-    $result = mysqli_query($con, $isEntry);
-
-    while( $line3= mysqli_fetch_array($result))
-
-    {
-
-        $Name = $line3['Nachname'];
-
-        $Vorname = $line3['Vorname'];
-
-
-
-    }
-
-
-
-
-
-
-
-    
-
-
-
-    echo '<input  id="lehrer" name="lehrer" readonly="readonly" type="text" value="'.$Vorname .' '.$Name .' ID:'. $value .'" />' ;
-
-    $Lehrer=$Vorname .' '.$Name .' ID:'. $value;
-
-}
-
-
-
-?>
-
+	
+<em>Hier können Verwaltungsmitarbeiter Noten eintragen </em>
 <?php
 include 'db.php';
 
 
 ?>
  
- <br><br>Kursname:<br>
-    <select name="Kursname" onchange="getSchueler(this.value)" id="Kursname" >
+    Kursname:<br>
+    <select name="Kursname" onchange="getSchueler(this.value)" onload="getSchueler(this.value)" id="Kursname" >
 
-    <?php
+        <?php
 
-    include 'db.php';
+        $isEntry= "Select KursID From sv_LernenderKurs order by KursID asc";
+        $result = mysqli_query($con,$isEntry, MYSQLI_USE_RESULT);
+        $resultarr = array();
+            
+		
 
-    
-
-    preg_match("/:(.*)/", $Lehrer, $output_array);
-
-    $Lehrer=$output_array[1];
-
-
-
-    $y=0;
-
-
-
-
-
-
-
-    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16 From sv_Lehrpersonen Where ID = $Lehrer";
-
-    $result = mysqli_query($con,$isEntry);
-
-if ($Kursname==null)
-{
-	 echo "<option>" . '-Select-' . "</option>";
-}
-else{
- echo "<option>" . $Kursname . "</option>";
-		}
-   
-
-
-
-    while( $line2= mysqli_fetch_array($result))
-
-    {
-
-        for($x = 1; $x <= 16; $x++)
-
+        while( $line2= mysqli_fetch_assoc($result))
         {
+            $resultarr[] = $line2['KursID'];
+        }
+        $uniquearr = array_unique($resultarr);
 
-
-
-            $value = $line2['Kurs'.$x];
-
-            if ($value<>"") echo "<option>" . $value . "</option>";
-
-
+        foreach ($uniquearr as $value) {
+            if ($value == $Kursname)
+            {
+                echo "<option>" . $Kursname . "</option>";
+            }
+            else{}
 
         }
+        echo "<option>" .''. "</option>";
+        foreach ($uniquearr as $value)
+        {
+            echo "<option>" . $value . "</option>";
+        }
 
-    }
+        $isEntry1= "Select KursID From sv_ExtraKurse ";
+        $result1 = mysqli_query($con,$isEntry1);
+        $resultarr1 = array();
 
-    ?>
+
+        while( $line3= mysqli_fetch_assoc($result1))
+        {
+            $resultarr1[] = $line3['KursID'];
+        }
+        $uniquearr1 = array_unique($resultarr1);
+
+        foreach ($uniquearr1 as $value1) {
+            if ($value1 == $Kursname)
+            {
+                echo "<option>" . $Kursname . "</option>";
+            }
+            else{}
+
+        }
+        foreach ($uniquearr1 as $value1)
+        {
+            echo "<option>" . $value1 . "</option>";
+        }
+        echo '&nsbp;';
+
+        ?>
 
 
-
-</select>
-
+    </select>
 <br><br>
     Schüler:<br>
  
@@ -477,12 +380,6 @@ echo "<option>" .'-Select-'. "</option>";
 
 	<html>
 	<style>
-		
-		
-	 button {
-          color: white;
-        }
-	
 	.container {
 		margin-top: 15px;
 	}

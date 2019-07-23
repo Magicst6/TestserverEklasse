@@ -8,6 +8,8 @@ if( $_POST['Senden'])
     $Klasse =  $_POST['Klasse'];
     $Kursname =  $_POST['Kursname'];
     $Kurskuerzel =  $_POST['Kuerzel'];
+	$Farbe= $_POST['farbe'];
+	
     $dateExtra =  $_POST['Datum'];
     $Year = substr($dateExtra, 2, 2);
     $date1 = strtotime($dateExtra);
@@ -21,10 +23,29 @@ if( $_POST['Senden'])
     $endstr = strtotime($dateExtra . " " . $_POST['Endzeit']);
     $Ende = date('Y-m-d H:i:s', $endstr);
     $Lektionen = $_POST['Lektionen'];
-    $KursID = $_POST['Klasse'] . '.' .$_POST['Kuerzel']. '.' . $_POST['semester'];
+    $KursID=$_POST['kursid'];
+	if ($KursID=="-Select-" or $KursID==""){
+	$KursID = $_POST['Klasse'] . '.' .$_POST['Kuerzel']. '.' . $_POST['semester'];
+	}
+	else{
+		 $isEntryKN= "Select Kursname From sv_Kurse Where KursID='$KursID'";
+    $resultKN = mysqli_query($con, $isEntryKN);
+
+    while ($valueKN= mysqli_fetch_array($resultKN)) {
+        $Kursname = $valueKN['Kursname'];
+    }
+		
+		 $isEntryCL= "Select Farbe From sv_KurseAll Where KursID='$KursID'";
+    $resultCL = mysqli_query($con, $isEntryCL);
+
+    while ($valueCL= mysqli_fetch_array($resultCL)) {
+        $Farbe = $valueCL['Farbe'];
+    }
+	}
+	
     $Zimmer = $_POST['Zimmer'];
     $ZI_ID = $_POST['ZI_ID'];
-    $LehrpersonGes = $_POST['Lehrperson'];
+    $LehrpersonGes = $_POST['lehrer'];
 	 preg_match("/:(.*)/", $LehrpersonGes, $output_array);
 
    
@@ -87,7 +108,7 @@ if( $_POST['Senden'])
     // Daten hinzufügen (Anzahl der Spalten anpassen)
 //    $daten[] = "('" . $spalte1 . "','" . $spalte2 . "','" . $spalte3 . "','" . $spalte4 . "','" . $spalte5 . "','" . $spalte6 . "','" . $spalte7 . "','" . $spalte8 . "','" . $spalte9 . "','" . $spalte10 . "','" . $spalte11 . "','" . $spalte12 . "')" . chr(13);
     if (!$isExisting) {
-        $sql_befehl = "INSERT INTO sv_KurseAll (Kursname, KursID, Datum, Tag, Start, Ende, Lektionen, Klasse, Zimmer,ZI_ID,Lehrperson,LP_ID) VALUES ('$Kursname','$KursID','$Datum','$Tag','$Start','$Ende','$Lektionen','$Klasse','$Zimmer','$ZI_ID','$Lehrperson','$LP_ID')";
+        $sql_befehl = "INSERT INTO sv_KurseAll (Kursname, KursID, Datum, Tag, Start, Ende, Lektionen, Klasse, Zimmer,ZI_ID,Lehrperson,LP_ID,Farbe) VALUES ('$Kursname','$KursID','$Datum','$Tag','$Start','$Ende','$Lektionen','$Klasse','$Zimmer','$ZI_ID','$Lehrperson','$LP_ID','$Farbe')";
 
 
 // In die DB-Tabelle eintragen

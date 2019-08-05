@@ -40,15 +40,7 @@ Editor::inst( $db, 'sv_Lernende' )
             ->validator( Validate::email( ValidateOptions::inst()
                 ->message( 'Please enter an e-mail address' )   
             ) ),
-      Field::inst( 'Modul1' ),
-	  Field::inst( 'Modul2' ),  
-	  Field::inst( 'Modul3' ),
-	  Field::inst( 'Modul4' ),
-	  Field::inst( 'Modul5' ),
-	  Field::inst( 'Modul6' ), 
-	  Field::inst( 'Modul7' ),
-	  Field::inst( 'Modul8' ),
-	  Field::inst( 'Modul9' ),
+        Field::inst( 'Loginname' ),
  Field::inst( 'Profil' )
        
     )

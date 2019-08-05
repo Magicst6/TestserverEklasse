@@ -68,6 +68,7 @@ if (str == "") {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("kursid").innerHTML = this.responseText;
+				
             }
         };
         xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str,true);
@@ -122,6 +123,7 @@ if (str == "") {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("farbediv").innerHTML = this.responseText ;
+				
             }
         };
         xmlhttp.open("GET","/Ajax_Scripts/getcolorAK.php?q="+str1+"&c="+document.getElementById('farbehid').value.substring(1,7),true);
@@ -381,7 +383,7 @@ if (str == "") {
 
                                 document.getElementById('zimmer').value = "";
 
-                                document.getElementById('kursname').value = "";
+                                document.getElementById('lernziele').value = "";
 
                                 document.getElementById('kursid').value = "";
 
@@ -470,7 +472,7 @@ if (str == "") {
 
 
 
-                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value, true);
+                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value   + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + document.getElementById('lernziele').value, true);
 
                                     xmlhttp.send();
 
@@ -668,7 +670,7 @@ if (str == "") {
 
                         height: 800,
 
-                        width: 300,
+                        width: 600,
 
                         modal: true,
 
@@ -699,8 +701,12 @@ if (str == "") {
                             document.getElementById('title').value = event.title;
 
                             document.getElementById('zimmer').value = event.zimmer;
-
-                            document.getElementById('kursname').value = event.kursname;
+                      
+						
+                           
+							
+							
+						    document.getElementById('lernziele').value =event.lernziele;
 							
 								
 							 document.getElementById('kidhidden').value=event.kursid;
@@ -800,7 +806,7 @@ if (str == "") {
 
 
 
-                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value  + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value + "&klasse=" + document.getElementById('klasse').value + "&color=" + farbe + "&gewichtung=" + document.getElementById('gewicht').value, true);
+                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value   + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value + "&klasse=" + document.getElementById('klasse').value + "&color=" + farbe + "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + document.getElementById('lernziele').value, true);
 
                                 xmlhttp.send();
 
@@ -1022,7 +1028,7 @@ if (str == "") {
 
 
 
-            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value, true);
+            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + document.getElementById('lernziele').value, true);
 
             xmlhttp.send();
 
@@ -1078,7 +1084,7 @@ if (str == "") {
 
                 height: 800,
 
-                width: 300,
+                width: 600,
 
                 modal: true,
 
@@ -1153,7 +1159,7 @@ if (str == "") {
 
                             height: 800,
 
-                            width: 300,
+                            width: 600,
 
                             modal: true,
 
@@ -1175,7 +1181,7 @@ if (str == "") {
 
                                 document.getElementById('zimmer').value = "";
 
-                                document.getElementById('kursname').value = "";
+                                document.getElementById('lernziele').value = "";
 
                                 document.getElementById('kursid').value = "";
 
@@ -1264,7 +1270,7 @@ if (str == "") {
 
 
 
-                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value, true);
+                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value +   "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + document.getElementById('lernziele').value, true);
 
                                     xmlhttp.send();
 
@@ -1401,70 +1407,25 @@ if (str == "") {
 
 
 <body>
-
-<div id="dialog-form" title="Termin">
-
-    <p class="validateTips">Bitte Felder ausfüllen oder ändern</p>
+	
+	<div id="dialog-form" title="Prüfungsdaten">
 
 
 
-    <form>
-
-       <fieldset>
-
-            <label for="Title">Prüfungsname:</label>
-
-            <br>
-
-            <input type="text" name="title" id="title" value="" width="400px" required="required">
-
-            <br>
-
-            <label for="start">Startdatum und Zeit:</label>
-
-            <br>
-
-            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" required="required">
-
-            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" required="required">
-
-            <br>
-
-            <label for="end">Enddatum und Zeit:</label>
-
-            <br>
-
-            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" required="required">
-
-            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all"required="required" >
-
-             <label for="gewicht">Gewichtung:</label>
-
-             <br>
-
-             <input type="text" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" required="required" >
-
-             <br>
-
-           
-            <br>
-
-            <label for="kursname">Kursname:</label>
-
-            <br>
-
-            <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" >
-
-            <br>
-
-            <label for="klasse">Klasse:</label>
-
-            <br>
-
-           <select name="klasse" id="klasse" onchange="getKursname(this.value)"   required="required">
-
-
-
+<table class="timecard"  border="0">
+  <caption>
+    Prüfungsdaten
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Prüfungsname:</td>
+      <td colspan="2"><input type="text" name="title" id="title" value="" width="400px" ></td>
+    </tr>
+	   <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Klasse:</td>
+      <td colspan="2"><select type="text"  onchange="getKursname(this.value)"  name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" >
+		  
+		  
         <?php
 
 
@@ -1522,36 +1483,46 @@ if (str == "") {
 
 
         ?>
-																		</select>
-
-
-            <br>
-																			     <br>
-
-            <label for="kursid">KursID:</label>
-
-            <br>
-
-             <select name="kursid" id="kursid"   onChange="getcolor(this.value)" required="required">
+		  
+		  </select></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Kurs:</td>
+      <td colspan="2"><select type="text" name="kursid" id="kursid" value=""   onChange="getcolor(this.value)" class="text ui-widget-content ui-corner-all" ></select></td>
+    </tr>
+    <tr>
+		<td style="width: 150px; font-size: 12px; font-weight: bold;">Startdatum und Zeit:</td>
 			
+      <td><input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" ></td></td>
+      <td><input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" ></td>
+    </tr>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Enddatum und Zeit:</td>
+      <td><input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" ></td>
+      <td><input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all" ></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Gewichtung:</td>
+      <td><input type="text" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all"  ></td>
+      <td style="padding-left: 5px;padding-bottom:3px; font-size: 10px;">Wert 1 entspricht einfacher Gewichtung</td>
+    </tr>
+	
+  </tbody>
+</table>
 
-																		</select><br>
-
-
-            <label for="zimmer">Zimmer:</label>
-
-            <br>
-
-            <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" >
-
-            <br>
-
-            <label for="lehrperson">Lehrperson:</label>
-
-            <br>
-
-              <select name="lehrperson"  id="lehrperson"    >
-
+<table class="timecard"  border="0">
+  <caption>
+    Ort und Aufsicht
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Zimmer:</td>
+      <td> <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" ></td>
+    </tr>
+	  <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Lehrperson:</td>
+      <td><select type="text" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" >
+		     
 
 
         <?php
@@ -1587,30 +1558,39 @@ if (str == "") {
         ?>
 
 
+		  </select></td>
+	  
+	
+  </tbody>
+</table>	
 
-
-
-    </select>
-
-
-            <br>
-
+<table class="timecard"  border="0" >
+  <caption>
+    Lernziele
+  </caption>
+  <tbody height="400px">
+    <tr>
+		<td><textarea id="lernziele" class="text ui-widget-content ui-corner-all" height="400px" ></textarea></td>
+      
+    </tr>
+	 
+   
+  </tbody>
+</table>
+	
+	
             <label for="farbe">Farbe:</label>
 
             <br>
          <div id="farbediv"></div>
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-
-
-
+   
         </fieldset>
 
 
     </form>
 
 </div>
+ <input id="lernzielehid" type="hidden">
 
 <input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
 

@@ -71,10 +71,9 @@
 <body>
 <h4>Schüler:
 </h4>
-<br>
+
 
 <?php
-
 
 
 $isEntry= "Select ID From sv_LernendeModule where User_ID=$current_user->ID";
@@ -126,9 +125,6 @@ while( $line2= mysqli_fetch_assoc($result))
 
 ?>
 
-    <br>
-
-    <br>
 
    <!-- </br>Klasse:<br>
 
@@ -708,6 +704,8 @@ while( $line2= mysqli_fetch_assoc($result))
                                 document.getElementById('klasse').value = event.klasse;
 
                                 document.getElementById('lehrperson').value = event.lehrperson;
+								
+								document.getElementById('lernziele').value = event.lernziele;
 
                                 document.getElementById('farbe').value = event.color;
 								
@@ -921,16 +919,7 @@ while( $line2= mysqli_fetch_assoc($result))
     </script>
 
 
-
-
-
-
-
-
-
-    <br><br>
-
-    <style>
+<style>
 
 
 
@@ -1199,94 +1188,181 @@ while( $line2= mysqli_fetch_assoc($result))
           color: white;
         }
 
+		
+table.timecard {
+	margin: auto;
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #fff; /*for older IE*/
+	border-style: hidden;
+}
+
+table.timecard caption {
+	background-color: #3356FB;
+	color: #fff;
+	font-size: x-large;
+	font-weight: bold;
+	letter-spacing: .3em;
+}
+
+table.timecard thead th {
+	padding: 8px;
+	background-color: #8DCBFF;
+	font-size: large;
+}
+
+table.timecard thead th#thDay {
+	width: 40%;	
+}
+
+table.timecard thead th#thRegular, table.timecard thead th#thOvertime, table.timecard thead th#thTotal {
+	width: 20%;
+}
+
+table.timecard th, table.timecard td {
+	padding: 3px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #3356FB #ccc;
+}
+
+table.timecard td {
+	text-align: right;
+}
+
+table.timecard tbody th {
+	text-align: left;
+	font-weight: normal;
+}
+
+table.timecard tfoot {
+	font-weight: bold;
+	font-size: large;
+	background-color: #687886;
+	color: #fff;
+}
+
+table.timecard tr.even {
+	background-color: #fde9d9;
+}
+
+input[type=text], select {
+  width: 100%;
+	padding: 0px 0px;
+  margin: 0px 0;
+  display: inline-block;
+  border: 0px solid #FFFFFF;
+  border-radius: 4px;
+}
+
+
+
     </style>
 
 </head>
 
 
 
-<div id="dialog-form" title="Prüfungsfenster">
-
-    <p class="validateTips">Bitte Felder ausfüllen oder ändern</p>
+<div id="dialog-form" title="Prüfungsdaten">
 
 
 
+<table class="timecard"  border="0">
+  <caption>
+    Prüfungsdaten
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Prüfungsname:</td>
+      <td colspan="2"><input type="text" name="title" id="title" value="" width="400px" readonly></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Kurs:</td>
+      <td colspan="2"><input type="text" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+    <tr>
+		<td style="width: 150px; font-size: 12px; font-weight: bold;">Startdatum und Zeit:</td>
+			
+      <td><input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" readonly></td></td>
+      <td><input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Enddatum und Zeit:</td>
+      <td><input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" readonly></td>
+      <td><input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Gewichtung:</td>
+      <td><input type="text" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" readonly ></td>
+      <td style="padding-left: 5px;padding-bottom:3px; font-size: 10px;">Wert 1 entspricht einfacher Gewichtung</td>
+    </tr>
+	
+  </tbody>
+</table>
+
+<table class="timecard"  border="0">
+  <caption>
+    Ort und Aufsicht
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Zimmer:</td>
+      <td> <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+	  <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Lehrperson:</td>
+      <td><input type="text" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" readonly></td>
+	  
+	
+  </tbody>
+</table>	
+
+<table class="timecard"  border="0">
+  <caption>
+    Lernziele
+  </caption>
+  <tbody>
+    <tr>
+      <td><input type="textarea" name="lernziele" id="lernziele" value="" class="text ui-widget-content ui-corner-all" ></td>
+      
+    </tr>
+	 
+   
+  </tbody>
+</table>
     <form>
 		 <fieldset>
 
-            <label for="Title">Prüfungsname:</label>
+            
 
-            <br>
+             <input type="hidden" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" readonly >
 
-            <input type="text" name="title" id="title" value="" width="400px" readonly">
 
-            <br>  <br>
 
-            <label for="start">Startdatum und Zeit:</label>
+            <input type="hidden" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <br>
+    
 
-            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" readonly>
-
-            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-            <label for="end">Enddatum und Zeit:</label>
-
-            <br>
-
-            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" readonly>
-
-            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all" readonly>
-
-              <br>  <br>  
-		    <label for="gewicht">Gewichtung:</label>
-
-             <br>
-
-             <input type="text" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" readonly >
-
-             <br>
-
-             
-            <label for="kursid">KursID:</label>
-
-            <br>
-
-            <input type="text" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-            <label for="kursname">Kursname:</label>
-
-            <br>
+       
 
             <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <br>
+    
 
-            <label for="klasse">Klasse:</label>
+      
+            <input type="hidden" name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <br>
+    
 
-            <input type="text" name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" readonly>
+        
 
-            <br>
+            <input type="hidden" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <label for="zimmer">Zimmer:</label>
+     
 
-            <br>
+   
 
-            <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-            <label for="lehrperson">Lehrperson:</label>
-
-            <br>
-
-            <input type="text" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" readonly>
+            <input type="hidden" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" readonly>
 
             <br>
 
@@ -1306,9 +1382,7 @@ while( $line2= mysqli_fetch_assoc($result))
 
 </div>
 
-
-
-<?php
+  <?php
 
 
 
@@ -1326,10 +1400,10 @@ mysqli_query($con,$delOlder);
 
 ?>
 
-
-
-<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
-
+<p>
+  <input name="myBtn1" id="myBtn1" type="button" value="Termine per Mail senden"  />
+</p>
+<p>&nbsp; </p>
 <div id="myModal1" class="modal">
 
     <!-- Modal content -->

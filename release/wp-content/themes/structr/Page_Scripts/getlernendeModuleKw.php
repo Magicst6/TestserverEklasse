@@ -19,7 +19,7 @@ use
     DataTables\Editor\ValidateOptions;
  
 // Build our Editor instance and process the data coming from _POST
-Editor::inst( $db, 'sv_Lernende' )
+Editor::inst( $db, 'sv_LernendeModule' )
     ->fields(
 	Field::inst( 'ID' ),
         Field::inst( 'Vorname' )
@@ -30,16 +30,12 @@ Editor::inst( $db, 'sv_Lernende' )
             ->validator( Validate::notEmpty( ValidateOptions::inst()
                 ->message( 'Nachname muss angegeben werden' )  
             ) ),
-	   
-        Field::inst( 'Klasse' )
-            ->validator( Validate::notEmpty( ValidateOptions::inst()
-                ->message( 'Klasse muss angegeben werden' )  
-            ) ),
         Field::inst( 'User_ID' ),
         Field::inst( 'EMail' )
             ->validator( Validate::email( ValidateOptions::inst()
                 ->message( 'Please enter an e-mail address' )   
             ) ),
+	  Field::inst( 'Loginname' ),
       Field::inst( 'Modul1' ),
 	  Field::inst( 'Modul2' ),  
 	  Field::inst( 'Modul3' ),

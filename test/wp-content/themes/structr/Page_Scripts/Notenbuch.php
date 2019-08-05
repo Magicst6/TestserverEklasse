@@ -90,8 +90,7 @@
   };
   
 		var new_url= "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q="+document.getElementById("Kursnm").value;
-			
-                   
+			               
 		
   table = $('.datatables').DataTable({
       
@@ -134,8 +133,6 @@
        tr.addClass('shown');
      }
   });
- 
-
 	
 		});
 		
@@ -170,14 +167,8 @@ function tableshow(){
 		
 	table.ajax.url( new_url ).load();
 }		
-		
-		
-	</script>
-	
-	
-
-	
-	
+				
+	</script>	
 	</html>
 	<style>
 .container {
@@ -299,8 +290,6 @@ tr.shown td.details-control:before {
 
 include 'db.php';
 
-
-
 global $current_user;
 
 get_currentuserinfo();
@@ -327,8 +316,6 @@ echo 'User ID: ' . $current_user-&gt;ID . "\n";
 
 $heute=date("Y-m-d");
 
-
-
 ?>
 
 <br><br>
@@ -353,8 +340,6 @@ while( $line2= mysqli_fetch_assoc($result))
 
     $value=$line2['ID'];
 
-
-
     $isEntry= "Select Nachname, Vorname From sv_Lehrpersonen WHERE ID='$value'";
 
     $result = mysqli_query($con, $isEntry);
@@ -372,22 +357,11 @@ while( $line2= mysqli_fetch_assoc($result))
     }
 
 
-
-
-
-
-
-    
-
-
-
     echo '<input  id="lehrer" name="lehrer" readonly="readonly" type="text" value="'.$Vorname .' '.$Name .' ID:'. $value .'" />' ;
 
     $Lehrer=$Vorname .' '.$Name .' ID:'. $value;
 
 }
-
-
 
 ?>
 

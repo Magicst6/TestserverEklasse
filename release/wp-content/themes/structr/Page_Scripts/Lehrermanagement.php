@@ -1,4 +1,3 @@
-
 <head>
 
 <link rel="stylesheet" type="text/css" href="/wp-content/themes/structr/Page_Scripts/DataTables-1.10.19/media/css/jquery.dataTables.css">
@@ -91,6 +90,7 @@ $(document).ready(function() {
 } );
 
 </script>
+
 
 <style>
 	 button {

@@ -22,6 +22,7 @@ $uniquearr = array_unique($resultarr);
 
 
 echo "<option>" .'-Select-'. "</option>";
+echo "<option>" .'Alle'. "</option>";
 
 
 

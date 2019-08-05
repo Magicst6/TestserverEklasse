@@ -241,7 +241,8 @@
 	function tableshow() {
 		var new_url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues_Archiv.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "Semester" ).value;
 		var new_url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues_Archiv.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "Semester" ).value;
-
+ table1.clear()
+		.draw();
 
 		table.ajax.url( new_url3 ).load();
 		table1.ajax.url( new_url4 ).load();

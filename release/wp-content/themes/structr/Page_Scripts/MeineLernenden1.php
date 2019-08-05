@@ -99,46 +99,7 @@
 			var new_url1= "/wp-content/themes/structr/Page_Scripts/GetLernende.php?q="+document.getElementById("Kursname").value;
                    
 		
-      $.fn.dataTable.ext.errMode = 'throw';
-  table = $('.datatables').DataTable({
-	      dom: 'lBfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
       
-	
-	    ajax: {
-			
-			url: new_url,
-			
-            dataSrc: ""
-			
-        },
-    columns : [
-      {
-        className      : 'details-control',
-        defaultContent : '',
-        data           : null,
-        orderable      : false
-      },
-      {data : 'ID'},
-		{data : 'Name'},
-		{data : 'Vorname'},
-		{data : 'User ID'},
-		{data : 'EMail'},
-		{data : 'Profil'},
-		{data : 'Modul1'},
-		{data : 'Modul2'},
-		{data : 'Modul3'},
-		{data : 'Modul4'},
-		{data : 'Modul5'}
-		
-			
-		
-    ],
-    
-  
-  });
 		 table1 = $('.datatables1').DataTable({
       
 	     dom: 'lBfrtip',
@@ -207,7 +168,7 @@ function tableshow(){
 		
                     
 		
-	table.ajax.url( new_url ).load();
+	
 	table1.ajax.url( new_url1 ).load();
 }		
 		
@@ -219,7 +180,7 @@ function tableshow(){
 	
 	
 	</html>
-	<style>/*
+	<style>
 .container {
   margin-top: 15px;
 }
@@ -482,41 +443,8 @@ Kursname:
 
     ?>
 </select>
-<br><br>
 
 
-
-<br><br>
-
-<h1>Lernende Module</h1>
-<div class="container">
-  <div class="row">
-    <form class="col-md4"></form>
-  </div>
-  <div class="row">
-    <div class="col md12">
-      <table class="table table-striped table-hover datatables">
-        <thead>
-          <tr>
-            <th></th>
-            <th>ID</th>
-            <th>Name</th>
-			<th>Vorname</th>
-	        <th>User ID</th>
-			  <th>EMail</th>
-            <th>Profil</th>
-			<th>Modul1</th>
-	        <th>Modul2</th>
-		    <th>Modul3</th>
-			  <th>Modul4</th>
-		    <th>Modul5</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
-</div>
 
 	
 

@@ -126,6 +126,7 @@ $c=0;
 
 		if ($c>0){
 		$Notenschnitt=$Notegesamt/$c;
+			$Notenschnitt=round($Notenschnitt, 2);
 		}
 		$data10=array('Notenschnitt' => $Notenschnitt);
 		

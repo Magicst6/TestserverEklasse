@@ -238,14 +238,123 @@
 
 
 	} );
+function loadtables(){
+	
+	var new_url = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value;
+		var new_url1 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value;
 
+
+      $.fn.dataTable.ext.errMode = 'throw';
+		table = $( '.datatables' ).DataTable( {
+
+
+			ajax: {
+
+				url: new_url,
+
+				dataSrc: ""
+			},
+			columns: [ {
+					className: 'details-control',
+					defaultContent: '',
+					data: null,
+					orderable: false
+				},
+
+				
+				{
+					data: 'IDSchueler'
+				},
+					  {
+					data: 'Nachname'
+				},
+					  {
+					data: 'Vorname'
+				},
+					  {
+					data: 'Notenschnitt'
+				}
+			],
+
+		} );
+		table1 = $( '.datatables1' ).DataTable( {
+
+
+			ajax: {
+
+				url: new_url1,
+
+				dataSrc: ""
+			},
+			
+			columns: [ {
+					className: 'details-control',
+					defaultContent: '',
+					data: null,
+					orderable: false
+				},
+
+				{
+					data: 'SchuelerID'
+				},
+					  {
+					data: 'Nachname'
+				},
+					  {
+					data: 'Vorname'
+				},
+					  {
+					data: 'AbwesenheitenGesamt'
+				}
+			],
+
+
+		} );
+
+		$( '.datatables tbody' ).on( 'click', 'td.details-control', function () {
+			var tr = $( this ).closest( 'tr' ),
+				row = table.row( tr );
+
+			if ( row.child.isShown() ) {
+				tr.next( 'tr' ).removeClass( 'details-row' );
+				row.child.hide();
+				tr.removeClass( 'shown' );
+			} else {
+				row.child( format( row.data() ) ).show();
+				tr.next( 'tr' ).addClass( 'details-row' );
+				tr.addClass( 'shown' );
+			}
+		} );
+
+		$( '.datatables1 tbody' ).on( 'click', 'td.details-control', function () {
+			var tr = $( this ).closest( 'tr' ),
+				row = table1.row( tr );
+
+			if ( row.child.isShown() ) {
+				tr.next( 'tr' ).removeClass( 'details-row' );
+				row.child.hide();
+				tr.removeClass( 'shown' );
+			} else {
+				row.child( format1( row.data() ) ).show();
+				tr.next( 'tr' ).addClass( 'details-row' );
+				tr.addClass( 'shown' );
+			}
+		} );
+
+
+	} 
 	function tableshow() {
 		var new_url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value;
 		var new_url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value;
-
+       table1.clear()
+		.draw();
+		
 
 		table.ajax.url( new_url3 ).load();
 		table1.ajax.url( new_url4 ).load();
+		
+		
+
 	}
 </script>
 
@@ -443,7 +552,7 @@ Lehrperson:
 
         echo "<option>".'--Select--'. "</option>";
 
-
+        echo "<option>".'Alle'. "</option>";
 
         foreach ($uniquearr as $value) {
 

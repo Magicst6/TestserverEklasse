@@ -37,6 +37,7 @@ if ($userID=="1000000" and $KlasseInput == "" and $Lehrer == "") {
             'klasse' => $line2['Klasse'],
             'kursname' => $line2['Kursname'],
             'kursid' => $line2['KursID'],
+			'lernziele' => $line2['Lernziele'],
             'lehrperson' => $line2['Lehrperson']);
 
 
@@ -71,6 +72,7 @@ else {
 					'klasse' => $line2['Klasse'],
 					'kursname' => $line2['Kursname'],
 					'kursid' => $line2['KursID'],
+			        'lernziele' => $line2['Lernziele'],
 					'lehrperson' => $line2['Lehrperson']);
 
             }
@@ -105,6 +107,7 @@ else {
 								'klasse' => $line2['Klasse'],
 								'kursname' => $line2['Kursname'],
 								'kursid' => $line2['KursID'],
+							    'lernziele' => $line2['Lernziele'],
 								'lehrperson' => $line2['Lehrperson']);
 
                         }
@@ -136,6 +139,7 @@ else {
 				'klasse' => $line2['Klasse'],
 				'kursname' => $line2['Kursname'],
 				'kursid' => $line2['KursID'],
+			    'lernziele' => $line2['Lernziele'],
 				'lehrperson' => $line2['Lehrperson']);
 
 
@@ -162,6 +166,7 @@ else {
 				'klasse' => $line2['Klasse'],
 				'kursname' => $line2['Kursname'],
 				'kursid' => $line2['KursID'],
+			    'lernziele' => $line2['Lernziele'],
 				'lehrperson' => $line2['Lehrperson']);
 
         }
@@ -187,6 +192,7 @@ else {
 				'klasse' => $line2['Klasse'],
 				'kursname' => $line2['Kursname'],
 				'kursid' => $line2['KursID'],
+			    'lernziele' => $line2['Lernziele'],
 				'lehrperson' => $line2['Lehrperson']);
 
         }

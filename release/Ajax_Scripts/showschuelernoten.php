@@ -9,103 +9,245 @@
 
     }
 </style>
+
+
 <form action=" /DBFuellung/DBFuellungNoten.php" method="POST">
 
 <?php
 include 'db.php';
-$Klasse= $_GET['f'];
+
 $Kursnme= $_GET['g'];
 $datum=$_GET['h'];
 ?>
 
- <fieldset>
 
-            <label for="Title">Prüfungsname:</label>
+	<style>
+	
+	table.timecard {
+	margin: auto;
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #fff; /*for older IE*/
+	border-style: hidden;
+}
+
+table.timecard caption {
+	background-color: #3356FB;
+	color: #fff;
+	font-size: large;
+	font-weight: normal;
+	letter-spacing: .3em;
+}
+
+table.timecard thead th {
+	padding: 8px;
+	background-color: #8DCBFF;
+	font-size: large;
+}
+
+table.timecard thead th#thDay {
+	width: 40%;	
+}
+
+table.timecard thead th#thRegular, table.timecard thead th#thOvertime, table.timecard thead th#thTotal {
+	width: 20%;
+}
+
+table.timecard th, table.timecard td {
+	padding: 3px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #3356FB #ccc;
+}
+
+table.timecard td {
+	text-align: right;
+}
+
+table.timecard tbody th {
+	text-align: left;
+	font-weight: normal;
+}
+
+table.timecard tfoot {
+	font-weight: bold;
+	font-size: large;
+	background-color: #687886;
+	color: #fff;
+}
+
+table.timecard tr.even {
+	background-color: #fde9d9;
+}
+
+input[type=text], select {
+  width: 100%;
+ padding: 0px 0px;
+  margin: 0px 0;
+  display: inline-block;
+  border: 1px solid #FFFFFF;
+  border-radius: 4px;
+}
+
+
+
+    </style>
+
+</head>
+
+
+
+
+<fieldset>
+
+            
+
+             <input type="hidden" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" readonly >
+
+
+
+            <input type="hidden" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" readonly>
+
+    
+
+       
+
+            <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" readonly>
+
+    
+
+      
+            <input type="hidden" name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" readonly>
+
+    
+
+        
+
+            <input type="hidden" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" readonly>
+
+     
+
+   
+
+            <input type="hidden" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" readonly>
 
             <br>
 
-            <input type="text" name="title" id="title" value="<?php echo $_GET['i'];?>" width="400px" readonly  >
+            
+           
 
-            <br>
-
-            <label for="start">Startdatum und Zeit:</label>
-
-            <br>
-
-            <input type="date" name="startdate" id="startdate" value="<?php echo $_GET['h'];?>"  class="text ui-widget-content ui-corner-all" readonly>
-
-            <input type="time" name="starttime" id="starttime" value="<?php echo $_GET['j'];?>"  class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-          <label for="end">Enddatum und Zeit:</label>
-          <br>
-
-
-     <input type="date" name="enddate" id="enddate" value="<?php echo $_GET['k'];?>" class="text ui-widget-content ui-corner-all" readonly>
-
-            <input type="time" name="endtime" id="endtime" value="<?php echo $_GET['l'];?>" class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-     <label for="gewicht">Gewichtung:</label>
-
-     <br>
-
-     <input type="text" name="gewicht" id="gewicht" value="<?php echo $_GET['e'];?>" class="text ui-widget-content ui-corner-all" readonly>
-
-     <br>
-
-            <label for="kursid">KursID:</label>
-
-            <br>
-
-            <input type="text" name="kursid" id="kursid" value="<?php echo $_GET['g'];?>" class="text ui-widget-content ui-corner-all" readonly >
-
-            <br>
-
-            <label for="kursname">Kursname:</label>
-
-            <br>
-
-            <input type="text" name="kursname" id="kursname" value="<?php echo $_GET['n'];?>" class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-            <label for="klasse">Klasse:</label>
-
-            <br>
-
-            <input type="text" name="klasse" id="klasse" value="<?php echo $_GET['f'];?>" class="text ui-widget-content ui-corner-all" readonly >
-
-            <br>
-
-            <label for="zimmer">Zimmer:</label>
-
-            <br>
-
-            <input type="text" name="zimmer" id="zimmer" value="<?php echo $_GET['m'];?>" class="text ui-widget-content ui-corner-all" readonly >
-
-            <br>
-
-            <label for="lehrperson">Lehrperson:</label>
-
-            <br>
-
-            <input type="text" name="lehrperson" id="lehrperson" value="<?php echo $_GET['o'];?>" class="text ui-widget-content ui-corner-all" readonly >
-
-            <br>
-
-
-            <input type="hidden" name="farbe" id="farbe" value="<?php echo $_GET['p'];?>" class="text ui-widget-content ui-corner-all" readonly >
-
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            <input type="hidden" name="farbe" id="farbe" value="" class="text ui-widget-content ui-corner-all" readonly>
 
 
 
         </fieldset>
+
+
+
+
+
+
+
+<table class="timecard"  border="0">
+  <caption>
+    Prüfungsdaten
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Prüfungsname:</td>
+      <td colspan="2"><input type="text" name="title" id="title" value="<?php echo $_GET['i'];?>" width="400px" readonly></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Kurs:</td>
+      <td colspan="2"><input type="text" name="kursid" id="kursid" value="<?php echo $_GET['g'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+    <tr>
+		<td style="width: 150px; font-size: 12px; font-weight: bold;">Startdatum und Zeit:</td>
+			
+      <td><input type="date" name="startdate" id="startdate" value="<?php echo $_GET['h'];?>"  class="text ui-widget-content ui-corner-all" readonly></td></td>
+      <td><input type="time" name="starttime" id="starttime" value="<?php echo $_GET['j'];?>"  class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Enddatum und Zeit:</td>
+      <td><input type="date" name="enddate" id="enddate" value="<?php echo $_GET['k'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+      <td><input type="time" name="endtime" id="endtime" value="<?php echo $_GET['l'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Gewichtung:</td>
+      <td><input type="text" name="gewicht" id="gewicht" value="<?php echo $_GET['e'];?>" class="text ui-widget-content ui-corner-all" readonly ></td>
+      <td style="padding-left: 5px;padding-bottom:3px; font-size: 10px;">Wert 1 entspricht einfacher Gewichtung</td>
+    </tr>
+	
+  </tbody>
+</table>
+
+<table class="timecard"  border="0">
+  <caption>
+    Ort und Aufsicht
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Zimmer:</td>
+      <td> <input type="text" name="zimmer" id="zimmer" value="<?php echo $_GET['m'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+	  <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Lehrperson:</td>
+      <td><input type="text" name="lehrperson" id="lehrperson" value="<?php echo $_GET['o'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+		
+    </tr>
+   
+	
+  </tbody>
+</table>	
+<!--
+<table class="timecard"  border="0">
+  <caption>
+    Lernziele
+  </caption>
+  <tbody>
+    <tr>
+      <td><input type="textarea" name="lernziele" id="lernziele" value="" class="text ui-widget-content ui-corner-all" ></td>
+      
+    </tr>
+
+   
+  </tbody>
+</table>
+
+   
+		
+
+        
+
+
+-->
+   
+
+
+
+<style>
+
+input.err {
+    color: #444444;
+    font-size: 12px;
+    width: 180px;
+    height: 26px;
+    padding-left: 5px;
+    outline:none;   
+	border: 1px solid #1F1F1F;
+    background-image: url(../images/error.png);
+}
+input.err:focus{
+    color:#f23;
+    font-weight: bold;
+    border: 2px solid #f23;
+}
+}
+
+
+
+    </style>
+	
 	<?php
 	 $Pruefungsname=$_GET['i'];
 	  $isEntry = "SELECT Kommentar,Gewichtung From sv_Pruefungen Where Pruefungsname='$Pruefungsname' and Datum='$datum' and KursID='$Kursnme' ";
@@ -113,6 +255,13 @@ $datum=$_GET['h'];
     $y = 0;
     while ($value1 = mysqli_fetch_array($result)) {
 		$Comment=$value1['Kommentar'];
+	}
+echo $Kursnme;
+ $isEntry2 = "Select Klasse From sv_Kurse Where KursID='$Kursnme' ";
+    $result2 = mysqli_query($con, $isEntry2);
+    
+    while ($value2 = mysqli_fetch_array($result2)) {
+		$Klasse=$value2['Klasse'];
 	}
 	?>
 	 Kommentar zur Prüfung:
@@ -123,7 +272,7 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
     echo '<br>';
 
 
-    echo "<br><br><br>"."Bitte unten die Noten der Schüler eintragen";
+    echo "<br><br><br>"."Bitte unten die Noten der Schüler eintragen. Notenformat e. g. '3.5'";
 
     echo '<br>';
 
@@ -156,7 +305,7 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
                     echo '<br>';
                     echo 'Note:';
                     echo '<br>';
-                    echo '<input name=' . $u . ' type="number" value=' . $value2['Note'] . ' min="0" max="6" required="required">';
+                    echo '<input class="err" name=' . $u . ' id="'.$u.'" type="text" onchange="myFunction3('.$u.')" required="required" value="' . $value2['Note'] . '" >';
                     echo '<br>';
                     echo '<br>';
                     echo '<hr>';
@@ -177,7 +326,7 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
                 echo '<br>';
                 echo 'Note:';
                 echo '<br>';
-                echo '<input name=' . $u . ' type="number" value="" min="0" max="6">';
+                echo '<input class="err" name=' . $u . ' id="'.$u.'" type="text"  onchange="myFunction3('.$u.')" value="" >';
                 echo '<br>';
 
                 echo '<br>';

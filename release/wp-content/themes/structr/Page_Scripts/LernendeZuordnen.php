@@ -59,7 +59,7 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
     <select name="Lernender"  id="Lernender" >
 
         <?php
-        $isEntry= "Select * From sv_Lernende Order By Name ASC";
+        $isEntry= "Select * From sv_LernendeModule Order By Name ASC";
         $result = mysqli_query($con, $isEntry);
 
         echo "<option>".''. "</option>";
@@ -86,9 +86,9 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
     <select name="Loginname"  id="Loginname" >
 
         <?php
-        $Lehrperson=$_GET['Lehrperson'];
-        preg_match("/:(.*)/", $Lehrperson, $output_array);
-        $LehrpersonID=$output_array[1];
+        $LernenderID=$_GET['Lehrperson'];
+        preg_match("/:(.*)/", $LernenderID, $output_array);
+        $LernenderID=$output_array[1];
 
         echo "<option>".''. "</option>";
 

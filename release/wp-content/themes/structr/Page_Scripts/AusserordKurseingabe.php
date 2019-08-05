@@ -1,4 +1,4 @@
-<em>Hier können Kurse erstellt werden, die nicht im Stundenplan der Klasse erscheinen. </em>
+<em>Hier können Kurse oder Kurstermine erstellt werden, die nicht im Stundenplan der Klasse erscheinen. </em>
 
 <script>
 	
@@ -90,11 +90,11 @@ if (str1 == "-Select-" || str1=="") {
 
     <br><br>
 
-    <strong>Kurs1</strong>
+    <h3>Kurs anlegen</h3>
 
     <br>
 
-    Klasse:
+    <b>Klasse:</b>
 
     <br>
 
@@ -153,13 +153,13 @@ if (str1 == "-Select-" || str1=="") {
 
 
     <br />
-
-    Kurs(entweder im Dropdown wählen oder im das Kürzel für einen neuen Kurs angeben):
 	
+    <b>Kurs: </b><br> <i>(entweder im Dropdown wählen oder im das Kürzel für einen neuen Kurs angeben):</i>
+	<br>
 	Existierender Kurs:<br>
 	<select id="kursid" name="kursid" onChange="getlehrperson(this.value)" value=""></select>
 
-    <br>
+    <br><hr />
 	<label id="knlabel">Neuer Kurs:<br>
 	 ->Kursname:<br></label>
 
@@ -173,6 +173,7 @@ if (str1 == "-Select-" || str1=="") {
 
     <input  id="Kuerzel" name="Kuerzel"  type="text" /><br />
 
+	<hr />
     <br>
 
     Tag:

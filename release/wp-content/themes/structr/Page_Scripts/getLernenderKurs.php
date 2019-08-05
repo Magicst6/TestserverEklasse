@@ -18,41 +18,53 @@ use
     DataTables\Editor\Validate,
     DataTables\Editor\ValidateOptions;
  
+
+if ($Klasse==""){
 // Build our Editor instance and process the data coming from _POST
-Editor::inst( $db, 'sv_Lernende' )
+Editor::inst( $db, 'sv_LernenderKurs' )
     ->fields(
 	Field::inst( 'ID' ),
         Field::inst( 'Vorname' )
             ->validator( Validate::notEmpty( ValidateOptions::inst()
                 ->message( 'Vorname muss angegeben werden' ) 
             ) ),
-        Field::inst( 'Name' )
+        Field::inst( 'Nachname' )
             ->validator( Validate::notEmpty( ValidateOptions::inst()
                 ->message( 'Nachname muss angegeben werden' )  
             ) ),
-	   
-        Field::inst( 'Klasse' )
-            ->validator( Validate::notEmpty( ValidateOptions::inst()
-                ->message( 'Klasse muss angegeben werden' )  
-            ) ),
-        Field::inst( 'User_ID' ),
-        Field::inst( 'EMail' )
-            ->validator( Validate::email( ValidateOptions::inst()
-                ->message( 'Please enter an e-mail address' )   
-            ) ),
-      Field::inst( 'Modul1' ),
-	  Field::inst( 'Modul2' ),  
-	  Field::inst( 'Modul3' ),
-	  Field::inst( 'Modul4' ),
-	  Field::inst( 'Modul5' ),
-	  Field::inst( 'Modul6' ), 
-	  Field::inst( 'Modul7' ),
-	  Field::inst( 'Modul8' ),
-	  Field::inst( 'Modul9' ),
- Field::inst( 'Profil' )
+        Field::inst( 'SchülerID' ),
+        Field::inst( 'KursID' ),
+     
+        Field::inst( 'Klasse' ),
+	    Field::inst( 'Profil' )
        
     )
     ->process( $_POST )
     ->json();
-
-
+	
+}
+	else{
+		// Build our Editor instance and process the data coming from _POST
+Editor::inst( $db, 'sv_LernenderKurs' )
+    ->fields(
+	Field::inst( 'ID' ),
+        Field::inst( 'Vorname' )
+            ->validator( Validate::notEmpty( ValidateOptions::inst()
+                ->message( 'Vorname muss angegeben werden' ) 
+            ) ),
+        Field::inst( 'Nachname' )
+            ->validator( Validate::notEmpty( ValidateOptions::inst()
+                ->message( 'Nachname muss angegeben werden' )  
+            ) ),
+        Field::inst( 'SchülerID' ),
+        Field::inst( 'KursID' ),
+     
+        Field::inst( 'Klasse' ),
+	    Field::inst( 'Profil' )
+       
+    )
+	->where( 'Klasse',$Klasse )
+    ->process( $_POST )
+    ->json();
+	
+	}

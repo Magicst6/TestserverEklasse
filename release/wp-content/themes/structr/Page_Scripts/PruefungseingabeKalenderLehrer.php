@@ -94,7 +94,7 @@ if (str == "") {
                 document.getElementById("kursid").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str+"&k="+ document.getElementById('kidhidden').value ,true);
+        xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str+"&k="+ document.getElementById('kursid').value ,true);
         xmlhttp.send();
        
     }
@@ -297,7 +297,7 @@ $IDLP=$value;
 
                             height: 800,
 
-                            width: 300,
+                            width: 600,
 
                             modal: true,
 
@@ -319,11 +319,11 @@ $IDLP=$value;
 
                                 document.getElementById('zimmer').value = "";
 
-                                document.getElementById('kursname').value = "";
+                                document.getElementById('lernziele').value = "";
 
                                 document.getElementById('kursid').value = "";
 
-                                document.getElementById('klasse').value = "";
+                       
 
                                 document.getElementById('lehrperson').value = <?php echo $Name; ?>;
 								document.getElementById('gewicht').value = "";
@@ -408,7 +408,7 @@ $IDLP=$value;
 
 
 
-                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value, true);
+                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val() + "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value  +  "&lernziele=" + document.getElementById('lernziele').value, true);
 
                                     xmlhttp.send();
 
@@ -606,7 +606,7 @@ $IDLP=$value;
 
                         height: 800,
 
-                        width: 300,
+                        width: 600,
 
                         modal: true,
 
@@ -625,6 +625,11 @@ $IDLP=$value;
                             var endtime = $.fullCalendar.formatDate(event.end, "HH:mm:ss");
 
                             var id= event.ID;
+							
+							   
+							document.getElementById('kursid').value = event.kursid;
+
+								document.getElementById('gewicht').value = event.gewichtung;
 
                             document.getElementById('startdate').value = startdate;
 
@@ -637,24 +642,23 @@ $IDLP=$value;
                             document.getElementById('title').value = event.title;
 
                             document.getElementById('zimmer').value = event.zimmer;
+	                     
+                            
+							document.getElementById('lernziele').value=event.lernziele;
 
-                            document.getElementById('kursname').value = event.kursname;
-							
 								
-							 document.getElementById('kidhidden').value=event.kursid;
-
-                            getKursnamepre(event.klasse);
+							
 							
 							 document.getElementById('farbehid').value = event.color;
 							
 							getcolor(event.kursid);
-							document.getElementById('kursid').value = event.kursid;
-
-                            document.getElementById('klasse').value = event.klasse;
+							
+						
+                           
 
                             document.getElementById('lehrperson').value = event.lehrperson;
 							
-							document.getElementById('gewicht').value = event.gewichtung;
+						
 
                             document.getElementById('farbe').value = event.color;
 						
@@ -738,7 +742,7 @@ $IDLP=$value;
 
 
 
-                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value  + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value + "&klasse=" + document.getElementById('klasse').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&gewichtung=" + document.getElementById('gewicht').value, true);
+                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value +  "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value  + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&gewichtung=" + document.getElementById('gewicht').value  +  "&lernziele=" + document.getElementById('lernziele').value, true);
 
                                 xmlhttp.send();
 
@@ -960,7 +964,7 @@ $IDLP=$value;
 
 
 
-            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value, true);
+            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value +"&lernziele=" + document.getElementById('lernziele').value, true);
 
             xmlhttp.send();
 
@@ -1016,7 +1020,7 @@ $IDLP=$value;
 
                 height: 800,
 
-                width: 300,
+                width: 600,
 
                 modal: true,
 
@@ -1088,7 +1092,7 @@ $IDLP=$value;
 
                             height: 800,
 
-                            width: 300,
+                            width: 600,
 
                             modal: true,
 
@@ -1110,11 +1114,11 @@ $IDLP=$value;
 
                                 document.getElementById('zimmer').value = "";
 
-                                document.getElementById('kursname').value = "";
+                                document.getElementById('lernziele').value = "";
 
                                 document.getElementById('kursid').value = "";
 
-                                document.getElementById('klasse').value = "";
+                               
 
                                  document.getElementById('lehrperson').value = <?php echo $Name; ?>;
 								document.getElementById('gewicht').value = "";
@@ -1199,7 +1203,7 @@ $IDLP=$value;
 
 
 
-                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value, true);
+                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&kursid=" + document.getElementById('kursid').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + document.getElementById('lernziele').value, true);
 
                                     xmlhttp.send();
 
@@ -1213,7 +1217,7 @@ $IDLP=$value;
 
 
 
-                              //      calendar.fullCalendar('refetchEvents');
+                                    calendar.fullCalendar('refetchEvents');
 									
 									return;
 
@@ -1335,180 +1339,115 @@ $IDLP=$value;
 
 
 <body>
-
-<div id="dialog-form" title="Termin">
-
-    <p class="validateTips">Bitte Felder ausfüllen oder ändern</p>
+	
+	<div id="dialog-form" title="Prüfungsdaten">
 
 
 
-    <form>
-
-       <fieldset>
-
-            <label for="Title">Prüfungsname:</label>
-
-            <br>
-
-            <input type="text" name="title" id="title" value="" width="400px" required="required">
-
-            <br>
-
-            <label for="start">Startdatum und Zeit:</label>
-
-            <br>
-
-            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" required="required">
-
-            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" required="required">
-
-            <br>
-
-            <label for="end">Enddatum und Zeit:</label>
-
-            <br>
-
-            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" required="required">
-
-            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all"required="required" ><br>
-
-             <label for="gewicht">Gewichtung:</label>
-
-             <br>
-
-             <input type="text" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" required="required" >
-
-             <br>
-
-           
-            <br>
-
-            <label for="kursname">Kursname:</label>
-
-            <br>
-
-            <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" >
-
-            <br><br>
-
-            <label for="klasse">Klasse:</label>
-
-            <br>
-
-           <select name="klasse" id="klasse" onchange="getKursname(this.value)"  onload="getKursname(this.value)"  required="required">
+<table class="timecard"  border="0">
+  <caption>
+    Prüfungsdaten
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Prüfungsname:</td>
+      <td colspan="2"><input type="text" name="title" id="title" value="" width="400px" ></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Kurs:</td>
+      <td colspan="2"><select type="text" name="kursid" id="kursid" value=""   onChange="getcolor(this.value)" class="text ui-widget-content ui-corner-all" >
+	<?	  	
+$isEntrylp= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16 From sv_Lehrpersonen Where ID = '$IDLP'";
+$resultlp = mysqli_query($con,$isEntrylp);
 
 
+ echo "<option>" . '-Select-' . "</option>";
 
-        <?php
+while( $linelp= mysqli_fetch_array($resultlp))
+{
+for($x = 1; $x <= 16; $x++)
+{
 
+$valuelp = $linelp['Kurs'.$x];
+if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
 
+}
+}
+		  
+		  
+		 ?> 
+		  </select></td>
+    </tr>
+    <tr>
+		<td style="width: 150px; font-size: 12px; font-weight: bold;">Startdatum und Zeit:</td>
+			
+      <td><input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" ></td></td>
+      <td><input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" ></td>
+    </tr>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Enddatum und Zeit:</td>
+      <td><input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" ></td>
+      <td><input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all" ></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Gewichtung:</td>
+      <td><input type="text" name="gewicht" id="gewicht"  class="text ui-widget-content ui-corner-all"></td>
+      <td style="padding-left: 5px;padding-bottom:3px; font-size: 10px;">Wert 1 entspricht einfacher Gewichtung</td>
+    </tr>
+	
+  </tbody>
+</table>
 
-        include 'db.php';
+<table class="timecard"  border="0">
+  <caption>
+    Ort und Aufsicht
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Zimmer:</td>
+      <td> <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" ></td>
+    </tr>
+	  <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Lehrperson:</td>
+      <td><input type="text" name="lehrperson" id="lehrperson"  class="text ui-widget-content ui-corner-all"  readonly value="<?php echo $Name; ?>">
+		     
 
-
-
-
-
-
-
-        $isEntry= "Select Klasse From sv_Kurse where Lehrperson='$IDLP' ";
-
-        $result1 = mysqli_query($con,$isEntry);
-
-        $resultarr1 = array();
-
-        echo "<option>".$_GET['klasse']."</option>";
 
         
+	  
+	
+  </tbody>
+</table>	
 
-        while( $line2= mysqli_fetch_assoc($result1))
-
-        {
-
-            $resultarr1[] = $line2['Klasse'];
-
-        }
-
-        $uniquearr1 = array_unique($resultarr1);
-
-        asort($uniquearr1);
-
-
-
-
-
-        foreach ($uniquearr1 as $value)
-
-        {
-
-            if ($value == $_GET['klasse']){}
-
-            else
-
-            {
-
-                echo "<option>" . $value . "</option>";
-
-            }
-
-        }
-
-
-
-        ?>
-																		</select>
-
-
-            <br>
-																			     <br>
-
-            <label for="kursid">KursID:</label>
-
-            <br>
-
-             <select name="kursid" id="kursid" onChange="getcolor(this.value)" required="required">
-			
-
-																		</select><br>
-
-
-            <label for="zimmer">Zimmer:</label>
-
-            <br>
-
-            <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" >
-
-            <br><br>
-
-            <label for="lehrperson">Lehrperson:</label>
-
-            <br>
-
-             <input name="lehrperson"  id="lehrperson" value="<?php echo $Name; ?>"  readonly="readonly" class="text ui-widget-content ui-corner-all" >
-
-
-
-       
-
-            <br><br>
-
+<table class="timecard"  border="0">
+  <caption>
+    Lernziele
+  </caption>
+  <tbody>
+    <tr>
+		<td><textarea  id="lernziele" class="text ui-widget-content ui-corner-all" ></textarea></td>
+      
+    </tr>
+	 
+   
+  </tbody>
+</table>
+	
+	
             <label for="farbe">Farbe:</label>
 
             <br>
-            <div id="farbediv"></div>
-
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-
-
-
+         <div id="farbediv"></div>
+   
         </fieldset>
 
 
     </form>
 
 </div>
+
+
+
 
 <input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
 

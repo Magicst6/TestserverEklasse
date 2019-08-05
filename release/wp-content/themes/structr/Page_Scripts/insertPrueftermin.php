@@ -44,6 +44,9 @@ if(isset($_GET["q"]))
     $farbe = "#".$_GET['color'];
 	
 	$gewichtung = $_GET['gewichtung'];
+	
+	$lernziele = $_GET['lernziele'];
+
 
   
 
@@ -66,7 +69,7 @@ if(isset($_GET["q"]))
 
     if ($lp_id) {
 
-        $query = "INSERT INTO sv_Pruefungen (Pruefungsname,Kursname, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe, Gewichtung)  VALUES ('$pruefungsname','$kursname', '$start', '$end','$kursid','$klasse','$zimmer','$lehrperson','$lp_id','$farbe','$gewichtung')";
+        $query = "INSERT INTO sv_Pruefungen (Pruefungsname,Kursname, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe, Gewichtung,Lernziele)  VALUES ('$pruefungsname','$kursname', '$start', '$end','$kursid','$klasse','$zimmer','$lehrperson','$lp_id','$farbe','$gewichtung','$lernziele')";
 
         mysqli_query($con, $query);
 

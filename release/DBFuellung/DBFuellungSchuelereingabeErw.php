@@ -34,7 +34,7 @@ if ($Vorname=="" and $Nachname=="" and $EMail=="" and $Loginname=="" and $Profil
 
         $SchuelerID=$output_array[1];
 
-	 $isEntry1= "Select *  From sv_Lernende where ID='$SchuelerID'";
+	 $isEntry1= "Select *  From sv_LernendeModule where ID='$SchuelerID'";
 
     $result1 = mysqli_query($con, $isEntry1);
     
@@ -77,7 +77,7 @@ if ($Vorname=="" and $Nachname=="" and $EMail=="" and $Loginname=="" and $Profil
 $isEntry= "Select * From sv_Lernende Order by ID asc ";
 
 $result = mysqli_query($con, $isEntry);
-echo "test1";
+
 while ($row = mysqli_fetch_array($result)) {
     $Name=$row['Name'];
     $Vorname=$row['Vorname'];
@@ -86,13 +86,14 @@ while ($row = mysqli_fetch_array($result)) {
     $EMail=$row['EMail'];
     $UserID=$row['User_ID'];
     $ID=$row['ID'];
+	$Loginname=$row['Loginname'];
     $isEntry4= "Select ID  From sv_LernendeModule";
 
     $result4 = mysqli_query($con, $isEntry4);
     while ($row4= mysqli_fetch_array($result4)) {
         if ($ID==$row4['ID'])
         {
-            $query4 = "Update sv_LernendeModule Set Name='$Name' , Vorname='$Vorname' , EMail='$EMail', User_ID='$UserID', Profil='$Profil' Where ID='$ID' ";
+            $query4 = "Update sv_LernendeModule Set Name='$Name' , Vorname='$Vorname' , EMail='$EMail', User_ID='$UserID', Profil='$Profil',Loginname='$Loginname' Where ID='$ID' ";
             mysqli_query($con, $query4);
         }
     }
@@ -102,7 +103,7 @@ $x=1;
     $result1 = mysqli_query($con, $isEntry1);
     
     while ($row1= mysqli_fetch_array($result1)) {
-        echo "test";
+ 
         $isEntry2= "Select *  From sv_LernendeModule Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail'";
 
         $result2 = mysqli_query($con, $isEntry2);
@@ -113,10 +114,9 @@ $x=1;
 
         if ($x==1 and $ID2=="") {
             $Klasse1=$row1['Klasse'];
-            $query1 = "INSERT INTO sv_LernendeModule (Name, Vorname,EMail,Profil,User_ID,ID,Modul1)  VALUES ('$Name', '$Vorname', '$EMail','$Profil','$UserID','$ID','$Klasse1')";
+            $query1 = "INSERT INTO sv_LernendeModule (Name, Vorname,EMail,Profil,User_ID,ID,Loginname,Modul1)  VALUES ('$Name', '$Vorname', '$EMail','$Profil','$UserID','$ID','$Loginname','$Klasse1')";
             mysqli_query($con, $query1);
             $x++;
-            echo "Insert";
         }
         else {
 
@@ -180,6 +180,34 @@ $query2 = "Update sv_LernendeModule Set $Modul='' Where Name='$Name' and Vorname
 
 
 }
+
+$isEntry2= "Select *  From sv_LernendeModule ";
+
+        $result2 = mysqli_query($con, $isEntry2);
+        $ID2="";
+        while ($row2= mysqli_fetch_array($result2)) {
+            
+			$ID=$row2['ID'];
+			$Name=$row2['Name'];
+			$Vorname=$row2['Vorname'];
+			$EMail=$row2['EMail'];
+			$check='none';
+			$isEntry10= "Select *  From sv_Lernende Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail'";
+			 $result10 = mysqli_query($con, $isEntry10);
+        
+        while ($row10= mysqli_fetch_array($result10)) {
+			
+			$check=$row10['ID'];
+		}
+            if ($check=='none'){
+				$Modul="Modul1";
+
+$query11 = "Update sv_LernendeModule Set $Modul='' Where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
+
+                mysqli_query($con, $query11);
+				
+			}
+        }
 
 ?>
 

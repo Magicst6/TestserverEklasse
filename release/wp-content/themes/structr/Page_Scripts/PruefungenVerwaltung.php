@@ -769,6 +769,8 @@
                                 document.getElementById('kursid').value = event.kursid;
 
                                 document.getElementById('klasse').value = event.klasse;
+								
+							
 
                                 document.getElementById('lehrperson').value = event.lehrperson;
 
@@ -803,7 +805,7 @@
 
 
 
-                    xmlhttp.open("GET", "/Ajax_Scripts/showschuelernoten.php?f=" + event.klasse +  "&e=" + event.gewichtung + "&g=" + event.kursid +"&h=" + startdate +"&i=" + event.title  + "&j=" + starttime+  "&k=" + enddate + "&l=" + endtime + "&m=" + event.zimmer + "&n=" + event.kursname+  "&o=" + event.lehrperson+ "&p=" + event.color, true);
+                    xmlhttp.open("GET", "/Ajax_Scripts/showschuelernoten.php?f=" + event.klasse +  "&e=" + event.gewichtung + "&g=" + event.kursid +"&h=" + startdate +"&i=" + event.title  + "&j=" + starttime+  "&k=" + enddate + "&l=" + endtime + "&m=" + event.zimmer + "&n=" + event.kursname+  "&o=" + event.lehrperson+ "&p=" + event.color , true);
 
                     xmlhttp.send();
 
@@ -1270,95 +1272,125 @@
 
 
 <div id="dialog-form" title="Prüfungsfenster">
-
-    <p class="validateTips">Bitte Felder ausfüllen oder ändern</p>
-
+	
 
 
-    <form>
-		 <fieldset>
+<table class="timecard"  border="0">
+  <caption>
+    Prüfungsdaten
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Prüfungsname:</td>
+      <td colspan="2"><input type="text" name="title" id="title" value="<?php echo $_GET['i'];?>" width="400px" readonly></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Kurs:</td>
+      <td colspan="2"><input type="text" name="kursid" id="kursid" value="<?php echo $_GET['g'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+    <tr>
+		<td style="width: 150px; font-size: 12px; font-weight: bold;">Startdatum und Zeit:</td>
+			
+      <td><input type="date" name="startdate" id="startdate" value="<?php echo $_GET['h'];?>"  class="text ui-widget-content ui-corner-all" readonly></td></td>
+      <td><input type="time" name="starttime" id="starttime" value="<?php echo $_GET['j'];?>"  class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Enddatum und Zeit:</td>
+      <td><input type="date" name="enddate" id="enddate" value="<?php echo $_GET['k'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+      <td><input type="time" name="endtime" id="endtime" value="<?php echo $_GET['l'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Gewichtung:</td>
+      <td><input type="text" name="gewicht" id="gewicht" value="<?php echo $_GET['e'];?>" class="text ui-widget-content ui-corner-all" readonly ></td>
+      <td style="padding-left: 5px;padding-bottom:3px; font-size: 10px;">Wert 1 entspricht einfacher Gewichtung</td>
+    </tr>
+	
+  </tbody>
+</table>
 
-            <label for="Title">Prüfungsname:</label>
+<table class="timecard"  border="0">
+  <caption>
+    Ort und Aufsicht
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Zimmer:</td>
+      <td> <input type="text" name="zimmer" id="zimmer" value="<?php echo $_GET['m'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+	  <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Lehrperson:</td>
+      <td><input type="text" name="lehrperson" id="lehrperson" value="<?php echo $_GET['o'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+		
+    </tr>
+   
+	
+  </tbody>
+</table>	
 
-            <br>
+<!--<table class="timecard"  border="0">
+  <caption>
+    Lernziele
+  </caption>
+  <tbody>
+    <tr>
+      <td><input type="textarea" name="lernziele" id="lernziele" value="" class="text ui-widget-content ui-corner-all" ></td>
+      
+    </tr>
 
-            <input type="text" name="title" id="title" value="" width="400px" readonly">
+   
+  </tbody>
+</table>
 
-            <br>
+   
+		
 
-            <label for="start">Startdatum und Zeit:</label>
+        
 
-            <br>
 
-            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" readonly>
+-->
+   
 
-            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" readonly>
 
-            <br>
 
-            <label for="end">Enddatum und Zeit:</label>
+ <fieldset>
 
-            <br>
+            
 
-            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" readonly>
+             <input type="hidden" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" readonly >
 
-            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-             <label for="gewicht">Gewichtung:</label>
 
-             <br>
+            <input type="hidden" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-             <input type="text" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" readonly >
+    
 
-             <br>
-
-             <br>
-
-            <label for="kursid">KursID:</label>
-
-            <br>
-
-            <input type="text" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-            <label for="kursname">Kursname:</label>
-
-            <br>
+       
 
             <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <br>
+    
 
-            <label for="klasse">Klasse:</label>
+      
+            <input type="hidden" name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <br>
+    
 
-            <input type="text" name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" readonly>
+        
 
-            <br>
+            <input type="hidden" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <label for="zimmer">Zimmer:</label>
+     
 
-            <br>
+   
 
-            <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-            <label for="lehrperson">Lehrperson:</label>
+            <input type="hidden" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" readonly>
 
             <br>
 
-            <input type="text" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" readonly>
+            
+           
 
-            <br>
-
-            <label for="farbe">Farbe:</label>
-
-            <br>
-
-            <input type="text" name="farbe" id="farbe" value="" class="text ui-widget-content ui-corner-all" readonly>
+            <input type="hidden" name="farbe" id="farbe" value="" class="text ui-widget-content ui-corner-all" readonly>
 
 
 
@@ -1367,10 +1399,9 @@
 
 
 
-    </form>
+
 
 </div>
-
 
 
 <?php

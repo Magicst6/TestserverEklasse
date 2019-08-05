@@ -60,6 +60,7 @@ if ($userID=="1000000" and $KlasseInput == "" and $Lehrer == "") {
 				'klasse' => $line2['Klasse'],
 				'kursname' => $line2['Kursname'],
 				'kursid' => $line2['KursID'],
+				'lernziele' => $line2['Lernziele'],
 				'lehrperson' => $line2['Lehrperson']);
         $start=$line2['Start'];
         $end =$line2['Ende'];
@@ -105,6 +106,7 @@ else {
 				'klasse' => $line2['Klasse'],
 				'kursname' => $line2['Kursname'],
 				'kursid' => $line2['KursID'],
+			    'lernziele' => $line2['Lernziele'],
 				'lehrperson' => $line2['Lehrperson']);
                 $start=$line2['Start'];
                 $end =$line2['Ende'];
@@ -152,6 +154,7 @@ END:VEVENT';
 				'klasse' => $line2['Klasse'],
 				'kursname' => $line2['Kursname'],
 				'kursid' => $line2['KursID'],
+				'lernziele' => $line2['Lernziele'],
 				'lehrperson' => $line2['Lehrperson']);
 
                             $start=$line2['Start'];
@@ -196,6 +199,7 @@ END:VEVENT';
 				'klasse' => $line2['Klasse'],
 				'kursname' => $line2['Kursname'],
 				'kursid' => $line2['KursID'],
+				'lernziele' => $line2['Lernziele'],
 				'lehrperson' => $line2['Lehrperson']);
             $start=$line2['Start'];
             $end =$line2['Ende'];
@@ -233,6 +237,7 @@ END:VEVENT';
 				'klasse' => $line2['Klasse'],
 				'kursname' => $line2['Kursname'],
 				'kursid' => $line2['KursID'],
+				'lernziele' => $line2['Lernziele'],
 				'lehrperson' => $line2['Lehrperson']);
             $start=$line2['Start'];
             $end =$line2['Ende'];
@@ -270,6 +275,7 @@ END:VEVENT';
 				'klasse' => $line2['Klasse'],
 				'kursname' => $line2['Kursname'],
 				'kursid' => $line2['KursID'],
+				'lernziele' => $line2['Lernziele'],
 				'lehrperson' => $line2['Lehrperson']);
             $start=$line2['Start'];
             $end =$line2['Ende'];
@@ -300,7 +306,7 @@ require_once('../../../../phpmailer/class.phpmailer.php');
 
 $mail             = new PHPMailer();
 
-$body             = "Hier Ihre Kurstermine für den Outlook Kalender. Führen Sie die Datei im Anhang aus, um Ihre Kurstermine dem Outlook Kalender hinzuzufügen.";
+$body             = "Hier Ihre Pruefungstermine fuer den Outlook Kalender. Füuehren Sie die Datei im Anhang aus, um Ihre Pruefungstermine dem Outlook Kalender hinzuzufuegen.";
 
 $mail->IsSMTP(); // telling the class to use SMTP
 $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
@@ -313,24 +319,24 @@ $mail->Port       = 587;                   // set the SMTP port for the GMAIL se
 
 $mail->Username   = "noreplyeventmailer@schulverwaltungheimtest.ch";  // GMAIL username info@gaming-machines.net
 
-$mail->Password   = "t4xrayEklasse!!!!";            // GMAIL password
+$mail->Password   = "EklasseMail";            // GMAIL password
 
-$mail->SetFrom('noreplyeventmailer@schulverwaltungheimtest.ch', 'Stefan Heim');
+$mail->SetFrom('noreplyeventmailer@schulverwaltungheimtest.ch', 'Schulverwaltung');
 
-$mail->AddReplyTo("noreplyeventmailer@schulverwaltungheimtest.ch","Stefan Heim");
+$mail->AddReplyTo("noreplyeventmailer@schulverwaltungheimtest.ch","Schulverwaltung");
 
-$mail->Subject    = "Schulverwaltungssystem - Ihre Kurstermine";
+$mail->Subject    = "Schulverwaltungssystem - Ihre Pruefungstermine";
 
-$mail->AltBody    = "Schulverwaltungssystem - Ihre Kurstermine"; // optional, comment out and test
+$mail->AltBody    = "Schulverwaltungssystem - Ihre Pruefungstermine"; // optional, comment out and test
 
 $mail->MsgHTML($body);
 
 $address = $Mailaddress;
-$mail->AddAddress($address, "Stefan Heim");
+$mail->AddAddress($address, "Schulverwaltung");
 
 
 
-$mail->addStringAttachment($ical_content,'Kurstermine.ics','base64','text/calendar');
+$mail->addStringAttachment($ical_content,'Pruefungstermine.ics','base64','text/calendar');
 
 
 if(!$mail->Send()) {

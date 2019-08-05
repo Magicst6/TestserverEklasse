@@ -45,6 +45,37 @@ while( $line2= mysqli_fetch_assoc($result)) {
 
     }
 
+/*
+ $isEntry1 = "SELECT * From sv_Lehrpersonen  Order by Name";
 
+        $result1 = mysqli_query($con,$isEntry1);
+
+        while( $value1= mysqli_fetch_array($result1))
+		{
+                 $Mail= $value1['EMail'];
+			       $ID=$value1['ID'];
+		
+if($Mail==$LoginnameMail and $LehrpersonID<>$ID)
+{
+	 echo "Account bereits LehrpersonenID ".$ID." zugeordnet!";
+	 $isExisting=true;
+}
+		}
+if (!$isExisting){
+    $sql_befehl = "Update  sv_Lehrpersonen Set Loginname='$LoginnameReal', User_ID='$LoginnameID', EMAIL='$LoginnameMail'  Where ID='$LehrpersonID' ";
+    //echo $sql_befehl5;
+    if  (""== $Lernender)  {
+        //echo "Fehler: Eintrag unvollständig. ";
+    }
+    else {
+        mysqli_query($con,$sql_befehl);
+        echo "   Aktualisierung wurde ausgeführt!";
+        echo '<script language="javascript">';
+        echo 'alert("Login zugeordnet!")';
+        echo '</script>';
+
+    }
+}
+*/
 mysqli_close($con);
 ?>

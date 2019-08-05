@@ -383,8 +383,6 @@ while( $line2= mysqli_fetch_assoc($result))
 
                             document.getElementById('zimmer').value = "";
 
-                            document.getElementById('kursname').value = "";
-
                             document.getElementById('kursid').value = "";
 
                             document.getElementById('klasse').value = "";
@@ -704,7 +702,7 @@ while( $line2= mysqli_fetch_assoc($result))
 
                                 document.getElementById('zimmer').value = event.zimmer;
 
-                                document.getElementById('kursname').value = event.kursname;
+                                
 
                                 document.getElementById('kursid').value = event.kursid;
 
@@ -1045,7 +1043,7 @@ while( $line2= mysqli_fetch_assoc($result))
 
 
 
-            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&farbe=" + document.getElementById('farbe').value + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value, true);
+            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value  + "&farbe=" + document.getElementById('farbe').value + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value, true);
 
             xmlhttp.send();
 
@@ -1109,11 +1107,7 @@ while( $line2= mysqli_fetch_assoc($result))
 
 
 
-                    OK: function() {
-
-                        dialog.dialog( "close" );
-
-                    }
+                   
 
                 },
 
@@ -1203,6 +1197,76 @@ while( $line2= mysqli_fetch_assoc($result))
           color: white;
         }
 
+
+	
+	table.timecard {
+	margin: auto;
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #fff; /*for older IE*/
+	border-style: hidden;
+}
+
+table.timecard caption {
+	background-color: #3356FB;
+	color: #fff;
+	font-size: large;
+	font-weight: normal;
+	letter-spacing: .3em;
+}
+
+table.timecard thead th {
+	padding: 8px;
+	background-color: #8DCBFF;
+	font-size: large;
+}
+
+table.timecard thead th#thDay {
+	width: 40%;	
+}
+
+table.timecard thead th#thRegular, table.timecard thead th#thOvertime, table.timecard thead th#thTotal {
+	width: 20%;
+}
+
+table.timecard th, table.timecard td {
+	padding: 3px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #3356FB #ccc;
+}
+
+table.timecard td {
+	text-align: right;
+}
+
+table.timecard tbody th {
+	text-align: left;
+	font-weight: normal;
+}
+
+table.timecard tfoot {
+	font-weight: bold;
+	font-size: large;
+	background-color: #687886;
+	color: #fff;
+}
+
+table.timecard tr.even {
+	background-color: #fde9d9;
+}
+
+input[type=text], select {
+  width: 100%;
+ padding: 0px 0px;
+  margin: 0px 0;
+  display: inline-block;
+  border: 1px solid #FFFFFF;
+  border-radius: 4px;
+}
+
+
+
     </style>
 
 </head>
@@ -1210,93 +1274,123 @@ while( $line2= mysqli_fetch_assoc($result))
 
 
 <div id="dialog-form" title="Prüfungsfenster">
-
-    <p class="validateTips">Bitte Felder ausfüllen oder ändern</p>
-
+	
 
 
-    <form>
-		 <fieldset>
+<table class="timecard"  border="0">
+  <caption>
+    Prüfungsdaten
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Prüfungsname:</td>
+      <td colspan="2"><input type="text" name="title" id="title" value="<?php echo $_GET['i'];?>" width="400px" readonly></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Kurs:</td>
+      <td colspan="2"><input type="text" name="kursid" id="kursid" value="<?php echo $_GET['g'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+    <tr>
+		<td style="width: 150px; font-size: 12px; font-weight: bold;">Startdatum und Zeit:</td>
+			
+      <td><input type="date" name="startdate" id="startdate" value="<?php echo $_GET['h'];?>"  class="text ui-widget-content ui-corner-all" readonly></td></td>
+      <td><input type="time" name="starttime" id="starttime" value="<?php echo $_GET['j'];?>"  class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Enddatum und Zeit:</td>
+      <td><input type="date" name="enddate" id="enddate" value="<?php echo $_GET['k'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+      <td><input type="time" name="endtime" id="endtime" value="<?php echo $_GET['l'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+	 <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Gewichtung:</td>
+      <td><input type="text" name="gewicht" id="gewicht" value="<?php echo $_GET['e'];?>" class="text ui-widget-content ui-corner-all" readonly ></td>
+      <td style="padding-left: 5px;padding-bottom:3px; font-size: 10px;">Wert 1 entspricht einfacher Gewichtung</td>
+    </tr>
+	
+  </tbody>
+</table>
 
-            <label for="Title">Prüfungsname:</label>
+<table class="timecard"  border="0">
+  <caption>
+    Ort und Aufsicht
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Zimmer:</td>
+      <td> <input type="text" name="zimmer" id="zimmer" value="<?php echo $_GET['m'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+    </tr>
+	  <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Lehrperson:</td>
+      <td><input type="text" name="lehrperson" id="lehrperson" value="<?php echo $_GET['o'];?>" class="text ui-widget-content ui-corner-all" readonly></td>
+		
+    </tr>
+   
+	
+  </tbody>
+</table>	
+<!--
+<table class="timecard"  border="0">
+  <caption>
+    Lernziele
+  </caption>
+  <tbody>
+    <tr>
+      <td><input type="textarea" name="lernziele" id="lernziele" value="" class="text ui-widget-content ui-corner-all" ></td>
+      
+    </tr>
 
-            <br>
+   
+  </tbody>
+</table>
 
-            <input type="text" name="title" id="title" value="" width="400px" readonly">
+   
+		
 
-            <br>
+        
 
-            <label for="start">Startdatum und Zeit:</label>
 
-            <br>
+-->
+   
 
-            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" readonly>
 
-            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" readonly>
 
-            <br>
+ <fieldset>
 
-            <label for="end">Enddatum und Zeit:</label>
+            
 
-            <br>
+             <input type="hidden" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" readonly >
 
-            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-             <label for="gewicht">Gewichtung:</label>
+            <input type="hidden" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-             <br>
+    
 
-             <input type="text" name="gewicht" id="gewicht" value="" class="text ui-widget-content ui-corner-all" readonly >
-
-             <br>
-
-             <br>
-
-            <label for="kursid">KursID:</label>
-
-            <br>
-
-            <input type="text" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-            <label for="kursname">Kursname:</label>
-
-            <br>
+       
 
             <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <br>
+    
 
-            <label for="klasse">Klasse:</label>
+      
+            <input type="hidden" name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <br>
+    
 
-            <input type="text" name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" readonly>
+        
 
-            <br>
+            <input type="hidden" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" readonly>
 
-            <label for="zimmer">Zimmer:</label>
+     
 
-            <br>
+   
 
-            <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-            <label for="lehrperson">Lehrperson:</label>
+            <input type="hidden" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" readonly>
 
             <br>
 
-            <input type="text" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" readonly>
-
-            <br>
-
-          
-
-            <br>
+            
+           
 
             <input type="hidden" name="farbe" id="farbe" value="" class="text ui-widget-content ui-corner-all" readonly>
 
@@ -1307,7 +1401,7 @@ while( $line2= mysqli_fetch_assoc($result))
 
 
 
-    </form>
+
 
 </div>
 
@@ -1445,6 +1539,18 @@ mysqli_query($con,$delOlder);
 
 
     }
+
+function myFunction3(str) {
+	  
+  if (str.value.indexOf(",")>0)
+    {
+	 x = str.value;
+  	 y = x.replace(",", ".");				  
+     alert( 'Bitte "." statt "," verwenden!');
+	 str.value=y;				  															 
+	}
+}
+
 
 
 </script>

@@ -38,6 +38,9 @@ if ($_POST['Senden']) {
             if ( $Note <> 0) {
                  $Update = 0;
                 
+				if($Note!=str_replace(",","",$Note)) echo "Punkt statt Komma verwenden!";
+				else{
+				
                 $isEntry1 = "SELECT  Datum,Name From sv_Noten where KursID='$Kursname' and SchuelerID='$ID' ";
                 $result1 = mysqli_query($con, $isEntry1);
 
@@ -53,7 +56,7 @@ if ($_POST['Senden']) {
                         $Update = 1;
                     }
                 }
-                }
+                
                 if ($Update == 0) {
 					
                    
@@ -75,10 +78,11 @@ if ($_POST['Senden']) {
                     echo "Eintrag hinzugefügt.";
 
                 }
-
-
+				}
+			}
+			}
       }
-    }
+    
 
 header('Location:'.$_SERVER['HTTP_REFERER']);
 ?>

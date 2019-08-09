@@ -1,54 +1,3 @@
-<script>
-function semchange(){
-		
-      var r = confirm("Soll das aktuelle Semester wirklich beendet werden(alle Kurse,Abwesenheiten und Noten werden archiviert und werden im System auch nur noch im Archiv sichtbar sein?");
-       if (r == true) {
- 
-
-
-        
-
-      
-
-            if (window.XMLHttpRequest) {
-
-                // code for IE7+, Firefox, Chrome, Opera, Safari
-
-                xmlhttp = new XMLHttpRequest();
-
-            } else {
-
-                // code for IE6, IE5
-
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-
-            }
-
-            xmlhttp.onreadystatechange = function() {
-
-                if (this.readyState == 4 && this.status == 200) {
-
-                    document.getElementById("semchange").innerHTML = this.responseText;
-
-                }
-
-            };
-		   
-		  
-
-            xmlhttp.open("GET","/Ajax_Scripts/semchange.php?k="+ document.getElementById('Semkuerzelchange').value,true);
-
-            xmlhttp.send();
-
-        }
-
-		
-	}
-		
-	
-
-</script>
-
 <?php
 
 include 'db.php';
@@ -109,8 +58,7 @@ while( $value= mysqli_fetch_array($result)) {
     <br />
 
     <select name="Semesterkuerzel" id="Semesterkuerzel"  value="<?php echo $Semesterkuerzel;?>" required="required">
-        <option>FS<?php echo date("y");?></option>
-        <option>WS<?php echo date("y");?></option>
+        <option><?php echo $Semesterkuerzel;?></option>
         <option>FS<?php echo date("y")+1;?></option>
         <option>WS<?php echo date("y")+1;?></option>
         <option>FS<?php echo date("y")+2;?></option>
@@ -160,51 +108,10 @@ while( $value= mysqli_fetch_array($result)) {
     bis:
     <input name="Ferien5bis" type="date" value="<?php echo $Ferien5bis ?>" />
     <br>
-	<br>
-	
+    <br>
     <input name="Senden" type="submit" value="Senden"  /></form>
-	<br>
-	<br>
-	<br>
-	<h3>Semesterwechsel:</h3>
-	<br>
-	<br>
-	Bitte das zu beendende Semester wählen:
-	<br>
-	<select name="Semkuerzelchange" id="Semkuerzelchange"  value="<?php echo $Semesterkuerzel;?>" required="required">
-        <option>FS<?php echo date("y");?></option>
-        <option>WS<?php echo date("y");?></option>
-        <option>FS<?php echo date("y")+1;?></option>
-        <option>WS<?php echo date("y")+1;?></option>
-        <option>FS<?php echo date("y")+2;?></option>
-        <option>WS<?php echo date("y")+2;?></option>
-    </select>
-	<br>
-<br>
-    <button   Semesterwechsel id="semchangebtn" onclick="semchange()">Semesterwechsel</button>
-	<br>
-	<br>
-	<div id="semchange"></div>
-	<br>
-	<br>
 
-	
 
-<style>
-	body {
-		font-family: "Dosis", "Helvetica Neue", sans-serif;
-		color: #232323;
-	}
-	
-	#calendar {
-		max-width: 900px;
-		margin: 0 auto;
-	}
-button {
-          color: white;
-        }
-	
-</style>
 
 </body>
 

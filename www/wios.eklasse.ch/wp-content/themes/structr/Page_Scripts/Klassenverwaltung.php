@@ -1,6 +1,13 @@
 
 
 <script> function insert(z){
+		
+		var str =document.getElementById("klasse").value;
+		if (/\s/.test(str))
+			{		
+			alert('Bitte keine Leerzeichen verwenden!');
+			}
+		else{
 		if (document.getElementById("klasse").value != ""){
 		if (document.getElementById("AnzahlSch").value!="")
 			{
@@ -39,6 +46,7 @@ document.getElementById("add").style.visibility = "hidden";
 		}
 		else alert('die zu erstellende Klasse hat keinen Namen!');
         }
+	}
 	
 	 
 

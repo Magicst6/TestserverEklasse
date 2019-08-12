@@ -49,9 +49,33 @@ for($y = 1; $y < 7; $y++)   {
             $Tag= 'Samstag';
             break;
     }
+	
     $ZeitStdpln=$semester."_ZeitenStundenplan";
-    $KurseDB=$semester."_Kurse";
+    $isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
+
+    while ($line1 = mysqli_fetch_array($result)) {
+
+        $semDB=$line1['Semesterkuerzel'];
+
+    }
+
+preg_match("/:(.*)/", $Lehrer, $output_array);
+$Lehrer=$output_array[1];
+
+if ($semester==$semDB){
+    $KurseDB="sv_Kurse";
+    $LPs="sv_Lehrpersonen";
+
+} else{
+
+   $KurseDB=$semester."_Kurse";
     $LPs=$semester."_Lehrpersonen";
+
+}
+
+
+	
 
 
     $isEntry = "Select KursID,Kursname,Uhrzeit From $KurseDB Where Klasse='$Klasse' and Tag='$Tag' ";

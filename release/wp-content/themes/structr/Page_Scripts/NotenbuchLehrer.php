@@ -42,161 +42,278 @@
 	var table1;
 	var tableedit;
 	var editor;
+	var table2;
 	$(document).ready(function() {
-$.fn.dataTable.ext.errMode = 'throw';
-		table = $( '.datatables' ).DataTable( {
 
-
-			ajax: {
-
-				url: new_url,
-
-				dataSrc: ""
-			},
-			columns: [ {
-					className: 'details-control',
-					defaultContent: '',
-					data: null,
-					orderable: false
-				},
-
-				
-				{
-					data: 'IDSchueler'
-				},
-					  {
-					data: 'Nachname'
-				},
-					  {
-					data: 'Vorname'
-				},
-					  {
-					data: 'Notenschnitt'
-				},
-					    	  {
-					className: 'details-control1',
-					defaultContent: '',
-					data: null,
-					orderable: false,
-								  title:' Noten Bearbeiten'
-								  
-								  
-				},
-					  
-					    {
-					className: 'details-control2',
-					defaultContent: '',
-					data: null,
-					orderable: false,
-							  title:'Neue Note erstellen'
-				},
-			],
-
-		} );
-		table1 = $( '.datatables1' ).DataTable( {
-
-
-			ajax: {
-
-				url: new_url1,
-
-				dataSrc: ""
-			},
-			
-			columns: [ {
-					className: 'details-control',
-					defaultContent: '',
-					data: null,
-					orderable: false,
-				
-				},
-					  
-				{
-					data: 'SchuelerID'
-				},
-					  {
-					data: 'Nachname'
-				},
-					  {
-					data: 'Vorname'
-				},
-					  {
-					data: 'AbwesenheitenGesamt'
-				}
-					
-
-			],
-
-
-		} );
-
-		$( '.datatables tbody' ).on( 'click', 'td.details-control', function () {
-			var tr = $( this ).closest( 'tr' ),
-				row = table.row( tr );
-
-			if ( row.child.isShown() ) {
-				tr.next( 'tr' ).removeClass( 'details-row' );
-				row.child.hide();
-				tr.removeClass( 'shown' );
-			} else {
-				row.child( format( row.data() ) ).show();
-				tr.next( 'tr' ).addClass( 'details-row' );
-				tr.addClass( 'shown' );
-			}
-		} );
-		
-		$( '.datatables tbody' ).on( 'click', 'td.details-control1', function () {
-			var tr = $( this ).closest( 'tr' ),
-				row = table.row( tr );
-
-			
-		
-				row.child( showNoten( row.data() ) ).show();
-				tr.next( 'tr' ).addClass( 'details-row' );
-				tr.addClass( 'shown' );
-			
-			
-		} );
-
-			$( '.datatables tbody' ).on( 'click', 'td.details-control2', function () {
-			var tr = $( this ).closest( 'tr' ),
-				row = table.row( tr );
-
-			  
-		
-				row.child( neueNote( row.data() ) ).show();
-				tr.next( 'tr' ).addClass( 'details-row' );
-				tr.addClass( 'shown' );
-			
-		} );
-
-		
-		$( '.datatables1 tbody' ).on( 'click', 'td.details-control', function () {
-			var tr = $( this ).closest( 'tr' ),
-				row = table1.row( tr );
-
-			if ( row.child.isShown() ) {
-				tr.next( 'tr' ).removeClass( 'details-row' );
-				row.child.hide();
-				tr.removeClass( 'shown' );
-			} else {
-				row.child( format1( row.data() ) ).show();
-				tr.next( 'tr' ).addClass( 'details-row' );
-				tr.addClass( 'shown' );
-			}
-		} );
-
-		
-		
-   
-   
-     
-   
 	
 	});
-	
- 
-		//var data= [{"Note":"6","Name":"dsgs","Gewichtung":"0","Datum":"2019-06-16"},{"Note":"2","Name":"dsgs","Gewichtung":"0","Datum":"2019-06-16"},{"Note":"3.7","Name":"dsgs","Gewichtung":"25","Datum":"2019-06-16"}]  ;
+
+	 function loadtables(){
+    $.fn.dataTable.ext.errMode = 'throw';
+    table = $( '.datatables' ).DataTable( {
+
+
+        ajax: {
+
+            url: new_url,
+
+            dataSrc: ""
+        },
+        columns: [ {
+            className: 'details-control',
+            defaultContent: '',
+            data: null,
+            orderable: false
+        },
+
+
+            {
+                data: 'IDSchueler'
+            },
+            {
+                data: 'Nachname'
+            },
+            {
+                data: 'Vorname'
+            },
+            {
+                data: 'Notenschnitt'
+            },
+            {
+                className: 'details-control1',
+                defaultContent: '',
+                data: null,
+                orderable: false,
+                title:' Noten Bearbeiten'
+
+
+            },
+
+            {
+                className: 'details-control2',
+                defaultContent: '',
+                data: null,
+                orderable: false,
+                title:'Neue Note erstellen'
+            },
+        ],
+
+    } );
+    table1 = $( '.datatables1' ).DataTable( {
+
+
+        ajax: {
+
+            url: new_url1,
+
+            dataSrc: ""
+        },
+
+        columns: [ {
+            className: 'details-control',
+            defaultContent: '',
+            data: null,
+            orderable: false,
+
+        },
+
+            {
+                data: 'SchuelerID'
+            },
+            {
+                data: 'Nachname'
+            },
+            {
+                data: 'Vorname'
+            },
+            {
+                data: 'AbwesenheitenGesamt'
+            }
+
+
+        ],
+
+
+    } );
+
+    $( '.datatables tbody' ).on( 'click', 'td.details-control', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+            tr.next( 'tr' ).removeClass( 'details-row' );
+            row.child.hide();
+            tr.removeClass( 'shown' );
+        } else {
+            row.child( format( row.data() ) ).show();
+            tr.next( 'tr' ).addClass( 'details-row' );
+            tr.addClass( 'shown' );
+        }
+    } );
+
+    $( '.datatables tbody' ).on( 'click', 'td.details-control1', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table.row( tr );
+
+
+
+        row.child( showNoten( row.data() ) ).show();
+        tr.next( 'tr' ).addClass( 'details-row' );
+        tr.addClass( 'shown' );
+
+
+    } );
+
+    $( '.datatables tbody' ).on( 'click', 'td.details-control2', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table.row( tr );
+
+
+
+        row.child( neueNote( row.data() ) ).show();
+        tr.next( 'tr' ).addClass( 'details-row' );
+        tr.addClass( 'shown' );
+
+    } );
+
+
+    $( '.datatables1 tbody' ).on( 'click', 'td.details-control', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table1.row( tr );
+
+        if ( row.child.isShown() ) {
+            tr.next( 'tr' ).removeClass( 'details-row' );
+            row.child.hide();
+            tr.removeClass( 'shown' );
+        } else {
+            row.child( format1( row.data() ) ).show();
+            tr.next( 'tr' ).addClass( 'details-row' );
+            tr.addClass( 'shown' );
+        }
+    } );
+
+    }
+
+    function loadtablesUneditable(){
+        $.fn.dataTable.ext.errMode = 'throw';
+        table = $( '.datatables' ).DataTable( {
+
+
+            ajax: {
+
+                url: new_url,
+
+                dataSrc: ""
+            },
+            columns: [ {
+                className: 'details-control',
+                defaultContent: '',
+                data: null,
+                orderable: false
+            },
+
+
+                {
+                    data: 'IDSchueler'
+                },
+                {
+                    data: 'Nachname'
+                },
+                {
+                    data: 'Vorname'
+                },
+                {
+                    data: 'Notenschnitt'
+                },
+                {
+                     data: 'empty'
+                },
+                {
+                    data: 'empty'
+                }
+
+
+            ],
+
+        } );
+        table1 = $( '.datatables1' ).DataTable( {
+
+
+            ajax: {
+
+                url: new_url1,
+
+                dataSrc: ""
+            },
+
+            columns: [ {
+                className: 'details-control',
+                defaultContent: '',
+                data: null,
+                orderable: false,
+
+            },
+
+                {
+                    data: 'SchuelerID'
+                },
+                {
+                    data: 'Nachname'
+                },
+                {
+                    data: 'Vorname'
+                },
+                {
+                    data: 'AbwesenheitenGesamt'
+                }
+
+
+            ],
+
+
+        } );
+
+        $( '.datatables tbody' ).on( 'click', 'td.details-control', function () {
+            var tr = $( this ).closest( 'tr' ),
+                row = table.row( tr );
+
+            if ( row.child.isShown() ) {
+                tr.next( 'tr' ).removeClass( 'details-row' );
+                row.child.hide();
+                tr.removeClass( 'shown' );
+            } else {
+                row.child( format( row.data() ) ).show();
+                tr.next( 'tr' ).addClass( 'details-row' );
+                tr.addClass( 'shown' );
+            }
+        } );
+
+
+
+
+        $( '.datatables1 tbody' ).on( 'click', 'td.details-control', function () {
+            var tr = $( this ).closest( 'tr' ),
+                row = table1.row( tr );
+
+            if ( row.child.isShown() ) {
+                tr.next( 'tr' ).removeClass( 'details-row' );
+                row.child.hide();
+                tr.removeClass( 'shown' );
+            } else {
+                row.child( format1( row.data() ) ).show();
+                tr.next( 'tr' ).addClass( 'details-row' );
+                tr.addClass( 'shown' );
+            }
+        } );
+
+    }
+
+
+
+
+
+
+    //var data= [{"Note":"6","Name":"dsgs","Gewichtung":"0","Datum":"2019-06-16"},{"Note":"2","Name":"dsgs","Gewichtung":"0","Datum":"2019-06-16"},{"Note":"3.7","Name":"dsgs","Gewichtung":"25","Datum":"2019-06-16"}]  ;
 
 		$( '#divTable' ).hide();
 
@@ -375,8 +492,8 @@ function neueNote( data ) {
 		};
 
 
-		var new_url = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value;
-		var new_url1 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value;
+		var new_url = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semester" ).value;
+		var new_url1 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semester" ).value;
 
 
       
@@ -734,7 +851,6 @@ function tableshowne() {
 
 
 
-
 		
  
 	
@@ -831,9 +947,24 @@ while( $line2= mysqli_fetch_assoc($result))
 
 }
 
+
+
+
 ?>
 
 <br><br>
+
+Wählen Sie das Semester aus :
+<br>
+<select name="semester" id="semester" onchange="getKursname()"  required="required">
+    <option>--Select--</option>
+    <option>FS<?php echo date("y");?></option>
+    <option>WS<?php echo date("y");?></option>
+    <option>FS<?php echo date("y")-1;?></option>
+    <option>WS<?php echo date("y")-1;?></option>
+    <option>FS<?php echo date("y")+1;?></option>
+    <option>WS<?php echo date("y")+1;?></option>
+</select>
 
 <br><br>
 Kursname:
@@ -841,63 +972,25 @@ Kursname:
  
 <select id="Kursname" name="Kursname" required="required"  onchange="tableshow()">
 
-    <?php
 
-    include 'db.php';
-
-    
-
-    preg_match("/:(.*)/", $Lehrer, $output_array);
-
-    $Lehrer=$output_array[1];
-
-
-
-    $y=0;
-
-
-
-
-
-
-
-    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16 From sv_Lehrpersonen Where ID = $Lehrer";
-
-    $result = mysqli_query($con,$isEntry);
-
-
-
-
-
-    echo "<option>" . '-Select-' . "</option>";
-
-
-
-    while( $line2= mysqli_fetch_array($result))
-
-    {
-
-        for($x = 1; $x <= 16; $x++)
-
-        {
-
-
-
-            $value = $line2['Kurs'.$x];
-
-            if ($value<>"") echo "<option>" . $value . "</option>";
-
-
-
-        }
-
-    }
-
-    ?>
 </select>
 
 
 <br><br>
+
+<?
+include 'db.php';
+$isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
+
+while ($line1 = mysqli_fetch_array($result)) {
+
+    $semDB=$line1['Semesterkuerzel'];
+
+}
+
+?>
+<input id="semDB" type="hidden" value="<? echo $semDB; ?>" >
 
 <h1>Noten</h1>
 
@@ -926,6 +1019,9 @@ Kursname:
 		</div>
 	</div>
 </div>
+<br><br>
+
+
 <br><br>
 <h1>Abwesenheiten</h1>
 
@@ -1017,7 +1113,7 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
 			Prüfungsname:<br>
             <input id="Namecr" type="Text"  required="required" />
             <br><br>
-			Gewichtung(in % ->100 = 100%):<br>
+			Gewichtung(1 => Normalnote):<br>
             <input id="Gewichtungcr" type="number"  required="required" />
             <br><br>
 			Datum:<br>
@@ -1179,11 +1275,39 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
 }
 	
 	 function tableshow() {
-		var new_url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value;
-		var new_url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value;
+		var new_url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semester" ).value;
+		var new_url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semester" ).value;
 
-   table1.clear()
-		.draw();
+
+         if ( tableedit ) {
+             tableedit.destroy();
+         }
+
+         if ( editor ) {
+             editor.destroy();
+         }
+
+         if ( table ) {
+             table.destroy();
+         }
+
+
+         if ( table1 ) {
+             table1.destroy();
+         }
+
+         loadeditor();
+
+
+         loadtable();
+         if (document.getElementById('semester').value == document.getElementById('semDB').value){
+
+             loadtables();
+         }else {
+
+             loadtablesUneditable();
+
+         }
 		table.ajax.url( new_url3 ).load();
 		table1.ajax.url( new_url4 ).load();
 	}
@@ -1215,6 +1339,47 @@ function sendNote(){
 	
 	tableshow();
 	}
+
+        function getK() {
+
+            alert();
+        }
+
+        function getKursname(){
+
+
+
+
+            if (window.XMLHttpRequest) {
+
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+
+                xmlhttp = new XMLHttpRequest();
+
+            } else {
+
+                // code for IE6, IE5
+
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+
+            xmlhttp.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                    document.getElementById("Kursname").innerHTML = this.responseText;
+
+                }
+
+            };
+
+            xmlhttp.open("GET","/Ajax_Scripts/getKursnameLehrer.php?q="+ document.getElementById('lehrer').value + "&s="  +  document.getElementById('semester').value,true);
+
+            xmlhttp.send();
+
+        }
+
 
 </script>
 <style>

@@ -50,13 +50,12 @@
 	 var table;
 		var table1;
 	$(document).ready(function() {
-  
- 
-	//var data= [{"Note":"6","Name":"dsgs","Gewichtung":"0","Datum":"2019-06-16"},{"Note":"2","Name":"dsgs","Gewichtung":"0","Datum":"2019-06-16"},{"Note":"3.7","Name":"dsgs","Gewichtung":"25","Datum":"2019-06-16"}]  ;
-	
- 
-  
- // function format (data) {
+
+
+        //var data= [{"Note":"6","Name":"dsgs","Gewichtung":"0","Datum":"2019-06-16"},{"Note":"2","Name":"dsgs","Gewichtung":"0","Datum":"2019-06-16"},{"Note":"3.7","Name":"dsgs","Gewichtung":"25","Datum":"2019-06-16"}]  ;
+
+
+        // function format (data) {
 //	  var i;  
 //	  var note=null;
 //	  
@@ -95,83 +94,82 @@
 //	  return note;
 //  };
 //  
-		var new_url= "/wp-content/themes/structr/Page_Scripts/GetKurse_Archiv.php?q="+document.getElementById("Semester").value;
-			var new_url1= "/wp-content/themes/structr/Page_Scripts/GetKurshistorie_Archiv.php?q="+document.getElementById("Semester").value;
-                   
-		
-  table = $('.datatables').DataTable({
-	      dom: 'lBfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-      
-	
-	    ajax: {
-			
-			url: new_url,
-			
-            dataSrc: ""
-			
-        },
-    columns : [
-      {
-        className      : 'details-control',
-        defaultContent : '',
-        data           : null,
-        orderable      : false
-      },
-      {data : 'ID'},
-		{data : 'Klasse'},
-		{data : 'Kursname'},
-		{data : 'KursID'},
-		{data : 'Tag'},
-		{data : 'Uhrzeit'},
-		{data : 'Startdatum'},
-		{data : 'Enddatum'},
-		{data : 'Lehrperson'}
-		
-		
-    ],
-    
-  
-  });
-		 table1 = $('.datatables1').DataTable({
-      
-	     dom: 'lBfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
+        var new_url = "/wp-content/themes/structr/Page_Scripts/GetKurse_Archiv.php?q=" + document.getElementById("Semester").value;
+        var new_url1 = "/wp-content/themes/structr/Page_Scripts/GetKurshistorie_Archiv.php?q=" + document.getElementById("Semester").value;
 
-	
-	    ajax: {
-			
-			url: new_url1,
-			
-            dataSrc: ""
-			
-        },
-    columns : [
-      {
-        //className      : 'details-control',
-      data : 'ID',
-        
-        orderable      : false
-      },
-      
-		{data : 'Stattgefunden'},
-		{data : 'Datum'},
-		{data : 'KursID'},
-		{data : 'Lehrer'},
-		{data : 'Kommentar'},
-		{data : 'Lektionen'}
-		
-		
-		
-    ],
-    
-  
-  });
- 
+
+        table = $('.datatables').DataTable({
+            dom: 'lBfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+
+
+            ajax: {
+
+                url: new_url,
+
+                dataSrc: ""
+
+            },
+            columns: [
+                {
+                    className: 'details-control',
+                    defaultContent: '',
+                    data: null,
+                    orderable: false
+                },
+                {data: 'ID'},
+                {data: 'Klasse'},
+                {data: 'Kursname'},
+                {data: 'KursID'},
+                {data: 'Tag'},
+                {data: 'Uhrzeit'},
+                {data: 'Startdatum'},
+                {data: 'Enddatum'},
+                {data: 'Lehrperson'}
+
+
+            ],
+
+
+        });
+        table1 = $('.datatables1').DataTable({
+
+            dom: 'lBfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+
+
+            ajax: {
+
+                url: new_url1,
+
+                dataSrc: ""
+
+            },
+            columns: [
+                {
+                    //className      : 'details-control',
+                    data: 'ID',
+
+                    orderable: false
+                },
+
+                {data: 'Stattgefunden'},
+                {data: 'Datum'},
+                {data: 'KursID'},
+                {data: 'Lehrer'},
+                {data: 'Kommentar'},
+                {data: 'Lektionen'}
+
+
+            ],
+
+
+        });
+
 //  $('.datatables tbody').on('click', 'td.details-control', function () {
 //     var tr  = $(this).closest('tr'),
 //         row = table.row(tr);
@@ -187,16 +185,125 @@
 //       tr.addClass('shown');
 //     }
 //  });
- 
 
-	
-		});
-		
+
+    });
+
+
+	function loadtable(){
+
+     var new_url= "/wp-content/themes/structr/Page_Scripts/GetKurse_Archiv.php?q="+document.getElementById("Semester").value;
+     var new_url1= "/wp-content/themes/structr/Page_Scripts/GetKurshistorie_Archiv.php?q="+document.getElementById("Semester").value;
+
+
+     table = $('.datatables').DataTable({
+         dom: 'lBfrtip',
+         buttons: [
+             'copy', 'csv', 'excel', 'pdf', 'print'
+         ],
+
+
+         ajax: {
+
+             url: new_url,
+
+             dataSrc: ""
+
+         },
+         columns : [
+             {
+                 className      : 'details-control',
+                 defaultContent : '',
+                 data           : null,
+                 orderable      : false
+             },
+             {data : 'ID'},
+             {data : 'Klasse'},
+             {data : 'Kursname'},
+             {data : 'KursID'},
+             {data : 'Tag'},
+             {data : 'Uhrzeit'},
+             {data : 'Startdatum'},
+             {data : 'Enddatum'},
+             {data : 'Lehrperson'}
+
+
+         ],
+
+
+     });
+     table1 = $('.datatables1').DataTable({
+
+         dom: 'lBfrtip',
+         buttons: [
+             'copy', 'csv', 'excel', 'pdf', 'print'
+         ],
+
+
+         ajax: {
+
+             url: new_url1,
+
+             dataSrc: ""
+
+         },
+         columns : [
+             {
+                 //className      : 'details-control',
+                 data : 'ID',
+
+                 orderable      : false
+             },
+
+             {data : 'Stattgefunden'},
+             {data : 'Datum'},
+             {data : 'KursID'},
+             {data : 'Lehrer'},
+             {data : 'Kommentar'},
+             {data : 'Lektionen'}
+
+
+
+         ],
+
+
+     });
+
+     //  $('.datatables tbody').on('click', 'td.details-control', function () {
+     //     var tr  = $(this).closest('tr'),
+     //         row = table.row(tr);
+     //
+     //     if (row.child.isShown()) {
+     //       tr.next('tr').removeClass('details-row');
+     //       row.child.hide();
+     //       tr.removeClass('shown');
+     //     }
+     //     else {
+     //       row.child(format(row.data())).show();
+     //       tr.next('tr').addClass('details-row');
+     //       tr.addClass('shown');
+     //     }
+     //  });
+
+
+
+     }
+
 function tableshow(){
 		var new_url= "/wp-content/themes/structr/Page_Scripts/GetKurse_Archiv.php?q="+document.getElementById("Semester").value;
 	var new_url1= "/wp-content/themes/structr/Page_Scripts/GetKurshistorie_Archiv.php?q="+document.getElementById("Semester").value;
-	
-		
+
+    if ( table ) {
+        table.destroy();
+    }
+
+    if ( table1 ) {
+        table1.destroy();
+    }
+
+
+
+    loadtable();
                     
 		
 	table.ajax.url( new_url ).load();

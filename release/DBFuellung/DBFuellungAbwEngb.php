@@ -94,14 +94,14 @@ echo "Fehler: Eintrag unvollständig. Bitte neu beginnen!";
 else {
 mysqli_query($con,$sql_befehl);
 
-echo '<meta http-equiv="refresh" content="0; url=/abwesenheitseingabe-ajax" />';
+header('Location:'.$_SERVER['HTTP_REFERER']);
 }
 
 }
 }
 }
 ?>
-<form action="/abwesenheitseingabe-ajax/"> <input type="submit" value="Zurück" /></form>
+
 
 &nbsp;
 

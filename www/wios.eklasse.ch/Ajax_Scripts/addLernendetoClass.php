@@ -126,7 +126,7 @@ for($x = 0; $x < $AnzahlSch; $x++)
 
             }
 
-            echo "<option>". $Vorname .' '. $Name .' ID:'. $value .'"</option>";
+            echo "<option>". $Vorname .' '. $Name .' ID:'. $value ."</option>";
 
         }
 

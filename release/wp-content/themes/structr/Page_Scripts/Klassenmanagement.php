@@ -61,14 +61,17 @@ var	editor1;
 			    type: "readonly"
             }, {
                 label: "User_ID:",
-                name: "User_ID"
+                name: "User_ID",
+				  type: "readonly"
             },
 				{
                 label: "Email:",
-                name: "EMail"
+                name: "EMail",
+					  type: "readonly"
             }, {
                 label: "Loginname:",
-                name: "Loginname"
+                name: "Loginname",
+				  type: "readonly"
             },
 				 {
                 label: "Profil:",
@@ -256,22 +259,27 @@ var	editor1;
                 name: "Name"
             },  {
                 label: "User_ID:",
-                name: "User_ID"
+                name: "User_ID",
+				  type: "readonly"
             },
 				{
                 label: "Email:",
-                name: "EMail"
+                name: "EMail",
+			      type: "readonly"
             }, 
 				 {
                 label: "Profil:",
                 name: "Profil"
+					 
             },{
                 label: "Loginname:",
-                name: "Loginname"
+                name: "Loginname",
+				  type: "readonly"
             },
 				  {
                 label: "Modul1:",
-                name: "Modul1"
+                name: "Modul1",
+				 type: "readonly"
             },
 				  {
                 label: "Modul2:",

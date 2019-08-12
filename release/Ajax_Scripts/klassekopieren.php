@@ -85,6 +85,12 @@
         echo "<th width= 220>".'E-Mail'. "</th>";
 	
 	    echo "<th width= 220>".'User ID'. "</th>";
+	
+	    echo "<th width=200>".'WinLogin'. "</th>";
+
+        echo "<th width= 220>".'SchulMail'. "</th>";
+	
+	    echo "<th width= 220>".'Laptop'. "</th>";
 
 
         echo "</tr>";
@@ -128,23 +134,36 @@
             $Profil=$value['Profil'];
 			
 			$User_ID=$value['User_ID'];
+			
+			$WinLogin=$value['WinLogin'];
+			
+			$SchulMail=$value['SchulMail'];
+			
+			$Laptop=$value['Laptop'];
 
 
 
             echo "<tr>";
 
 
-            echo '<td><input  name="Nachname1'.$y.'"  id="Nachname1'.$y.'" style="width: 200px" type="text"  value='.$Name.' readonly  ></td>';
+            echo '<td><input  name="Nachname1'.$y.'"  id="Nachname1'.$y.'" style="width: 200px" type="text"  readonly   value='.$Name.' ></td>';
 
-            echo '<td><input name="Vorname1'.$y.'"  id="Vorname1'.$y.'" type="text" value='.$Vorname.' style="width: 200px" readonly  ></td>';
+            echo '<td><input name="Vorname1'.$y.'"  id="Vorname1'.$y.'" type="text"  readonly  value='.$Vorname.' style="width: 200px"  ></td>';
 
-            echo '<td><input name="Profil'.$y.'" id="Profil'.$y.'" type="text" style="width: 75px" value='.$Profil.' readonly  ></td>';
+            echo '<td><input name="Profil'.$y.'" id="Profil'.$y.'" type="text"  readonly  style="width: 75px" value='.$Profil.'  ></td>';
 
-            echo '<td><input name="Loginname1'.$y.'" id="Loginname1'.$y.'" type="text" style="width: 200px" value='.$Loginname.' readonly   ></td>';
+            echo '<td><input name="Loginname1'.$y.'" id="Loginname1'.$y.'"  readonly  type="text" style="width: 200px" value='.$Loginname.'  ></td>';
 
-            echo '<td><input name="EMail1'.$y.'" id="EMail1'.$y.'" type="text" style="width: 220px" value='.$EMail.' readonly  ></td>';
+            echo '<td><input name="EMail1'.$y.'" id="EMail1'.$y.'" type="text"  readonly  style="width: 220px" value='.$EMail.'   ></td>';
 			 
-			echo '<td><input name="UserID'.$y.'" id="UserID'.$y.'" type="text" style="width: 220px"  readonly  value='.$User_ID.'  ></td>';
+			echo '<td><input name="UserID'.$y.'" id="UserID'.$y.'" type="text"  readonly  style="width: 220px"  readonly  value='.$User_ID.'  ></td>';
+			
+			echo '<td><input name="WinLogin'.$y.'" id="WinLogin'.$y.'" type="text"    style="width: 220px" value='.$WinLogin.'   ></td>';
+			 
+			echo '<td><input name="SchulMail'.$y.'" id="SchulMail'.$y.'" type="text"    style="width: 220px"  value='.$SchulMail.'  ></td>';
+			
+			echo '<td><input name="Laptop'.$y.'" id="Laptop'.$y.'" type="text"    style="width: 220px"   value='.$Laptop.'  ></td>';
+
 
 
 

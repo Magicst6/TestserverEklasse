@@ -134,8 +134,8 @@
 		};
 
 
-		var new_url = "/wp-content/themes/structr/Page_Scripts/GetNotenValuesSchueler.php?k=" + document.getElementById( "hidschueler" ).value;
-		var new_url1 = "/wp-content/themes/structr/Page_Scripts/GetAbwValuesSchueler.php?k=" + document.getElementById( "hidschueler" ).value;
+		var new_url = "/wp-content/themes/structr/Page_Scripts/GetNotenValuesSchueler.php?k=" + document.getElementById( "hidschueler" ).value+ "&s=" + document.getElementById( "semester" ).value;
+		var new_url1 = "/wp-content/themes/structr/Page_Scripts/GetAbwValuesSchueler.php?k=" + document.getElementById( "hidschueler" ).value+ "&s=" + document.getElementById( "semester" ).value;
 
      $.fn.dataTable.ext.errMode = 'throw';
 
@@ -226,9 +226,10 @@
 	} );
 
 	function tableshow() {
-		var new_url2 = "/wp-content/themes/structr/Page_Scripts/GetNotenValuesSchueler.php?k=" + document.getElementById( "hidschueler" ).value;
+		var new_url2 = "/wp-content/themes/structr/Page_Scripts/GetNotenValuesSchueler.php?k=" + document.getElementById( "hidschueler" ).value + "&s=" + document.getElementById( "semester" ).value;
 
-
+        table.clear()
+            .draw();
 		table.ajax.url( new_url2 ).load();
 	}
 </script>
@@ -351,6 +352,43 @@
 		}
 
 	}
+
+
+    function getKursname(){
+
+
+
+
+
+        if (window.XMLHttpRequest) {
+
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+
+            xmlhttp = new XMLHttpRequest();
+
+        } else {
+
+            // code for IE6, IE5
+
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+        }
+
+        xmlhttp.onreadystatechange = function() {
+
+            if (this.readyState == 4 && this.status == 200) {
+
+                document.getElementById("Kursname").innerHTML = this.responseText;
+
+            }
+
+        };
+
+        xmlhttp.open("GET","/Ajax_Scripts/getKursnameLehrer.php?q="+ document.getElementById('lehrer').value + "&s="  +  document.getElementById('semester').value,true);
+
+        xmlhttp.send();
+
+    }
 </script>
 
 <?php
@@ -438,7 +476,21 @@ while ( $line2 = mysqli_fetch_assoc( $result ) )
 echo '<input  id="hidschueler" name="hidschueler" readonly="readonly" type="hidden" value="' . $value . '" />';
 
 ?>
+<br><br>
 
+Wählen Sie das Semester aus :
+<br>
+<select name="semester" id="semester" onchange="tableshow()"  required="required">
+    <option>-Select-</option>
+    <option>FS<?php echo date("y");?></option>
+    <option>WS<?php echo date("y");?></option>
+    <option>FS<?php echo date("y")-1;?></option>
+    <option>WS<?php echo date("y")-1;?></option>
+    <option>FS<?php echo date("y")+1;?></option>
+    <option>WS<?php echo date("y")+1;?></option>
+</select>
+
+<br><br>
 
 <br><br>
 

@@ -199,15 +199,128 @@
 
 	
 		});
+
+	function loadtable(){
+
+     var new_url= "/wp-content/themes/structr/Page_Scripts/GetLernendeModule_Archiv.php?q="+document.getElementById("Semester").value;
+     var new_url1= "/wp-content/themes/structr/Page_Scripts/GetLernende_Archiv.php?q="+document.getElementById("Semester").value;
+
+
+     $.fn.dataTable.ext.errMode = 'throw';
+     table = $('.datatables').DataTable({
+         dom: 'lBfrtip',
+         buttons: [
+             'copy', 'csv', 'excel', 'pdf', 'print'
+         ],
+
+
+         ajax: {
+
+             url: new_url,
+
+             dataSrc: ""
+
+         },
+         columns : [
+             {
+                 className      : 'details-control',
+                 defaultContent : '',
+                 data           : null,
+                 orderable      : false
+             },
+             {data : 'ID'},
+             {data : 'Name'},
+             {data : 'Vorname'},
+             {data : 'User ID'},
+             {data : 'EMail'},
+             {data : 'Profil'},
+             {data : 'Modul1'},
+             {data : 'Modul2'},
+             {data : 'Modul3'},
+             {data : 'Modul4'},
+             {data : 'Modul5'}
+
+
+
+         ],
+
+
+     });
+     table1 = $('.datatables1').DataTable({
+
+         dom: 'lBfrtip',
+         buttons: [
+             'copy', 'csv', 'excel', 'pdf', 'print'
+         ],
+
+
+         ajax: {
+
+             url: new_url1,
+
+             dataSrc: ""
+
+         },
+         columns : [
+             {
+                 className      : 'details-control',
+                 defaultContent : '',
+                 data           : null,
+                 orderable      : false
+
+             },
+
+             {data : 'ID'},
+             {data : 'Klasse'},
+             {data : 'Name'},
+             {data : 'Vorname'},
+             {data : 'User ID'},
+             {data : 'EMail'},
+             {data : 'Loginname'},
+             {data : 'Profil'},
+             {data : 'Status'}
+
+
+
+         ],
+
+
+     });
+
+     //  $('.datatables tbody').on('click', 'td.details-control', function () {
+     //     var tr  = $(this).closest('tr'),
+     //         row = table.row(tr);
+     //
+     //     if (row.child.isShown()) {
+     //       tr.next('tr').removeClass('details-row');
+     //       row.child.hide();
+     //       tr.removeClass('shown');
+     //     }
+     //     else {
+     //       row.child(format(row.data())).show();
+     //       tr.next('tr').addClass('details-row');
+     //       tr.addClass('shown');
+     //     }
+     //  });
+
+
+
+     }
 		
 function tableshow(){
 		var new_url= "/wp-content/themes/structr/Page_Scripts/GetLernendeModule_Archiv.php?q="+document.getElementById("Semester").value;
 	var new_url1= "/wp-content/themes/structr/Page_Scripts/GetLernende_Archiv.php?q="+document.getElementById("Semester").value;
-	
-		
-                    
-		
-	table.ajax.url( new_url ).load();
+
+    if ( table ) {
+        table.destroy();
+    }
+    if ( table1 ) {
+        table1.destroy();
+    }
+
+loadtable();
+
+    table.ajax.url( new_url ).load();
 	table1.ajax.url( new_url1 ).load();
 }		
 		

@@ -119,7 +119,7 @@ $x=1;
 
         if ($x==1 and $ID2=="") {
             $Klasse1=$row1['Klasse'];
-            $query1 = "INSERT INTO sv_LernendeModule (Name, Vorname,EMail,Profil,User_ID,ID,Loginname,WinLogin,SchulMail,,Modul1)  VALUES ('$Name', '$Vorname', '$EMail','$Profil','$UserID','$ID','$Loginname','$WinLogin','$SchulMail','$Klasse1')";
+            $query1 = "INSERT INTO sv_LernendeModule (Name, Vorname,EMail,Profil,User_ID,ID,Loginname,WinLogin,SchulMail,Modul1)  VALUES ('$Name', '$Vorname', '$EMail','$Profil','$UserID','$ID','$Loginname','$WinLogin','$SchulMail','$Klasse1')";
             mysqli_query($con, $query1);
             $x++;
         }

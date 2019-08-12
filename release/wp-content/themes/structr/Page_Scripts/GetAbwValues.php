@@ -12,10 +12,32 @@ $Kursname = $_GET[ 'k' ];
 //$ID = $_GET[ 'k' ];
 $Lehrer = $_GET[ 'l' ];
 
+$semester=$_GET['s'];
+$isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
+
+while ($line1 = mysqli_fetch_array($result)) {
+
+    $semDB=$line1['Semesterkuerzel'];
+
+}
+
+$AbwArch=$semester."_AbwesenheitenKompakt";
+
+
 preg_match( "/:(.*)/", $Lehrer, $output_array );
 $Lehrer = $output_array[ 1 ];
 
-$isEntry = "Select * From sv_AbwesenheitenKompakt where Kursname='$Kursname'  Group by SchülerID order by Nachname asc ";
+if ($semester==$semDB){
+    $isEntry = "Select * From sv_AbwesenheitenKompakt where Kursname='$Kursname'  Group by SchülerID order by Nachname asc ";
+
+} else{
+
+    $isEntry = "Select * From $AbwArch where Kursname='$Kursname'  Group by SchülerID order by Nachname asc ";
+
+}
+
+
 $result = mysqli_query( $con, $isEntry );
 $events = array();
 
@@ -23,8 +45,15 @@ while ( $line2 = mysqli_fetch_array( $result ) ) {
 	$ID = $line2[ 'SchülerID' ];
 	$Vorname = $line2[ 'Vorname' ];
 	$Nachname = $line2[ 'Nachname' ];
+    if ($semester==$semDB){
+        $isEntry1 = "Select * From sv_AbwesenheitenKompakt where SchülerID=$ID and Kursname ='$Kursname' Order by Datum asc ";
 
-	$isEntry1 = "Select * From sv_AbwesenheitenKompakt where SchülerID=$ID and Kursname ='$Kursname' Order by Datum asc ";
+    } else{
+
+        $isEntry1 = "Select * From $AbwArch where SchülerID=$ID and Kursname ='$Kursname' Order by Datum asc ";
+
+    }
+
 	$result1 = mysqli_query( $con, $isEntry1 );
 	$abwges = 0;
 	$y = 0;

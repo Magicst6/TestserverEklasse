@@ -1,16 +1,5 @@
 <?php
-$con = @mysqli_connect('9b1qp.myd.infomaniak.com', "9b1qp_heimmart", "St1180!!ST");
-
-if (!$con) {
-    echo "Error: " . mysqli_connect_error();
-    exit();
-}
-//echo 'Connected to MySQL';
-$verbunden = mysqli_select_db($con, "9b1qp_heimmart_test");
-if ($verbunden)
-    echo('');
-else
-    die('DB-Verbindung fehlgeschlagen! ');
+include 'db.php';
 if ($_POST['Senden']) {
     $Semesterkuerzel = $_POST['Semesterkuerzel'];
 
@@ -374,5 +363,7 @@ echo $Ferien1von;
 
 
 }
+header('Location:'.$_SERVER['HTTP_REFERER']);
 ?>
-<meta http-equiv="refresh" content="5; URL=/settings/">
+
+

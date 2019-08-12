@@ -7,14 +7,31 @@ $Lehrer=$output_array[1];
 $y=0;
 
 $semester =$_GET['s'];
-if ($semester){
-$Tab=$semester."_Lehrpersonen";
-	$TabKurse=$semester."_Kurse";
+
+
+
+
+
+$isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
+
+while ($line1 = mysqli_fetch_array($result)) {
+
+    $semDB=$line1['Semesterkuerzel'];
+
 }
-else {
-	$Tab='sv_Lehrpersonen';
-	$TabKurse="sv_Kurse";
+
+if ($semester==$semDB or $semester==null){
+    $Tab='sv_Lehrpersonen';
+    $TabKurse="sv_Kurse";
+
+} else{
+
+
+    $Tab=$semester."_Lehrpersonen";
+    $TabKurse=$semester."_Kurse";
 }
+
 
 if ($_GET['q']=="Alle")
 {

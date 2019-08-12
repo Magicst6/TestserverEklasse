@@ -163,13 +163,88 @@
 
 	
 		});
-		
+
+function loadtable(){
+
+     var new_url= "/wp-content/themes/structr/Page_Scripts/GetUsers_Archiv.php?q="+document.getElementById("Semester").value;
+     //	var new_url1= "/wp-content/themes/structr/Page_Scripts/GetLernende_Archiv.php?q="+document.getElementById("Semester").value;
+
+
+     $.fn.dataTable.ext.errMode = 'throw';
+     table = $('.datatables').DataTable({
+         dom: 'lBfrtip',
+         buttons: [
+             'copy', 'csv', 'excel', 'pdf', 'print'
+         ],
+
+
+         ajax: {
+
+             url: new_url,
+
+             dataSrc: ""
+
+         },
+         columns : [
+             {
+                 className      : 'details-control',
+                 defaultContent : '',
+                 data           : null,
+                 orderable      : false
+             },
+             {data : 'ID'},
+             {data : 'user_login'},
+             {data : 'user_pass'},
+             {data : 'user_nicename'},
+             {data : 'user_email'},
+             {data : 'user_url'},
+             {data : 'user_registered'},
+             {data : 'user_activation_key'},
+             {data : 'user_status'},
+             {data : 'display_name'}
+
+
+
+
+
+
+
+         ],
+
+
+     });
+
+
+     //  $('.datatables tbody').on('click', 'td.details-control', function () {
+     //     var tr  = $(this).closest('tr'),
+     //         row = table.row(tr);
+     //
+     //     if (row.child.isShown()) {
+     //       tr.next('tr').removeClass('details-row');
+     //       row.child.hide();
+     //       tr.removeClass('shown');
+     //     }
+     //     else {
+     //       row.child(format(row.data())).show();
+     //       tr.next('tr').addClass('details-row');
+     //       tr.addClass('shown');
+     //     }
+     //  });
+
+
+
+     }
+
 function tableshow(){
 		var new_url= "/wp-content/themes/structr/Page_Scripts/GetUsers_Archiv.php?q="+document.getElementById("Semester").value;
 	//var new_url1= "/wp-content/themes/structr/Page_Scripts/GetLernende_Archiv.php?q="+document.getElementById("Semester").value;
-	
-		
-                    
+
+    if ( table ) {
+        table.destroy();
+    }
+
+
+    loadtable();
 		
 	table.ajax.url( new_url ).load();
 //	table1.ajax.url( new_url1 ).load();

@@ -74,7 +74,7 @@ for($x = 0; $x < $AnzahlSch; $x++)
 
             }
 
-            echo "<option>".$i.' ->' . $Vorname .' '. $Name .' ID:'. $value . "</option>";
+            echo "<option>". $Vorname .' '. $Name .' ID:'. $value . "</option>";
 
         }
 
@@ -103,8 +103,8 @@ for($x = 0; $x < $AnzahlSch; $x++)
                     echo '<td><input name="Nachname'.$x.'" style="width: 200px" type="text"  /></td>';
                     echo '<td><input name="Vorname'.$x.'" type="text" style="width: 200px" /></td>';
                     echo '<td><input name="Profil'.$x.'" type="text" style="width: 75px"  /></td>';
-                    echo '<td><input name="Loginname'.$x.'" type="text" style="width: 200px" /></td>';
-                    echo '<td><input name="EMail'.$x.'" type="text" style="width: 220px" /></td>';
+                    echo '<td><input name="Loginname'.$x.'" type="text" style="width: 200px" readonly/></td>';
+                    echo '<td><input name="EMail'.$x.'" type="text" style="width: 220px" readonly /></td>';
                     echo "</tr>";
 					 echo "</tbody>";
 

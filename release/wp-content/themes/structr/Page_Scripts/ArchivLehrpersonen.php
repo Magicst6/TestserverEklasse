@@ -146,12 +146,117 @@
 
 	
 		});
+
+
+
+
+
+     function format (data) {
+         var i;
+         var kurs=null;
+
+         for(i=1; i<17; i++){
+             var Kursdt= data["Kurs"+i];
+
+
+             if ((Kursdt)){
+                 var z=null;
+                 var z= '<div class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
+
+                     +'<tr>'+
+                     '<td class="title">Kurs'+i+':</td>'+
+                     '<td>'+Kursdt+'</td>'+
+                     '</table>'+
+                     '</div>';
+                 if (kurs==null){
+                     kurs=z;
+                 }
+                 else kurs=kurs+z;
+             }
+
+         }
+
+         return kurs;
+     }
+
+     function loadtable(){
+
+     var new_url= "/wp-content/themes/structr/Page_Scripts/GetLehrpersonen_Archiv.php?q="+document.getElementById("Semester").value;
+     //	var new_url1= "/wp-content/themes/structr/Page_Scripts/GetLernende_Archiv.php?q="+document.getElementById("Semester").value;
+
+
+     $.fn.dataTable.ext.errMode = 'throw';
+     table = $('.datatables').DataTable({
+         dom: 'lBfrtip',
+         buttons: [
+             'copy', 'csv', 'excel', 'pdf', 'print'
+         ],
+
+
+         ajax: {
+
+             url: new_url,
+
+             dataSrc: ""
+
+         },
+         columns : [
+             {
+                 className      : 'details-control',
+                 defaultContent : '',
+                 data           : null,
+                 orderable      : false
+             },
+             {data : 'Vorname'},
+             {data : 'Nachname'},
+             {data : 'EMAIL'},
+             {data : 'Loginname'}
+
+
+
+
+
+
+
+         ],
+
+
+     });
+
+
+     $('.datatables tbody').on('click', 'td.details-control', function () {
+         var tr  = $(this).closest('tr'),
+             row = table.row(tr);
+
+         if (row.child.isShown()) {
+             tr.next('tr').removeClass('details-row');
+             row.child.hide();
+             tr.removeClass('shown');
+         }
+         else {
+             row.child(format(row.data())).show();
+             tr.next('tr').addClass('details-row');
+             tr.addClass('shown');
+         }
+     });
+
+
+
+     
+     }
 		
 function tableshow(){
 		var new_url= "/wp-content/themes/structr/Page_Scripts/GetLehrpersonen_Archiv.php?q="+document.getElementById("Semester").value;
 	//var new_url1= "/wp-content/themes/structr/Page_Scripts/GetLernende_Archiv.php?q="+document.getElementById("Semester").value;
-	
-		
+
+    if ( table ) {
+        table.destroy();
+    }
+
+
+
+
+    loadtable();
                     
 		
 	table.ajax.url( new_url ).load();

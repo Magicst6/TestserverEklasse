@@ -137,7 +137,7 @@
 		});
 		
 function tableshow(){
-		var new_url= "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q="+document.getElementById("Kursnm").value;
+		var new_url= "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q="+document.getElementById("Kursnm").value + "&s=" + document.getElementById( "semester" ).value;
 		table1 = $('.datatables1').DataTable({
       
 	
@@ -364,6 +364,20 @@ while( $line2= mysqli_fetch_assoc($result))
 }
 
 ?>
+
+<br><br>
+<br><br>
+
+Wählen Sie das Semester aus :
+<br>
+<select name="semester" id="semester" onchange="tableshow()"  required="required">
+    <option>FS<?php echo date("y");?></option>
+    <option>WS<?php echo date("y");?></option>
+    <option>FS<?php echo date("y")-1;?></option>
+    <option>WS<?php echo date("y")-1;?></option>
+    <option>FS<?php echo date("y")+1;?></option>
+    <option>WS<?php echo date("y")+1;?></option>
+</select>
 
 <br><br>
  

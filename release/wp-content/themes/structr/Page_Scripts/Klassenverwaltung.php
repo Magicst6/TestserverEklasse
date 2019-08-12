@@ -1,6 +1,13 @@
 
 
 <script> function insert(z){
+		
+		var str =document.getElementById("klasse").value;
+		if (/\s/.test(str))
+			{		
+			alert('Bitte keine Leerzeichen verwenden!');
+			}
+		else{
 		if (document.getElementById("klasse").value != ""){
 		if (document.getElementById("AnzahlSch").value!="")
 			{
@@ -39,6 +46,7 @@ document.getElementById("add").style.visibility = "hidden";
 		}
 		else alert('die zu erstellende Klasse hat keinen Namen!');
         }
+	}
 	
 	 
 
@@ -415,7 +423,14 @@ document.getElementById("add").style.visibility = "hidden";
             margin: auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 1400px;
+            width: 2400px;
+        }
+		.modal-content2 {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 2400px;
         }
 
 
@@ -683,7 +698,7 @@ document.getElementById("add").style.visibility = "hidden";
 		<div id="myModal4" class="modal1">
 
     <!-- Modal content -->
-    <div class="modal-content1">
+    <div class="modal-content2">
      
      <form action="/DBFuellung/DBFuellungSchuelereingabeKopie.php "method="POST">
     <br>

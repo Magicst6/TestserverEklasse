@@ -40,13 +40,16 @@ $(document).ready(function() {
                 name: "Nachname"
             }, {
                 label: "User_ID:",
-                name: "User_ID"
+                name: "User_ID",
+				 type: "readonly"
             }, {
                 label: "Email:",
-                name: "EMAIL"
+                name: "EMAIL",
+				 type: "readonly"
             }, {
                 label: "Loginname:",
-                name: "Loginname"
+                name: "Loginname",
+				 type: "readonly"
             }
         ]
     } );

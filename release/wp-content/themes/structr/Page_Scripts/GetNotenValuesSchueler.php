@@ -18,12 +18,31 @@ $Lehrer=$_GET['l'];
 preg_match("/:(.*)/", $Lehrer, $output_array);
 $Lehrer=$output_array[1];
 
+$semester=$_GET['s'];
+$isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
+
+while ($line1 = mysqli_fetch_array($result)) {
+
+    $semDB=$line1['Semesterkuerzel'];
+
+}
+
+$lkArch=$semester."_LernenderKurs";
+$notenArch=$semester."_Noten";
+
+
+if ($semester==$semDB){
+    $isEntry = "Select * From sv_LernenderKurs where SchülerID='$ID' order by Nachname asc ";
+
+} else{
+
+    $isEntry = "Select * From $lkArch where SchülerID='$ID' order by Nachname asc ";
+
+}
 
 
 
-
-
-  $isEntry = "Select * From sv_LernenderKurs where SchülerID='$ID' order by Nachname asc ";
     $result = mysqli_query($con, $isEntry);
     $events = array();
 if ($Kursname<>"-Select-"){
@@ -43,10 +62,16 @@ $c=0;
 			 'IDSchueler' => $line1['SchülerID'],
 			 'Kursname' => $line1['KursID']
 			);
-				
+
+        if ($semester==$semDB){
+            $isEntry1 = "Select * From sv_Noten where KursID='$Kursname' and SchuelerID='$ID'  ";
+        } else{
+
+            $isEntry1 = "Select * From $notenArch where KursID='$Kursname' and SchuelerID='$ID'  ";
+
+        }
 
 
-    $isEntry1 = "Select * From sv_Noten where KursID='$Kursname' and SchuelerID='$ID'  ";
     $result1 = mysqli_query($con, $isEntry1);
     $events = array();
 
@@ -74,7 +99,7 @@ $c=0;
 
 						//Schreibe Spaltennamen
 
-						if ( $NoteAK >= 1 and $NoteAK <= 6 and $GewAK <= 100 and $GewAK > 0 and $DatumAK <> null and $NameAK <> null ) {
+						if ( $NoteAK >= 1 and $NoteAK <= 6 and $GewAK <= 100 and $GewAK > 0  ) {
 							$Notegesamt = $Notegesamt + ( $NoteAK * $GewAK / 100 );
 							$c = $c + $GewAK / 100;
 						}

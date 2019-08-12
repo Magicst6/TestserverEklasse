@@ -27,25 +27,20 @@
  * Ersetze datenbankname_hier_einfuegen
  * mit dem Namen der Datenbank, die du verwenden möchtest.
  */
-define('DB_NAME', "9b1qp_release");
-
-
+define('DB_NAME', '9b1qp_heimmart_test');
 /**
  * Ersetze benutzername_hier_einfuegen
  * mit deinem MySQL-Datenbank-Benutzernamen.
  */
-define('DB_USER', "9b1qp_heimmarst");
-
+define('DB_USER', '9b1qp_heimmart');
 /**
  * Ersetze passwort_hier_einfuegen mit deinem MySQL-Passwort.
  */
-define('DB_PASSWORD', "t4xray!!ST");
-
-
+define('DB_PASSWORD', 't4xray!!ST');
 /**
  * Ersetze localhost mit der MySQL-Serveradresse.
  */
-define('DB_HOST', "9b1qp.myd.infomaniak.com");
+define('DB_HOST', '9b1qp.myd.infomaniak.com');
 /**
  * Der Datenbankzeichensatz, der beim Erstellen der
  * Datenbanktabellen verwendet werden soll
@@ -107,14 +102,4 @@ if ( !defined('ABSPATH') )
 /** Definiert WordPress-Variablen und fügt Dateien ein.  */
 require_once(ABSPATH . 'wp-settings.php');
 
-define('DB_HOSTEKL', "9b1qp.myd.infomaniak.com");
 
-define('DB_NAME_EKL', '9b1qp_Eklasse');
-
-
-define('DB_USER_EKL', '9b1qp_Eklasse');
-
-
-define('DB_PASSWORD_EKL', "t4xray!!ST");
-
-?>

@@ -55,7 +55,7 @@ if (($dbwert==$wert) and ($wert<>''))
 {
 $isdouble=1;
 echo '<script type="text/javascript">alert("Ein Kurs wurde zwei verschiedenen Lehrern zugeordnet. Bitte das Formular nochmal korrekt ausfüllen "); window.location.href = "kurselehrpersonen";</script>';
-echo '<meta http-equiv="refresh" content="0; url=https://schulverwaltungheimtest.ch/ksdlpsc" />';
+header('Location:'.$_SERVER['HTTP_REFERER']);
 
 
 }
@@ -153,7 +153,7 @@ else {
 
 
 }}}}
-echo '<meta http-equiv="refresh" content="0; url=/ksdlpsc" />';
+header('Location:'.$_SERVER['HTTP_REFERER']);
 
 }
 

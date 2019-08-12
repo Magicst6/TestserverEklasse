@@ -11,10 +11,10 @@ include 'db.php';
 //$Lehrer=$output_array[1];
 
 $y=0;
-$Kursname=$_GET['q'];
+$Kursname='wi-nov18-w.M192.FS19';
 $KlasseInput=$_GET['k'];
 $Lehrer=$_GET['l'];
-$semester=$_GET['s'];
+$semester='FS19';
 
 
 $lkArch=$semester."_LernenderKurs";
@@ -97,7 +97,7 @@ $c=0;
 
 						//Schreibe Spaltennamen
 
-						if ( $NoteAK >= 1  and $GewAK <= 100 and $GewAK > 0   ) {
+						if ( $NoteAK >= 1  and $GewAK <= 100 and $GewAK > 0  and $NameAK <> null ) {
 							$Notegesamt = $Notegesamt + ( $NoteAK * $GewAK / 100 );
 							$c = $c + $GewAK / 100;
 						}
@@ -152,10 +152,9 @@ $c=0;
 			$Notenschnitt=round($Notenschnitt, 2);
 		}
 		$data10=array('Notenschnitt' => $Notenschnitt);
-        $data12=array('empty' => '');
 		
 		
-		$data[] = array_merge( $data0,$data11,$data10,$data12);
+		$data[] = array_merge( $data0,$data11,$data10);
 			
 	}
 

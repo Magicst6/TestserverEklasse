@@ -46,14 +46,14 @@ if ($Vorname=="" and $Nachname=="" and $EMail=="" and $Loginname=="" and $Profil
         $EMail = $row1['EMail'];
         $Loginname = $row1['Loginname'];
         $Profil= $row1['Profil'];
-	
+	 $WinLogin = $row1['WinLogin'];
+    $SchulMail= $row1['SchulMail'];
 	}
 
 }
-		
 
 //Daten in DB speichern
-        $sql_befehl = "INSERT INTO sv_Lernende (Name, Vorname, Klasse, Loginname, EMail, Profil) VALUES ('$Nachname', '$Vorname', '$Klasse', '$Loginname', '$EMail', '$Profil' )";
+        $sql_befehl = "INSERT INTO sv_Lernende (Name, Vorname, Klasse, Loginname, EMail, Profil,User_ID,WinLogin,SchulMail) VALUES ('$Nachname', '$Vorname', '$Klasse', '$Loginname', '$EMail', '$Profil','$UserID','$WinLogin','$SchulMail' )";
 //echo $sql_befehl1;
         if (("" == $Vorname) OR (""== $Nachname) ) {
             echo "Fehler: Eintrag unvollständig. Bitte neu beginnen!";
@@ -71,6 +71,9 @@ if ($Vorname=="" and $Nachname=="" and $EMail=="" and $Loginname=="" and $Profil
         }
     }
 }
+
+
+
 ?>
 <?php
 
@@ -86,14 +89,16 @@ while ($row = mysqli_fetch_array($result)) {
     $EMail=$row['EMail'];
     $UserID=$row['User_ID'];
     $ID=$row['ID'];
-	$Loginname=$row['Loginname'];
+	$Loginname=$row['Loginname'];	
+    $WinLogin = $row['WinLogin'];
+    $SchulMail= $row['SchulMail'];
     $isEntry4= "Select ID  From sv_LernendeModule";
 
     $result4 = mysqli_query($con, $isEntry4);
     while ($row4= mysqli_fetch_array($result4)) {
         if ($ID==$row4['ID'])
         {
-            $query4 = "Update sv_LernendeModule Set Name='$Name' , Vorname='$Vorname' , EMail='$EMail', User_ID='$UserID', Profil='$Profil',Loginname='$Loginname' Where ID='$ID' ";
+            $query4 = "Update sv_LernendeModule Set Name='$Name' , Vorname='$Vorname' , EMail='$EMail', User_ID='$UserID', Profil='$Profil',Loginname='$Loginname',  WinLogin='$WinLogin',SchulMail='$SchulMail' Where ID='$ID' ";
             mysqli_query($con, $query4);
         }
     }
@@ -114,7 +119,7 @@ $x=1;
 
         if ($x==1 and $ID2=="") {
             $Klasse1=$row1['Klasse'];
-            $query1 = "INSERT INTO sv_LernendeModule (Name, Vorname,EMail,Profil,User_ID,ID,Loginname,Modul1)  VALUES ('$Name', '$Vorname', '$EMail','$Profil','$UserID','$ID','$Loginname','$Klasse1')";
+            $query1 = "INSERT INTO sv_LernendeModule (Name, Vorname,EMail,Profil,User_ID,ID,Loginname,WinLogin,SchulMail,Modul1)  VALUES ('$Name', '$Vorname', '$EMail','$Profil','$UserID','$ID','$Loginname','$WinLogin','$SchulMail','$Klasse1')";
             mysqli_query($con, $query1);
             $x++;
         }

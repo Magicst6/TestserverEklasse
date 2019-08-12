@@ -21,7 +21,14 @@ preg_match("/:(.*)/", $Lehrer, $output_array);
 $Lehrer=$output_array[1];
 
 $semester=$_GET['s'];
+$isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
 
+while ($line1 = mysqli_fetch_array($result)) {
+
+    $semDB=$line1['Semesterkuerzel'];
+
+}
 
 $Tab=$semester."_LernenderKurs";
 
@@ -31,7 +38,7 @@ $Lehrer=$output_array[1];
 
 
 
-  $isEntry = "Select * From sv_LernenderKurs where KursID='$Kursname' order by Nachname asc ";
+  $isEntry = "Select * From $Tab where KursID='$Kursname' order by Nachname asc ";
     $result = mysqli_query($con, $isEntry);
     $events = array();
 if ($Kursname<>"-Select-"){
@@ -81,7 +88,7 @@ $c=0;
 
 						//Schreibe Spaltennamen
 
-						if ( $NoteAK >= 1 and $NoteAK <= 6 and $GewAK <= 100 and $GewAK > 0 and $DatumAK <> null and $NameAK <> null ) {
+						if ( $NoteAK >= 1  and $GewAK <= 100 and $GewAK > 0  and $NameAK <> null ) {
 							$Notegesamt = $Notegesamt + ( $NoteAK * $GewAK / 100 );
 							$c = $c + $GewAK / 100;
 						}

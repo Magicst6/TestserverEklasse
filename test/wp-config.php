@@ -27,25 +27,25 @@
  * Ersetze datenbankname_hier_einfuegen
  * mit dem Namen der Datenbank, die du verwenden möchtest.
  */
-define('DB_NAME', '9b1qp_testEklasse');
+define('DB_NAME', "9b1qp_testEklasse");
 
 
 /**
  * Ersetze benutzername_hier_einfuegen
  * mit deinem MySQL-Datenbank-Benutzernamen.
  */
-define('DB_USER', '9b1qp_testEkl');
+define('DB_USER', "9b1qp_testEkl");
 
 /**
  * Ersetze passwort_hier_einfuegen mit deinem MySQL-Passwort.
  */
-define('DB_PASSWORD', "testEklasse!!");
+define('DB_PASSWORD', "t4xray!!ST");
 
 
 /**
  * Ersetze localhost mit der MySQL-Serveradresse.
  */
-define('DB_HOST', '9b1qp.myd.infomaniak.com');
+define('DB_HOST', "9b1qp.myd.infomaniak.com");
 /**
  * Der Datenbankzeichensatz, der beim Erstellen der
  * Datenbanktabellen verwendet werden soll
@@ -108,12 +108,12 @@ if ( !defined('ABSPATH') )
 require_once(ABSPATH . 'wp-settings.php');
 
 
-define('DB_NAME_EKL', '9b1qp_EKlassetest');
+define('DB_NAME_EKL', '9b1qp_Eklasse');
 
 
 define('DB_USER_EKL', '9b1qp_Eklasse');
 
 
-define('DB_PASSWORD_EKL', "Triangle_123!!");
+define('DB_PASSWORD_EKL', "t4xray!!ST");
 
 ?>

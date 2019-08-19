@@ -182,13 +182,16 @@ $Vorname= $row2['Vorname'];
 $Nachname= $row2['Name'];
 $Profil1= $row2['Profil'];
 
-preg_match("/.fz./", $Kursname1, $output_array1);
+preg_match("/.fz./", strtolower($Kursname1), $output_array1);
 $KursnameReg=$output_array1[0];
-preg_match("/e/", $Profil1, $output_array2);
+preg_match("/e/", strtolower($Profil1), $output_array2);
+	
 $ProfilReg=$output_array2[0];
-preg_match("/.itplus./", $Kursname1, $output_array3);
+	
+echo ' '.$Profil1.'  '.$ProfilReg;
+preg_match("/.itplus./", strtolower($Kursname1), $output_array3);
 $KursnameReg1=$output_array3[0];
-preg_match("/it/", $Profil1, $output_array4);
+preg_match("/it/", strtolower($Profil1), $output_array4);
 $ProfilReg1=$output_array4[0];
 if ((($KursnameReg=='.fz.') and ($ProfilReg=='e')) or (($KursnameReg<>'.fz.') and ($KursnameReg1<>'.itplus.')) or (($KursnameReg1=='.itplus.') and ($ProfilReg1=='it'))) {
 

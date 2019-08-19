@@ -46,21 +46,24 @@ Um die Abwesenheitsdauer nach Falscheingabe auf 0 zurück zu setzen bitte 99 ein
 
 echo '<br>';
 $Kursnme=$_GET['q'];
-$isEntry5 = "SELECT SchülerID From sv_LernenderKurs Where KursID='$Kursnme' Order by Nachname";
+$isEntry5 = "SELECT Klasse From sv_Kurse Where KursID='$Kursnme' ";
 $result5 = mysqli_query($con, $isEntry5);
 $y=0;
 while( $value5= mysqli_fetch_array($result5))
 {
 $isfilled=0;
-$ID=$value5['SchülerID'];
-$isEntry4 = "SELECT Vorname,Name,Klasse, Profil From sv_Lernende Where ID='$ID' ";
+$Klasse=$value5['Klasse'];
+	
+}
+$isEntry4 = "SELECT Vorname,Name, Profil,ID From sv_Lernende Where Klasse='$Klasse' order by Name ";
 $result4 = mysqli_query($con, $isEntry4);
 
 while( $value4= mysqli_fetch_array($result4))
 {
 $Vorname=$value4['Vorname'];
 $Name =$value4['Name'];
-$Klasse =$value4['Klasse'];
+$ID =$value4['ID'];
+
 $Profil=$value4['Profil'];
 
 preg_match("/.fz./", $Kursnme, $output_array1);
@@ -125,7 +128,7 @@ echo '<hr>';
 echo '<input name="Schueler" id="Schueler" type="hidden" value='.$y.' />';
 }
 }
-}
+
 mysqli_close($con);
 
 ?>

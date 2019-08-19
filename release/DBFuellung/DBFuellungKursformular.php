@@ -5,16 +5,15 @@
 include 'db.php';
 
 
-echo "etst";
 if($_POST['Senden'])
 {
-echo "etst";
+
     $Klasse = $_POST['klasse'];
-    echo $Klasse;
+
 
     $AnzahlKurse = $_POST['AnzahlKurse'];
 
-    echo $AnzahlKurse;
+   
 
     for($x = 0; $x < $AnzahlKurse; $x++)
 
@@ -315,7 +314,6 @@ echo "etst";
 
 
                 }
-                echo "test";
                 for ($x = 0; $x < $y; $x++) {
 
                     $isExisting = false;
@@ -330,8 +328,15 @@ echo "etst";
 
 
                     while ($valueSet = mysqli_fetch_array($resultSet)) {
+						
+                     $ferien1bis= date('Y-m-d', strtotime($valueSet['Ferien1bis'].' + 1 days'));
+						 $ferien2bis= date('Y-m-d', strtotime($valueSet['Ferien2bis'].' + 1 days'));
+						 $ferien3bis= date('Y-m-d', strtotime($valueSet['Ferien3bis'].' + 1 days'));
+						 $ferien4bis= date('Y-m-d', strtotime($valueSet['Ferien4bis'].' + 1 days'));
+						 $ferien5bis= date('Y-m-d', strtotime($valueSet['Ferien5bis'].' + 1 days'));
+						 
 
-                        if (($Start>=$valueSet['Ferien1von'] and $Start<=$valueSet['Ferien1bis']) or ($Start>=$valueSet['Ferien2von'] and $Start<=$valueSet['Ferien2bis']) or ($Start>=$valueSet['Ferien3von'] and $Start<=$valueSet['Ferien3bis']) or ($Start>=$valueSet['Ferien4von'] and $Start<=$valueSet['Ferien4bis']) or ($Start>=$valueSet['Ferien5von'] and $Start<=$valueSet['Ferien5bis'])) {
+                        if (($Start>=$valueSet['Ferien1von'] and $Start<=$ferien1bis) or ($Start>=$valueSet['Ferien2von'] and $Start<=$ferien2bis) or ($Start>=$valueSet['Ferien3von'] and $Start<=$ferien3bis) or ($Start>=$valueSet['Ferien4von'] and $Start<=$ferien4bis) or ($Start>=$valueSet['Ferien5von'] and $Start<=$ferien5bis)) {
 
 
                             $isExisting = true;
@@ -393,6 +398,9 @@ echo "etst";
     }
 
 }
+
+
+
 
 echo '<meta http-equiv="refresh" content="0; url=/kurstermine" />';
 

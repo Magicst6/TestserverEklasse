@@ -30,6 +30,16 @@
                 xmlhttp.send();
             }
         }
+		
+function check(str){
+		
+		
+	
+		if (/[^A-Za-z0-9\_]/.test(str))
+			{		
+			alert('Bitte keine Sonderzeichen verwenden!');
+			}
+}
     </script>
 
     <select name="klasse" id="klasse" onchange="getKlasse(this.value)" required="required">
@@ -56,20 +66,24 @@
             }
         }
 
-        ?>
+     
+		  $isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
 
+    while ($line1 = mysqli_fetch_array($result)) {
+
+        $semDB=$line1['Semesterkuerzel'];
+
+    }
+
+?>
     </select>
+    <br><br>
+   Semester:
     <br>
-    Wählen Sie das Semester aus :
-    <br>
-    <select name="semester" id="semester"  onchange="getKlasse(this.value)" required="required">
-        <option>FS<?php echo date("y");?></option>
-        <option>WS<?php echo date("y");?></option>
-        <option>FS<?php echo date("y")-1;?></option>
-        <option>WS<?php echo date("y")-1;?></option>
-        <option>FS<?php echo date("y")+1;?></option>
-        <option>WS<?php echo date("y")+1;?></option>
-    </select>
+    <input name="semester" id="semester" readonly  value="<? echo $semDB; ?>" required="required">
+        
+   
     <br>
 
     <div id="stundenplan"><b></b></div>

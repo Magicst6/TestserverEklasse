@@ -423,7 +423,7 @@ document.getElementById("add").style.visibility = "hidden";
             margin: auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 2400px;
+            width: 1400px;
         }
 		.modal-content2 {
             background-color: #fefefe;

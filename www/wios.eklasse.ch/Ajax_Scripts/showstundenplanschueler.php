@@ -292,13 +292,13 @@ if ($semester==$semDB){
 <?php
 
 
-$isEntry = "SELECT Startdatum,Farbe, KursID,Kursname From sv_Kurse Where Klasse = '$Klasse' ORDER BY Startdatum ASC ";
+$isEntry = "SELECT Startdatum,Farbe, KursID,Kursname From $KurseDB Where Klasse = '$Klasse' ORDER BY Startdatum ASC ";
 $result = mysqli_query($con, $isEntry);
 $y=0;
 $KursIDarr= array();
 while( $value= mysqli_fetch_array($result))
 {
-    $isEntry1 = "SELECT Kurs1,Kurs2,Kurs3,Kurs4,Kurs5,Kurs6,Kurs7,Kurs8,Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16, Vorname, Nachname From sv_Lehrpersonen ";
+    $isEntry1 = "SELECT Kurs1,Kurs2,Kurs3,Kurs4,Kurs5,Kurs6,Kurs7,Kurs8,Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16, Vorname, Nachname From $LPs ";
     $result1 = mysqli_query($con, $isEntry1);
     $VornameLehrer='';
     $NachnameLehrer='';

@@ -24,7 +24,7 @@ echo "<option>" .'-Select-'. "</option>";
 
         foreach ($uniquearr as $value) {
 
-            $isEntry= "Select Name, Vorname From sv_Lernende WHERE ID='$value'";
+            $isEntry= "Select Name, Vorname From sv_LernendeModule WHERE ID='$value'";
 
             $result = mysqli_query($con, $isEntry);
 

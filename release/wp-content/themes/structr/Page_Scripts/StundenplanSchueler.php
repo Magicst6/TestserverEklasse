@@ -1,5 +1,14 @@
 <?php
 include 'db.php';
+  
+		  $isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
+
+    while ($line1 = mysqli_fetch_array($result)) {
+
+        $semDB=$line1['Semesterkuerzel'];
+
+    }
 ?>
 <script>
     function getKlasse(str){
@@ -56,8 +65,9 @@ include 'db.php';
 <br>
 Wählen Sie das Semester aus :
 <br>
-<select name="semester" id="semester" onchange="getKlasse()" required="required">
-    <option>FS<?php echo date("y");?></option>
+<select name="semester" id="semester" onchange="getKlasse()"  value="<?php echo $semDB;?>" required="required">
+      <option><?php echo $semDB;?></option>
+	<option>FS<?php echo date("y");?></option>
     <option>WS<?php echo date("y");?></option>
     <option>FS<?php echo date("y")-1;?></option>
     <option>WS<?php echo date("y")-1;?></option>

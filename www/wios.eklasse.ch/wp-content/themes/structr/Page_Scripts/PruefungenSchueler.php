@@ -705,7 +705,13 @@ while( $line2= mysqli_fetch_assoc($result))
 
                                 document.getElementById('lehrperson').value = event.lehrperson;
 								
-								document.getElementById('lernziele').value = event.lernziele;
+								
+                          var text1 = event.lernziele;
+                    text1 = text1.replace(/rrrr/g, '\r');
+					text1 = text1.replace(/nnnn/g, '\n');								
+		
+							
+						    document.getElementById('lernziele').value =text1;
 
                                 document.getElementById('farbe').value = event.color;
 								
@@ -1323,7 +1329,7 @@ input[type=text], select {
   </caption>
   <tbody>
     <tr>
-      <td><input type="textarea" name="lernziele" id="lernziele" value="" class="text ui-widget-content ui-corner-all" ></td>
+      <td><td><textarea id="lernziele" class="text ui-widget-content ui-corner-all" height="400px" readonly ></textarea></td></td>
       
     </tr>
 	 

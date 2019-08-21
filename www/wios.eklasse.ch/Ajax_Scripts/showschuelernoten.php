@@ -256,7 +256,7 @@ input.err:focus{
     while ($value1 = mysqli_fetch_array($result)) {
 		$Comment=$value1['Kommentar'];
 	}
-echo $Kursnme;
+
  $isEntry2 = "Select Klasse From sv_Kurse Where KursID='$Kursnme' ";
     $result2 = mysqli_query($con, $isEntry2);
     
@@ -286,7 +286,16 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
         $ID = $value1['ID'];
         $Profil = $value1['Profil'];
 
-
+    $isEntry1 = "SELECT Nachname, Vorname  From sv_LernenderKurs Where KursID='$Kursnme'";
+    $result1 = mysqli_query($con, $isEntry1);
+    $y = 0;
+    while ($value2 = mysqli_fetch_array($result1)) {
+	
+	if (($value2['Nachname']==$value1['Name']) and ($value2['Vorname']==$value1['Vorname']))
+	{
+	
+	 
+	
 
 
             $isEntry1 = "SELECT Note, Datum,SchuelerID From sv_Noten Where Name='$Pruefungsname' and KursID='$Kursnme' and SchuelerID='$ID'  ";
@@ -336,6 +345,8 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
             echo '<input name="Schueler" id="Schueler" type="hidden" value=' . $y . ' />';
         }
     }
+	}
+}
 
 mysqli_close($con);
 

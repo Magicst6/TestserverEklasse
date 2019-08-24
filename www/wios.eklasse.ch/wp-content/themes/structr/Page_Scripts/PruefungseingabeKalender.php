@@ -470,9 +470,8 @@ if (str == "") {
  
 
  var text = document.getElementById('lernziele').value;
-                 text = text.replace(/\r/g, 'rrrr');
-					text = text.replace(/\n/g, 'nnnn');	
-
+              text = text.replace(/\r/g, '!^');
+					text = text.replace(/\n/g, '~!');
 
                                     xmlhttp.open("POST", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value   + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
@@ -706,8 +705,8 @@ if (str == "") {
                       
 						
                           var text1 = event.lernziele;
-                text1 = text1.replace(/rrrr/g, '\r');
-					text1 = text1.replace(/nnnn/g, '\n');				
+                 text1 = text1.replace( /!^/g,'\r');
+					text1 = text1.replace( /~!/g,'\n');			
 		
 							
 						    document.getElementById('lernziele').value =text1;
@@ -807,8 +806,8 @@ if (str == "") {
                                 };
 
   var text = document.getElementById('lernziele').value;
-             text = text.replace(/\r/g, 'rrrr');
-					text = text.replace(/\n/g, 'nnnn');	
+            text = text.replace(/\r/g, '!^');
+					text = text.replace(/\n/g, '~!');
 
                                 xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value   + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value + "&klasse=" + document.getElementById('klasse').value + "&color=" + farbe + "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
@@ -1030,9 +1029,8 @@ if (str == "") {
             };
 
              var text = document.getElementById('lernziele').value;
-              text = text.replace(/\r/g, 'rrrr');
-					text = text.replace(/\n/g, 'nnnn');	
-
+            text = text.replace(/\r/g, '!^');
+					text = text.replace(/\n/g, '~!');
 
             xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
@@ -1274,8 +1272,8 @@ if (str == "") {
 
 
  var text = document.getElementById('lernziele').value;
-              text = text.replace(/\r/g, 'rrrr');
-					text = text.replace(/\n/g, 'nnnn');	
+              text = text.replace(/\r/g, '!^');
+					text = text.replace(/\n/g, '~!');
 
                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value +   "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
@@ -1577,7 +1575,7 @@ if (str == "") {
   </caption>
   <tbody height="400px">
     <tr>
-		<td><textarea id="lernziele" class="text ui-widget-content ui-corner-all" height="400px" onchange="show()"></textarea></td>
+		<td><textarea id="lernziele" class="text ui-widget-content ui-corner-all"  onchange="show()"></textarea></td>
       
     </tr>
 	 
@@ -1655,6 +1653,10 @@ if (str == "") {
 
     }
 
+	textarea {
+  width: 450px;
+  height: 400px;
+}
 table td{
 border:none;
 }
@@ -1669,9 +1671,8 @@ border:none;
 	function show()
 	{
 		 var text = document.getElementById('lernziele').value;
-                  text = text.replace(/\r/g, 'rrrr');
-					text = text.replace(/\n/g, 'nnnn');	
-		
+                   text = text.replace(/\r/g, '^^^^');
+					text = text.replace(/\n/g, '~~~~');	
 		
 		//alert(text);
 	}

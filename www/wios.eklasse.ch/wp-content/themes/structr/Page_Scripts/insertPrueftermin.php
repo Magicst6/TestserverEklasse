@@ -47,10 +47,11 @@ if(isset($_GET["q"]))
 	
 	$lernziele = $_GET['lernziele'];
 
+	if($klasse==""){
 
-  
+ $klasse= substr($kursid, 0, strpos($kursid, '.', 0));
 
-
+	}
     $isEntryLPID= "Select ID From sv_Lehrpersonen Where Nachname='$lehrperson'";
 
     $resultLPID = mysqli_query($con, $isEntryLPID);

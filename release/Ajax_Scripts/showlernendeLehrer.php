@@ -66,13 +66,13 @@ $ID =$value4['ID'];
 
 $Profil=$value4['Profil'];
 
-preg_match("/.fz./", $Kursnme, $output_array1);
+preg_match("/.fz./", strtolower($Kursnme), $output_array1);
 $KursnameReg=$output_array1[0];
-preg_match("/e/", $Profil, $output_array2);
+preg_match("/e/", strtolower($Profil), $output_array2);
 $ProfilReg=$output_array2[0];
-preg_match("/.itplus./", $Kursnme, $output_array3);
+preg_match("/.itplus./", strtolower($Kursnme), $output_array3);
 $KursnameReg1=$output_array3[0];
-preg_match("/it/", $Profil, $output_array4);
+preg_match("/it/", strtolower($Profil), $output_array4);
 $ProfilReg1=$output_array4[0];
 
 if ((($KursnameReg=='.fz.') and ($ProfilReg=='e')) or (($KursnameReg<>'.fz.') and ($KursnameReg1<>'.itplus.')) or (($KursnameReg1=='.itplus.') and ($ProfilReg1=='it'))) {

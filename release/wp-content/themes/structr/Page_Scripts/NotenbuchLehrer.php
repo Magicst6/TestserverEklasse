@@ -45,6 +45,7 @@
 	var table2;
 	$(document).ready(function() {
 
+     
 	
 	});
 
@@ -1286,21 +1287,14 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
          if ( editor ) {
              editor.destroy();
          }
-
-         if ( table ) {
+		  if ( table ) {
              table.destroy();
          }
-
 
          if ( table1 ) {
              table1.destroy();
          }
-
-         loadeditor();
-
-
-         loadtable();
-         if (document.getElementById('semester').value == document.getElementById('semDB').value){
+		   if (document.getElementById('semester').value == document.getElementById('semDB').value){
 
              loadtables();
          }else {
@@ -1308,6 +1302,19 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
              loadtablesUneditable();
 
          }
+	
+	
+
+
+        table.clear()
+		.draw();
+
+table1.clear()
+		.draw();
+         loadeditor();
+
+
+        
 		table.ajax.url( new_url3 ).load();
 		table1.ajax.url( new_url4 ).load();
 	}

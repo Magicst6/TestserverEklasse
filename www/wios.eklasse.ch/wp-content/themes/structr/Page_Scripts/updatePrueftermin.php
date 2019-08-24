@@ -48,6 +48,10 @@ if(isset($_GET["f"]))
 
 
    
+	if($klasse==""){
+
+       $klasse= substr($kursid, 0, strpos($kursid, '.', 0));
+	}
 
 
 

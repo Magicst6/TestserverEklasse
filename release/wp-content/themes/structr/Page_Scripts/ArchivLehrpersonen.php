@@ -249,16 +249,10 @@ function tableshow(){
 		var new_url= "/wp-content/themes/structr/Page_Scripts/GetLehrpersonen_Archiv.php?q="+document.getElementById("Semester").value;
 	//var new_url1= "/wp-content/themes/structr/Page_Scripts/GetLernende_Archiv.php?q="+document.getElementById("Semester").value;
 
-    if ( table ) {
-        table.destroy();
-    }
+   
+ table.clear()
+		.draw();
 
-
-
-
-    loadtable();
-                    
-		
 	table.ajax.url( new_url ).load();
 //	table1.ajax.url( new_url1 ).load();
 }		

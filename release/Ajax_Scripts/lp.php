@@ -27,9 +27,7 @@ $result = mysqli_query($con, $isEntry);
 
     }
 
-if ($semDB==$Semester){
-	$Semester='sv';
-}
+$Semester='FS19Change';
 $KurseTab=$Semester."_Lehrpersonen";
 				
 

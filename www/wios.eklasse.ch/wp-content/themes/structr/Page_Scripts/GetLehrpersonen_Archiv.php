@@ -18,8 +18,18 @@ $Lehrer=$_GET['l'];
 preg_match("/:(.*)/", $Lehrer, $output_array);
 $Lehrer=$output_array[1];
 
+ $isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
 
+    while ($line1 = mysqli_fetch_array($result)) {
 
+        $semDB=$line1['Semesterkuerzel'];
+
+    }
+
+if ($semDB==$Semester){
+	$Semester='sv';
+}
 $KurseTab=$Semester."_Lehrpersonen";
 				
 

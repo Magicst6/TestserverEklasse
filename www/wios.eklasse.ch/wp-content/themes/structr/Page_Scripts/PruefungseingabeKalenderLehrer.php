@@ -406,8 +406,8 @@ $IDLP=$value;
 
 
  var text = document.getElementById('lernziele').value;
-               text = text.replace(/\r/g, 'rrrr');
-					text = text.replace(/\n/g, 'nnnn');	
+                  text = text.replace(/\r/g, '!^');
+					text = text.replace(/\n/g, '~!');
 
                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val() + "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value  +  "&lernziele=" + text, true);
 
@@ -647,8 +647,10 @@ $IDLP=$value;
                             
 							
                           var text1 = event.lernziele;
-                text1 = text1.replace(/rrrr/g, '\r');
-					text1 = text1.replace(/nnnn/g, '\n');	
+                   text1 = text1.replace( /!^/g,'\r');
+					text1 = text1.replace( /~!/g,'\n');			
+			
+		
 							
 						    document.getElementById('lernziele').value =text1;
 
@@ -745,8 +747,9 @@ $IDLP=$value;
                                 };
 
  var text = document.getElementById('lernziele').value;
-                text = text.replace(/\r/g, 'rrrr');
-					text = text.replace(/\n/g, 'nnnn');	
+              text = text.replace(/\r/g, '!^');
+					text = text.replace(/\n/g, '~!');	
+
 
 
 
@@ -971,8 +974,8 @@ $IDLP=$value;
 
 
  var text = document.getElementById('lernziele').value;
-                text = text.replace(/\r/g, 'rrrr');
-					text = text.replace(/\n/g, 'nnnn');		
+              text = text.replace(/\r/g, '!^');
+					text = text.replace(/\n/g, '~!');	
 
 
             xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value +"&lernziele=" + text, true);
@@ -1213,8 +1216,8 @@ $IDLP=$value;
 
 
  var text = document.getElementById('lernziele').value;
-                text = text.replace(/\r/g, 'rrrr');
-					text = text.replace(/\n/g, 'nnnn');		
+               text = text.replace(/\r/g, '!^');
+					text = text.replace(/\n/g, '~!');	
 
                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&kursid=" + document.getElementById('kursid').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
@@ -1515,7 +1518,10 @@ if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
         margin: 0 auto;
 
     }
-
+	textarea {
+  width: 450px;
+  height: 400px;
+}
 
 
 </style>

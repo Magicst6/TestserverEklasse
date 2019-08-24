@@ -707,8 +707,8 @@ while( $line2= mysqli_fetch_assoc($result))
 								
 								
                           var text1 = event.lernziele;
-                    text1 = text1.replace(/rrrr/g, '\r');
-					text1 = text1.replace(/nnnn/g, '\n');								
+                    text1 = text1.replace( /!^/g,'\r');
+					text1 = text1.replace( /~!/g,'\n');			
 		
 							
 						    document.getElementById('lernziele').value =text1;
@@ -1460,7 +1460,10 @@ mysqli_query($con,$delOlder);
         margin: 0 auto;
 
     }
-
+	textarea {
+  width: 450px;
+  height: 400px;
+}
 
 
 </style>

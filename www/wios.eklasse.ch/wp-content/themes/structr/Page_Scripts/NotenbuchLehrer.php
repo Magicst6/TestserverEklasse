@@ -43,9 +43,10 @@
 	var tableedit;
 	var editor;
 	var table2;
+	var table3;
 	$(document).ready(function() {
 
-	
+     
 	});
 
 	 function loadtables(){
@@ -368,12 +369,13 @@
 	if ( editor ) {
 		editor.destroy();
 	}
-			
+	
 				
 	loadtable(data[ "IDSchueler" ]);
 	loadeditor(data[ "IDSchueler" ]);
 	
-
+       tableedit.clear()
+		.draw();
 
 
 	var str = data[ "IDSchueler" ];
@@ -382,6 +384,8 @@
 	editor . field( 'SchuelerID' ) . def( str );
 	editor . field( 'KursID' ) . def( document . getElementById( "Kursname" ) . value );
 	editor . submit();
+			
+			
 
 	 document.getElementById("Schuelerlb").value=data['Vorname'] +' '+data['Nachname'];
 				document.getElementById("Kurslb").value = document.getElementById("Kursname").value; 
@@ -949,28 +953,80 @@ while( $line2= mysqli_fetch_assoc($result))
 
 
 
+		  $isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
+
+    while ($line1 = mysqli_fetch_array($result)) {
+
+        $semDB=$line1['Semesterkuerzel'];
+
+    }
 
 ?>
 
 <br><br>
 
-Wählen Sie das Semester aus :
-<br>
-<select name="semester" id="semester" onchange="getKursname()"  required="required">
-    <option>--Select--</option>
-    <option>FS<?php echo date("y");?></option>
-    <option>WS<?php echo date("y");?></option>
-    <option>FS<?php echo date("y")-1;?></option>
-    <option>WS<?php echo date("y")-1;?></option>
-    <option>FS<?php echo date("y")+1;?></option>
-    <option>WS<?php echo date("y")+1;?></option>
-</select>
 
 <br><br>
 Kursname:
 <br>
  
 <select id="Kursname" name="Kursname" required="required"  onchange="tableshow()">
+
+   <?php
+
+    include 'db.php';
+
+    
+
+    preg_match("/:(.*)/", $Lehrer, $output_array);
+
+    $Lehrer=$output_array[1];
+
+
+
+    $y=0;
+
+
+
+
+
+
+
+    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16 From sv_Lehrpersonen Where ID = $Lehrer";
+
+    $result = mysqli_query($con,$isEntry);
+
+
+
+
+
+    echo "<option>" . '-Select-' . "</option>";
+
+
+
+    while( $line2= mysqli_fetch_array($result))
+
+    {
+
+        for($x = 1; $x <= 16; $x++)
+
+        {
+
+
+
+            $value = $line2['Kurs'.$x];
+
+            if ($value<>"") echo "<option>" . $value . "</option>";
+
+
+
+        }
+
+    }
+
+    ?>
+
 
 
 </select>
@@ -1047,6 +1103,7 @@ while ($line1 = mysqli_fetch_array($result)) {
 		</div>
 	</div>
 </div>
+
 
 
 <div id="myModal" class="modal">
@@ -1275,41 +1332,51 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
 }
 	
 	 function tableshow() {
-		var new_url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semester" ).value;
-		var new_url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semester" ).value;
+		var new_url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
+		var new_url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
 
 
          if ( tableedit ) {
              tableedit.destroy();
          }
+		
+
 
          if ( editor ) {
              editor.destroy();
          }
-
-         if ( table ) {
-             table.destroy();
-         }
-
-
-         if ( table1 ) {
+		 
+		  if ( table1 ) {
              table1.destroy();
          }
 
-         loadeditor();
+         if ( table ) {
+             table.destroy();
+		 }
+		loadeditor();
+		
+		 
 
+         loadtables();
+		
+	      
+		   
+        table.clear()
+		.draw();
 
-         loadtable();
-         if (document.getElementById('semester').value == document.getElementById('semDB').value){
-
-             loadtables();
-         }else {
-
-             loadtablesUneditable();
-
-         }
-		table.ajax.url( new_url3 ).load();
+        table1.clear()
+		.draw();
+			   
+			   table.ajax.url( new_url3 ).load();
 		table1.ajax.url( new_url4 ).load();
+
+
+        
+		
+		     
+		
+		     
+		
 	}
 function sendNote(){
 	if ( window.XMLHttpRequest ) {
@@ -1348,6 +1415,9 @@ function sendNote(){
         function getKursname(){
 
 
+            
+		 
+		
 
 
             if (window.XMLHttpRequest) {

@@ -288,7 +288,7 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
 
     $isEntry1 = "SELECT Nachname, Vorname  From sv_LernenderKurs Where KursID='$Kursnme'";
     $result1 = mysqli_query($con, $isEntry1);
-   
+    
     while ($value2 = mysqli_fetch_array($result1)) {
 	
 	if (($value2['Nachname']==$value1['Name']) and ($value2['Vorname']==$value1['Vorname']))

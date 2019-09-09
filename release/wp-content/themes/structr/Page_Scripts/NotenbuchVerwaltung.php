@@ -65,14 +65,15 @@
 					var z = '<div class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
 
 					+'<tr>' +
-					'<td class="title">Note' + i + ':</td>' +
-						'<td>' + Notedt + '</td>' +
-						'<td class="title">Notenname:</td>' +
-						'<td>' + Namedt + '</td>' +
-						'<td class="title">Gewichtung:</td>' +
-						'<td>' + Gewichtungdt + '</td>' +
-						'<td class="title">Datum:</td>' +
-						'<td>' + Datumdt + '</td></tr>' +
+					'<td  class="title" width="10%" >Note' + i + ':</td>' +
+						'<td  width="12%">' + Notedt + '</td>' +
+						'<td class="title"  width="10%" >Notenname:</td>' +
+						'<td  width="12%">' + Namedt + '</td>' +
+						'<td class="title"  width="10%" >Gewichtung:</td>' +
+						'<td  width="12%">' + Gewichtungdt + '</td>' +
+						'<td class="title"  width="10%" >Datum:</td>' +
+						'<td  width="12%">' + Datumdt + '</td></tr>' +
+
 
 						'</table>' +
 
@@ -107,18 +108,18 @@
 				var z = '<div class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
 
 				+'<tr>' +
-				'<td class="title">Klasse:</td>' +
-				'<td>' + Klassedt + '</td></tr>' +
-					'<td class="title">Datum:</td>' +
-					'<td>' + Datumdt + '</td></tr>' +
-					'<td class="title">Kommentar:</td>' +
+				'<td class="title"  width="7%">Klasse:</td>' +
+				'<td  width="10%">' + Klassedt + '</td></tr>' +
+					'<td class="title"  width="7%">Datum:</td>' +
+					'<td width="10%">' + Datumdt + '</td></tr>' +
+					'<td class="title"  width="7%">Kommentar:</td>' +
 					'<td>' + Kommentardt + '</td></tr>' +
-					'<td class="title">KmntVerw:</td>' +
+					'<td class="title"  width="7%">KmntVerw:</td>' +
 					'<td>' + KommentVerdt + '</td></tr>' +
-					'<td class="title">DauerAbw:</td>' +
-					'<td>' + Abwesenheitsdauerdt + '</td></tr>' +
-					'<td class="title">Lehrer:</td>' +
-					'<td>' + Lehrerdt + '</td></tr>' +
+					'<td class="title"  width="7%">DauerAbw:</td>' +
+					'<td  width="10%">' + Abwesenheitsdauerdt + '</td></tr>' +
+					'<td class="title" width="7%">Lehrer:</td>' +
+					'<td  width="10%">' + Lehrerdt + '</td></tr>' +
 
 					'</table>' +
 
@@ -457,7 +458,7 @@ function loadtables(){
 
             };
 
-            xmlhttp.open("GET","/Ajax_Scripts/getKursnameLehrer.php?q="+str,true);
+            xmlhttp.open("GET","/Ajax_Scripts/getKursnameLehrer.php?q="+str + "&s=" + document.getElementById( "semester" ).value,true);
 
             xmlhttp.send();
 
@@ -512,6 +513,22 @@ echo 'User ID: ' . $current_user-&gt;ID . "\n";
 $heute=date("Y-m-d");
 
 ?>
+
+<br><br>
+
+Wählen Sie das Semester aus :
+<br>
+<select name="semester" id="semester" onchange="tableshow()"  required="required">
+    <option>FS<?php echo date("y");?></option>
+    <option>WS<?php echo date("y");?></option>
+    <option>FS<?php echo date("y")-1;?></option>
+    <option>WS<?php echo date("y")-1;?></option>
+    <option>FS<?php echo date("y")+1;?></option>
+    <option>WS<?php echo date("y")+1;?></option>
+</select>
+
+
+
 
 <br><br>
 
@@ -581,20 +598,7 @@ Lehrperson:
     </select>
 
 
-<br><br>
 
-Wählen Sie das Semester aus :
-<br>
-<select name="semester" id="semester" onchange="tableshow()"  required="required">
-    <option>FS<?php echo date("y");?></option>
-    <option>WS<?php echo date("y");?></option>
-    <option>FS<?php echo date("y")-1;?></option>
-    <option>WS<?php echo date("y")-1;?></option>
-    <option>FS<?php echo date("y")+1;?></option>
-    <option>WS<?php echo date("y")+1;?></option>
-</select>
-
-<br><br>
 <br><br>
  
 Kursname:

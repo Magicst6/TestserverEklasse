@@ -1538,6 +1538,16 @@ mysqli_query($con,$delOlder);
 
     }
 
+function myFunction3(str) {
+	  
+  if (str.value.indexOf(",")>0)
+    {
+	 x = str.value;
+  	 y = x.replace(",", ".");				  
+     alert( 'Bitte "." statt "," verwenden!');
+	 str.value=y;				  															 
+	}
+}
 
 </script>
 

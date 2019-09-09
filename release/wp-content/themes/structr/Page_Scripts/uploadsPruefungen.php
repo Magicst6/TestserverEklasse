@@ -104,13 +104,13 @@ if ($uploadOk == 0) {
 
         if ($x > 0) {
 
-            // Die Anzahl der Spalten anpassen
+			$spalte2= str_replace(' ', '_', $spalte2);
+            
+			// Die Anzahl der Spalten anpassen
 
             list($spalte0,$spalte1, $spalte2, $spalte3, $spalte4, $spalte5, $spalte6, $spalte7, $spalte8, $spalte9, $spalte10, $spalte11) = explode($trennzeichen, $inhalt);
 
-            $spalte2= str_replace(' ', '_', $spalte2);
-			
-			$Pruefungsname = $spalte0;
+            $Pruefungsname = $spalte0;
 			
 			$Kursname = $spalte1;
 

@@ -1122,7 +1122,7 @@
 
             <br>
 
-            <input type="text" name="title" id="title" value="" class="text ui-widget-content ui-corner-all" readonly >
+            <input type="text" readonly name="title" id="title" value="" class="text ui-widget-content ui-corner-all" readonly >
 
             <br>
 
@@ -1130,9 +1130,9 @@
 
             <br>
 
-            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all">
+            <input type="date" readonly name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all">
 
-            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all">
+            <input type="time" readonly name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all">
 
             <br>
 
@@ -1140,9 +1140,9 @@
 
             <br>
 
-            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all">
+            <input type="date" readonly name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all">
 
-            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all">
+            <input type="time" readonly name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all">
 
             <br>
 
@@ -1150,7 +1150,7 @@
 
             <br>
 
-            <input type="text" name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" >
+            <input type="text" readonly name="kursid" id="kursid" value="" class="text ui-widget-content ui-corner-all" >
 
             <br>
 
@@ -1158,7 +1158,7 @@
 
             <br>
 
-            <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" >
+            <input type="text" readonly name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" >
 
             <br>
 
@@ -1166,7 +1166,7 @@
 
             <br>
 
-            <input type="text" name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" >
+            <input type="text" readonly name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" >
 
             <br>
 
@@ -1174,7 +1174,7 @@
 
             <br>
 
-            <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" >
+            <input type="text" readonly name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" >
 
             <br>
 
@@ -1182,7 +1182,7 @@
 
             <br>
 
-            <input type="text" name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" >
+            <input type="text" readonly name="lehrperson" id="lehrperson" value="" class="text ui-widget-content ui-corner-all" >
 
             <br>
 
@@ -1190,7 +1190,7 @@
 
             <br>
 
-            <input type="text" name="farbe" id="farbe" value="" class="text ui-widget-content ui-corner-all" >
+            <input type="text" readonly name="farbe" id="farbe" value="" class="text ui-widget-content ui-corner-all" >
 
             <!-- Allow form submission with keyboard without duplicating the dialog button -->
 

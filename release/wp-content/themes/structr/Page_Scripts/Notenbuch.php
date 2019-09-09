@@ -65,14 +65,15 @@
 	 var z= '<div class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
             
 		  +'<tr>'+
-                  '<td class="title">Note'+i+':</td>'+
-                  '<td>'+Notedt+'</td>'+
-		     '<td class="title">Notenname:</td>'+
-		  '<td>'+Namedt+'</td>'+
-		    '<td class="title">Gewichtung:</td>'+
-		   '<td>'+Gewichtungdt+'</td>'+
-		   '<td class="title">Datum:</td>'+
-		   '<td>'+Datumdt+'</td></tr>'+
+           '<td  class="title" width="10%" >Note' + i + ':</td>' +
+						'<td  width="12%">' + Notedt + '</td>' +
+						'<td class="title"  width="10%" >Notenname:</td>' +
+						'<td  width="12%">' + Namedt + '</td>' +
+						'<td class="title"  width="10%" >Gewichtung:</td>' +
+						'<td  width="12%">' + Gewichtungdt + '</td>' +
+						'<td class="title"  width="10%" >Datum:</td>' +
+						'<td  width="12%">' + Datumdt + '</td></tr>' +
+
 			 
           '</table>'+
      

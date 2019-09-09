@@ -110,7 +110,9 @@ if ($uploadOk == 0) {
 
 			$spalte2= str_replace(' ', '_', $spalte2);
 			
-            $Kursname = $spalte1;
+		
+           
+			$Kursname = $spalte1;
 
             $Kurskuerzel = $spalte2;
 
@@ -132,7 +134,7 @@ if ($uploadOk == 0) {
 
                 $Datum = date('Y-m-d', $spalte3);
 
-
+              
 
 
 

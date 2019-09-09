@@ -41,6 +41,7 @@ if (str1 == "-Select-" || str1=="") {
        
 		document.getElementById("Kursname").disabled = true;
 		document.getElementById("Kuerzel").disabled = true;
+	
 		document.getElementById("semester").disabled= true;
 		
 	
@@ -150,7 +151,18 @@ if (str1 == "-Select-" || str1=="") {
 
     </select>
 
+<?php
+include 'db.php';
+  
+		  $isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
 
+    while ($line1 = mysqli_fetch_array($result)) {
+
+        $semDB=$line1['Semesterkuerzel'];
+
+    }
+?>
 
     <br />
 	
@@ -230,21 +242,15 @@ if (str1 == "-Select-" || str1=="") {
 
     <br>
 
-    <select name="semester" id="semester"  required="required">
-
-        <option>FS<?php echo date("y");?></option>
-
-        <option>WS<?php echo date("y");?></option>
-
-        <option>FS<?php echo date("y")-1;?></option>
-
-        <option>WS<?php echo date("y")-1;?></option>
-
-        <option>FS<?php echo date("y")+1;?></option>
-
-        <option>WS<?php echo date("y")+1;?></option>
-
-    </select>
+   <select name="semester" id="semester" onchange="getKlasse()"  value="<?php echo $semDB;?>" required="required">
+      <option><?php echo $semDB;?></option>
+	<option>FS<?php echo date("y");?></option>
+    <option>WS<?php echo date("y");?></option>
+    <option>FS<?php echo date("y")-1;?></option>
+    <option>WS<?php echo date("y")-1;?></option>
+    <option>FS<?php echo date("y")+1;?></option>
+    <option>WS<?php echo date("y")+1;?></option>
+</select>
 
     <br>
 

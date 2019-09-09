@@ -108,6 +108,8 @@ if ($uploadOk == 0) {
 
             list($spalte1, $spalte2, $spalte3, $spalte4, $spalte5, $spalte6, $spalte7, $spalte8, $spalte9, $spalte10, $spalte11) = explode($trennzeichen, $inhalt);
 
+			$spalte2= str_replace(' ', '_', $spalte2);
+			
             $Kursname = $spalte1;
 
             $Kurskuerzel = $spalte2;

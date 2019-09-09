@@ -60,6 +60,7 @@ $result4 = mysqli_query($con, $isEntry4);
 
 while( $value4= mysqli_fetch_array($result4))
 {
+	$isfilled=0;
 $Vorname=$value4['Vorname'];
 $Name =$value4['Name'];
 $ID =$value4['ID'];

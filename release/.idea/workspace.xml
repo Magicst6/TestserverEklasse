@@ -2,19 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="253200be-79b8-42e2-8154-0f5d126fd82e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/uploads.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/uploads.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/uploadsPruefungen.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/uploadsPruefungen.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-includes/capabilities.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-includes/functions.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/ArchivNotenbuchLehrer.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/ArchivNotenbuchLehrer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/ArchivNotenbuchVerwaltung.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/ArchivNotenbuchVerwaltung.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/AusserordKurseingabe.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/AusserordKurseingabe.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/Notenbuch.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/Notenbuch.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Lernendeautzuordnen.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Lernendeautzuordnen.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/PruefungenSchueler.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/PruefungenSchueler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/DBFuellung/DBFuellungSchuelereingabe.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/DBFuellung/DBFuellungSchuelereingabe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/DBFuellung/DBFuellungSchuelereingabeErw.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/DBFuellung/DBFuellungSchuelereingabeErw.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/GetAbwValuesSchueler.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/GetAbwValuesSchueler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/Lernendeautzuordnen.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/Lernendeautzuordnen.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/NotenbuchLehrer.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/NotenbuchLehrer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/NotenbuchSchueler.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/NotenbuchSchueler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/NotenbuchVerwaltung.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/NotenbuchVerwaltung.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/uploads.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/uploads.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/uploadsPruefungen.php" beforeDir="false" afterPath="$PROJECT_DIR$/../www/wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/uploadsPruefungen.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,19 +21,20 @@
     <session id="1423034895">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="2" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="php" value="5" />
+          <entry key="php" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PHP" value="5" />
+          <entry key="PHP" value="16" />
         </counts>
       </usages-collector>
     </session>
@@ -46,37 +42,71 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/DataTablesEditor/DataTables.php">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/PruefungseingabeKalenderLehrer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="32" column="29" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
-            </state>
+            <state relative-caret-position="-1224" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Ajax_Scripts/klassekopieren.php">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Klassenmanagement.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="43" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
+            <state relative-caret-position="-7720" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Noteneingabe.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7023" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/NoteneingabeLehrer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-8893" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Ajax_Scripts/showschuelernoten.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4915" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/ArchivLehrpersonen.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7567" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Notenbuch.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7599" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Abwesenheitseingabe.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/StundenplanToKurseAll.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1685" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/phpmailer/class.phpmailer.php">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/uploads.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7754" />
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -188,17 +218,17 @@
       <updated>1566638899367</updated>
       <workItem from="1566638900620" duration="11828000" />
       <workItem from="1566734711880" duration="1477000" />
+      <workItem from="1568391959301" duration="1519000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13305000" />
+    <option name="totallyTimeSpent" value="14824000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="3086" height="1702" extended-state="7" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17481825" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.122604094" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -211,7 +241,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Statistic" order="10" visible="true" weight="0.2955414" />
+      <window_info active="true" anchor="bottom" id="Statistic" order="10" visible="true" weight="0.38407645" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -241,22 +271,64 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-line="43" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/phpmailer/class.phpmailer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-36187" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/NotenbuchLehrer.php">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/PruefungseingabeKalenderLehrer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1224" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Klassenmanagement.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7720" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Noteneingabe.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7023" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/NoteneingabeLehrer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8893" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ajax_Scripts/showschuelernoten.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4915" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/ArchivLehrpersonen.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7567" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Notenbuch.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7599" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/Abwesenheitseingabe.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/StundenplanToKurseAll.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1685" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/structr/Page_Scripts/uploads.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7754" />
+      </provider>
     </entry>
   </component>
 </project>

@@ -227,10 +227,14 @@
 
 	function tableshow() {
 		var new_url2 = "/wp-content/themes/structr/Page_Scripts/GetNotenValuesSchueler.php?k=" + document.getElementById( "hidschueler" ).value + "&s=" + document.getElementById( "semester" ).value;
-
+	var new_url1 = "/wp-content/themes/structr/Page_Scripts/GetAbwValuesSchueler.php?k=" + document.getElementById( "hidschueler" ).value+ "&s=" + document.getElementById( "semester" ).value;
         table.clear()
             .draw();
 		table.ajax.url( new_url2 ).load();
+		
+		table1.clear()
+            .draw();
+		table1.ajax.url( new_url1 ).load();
 	}
 </script>
 
@@ -435,7 +439,7 @@ $heute = date( "Y-m-d" );
 
 
 
-$isEntry = "Select ID From sv_Lernende where User_ID=$current_user->ID";
+$isEntry = "Select ID From sv_LernendeModule where User_ID=$current_user->ID";
 
 $result = mysqli_query( $con, $isEntry );
 
@@ -449,7 +453,7 @@ while ( $line2 = mysqli_fetch_assoc( $result ) )
 
 
 
-	$isEntry = "Select Name, Vorname From sv_Lernende WHERE ID='$value'";
+	$isEntry = "Select Name, Vorname From sv_LernendeModule WHERE ID='$value'";
 
 	$result = mysqli_query( $con, $isEntry );
 

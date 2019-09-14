@@ -40,7 +40,7 @@ if ($Vorname=="" and $Nachname=="" and $EMail=="" and $Loginname=="" and $Profil
     
     while ($row1= mysqli_fetch_array($result1)) {
 	
-	
+	 $UserID= $row1['User_ID'];
 	 $Vorname =  $row1['Vorname'];
         $Nachname = $row1['Name'];
         $EMail = $row1['EMail'];

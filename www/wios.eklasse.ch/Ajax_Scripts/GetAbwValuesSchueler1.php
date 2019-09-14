@@ -9,10 +9,10 @@ include 'db.php';
 
 $y = 0;
 $Kursname = $_GET[ 'q' ];
-$ID = $_GET[ 'k' ];
+$ID = '124';
 $Lehrer = $_GET[ 'l' ];
 
-$semester=$_GET['s'];
+$semester='WS19';
 $isEntry = "Select * From sv_Settings ";
 $result = mysqli_query($con, $isEntry);
 

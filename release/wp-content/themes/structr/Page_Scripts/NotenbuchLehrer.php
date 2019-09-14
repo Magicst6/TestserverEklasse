@@ -49,14 +49,14 @@
      
 	});
 
-	 function loadtables(){
+	 function loadtables(url3,url4){
     $.fn.dataTable.ext.errMode = 'throw';
     table = $( '.datatables' ).DataTable( {
 
 
         ajax: {
 
-            url: new_url,
+            url: url3,
 
             dataSrc: ""
         },
@@ -105,7 +105,7 @@
 
         ajax: {
 
-            url: new_url1,
+            url: url4,
 
             dataSrc: ""
         },
@@ -307,6 +307,7 @@
             }
         } );
 
+		
     }
 
 
@@ -330,7 +331,7 @@
 
 				if ( ( Notedt ) >= 1 && Notedt <= 6 ) {
 					var z = null;
-					var z = '<div class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
+					var z = '<div id="noteplus" class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
 
 					+'<tr>' +
 					'<td  class="title" width="10%" >Note' + i + ':</td>' +
@@ -363,14 +364,14 @@
 		
 		function showNoten( data ) {
 			
-			    if ( tableedit ) {
+	
+		if ( tableedit ) {
 		tableedit.destroy();
 	}
 	
 	if ( editor ) {
 		editor.destroy();
 	}
-	
 				
 	loadtable(data[ "IDSchueler" ]);
 	loadeditor(data[ "IDSchueler" ]);
@@ -398,18 +399,18 @@
    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == document.getElementById("myModal")) {
-         document.getElementById("myModal").style.display = "none";
-			tableshow();  
+        // document.getElementById("myModal").style.display = "none";
+			
         }
     }
 	
 	 //When the user clicks on <span> (x), close the modal
      document.getElementById("span").onclick = function() {
        document.getElementById("myModal").style.display = "none";
-		 tableshow();  
+	
     }
 			
-        
+      
 		
 		}
 
@@ -423,12 +424,14 @@ function neueNote( data ) {
    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == document.getElementById("myModal2")) {
-         document.getElementById("myModal2").style.display = "none";
+ 
+//			document.getElementById("myModal2").style.display = "none";
 			 document.getElementById("Notecr").value = "";
 	 document.getElementById("Namecr").value = "";
 	 document.getElementById("Gewichtungcr").value = "";
 	 document.getElementById("Datumcr").value = "";
-			tableshow();        }
+			
+			      }
     }
 	
 	 //When the user clicks on <span> (x), close the modal
@@ -439,7 +442,7 @@ function neueNote( data ) {
 	 document.getElementById("Gewichtungcr").value = "";
 	 document.getElementById("Datumcr").value = "";
 		 
-		 tableshow();
+		
     }
 			
        
@@ -466,7 +469,7 @@ function neueNote( data ) {
 
 
 				var z = null;
-				var z = '<div class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
+				var z = '<div id="abwplus" class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
 
 				+'<tr>' +
 				'<td class="title"  width="7%">Klasse:</td>' +
@@ -497,8 +500,8 @@ function neueNote( data ) {
 		};
 
 
-		var new_url = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semester" ).value;
-		var new_url1 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semester" ).value;
+		var new_url = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
+		var new_url1 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
 
 
       
@@ -686,11 +689,11 @@ p.start-editing {
 	}
 	
 	td.details-control2:before {
-		content: url(https://img.icons8.com/material-two-tone/24/000000/plus.png);
+		content: url(/plussmall.png);
 	}
 	
 	tr.shown td.details-control2:before {
-		content: url(https://img.icons8.com/material-two-tone/24/000000/plus.png);
+		content: url(/plussmall.png);
 	}
 
 </style>
@@ -1107,7 +1110,7 @@ while ($line1 = mysqli_fetch_array($result)) {
 
 
 
-<div id="myModal" class="modal">
+<div id="myModal" class="modal" onhide="tableshow()">
 
     <!-- Modal content -->
     <div class="modal-content">
@@ -1141,7 +1144,7 @@ while ($line1 = mysqli_fetch_array($result)) {
 	</div>
 </div>
             
-      <span class="close" id="span">&times;</span>
+      <span class="close"  id="span">&times;</span>
     
           
 
@@ -1166,7 +1169,7 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
             <p>Bitte hier eine neue Note eintragen..</p>
             
 			<input id="schid" type="hidden"  />
-            <input id="Notecr" type="Text"  required="required" />
+            <input id="Notecr" type="Text" onchange="iskomma(this)" required="required" />
             <br><br>
 			Prüfungsname:<br>
             <input id="Namecr" type="Text"  required="required" />
@@ -1179,7 +1182,7 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
              <br><br>
             <input name="Speichern" type="button" value="Senden" onclick="sendNote()" />
 
-        <span class="close" id="span2">&times;</span>
+        <span class="close"  id="span2">&times;</span>
 
 
         
@@ -1188,6 +1191,26 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
 </div>
 
 <script>
+	
+	function iskomma(str) {
+	  
+  if (str.value.indexOf(",")>0)
+    {
+	 x = str.value;
+  	 y = x.replace(",", ".");				  
+     alert( 'Bitte "." statt "," verwenden!');
+	 str.value=y;				  															 
+	}
+}
+	
+	function timeout(){
+			setTimeout(function(){
+		
+	tableshow();
+    //do what you need here
+}, 2000);
+		
+	}
 	
 		function loadeditor(str){	
 		
@@ -1313,72 +1336,215 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
             editor.edit( indexes, {
                 title: 'Note bearbeiten',
                 buttons: [
-                    'Speichern',
+					  {
+						
+							
+                        label: 'Speichern',
+                        fn: function () {
+							setTimeout(function(){
+		 
+	tableshow();
+    //do what you need here
+}, 2000);
+                            editor
+                             
+                                .submit();
+							
+                        }
+                    },
+					
+                   
+                
+                    
+					
                     {
+						
+							
                         label: 'Löschen',
                         fn: function () {
+							setTimeout(function(){
+		 
+	tableshow();
+    //do what you need here
+}, 2000);
                             editor
                                 .remove( indexes, false )
                                 .submit();
+							
                         }
                     }
+					
                 ]
             } );
         } )
         .on( 'deselect', function () {
+			
+		
             editor.close();
+		
         } );
 
   
 }
 	
 	 function tableshow() {
-		var new_url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
-		var new_url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
+		 if (table1)
+			 {
+		 table1.destroy;
+			 }
+		 if (table)
+			 {
+		 table.destroy();
+			 }
+		var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
+		var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
+         $.fn.dataTable.ext.errMode = 'throw';
+    table = $( '.datatables' ).DataTable( {
 
 
-         if ( tableedit ) {
-             tableedit.destroy();
-         }
+        ajax: {
+
+            url: url3,
+
+            dataSrc: ""
+        },
+        columns: [ {
+            className: 'details-control',
+            defaultContent: '',
+            data: null,
+            orderable: false
+        },
+
+
+            {
+                data: 'IDSchueler'
+            },
+            {
+                data: 'Nachname'
+            },
+            {
+                data: 'Vorname'
+            },
+            {
+                data: 'Notenschnitt'
+            },
+            {
+                className: 'details-control1',
+                defaultContent: '',
+                data: null,
+                orderable: false,
+                title:' Noten Bearbeiten'
+
+
+            },
+
+            {
+                className: 'details-control2',
+                defaultContent: '',
+                data: null,
+                orderable: false,
+                title:'Neue Note erstellen'
+            },
+        ],
+
+    } );
+    table1 = $( '.datatables1' ).DataTable( {
+
+
+        ajax: {
+
+            url: url4,
+
+            dataSrc: ""
+        },
+
+        columns: [ {
+            className: 'details-control',
+            defaultContent: '',
+            data: null,
+            orderable: false,
+
+        },
+
+            {
+                data: 'SchuelerID'
+            },
+            {
+                data: 'Nachname'
+            },
+            {
+                data: 'Vorname'
+            },
+            {
+                data: 'AbwesenheitenGesamt'
+            }
+
+
+        ],
+
+
+    } );
+
+    $( '.datatables tbody' ).on( 'click', 'td.details-control', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+            tr.next( 'tr' ).removeClass( 'details-row' );
+            row.child.hide();
+            tr.removeClass( 'shown' );
+        } else {
+            row.child( format( row.data() ) ).show();
+            tr.next( 'tr' ).addClass( 'details-row' );
+            tr.addClass( 'shown' );
+        }
+    } );
+
+    $( '.datatables tbody' ).on( 'click', 'td.details-control1', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table.row( tr );
+
+
+
+        row.child( showNoten( row.data() ) ).show();
+        tr.next( 'tr' ).addClass( 'details-row' );
+        tr.addClass( 'shown' );
+
+
+    } );
+
+    $( '.datatables tbody' ).on( 'click', 'td.details-control2', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table.row( tr );
+
+
+
+        row.child( neueNote( row.data() ) ).show();
+        tr.next( 'tr' ).addClass( 'details-row' );
+        tr.addClass( 'shown' );
+
+    } );
+
+
+    $( '.datatables1 tbody' ).on( 'click', 'td.details-control', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table1.row( tr );
+
+        if ( row.child.isShown() ) {
+            tr.next( 'tr' ).removeClass( 'details-row' );
+            row.child.hide();
+            tr.removeClass( 'shown' );
+        } else {
+            row.child( format1( row.data() ) ).show();
+            tr.next( 'tr' ).addClass( 'details-row' );
+            tr.addClass( 'shown' );
+        }
+    } );
+
 		
+    }
 
-
-         if ( editor ) {
-             editor.destroy();
-         }
-		 
-		  if ( table1 ) {
-             table1.destroy();
-         }
-
-         if ( table ) {
-             table.destroy();
-		 }
-		loadeditor();
-		
-		 
-
-         loadtables();
-		
-	      
-		   
-        table.clear()
-		.draw();
-
-        table1.clear()
-		.draw();
-			   
-			   table.ajax.url( new_url3 ).load();
-		table1.ajax.url( new_url4 ).load();
-
-
-        
-		
-		     
-		
-		     
-		
-	}
+	
 function sendNote(){
 	if ( window.XMLHttpRequest ) {
 
@@ -1399,13 +1565,18 @@ function sendNote(){
 			xmlhttp.open( "GET", "/Ajax_Scripts/createNote.php?q=" + document.getElementById( "Kursname" ).value+"&k="+ document.getElementById("schid").value +"&l=" +document.getElementById("Notecr").value +"&m="+ document.getElementById("Namecr").value +"&n=" +document.getElementById("Gewichtungcr").value +"&o="+document.getElementById("Datumcr").value, true );
 
 			xmlhttp.send();
-		 document.getElementById("myModal2").style.display = "none";
-	 document.getElementById("Notecr").value = "";
+	
+	setTimeout(function(){
+		 document.getElementById("Notecr").value = "";
 	 document.getElementById("Namecr").value = "";
 	 document.getElementById("Gewichtungcr").value = "";
 	 document.getElementById("Datumcr").value = "";
-	
 	tableshow();
+    //do what you need here
+}, 2000);
+		
+	
+	
 	}
 
         function getK() {

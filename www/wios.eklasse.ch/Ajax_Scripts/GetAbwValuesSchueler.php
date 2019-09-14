@@ -9,10 +9,10 @@ include 'db.php';
 
 $y = 0;
 $Kursname = $_GET[ 'q' ];
-$ID = $_GET[ 'k' ];
+$ID = '124';
 $Lehrer = $_GET[ 'l' ];
 
-$semester=$_GET['s'];
+$semester='WS19';
 $isEntry = "Select * From sv_Settings ";
 $result = mysqli_query($con, $isEntry);
 
@@ -50,7 +50,7 @@ while ( $lineLM = mysqli_fetch_array( $resultLM ) ) {
 	$Name=$lineLM['Name'];
 	$Vorname=$lineLM['Vorname'];
     $EMail=$lineLM['EMail'];
-
+echo $Name;
 	
 	if ($semester==$semDB){
     $isEntryL = "Select * From sv_Lernende where Name='$Name' and Vorname='$Vorname' and EMail='$EMail'  ";
@@ -70,11 +70,11 @@ while ( $lineL = mysqli_fetch_array( $resultL ) ) {
 
 
 if ($semester==$semDB){
-    $isEntry = "Select * From sv_AbwesenheitenKompakt where SchülerID='$IDL'  Group by Kursname ";
+    $isEntry = "Select * From sv_AbwesenheitenKompakt where SchülerID=$IDL  Group by Kursname ";
 
 } else{
 
-    $isEntry = "Select * From $AbwArch where SchülerID='$IDL'  Group by Kursname ";
+    $isEntry = "Select * From $AbwArch where SchülerID=$IDL  Group by Kursname ";
 
 }
 
@@ -85,11 +85,11 @@ while ( $line2 = mysqli_fetch_array( $result ) ) {
 	$Kursname = $line2[ 'Kursname' ];
 
     if ($semester==$semDB){
-        $isEntry1 = "Select * From sv_AbwesenheitenKompakt where SchülerID='$IDL' and Kursname ='$Kursname' Order by Datum asc ";
+        $isEntry1 = "Select * From sv_AbwesenheitenKompakt where SchülerID=$IDL and Kursname ='$Kursname' Order by Datum asc ";
 
     } else{
 
-        $isEntry1 = "Select * From $AbwArch where SchülerID='$IDL' and Kursname ='$Kursname' Order by Datum asc ";
+        $isEntry1 = "Select * From $AbwArch where SchülerID=$IDL and Kursname ='$Kursname' Order by Datum asc ";
     }
 
 

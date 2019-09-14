@@ -113,6 +113,7 @@ while( $line2= mysqli_fetch_array($result))
 
 
             $sql_befehl = "Update  sv_Lernende Set Loginname='$Login', User_ID='$ID', EMAIL='$Mail' Where ID='$LernenderID' ";
+			  $sql_befehl1 = "Update  sv_LernendeModule Set Loginname='$Login', User_ID='$ID', EMail='$Mail' Where Name='$Name' and Vorname='$Vorname' ";
 
 
 
@@ -127,6 +128,8 @@ while( $line2= mysqli_fetch_array($result))
             else {
 
                 mysqli_query($con,$sql_befehl);
+				mysqli_query($con,$sql_befehl1);
+
 
 //   echo "   Aktualisierung wurde ausgeführt!";
 

@@ -75,7 +75,7 @@
 
 <?php
 
-
+echo $current_user->ID;
 $isEntry= "Select ID From sv_LernendeModule where User_ID=$current_user->ID";
 
 $result = mysqli_query($con, $isEntry);

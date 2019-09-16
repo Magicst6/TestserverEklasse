@@ -8,35 +8,37 @@
 include 'db.php';
 if( $_POST['Senden'])
 {
-$Anzahl = $_POST['Schueler'];
 
-$Klassenname = $_POST['klasse'];
-$Kursname= $_POST['Kursnm'];
+    $Anzahl = $_POST['Schueler'];
 
-$Datum=$_POST['date'];
-$Lehrer= $_POST['lehrer'];
-$Comment=$_POST['Comment'];
-
-$TookPlace=$_POST['tookplace'];
-
-if ($TookPlace==''){ $TookPlace='nein';}
+    $Kursname = $_POST['Kursnm'];
+    $Datum = $_POST['date'];
+    $Lehrer = $_POST['lehrer'];
+    $Comment = $_POST['Comment'];
+    $Lektionen = $_POST['Lektionen'];
 
 
-$isEntry2 = "Select Stattgefunden From sv_Kurshistorie Where KursID='$Kursname' and Datum='$Datum'";
-$result2 = mysqli_query($con, $isEntry2);
+    $TookPlace = $_POST['tookplace'];
+    if ($Kursname == "-Select-") {
+        echo '<meta http-equiv="refresh" content="0; url=/klassenbuch-der-lehrpersonen" />';
+    } else {
+        if ($TookPlace == '') {
+            $TookPlace = 'nein';
+        }
 
-while( $value3= mysqli_fetch_array($result2))
-{
-$Stattgefunden=$value3['Stattgefunden'];
-}
-if ($Stattgefunden<>'')
-{
-$sql_befehl2 = "UPDATE sv_Kurshistorie SET Stattgefunden='$TookPlace', Kommentar='$Comment' Where KursID='$Kursname' and Datum='$Datum'  ";
-}
-else
-{
-$sql_befehl2 = "INSERT INTO sv_Kurshistorie (Datum, Stattgefunden ,KursID ,Lehrer, Kommentar) VALUES ('$Datum','$TookPlace','$Kursname','$Lehrer', '$Comment')";
-}
+
+        $isEntry2 = "Select Stattgefunden From sv_Kurshistorie Where KursID='$Kursname' and Datum='$Datum'";
+        $result2 = mysqli_query($con, $isEntry2);
+
+        while ($value3 = mysqli_fetch_array($result2)) {
+            $Stattgefunden = $value3['Stattgefunden'];
+        }
+        if ($Stattgefunden <> '') {
+            $sql_befehl2 = "UPDATE sv_Kurshistorie SET Stattgefunden='$TookPlace', Lehrer='$Lehrer', Kommentar='$Comment' , Lektionen='$Lektionen' Where KursID='$Kursname' and Datum='$Datum'  ";
+        } else {
+            $sql_befehl2 = "INSERT INTO sv_Kurshistorie (Datum,Stattgefunden ,KursID ,Lehrer, Kommentar,Lektionen) VALUES ('$Datum','$TookPlace','$Kursname','$Lehrer', '$Comment','$Lektionen')";
+        }
+	}
 
 mysqli_query($con,$sql_befehl2);
 for($x = 0; $x < $Anzahl; $x++)
@@ -44,7 +46,7 @@ for($x = 0; $x < $Anzahl; $x++)
 $y=$x+1;
 
 $ID= $_POST[$y];
-$isEntry = "SELECT  Vorname, Name From sv_Lernende Where ID='$ID'";
+$isEntry = "SELECT  Vorname, Name,Klasse From sv_Lernende Where ID='$ID'";
 $result = mysqli_query($con, $isEntry);
 
 
@@ -52,6 +54,7 @@ while( $value= mysqli_fetch_array($result))
 {
 $Vorname=$value['Vorname'];
 $Nachname=$value['Name'];
+$Klassenname=$value['Klasse'];
 }
 $z="Comment"."$y";
 $Kommentar= $_POST[$z];

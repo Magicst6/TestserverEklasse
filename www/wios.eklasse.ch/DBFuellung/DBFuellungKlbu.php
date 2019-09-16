@@ -13,7 +13,7 @@ if ($_POST['Senden']) {
     $Datum = $_POST['date'];
     $Lehrer = $_POST['lehrer'];
     $Comment = $_POST['Comment'];
-
+    $Lektionen = $_POST['Lektionen'];
 
 
     $TookPlace = $_POST['tookplace'];
@@ -32,10 +32,11 @@ if ($_POST['Senden']) {
             $Stattgefunden = $value3['Stattgefunden'];
         }
         if ($Stattgefunden <> '') {
-            $sql_befehl2 = "UPDATE sv_Kurshistorie SET Stattgefunden='$TookPlace', Lehrer='$Lehrer', Kommentar='$Comment' Where KursID='$Kursname' and Datum='$Datum'  ";
+            $sql_befehl2 = "UPDATE sv_Kurshistorie SET Stattgefunden='$TookPlace', Lehrer='$Lehrer', Kommentar='$Comment' , Lektionen='$Lektionen' Where KursID='$Kursname' and Datum='$Datum'  ";
         } else {
-            $sql_befehl2 = "INSERT INTO sv_Kurshistorie (Datum,Stattgefunden ,KursID ,Lehrer, Kommentar) VALUES ('$Datum','$TookPlace','$Kursname','$Lehrer', '$Comment')";
+            $sql_befehl2 = "INSERT INTO sv_Kurshistorie (Datum,Stattgefunden ,KursID ,Lehrer, Kommentar,Lektionen) VALUES ('$Datum','$TookPlace','$Kursname','$Lehrer', '$Comment','$Lektionen')";
         }
+
 
         mysqli_query($con, $sql_befehl2);
         for ($x = 0; $x < $Anzahl; $x++) {

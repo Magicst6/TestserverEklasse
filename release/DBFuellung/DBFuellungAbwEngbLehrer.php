@@ -14,65 +14,37 @@
 
 include 'db.php';
 
-if( $_POST['Senden'])
+if ($_POST['Senden']) {
+    $Anzahl = $_POST['Schueler'];
 
-{
-
-$Anzahl = $_POST['Schueler'];
-
-
-
-$Kursname= $_POST['Kursnm'];
-
-$Datum=$_POST['date'];
-
-$Lehrer=$_POST['lehrer'];
-
-$Comment=$_POST['Comment'];
+    $Kursname = $_POST['Kursnm'];
+    $Datum = $_POST['date'];
+    $Lehrer = $_POST['lehrer'];
+    $Comment = $_POST['Comment'];
+    $Lektionen = $_POST['Lektionen'];
 
 
-
-$TookPlace=$_POST['tookplace'];
-
-
-
-if ($TookPlace==''){ $TookPlace='nein';}
-
-
-
+    $TookPlace = $_POST['tookplace'];
+    if ($Kursname == "-Select-") {
+        echo '<meta http-equiv="refresh" content="0; url=/klassenbuch-der-lehrpersonen" />';
+    } else {
+        if ($TookPlace == '') {
+            $TookPlace = 'nein';
+        }
 
 
-$isEntry2 = "Select Stattgefunden From sv_Kurshistorie Where KursID='$Kursname' and Datum='$Datum'";
+        $isEntry2 = "Select Stattgefunden From sv_Kurshistorie Where KursID='$Kursname' and Datum='$Datum'";
+        $result2 = mysqli_query($con, $isEntry2);
 
-$result2 = mysqli_query($con, $isEntry2);
-
-
-
-while( $value3= mysqli_fetch_array($result2))
-
-{
-
-$Stattgefunden=$value3['Stattgefunden'];
-
-}
-
-if ($Stattgefunden<>'')
-
-{
-
-$sql_befehl2 = "UPDATE sv_Kurshistorie SET Stattgefunden='$TookPlace', Lehrer='$Lehrer', Kommentar='$Comment' Where KursID='$Kursname' and Datum='$Datum'  ";
-
-}
-
-else
-
-{
-
-$sql_befehl2 = "INSERT INTO sv_Kurshistorie (Datum,Stattgefunden ,KursID ,Lehrer, Kommentar) VALUES ('$Datum','$TookPlace','$Kursname','$Lehrer', '$Comment')";
-
-}
-
-
+        while ($value3 = mysqli_fetch_array($result2)) {
+            $Stattgefunden = $value3['Stattgefunden'];
+        }
+        if ($Stattgefunden <> '') {
+            $sql_befehl2 = "UPDATE sv_Kurshistorie SET Stattgefunden='$TookPlace', Lehrer='$Lehrer', Kommentar='$Comment' , Lektionen='$Lektionen' Where KursID='$Kursname' and Datum='$Datum'  ";
+        } else {
+            $sql_befehl2 = "INSERT INTO sv_Kurshistorie (Datum,Stattgefunden ,KursID ,Lehrer, Kommentar,Lektionen) VALUES ('$Datum','$TookPlace','$Kursname','$Lehrer', '$Comment','$Lektionen')";
+        }
+	}
 
 mysqli_query($con,$sql_befehl2);
 

@@ -32,6 +32,18 @@ else
 {
 echo '<div class="panel panel-default" style="background-color:aliceblue"><div class="panel-body"><strong><span class="auto-style2">Kurs hat stattgefunden:</span></strong>   <input type="checkbox" name="tookplace" value="ja" class="auto-style1" ><br></div></div>';
 }
+    $isEntry10 = "SELECT Lektionen From sv_Kurshistorie Where KursID='$Kursnme' and Datum='$heute'  ";
+
+    $result10 = mysqli_query($con, $isEntry10);
+
+    while ($value10 = mysqli_fetch_array($result10)) {
+        $Lektionen=$value10['Lektionen'];
+    }
+    echo 'Lektionen:';
+    echo '<br>';
+    echo '<input name="Lektionen" type="number" value=' . $Lektionen . ' min="0" max="999" required="required">';
+    echo '(anzugeben für die Stundenabrechung)';
+    echo '<br>';
     echo '<br>';
 echo "Kommentar zur Lektion:";
 echo '<textarea name="Comment">'.$Comment.'</textarea>';

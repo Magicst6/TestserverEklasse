@@ -69,8 +69,8 @@
 	 var z= '<div class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
             
 		  +'<tr>'+
-                  '<td class="title">Kurs'+i+':</td>'+
-                  '<td>'+Kursdt+'</td>'+
+                  '<td class="title"  width="1%">Kurs'+i+':</td>'+
+                  '<td  width="12%"">'+Kursdt+'</td>'+
           '</table>'+   
 		    '</div>';
 		if (kurs==null){

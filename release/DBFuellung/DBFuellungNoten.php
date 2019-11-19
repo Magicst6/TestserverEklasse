@@ -18,28 +18,27 @@ if ($_POST['Senden']) {
 
         for ($x = 0; $x < $Anzahl; $x++) {
             $y = $x + 1;
-
+             
             $ID = $_POST[$y];
-			echo $ID;
-            $isEntry = "SELECT  Vorname, Name ,Klasse From sv_Lernende Where ID='$ID'";
+			
+            $isEntry = "SELECT  Vorname, Name  From sv_LernendeModule Where ID='$ID'";
             $result = mysqli_query($con, $isEntry);
           
             while ($value = mysqli_fetch_array($result)) {
                 $Vorname = $value['Vorname'];
                 $Nachname = $value['Name'];
-                $Klassenname = $value['Klasse'];
+                
             }
            
             $u = "Note" . "$y";
-            echo $u;
+            echo $u.' ';
             $Note = $_POST[$u];
             echo $Note;
 //Daten in DB speichern
-            if ( $Note <> 0) {
+           
                  $Update = 0;
                 
-				if($Note!=str_replace(",","",$Note)) echo "Punkt statt Komma verwenden!";
-				else{
+				
 				
                 $isEntry1 = "SELECT  Datum,Name From sv_Noten where KursID='$Kursname' and SchuelerID='$ID' ";
                 $result1 = mysqli_query($con, $isEntry1);
@@ -70,21 +69,21 @@ if ($_POST['Senden']) {
 
 //echo $sql_befehl1;
                
-                if (("" == $Klassenname) OR ("" == $Kursname) OR ("" == $Datum)) {
+                if ( ("" == $Kursname) OR ("" == $Datum)) {
                     echo "Fehler: Eintrag unvollständig. Bitte neu beginnen!";
 //echo '<meta http-equiv="refresh" content="0; url=/klassenbuch-der-lehrpersonen-ajax" />';
                 } else {
                     mysqli_query($con, $sql_befehl);
-                    echo "Eintrag hinzugefügt.";
+                   echo "Eintrag hinzugefügt.";
 
                 }
-				}
-			}
+				
+			
 			}
       }
     
 
-header('Location:'.$_SERVER['HTTP_REFERER']);
+//header('Location:'.$_SERVER['HTTP_REFERER']);
 ?>
 <!--<meta http-equiv="refresh" content="0; url=/klassenbuch-der-lehrpersonen"/>
 &nbsp;

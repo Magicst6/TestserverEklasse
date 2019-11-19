@@ -22,17 +22,19 @@ $Lehrer=$output_array[1];
 $KurseTab1="sv_Lernende";
 $KurseTab="sv_LernenderKurs";
 				
- $isEntry1 = "Select Klasse From $KurseTab where KursID = '$Kursname'  ";
+ $isEntry1 = "Select * From $KurseTab where KursID = '$Kursname'  ";
     $result1 = mysqli_query($con, $isEntry1);
    
 	
 
     while ($line1 = mysqli_fetch_array($result1)) {
 		
+		$Vorname= $line1['Vorname'];
+		$Nachname= $line1['Nachname'];
 		$Klasse= $line1['Klasse'];
-	}
+	
 
-    $isEntry = "Select * From $KurseTab1 where Klasse = '$Klasse'  ";
+    $isEntry = "Select * From $KurseTab1 where Name = '$Nachname' and Vorname = '$Vorname' and Klasse = '$Klasse' ";
     $result = mysqli_query($con, $isEntry);
     $events = array();
 
@@ -55,7 +57,7 @@ $KurseTab="sv_LernenderKurs";
     }
 		
 	
-	
+	}
 
 	echo json_encode($data);
 

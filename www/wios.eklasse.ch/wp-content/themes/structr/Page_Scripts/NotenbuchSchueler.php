@@ -485,13 +485,9 @@ echo '<input  id="hidschueler" name="hidschueler" readonly="readonly" type="hidd
 Wählen Sie das Semester aus :
 <br>
 <select name="semester" id="semester" onchange="tableshow()"  required="required">
-    <option>-Select-</option>
-    <option>FS<?php echo date("y");?></option>
+   <option>-Select-</option>
+    <option>WS18FS19</option>
     <option>WS<?php echo date("y");?></option>
-    <option>FS<?php echo date("y")-1;?></option>
-    <option>WS<?php echo date("y")-1;?></option>
-    <option>FS<?php echo date("y")+1;?></option>
-    <option>WS<?php echo date("y")+1;?></option>
 </select>
 
 <br><br>

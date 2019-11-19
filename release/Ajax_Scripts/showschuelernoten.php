@@ -278,7 +278,7 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
 
     $isEntry = "SELECT Name, Vorname, ID,Profil  From sv_LernendeModule Where Modul1='$Klasse' or Modul2='$Klasse' or Modul3='$Klasse' or Modul4='$Klasse' or Modul5='$Klasse' or Modul6='$Klasse' or Modul7='$Klasse' or Modul8='$Klasse' or Modul9='$Klasse' or Modul10='$Klasse' or Modul11='$Klasse' or Modul12='$Klasse'  Order By Name asc";
     $result = mysqli_query($con, $isEntry);
-    $y = 0;
+    
     while ($value1 = mysqli_fetch_array($result)) {
         $isfilled = 0;
         $Vorname = $value1['Vorname'];
@@ -302,9 +302,9 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
 
             $result1 = mysqli_query($con, $isEntry1);
 
-            while ($value2 = mysqli_fetch_array($result1)) {
+            while ($value3 = mysqli_fetch_array($result1)) {
 
-                if  ($value2['Datum'] == $datum) {
+                if  ($value3['Datum'] == $datum) {
 
                     $y++;
                     $u = "Note" . "$y";
@@ -314,11 +314,12 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
                     echo '<br>';
                     echo 'Note:';
                     echo '<br>';
-                    echo '<input class="err" name=' . $u . ' id="'.$u.'" type="text" onchange="myFunction3('.$u.')" required="required" value="' . $value2['Note'] . '" >';
+                    echo '<input class="err" name=' . $u . ' id="'.$u.'" type="text" onchange="myFunction3('.$u.')" value="' . $value3['Note'] . '" >';
                     echo '<br>';
                     echo '<br>';
                     echo '<hr>';
                     $isfilled = 1;
+					echo $y;
                 }
             }
 
@@ -335,12 +336,12 @@ if ($Kursnme<>'' && $Kursnme<>"-Select-") {
                 echo '<br>';
                 echo 'Note:';
                 echo '<br>';
-                echo '<input class="err" name=' . $u . ' id="'.$u.'" type="text"  onchange="myFunction3('.$u.')" value="" >';
+                echo '<input class="err" name=' . $u . ' id="'.$u.'" type="text"  onchange="myFunction3('.$u.')"  >';
                 echo '<br>';
 
                 echo '<br>';
                 echo '<hr>';
-
+echo $y;
             }
             echo '<input name="Schueler" id="Schueler" type="hidden" value=' . $y . ' />';
         }

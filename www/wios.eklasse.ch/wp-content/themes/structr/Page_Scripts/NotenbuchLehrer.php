@@ -45,7 +45,7 @@
 	var table2;
 	var table3;
 	$(document).ready(function() {
-
+tableshow1();
      
 	});
 
@@ -975,7 +975,7 @@ $result = mysqli_query($con, $isEntry);
 Kursname:
 <br>
  
-<select id="Kursname" name="Kursname" required="required"  onchange="tableshow()">
+<select id="Kursname" name="Kursname" required="required"  onchange="tableshow1()">
 
    <?php
 
@@ -1035,6 +1035,7 @@ Kursname:
 
 </select>
 
+<button type="button" id="loadVals" onclick="tableshow()">Noten anzeigen</button>  
 
 <br><br>
 
@@ -1182,7 +1183,7 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
              <br><br>
             <input name="Speichern" type="button" value="Senden" onclick="sendNote()" />
 
-        <span class="close"  id="span2">&times;</span>
+        <span class="close" onclick="reload.location()"  id="span2">&times;</span>
 
 
         
@@ -1343,7 +1344,7 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
                         fn: function () {
 							setTimeout(function(){
 		 
-	tableshow();
+	tableshow1();
     //do what you need here
 }, 2000);
                             editor
@@ -1364,7 +1365,7 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
                         fn: function () {
 							setTimeout(function(){
 		 
-	tableshow();
+	tableshow1();
     //do what you need here
 }, 2000);
                             editor
@@ -1388,15 +1389,22 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
 }
 	
 	 function tableshow() {
+ 
+		 
+		
+		 
+		 
+		
 		 if (table1)
 			 {
-		 table1.destroy;
+		 table1.destroy();
 			 }
 		 if (table)
 			 {
 		 table.destroy();
 			 }
-		var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
+
+		 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
 		var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + document.getElementById( "Kursname" ).value + "&s=" + document.getElementById( "semDB" ).value;
          $.fn.dataTable.ext.errMode = 'throw';
     table = $( '.datatables' ).DataTable( {
@@ -1413,6 +1421,7 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
             defaultContent: '',
             data: null,
             orderable: false
+			
         },
 
 
@@ -1448,50 +1457,19 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
         ],
 
     } );
-    table1 = $( '.datatables1' ).DataTable( {
+  
 
-
-        ajax: {
-
-            url: url4,
-
-            dataSrc: ""
-        },
-
-        columns: [ {
-            className: 'details-control',
-            defaultContent: '',
-            data: null,
-            orderable: false,
-
-        },
-
-            {
-                data: 'SchuelerID'
-            },
-            {
-                data: 'Nachname'
-            },
-            {
-                data: 'Vorname'
-            },
-            {
-                data: 'AbwesenheitenGesamt'
-            }
-
-
-        ],
-
-
-    } );
-
+		 
+		
+			 
     $( '.datatables tbody' ).on( 'click', 'td.details-control', function () {
         var tr = $( this ).closest( 'tr' ),
             row = table.row( tr );
 
         if ( row.child.isShown() ) {
             tr.next( 'tr' ).removeClass( 'details-row' );
-            row.child.hide();
+             row.child.hide();
+			
             tr.removeClass( 'shown' );
         } else {
             row.child( format( row.data() ) ).show();
@@ -1525,25 +1503,253 @@ Kurs:        <input id="Kurslb1" readonly><br><br>
 
     } );
 
+		 
+		 table1 = $( '.datatables1' ).DataTable( {
+
+
+        ajax: {
+
+            url: url4,
+
+            dataSrc: ""
+        },
+
+        columns: [ {
+            className: 'details-control',
+            defaultContent: '',
+            data: null,
+            orderable: false
+			
+
+        },
+
+            {
+                data: 'SchuelerID'
+            },
+            {
+                data: 'Nachname'
+            },
+            {
+                data: 'Vorname'
+            },
+            {
+                data: 'AbwesenheitenGesamt'
+            }
+
+
+        ],
+
+
+    } );
+
 
     $( '.datatables1 tbody' ).on( 'click', 'td.details-control', function () {
         var tr = $( this ).closest( 'tr' ),
-            row = table1.row( tr );
+            row1 = table1.row( tr );
 
-        if ( row.child.isShown() ) {
+        if ( row1.child.isShown() ) {
             tr.next( 'tr' ).removeClass( 'details-row' );
-            row.child.hide();
+             row1.child.hide();
+			
+			
             tr.removeClass( 'shown' );
         } else {
-            row.child( format1( row.data() ) ).show();
+            row1.child( format1( row1.data() ) ).show();
             tr.next( 'tr' ).addClass( 'details-row' );
             tr.addClass( 'shown' );
         }
     } );
 
 		
+		 
+		
     }
 
+	function tableshow1() {
+
+		 
+		
+		
+		
+		
+			 
+		
+		 if (table1)
+			 {
+		 table1.destroy();
+			 }
+		 if (table)
+			 {
+		 table.destroy();
+			 }
+
+		 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + "-Select-" + "&s=" + document.getElementById( "semDB" ).value;
+		var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + "-Select-" + "&s=" + document.getElementById( "semDB" ).value;
+         $.fn.dataTable.ext.errMode = 'throw';
+    table = $( '.datatables' ).DataTable( {
+
+
+        ajax: {
+
+            url: url3,
+
+            dataSrc: ""
+        },
+        columns: [ {
+            className: 'details-control',
+            defaultContent: '',
+            data: null,
+            orderable: false
+			
+        },
+
+
+            {
+                data: 'IDSchueler'
+            },
+            {
+                data: 'Nachname'
+            },
+            {
+                data: 'Vorname'
+            },
+            {
+                data: 'Notenschnitt'
+            },
+            {
+                className: 'details-control1',
+                defaultContent: '',
+                data: null,
+                orderable: false,
+                title:' Noten Bearbeiten'
+
+
+            },
+
+            {
+                className: 'details-control2',
+                defaultContent: '',
+                data: null,
+                orderable: false,
+                title:'Neue Note erstellen'
+            },
+        ],
+
+    } );
+  
+
+		 
+		
+			 
+    $( '.datatables tbody' ).on( 'click', 'td.details-control', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+            tr.next( 'tr' ).removeClass( 'details-row' );
+             row.child.hide();
+			
+            tr.removeClass( 'shown' );
+        } else {
+            row.child( format( row.data() ) ).show();
+            tr.next( 'tr' ).addClass( 'details-row' );
+            tr.addClass( 'shown' );
+        }
+    } );
+
+    $( '.datatables tbody' ).on( 'click', 'td.details-control1', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table.row( tr );
+
+
+
+        row.child( showNoten( row.data() ) ).show();
+        tr.next( 'tr' ).addClass( 'details-row' );
+        tr.addClass( 'shown' );
+
+
+    } );
+
+    $( '.datatables tbody' ).on( 'click', 'td.details-control2', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row = table.row( tr );
+
+
+
+        row.child( neueNote( row.data() ) ).show();
+        tr.next( 'tr' ).addClass( 'details-row' );
+        tr.addClass( 'shown' );
+
+    } );
+
+		 
+		 table1 = $( '.datatables1' ).DataTable( {
+
+
+        ajax: {
+
+            url: url4,
+
+            dataSrc: ""
+        },
+
+        columns: [ {
+            className: 'details-control',
+            defaultContent: '',
+            data: null,
+            orderable: false
+			
+
+        },
+
+            {
+                data: 'SchuelerID'
+            },
+            {
+                data: 'Nachname'
+            },
+            {
+                data: 'Vorname'
+            },
+            {
+                data: 'AbwesenheitenGesamt'
+            }
+
+
+        ],
+
+
+    } );
+
+
+    $( '.datatables1 tbody' ).on( 'click', 'td.details-control', function () {
+        var tr = $( this ).closest( 'tr' ),
+            row1 = table1.row( tr );
+
+        if ( row1.child.isShown() ) {
+            tr.next( 'tr' ).removeClass( 'details-row' );
+             row1.child.hide();
+			
+			
+            tr.removeClass( 'shown' );
+        } else {
+            row1.child( format1( row1.data() ) ).show();
+            tr.next( 'tr' ).addClass( 'details-row' );
+            tr.addClass( 'shown' );
+        }
+    } );
+
+		
+		 
+		
+    }
+
+	function sleep(miliseconds) {
+   var currentTime = new Date().getTime();
+
+   while (currentTime + miliseconds >= new Date().getTime()) {
+   }
+}
 	
 function sendNote(){
 	if ( window.XMLHttpRequest ) {
@@ -1571,7 +1777,7 @@ function sendNote(){
 	 document.getElementById("Namecr").value = "";
 	 document.getElementById("Gewichtungcr").value = "";
 	 document.getElementById("Datumcr").value = "";
-	tableshow();
+	tableshow1();
     //do what you need here
 }, 2000);
 		

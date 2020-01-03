@@ -5,6 +5,14 @@ include 'db.php';
 $Klasse = $_GET['q'];
 $semester = $_GET['k'];
 
+if ($semester=='WS18FS19')
+{
+
+	$semesterold='FS19';
+	
+}
+else $semesterold=$semester;
+
 
 if ($Klasse==""){$vr2=5;}
 else {$vr2=4; }
@@ -62,14 +70,14 @@ for($y = 1; $y < 7; $y++)   {
 
     $entry = mysqli_query($con,$isEntry);
     while( $line2= mysqli_fetch_assoc($entry)) {
-        $isEntry1 = "Select Uhrzeit1,Uhrzeit2,Uhrzeit3,Uhrzeit4,Uhrzeit5,Uhrzeit6,Uhrzeit7,Uhrzeit8,Uhrzeit9,Uhrzeit10 From $ZeitStdpln Where Klasse='$Klasse' and Tag='$Tag' and Semester ='$semester' ";
+        $isEntry1 = "Select Uhrzeit1,Uhrzeit2,Uhrzeit3,Uhrzeit4,Uhrzeit5,Uhrzeit6,Uhrzeit7,Uhrzeit8,Uhrzeit9,Uhrzeit10 From $ZeitStdpln Where Klasse='$Klasse' and Tag='$Tag' and Semester ='$semesterold' ";
         $entry1 = mysqli_query($con, $isEntry1);
         while ($line3 = mysqli_fetch_assoc($entry1)) {
 
             for ($z = 1; $z <= 10; $z++) {
                 $Uhrzeit = "Uhrzeit" . "$z";
                 $UhrzeitV = $line3[$Uhrzeit];
-                if ($UhrzeitV == $line2['Uhrzeit'].":00" and $line2['Uhrzeit']<>"" and substr($line2['KursID'], -4)==$semester) {
+                if ($UhrzeitV == $line2['Uhrzeit'].":00" and $line2['Uhrzeit']<>"" and substr($line2['KursID'], -4)==$semesterold) {
                     $Uhr = ${'Uhr' . $z . $y} = $line2['Uhrzeit'];
                     preg_match("/\.(.*?)\./", $line2['KursID'], $output_array);
                     ${'Kurs' . $z . $y} = $output_array[1];
@@ -315,7 +323,7 @@ while( $value= mysqli_fetch_array($result))
     }
     $KursIDarr[]=$value['KursID'];
 
-    if ($dontwrite <>1 and substr($value['KursID'], -4)==$semester){
+    if ($dontwrite <>1 and substr($value['KursID'], -4)==$semesterold){
         $y++;
         $Kursname=$value['Kursname'];
         $Startdatum=$value['Startdatum'];

@@ -519,10 +519,22 @@ $heute=date("Y-m-d");
 Wählen Sie das Semester aus :
 <br>
 <select name="semester" id="semester" onchange="tableshow()"  required="required">
-    <option>-Select-</option>
-    <option>WS18FS19</option>
-    <option>WS<?php echo date("y");?></option>
-    
+    <?php
+
+    //Den aktuell eingeloggten Schüler anzeigen
+
+    $isEntry= "Select Semesterkuerzel From sv_SemesterArchiv";
+    $result = mysqli_query($con, $isEntry);
+    echo "<option>". $_GET['Semester']. "</option>";
+
+    while( $line3= mysqli_fetch_array($result))
+    {
+    $Semester = $line3['Semesterkuerzel'];
+    echo "<option>" . $Semester . "</option>";
+
+    }
+
+    ?>
 </select>
 
 

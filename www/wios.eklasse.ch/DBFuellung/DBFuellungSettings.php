@@ -401,7 +401,125 @@ $result2 = mysqli_query($con, $isEntry2);
 while ($value3 = mysqli_fetch_array($result2)) {
     $SemesterkuerzelDB = $value3['Semesterkuerzel'];
 }
-$Sem_lernende= $SemesterkuerzelDB.'_Lernende';
+
+
+$isEntry2 = "Select Semesterkuerzel From sv_SemesterArchiv";
+$result2 = mysqli_query($con, $isEntry2);
+$isFilled = false;
+while ($value3 = mysqli_fetch_array($result2)) {
+    $SemesterkuerzelDBArchiv = $value3['Semesterkuerzel'];
+
+    if ($SemesterkuerzelDB == $SemesterkuerzelDBArchiv) {
+        $isFilled = true;
+    }
+}
+if (!$isFilled)
+{
+        $sql_befehl2 = "INSERT INTO sv_SemesterArchiv (Semesterkuerzel) VALUES ('$SemesterkuerzelDB')";
+        mysqli_query($con, $sql_befehl2);
+	$query1 = "Delete From sv_Pruefungen";
+
+mysqli_query($con,$query1);
+
+$query1 = "Delete From sv_AbwesenheitenKompakt";
+
+mysqli_query($con,$query1);
+
+$query1 = "Delete From sv_Kurshistorie";
+
+mysqli_query($con,$query1);
+	
+	$query1 = "Delete From sv_Kurse";
+
+mysqli_query($con,$query1);
+	
+	$query1 = "Delete From sv_LernenderKurs";
+
+mysqli_query($con,$query1);
+
+$query1 = "UPDATE sv_Lehrpersonen SET Kurs1 = '',Kurs2 = '',Kurs3 = '',Kurs4 = '',Kurs5 = '',Kurs6 = '',Kurs7 = '',Kurs8 = '',Kurs9 = '',Kurs10 = '',Kurs11 = '',Kurs12 = '',Kurs13 = '',Kurs14 = '',Kurs15 = '',Kurs16 = ''";
+
+mysqli_query($con,$query1);
+	
+	
+}
+else{
+	$Sem_Pruefungen= $Semesterkuerzel.'_Pruefungen';
+
+
+
+
+$query1 = "Delete From sv_Pruefungen";
+
+mysqli_query($con,$query1);
+
+$query5 = "INSERT INTO sv_Pruefungen SELECT * FROM $Sem_Pruefungen";
+
+mysqli_query($con,$query5);
+	
+	
+$Sem_AbwesenheitenKompakt= $Semesterkuerzel.'_AbwesenheitenKompakt';
+
+$query1 = "Delete From sv_AbwesenheitenKompakt";
+
+mysqli_query($con,$query1);
+
+$query5 = "INSERT INTO sv_AbwesenheitenKompakt  SELECT * FROM $Sem_AbwesenheitenKompakt";
+
+mysqli_query($con,$query5);
+
+
+$Sem_Kurse= $Semesterkuerzel.'_Kurse';
+
+	$query1 = "Delete From sv_Kurse";
+
+mysqli_query($con,$query1);
+
+$query5 = "INSERT INTO sv_Kurse  SELECT * FROM $Sem_Kurse";
+
+mysqli_query($con,$query5);
+
+
+$Sem_Kurshistorie= $Semesterkuerzel.'_Kurshistorie';
+
+$query1 = "Delete From sv_Kurshistorie";
+
+mysqli_query($con,$query1);
+
+$query5 = "INSERT INTO sv_Kurshistorie SELECT * FROM  $Sem_Kurshistorie";
+
+mysqli_query($con,$query5);
+
+
+
+$Sem_Lehrpersonen= $Semesterkuerzel.'_Lehrpersonen';
+
+	
+	$query1 = "UPDATE sv_Lehrpersonen SET Kurs1 = '',Kurs2 = '',Kurs3 = '',Kurs4 = '',Kurs5 = '',Kurs6 = '',Kurs7 = '',Kurs8 = '',Kurs9 = '',Kurs10 = '',Kurs11 = '',Kurs12 = '',Kurs13 = '',Kurs14 = '',Kurs15 = '',Kurs16 = ''";
+
+
+mysqli_query($con,$query1);
+	
+
+$query5 = "INSERT INTO sv_Lehrpersonen SELECT * FROM $Sem_Lehrpersonen ";
+
+mysqli_query($con,$query5);
+
+
+$Sem_LernenderKurs= $Semesterkuerzel.'_LernenderKurs';
+
+	$query1 = "Delete From sv_LernenderKurs";
+
+mysqli_query($con,$query1);
+
+$query5 = "INSERT INTO sv_LernenderKurs SELECT * FROM  $Sem_LernenderKurs";
+
+mysqli_query($con,$query5);
+
+	
+}
+
+$Sem_lernende= $Semesterkuerzel.'_Lernende';
 
 $query = "DROP TABLE $Sem_lernende";
 
@@ -417,7 +535,7 @@ $query2 = "INSERT INTO $Sem_lernende SELECT * FROM sv_Lernende";
 
 mysqli_query($con,$query2);
 
-$Sem_lernendeModule= $SemesterkuerzelDB.'_LernendeModule';
+$Sem_lernendeModule= $Semesterkuerzel.'_LernendeModule';
 
 $query3 = "DROP TABLE $Sem_lernendeModule";
 
@@ -434,7 +552,7 @@ $query5 = "INSERT INTO $Sem_lernendeModule SELECT * FROM sv_LernendeModule";
 mysqli_query($con,$query5);
 
 
-$Sem_AbwesenheitenGesamt= $SemesterkuerzelDB.'_AbwesenheitenGesamt';
+$Sem_AbwesenheitenGesamt= $Semesterkuerzel.'_AbwesenheitenGesamt';
 
 $query3 = "DROP TABLE $Sem_AbwesenheitenGesamt";
 
@@ -451,7 +569,7 @@ $query5 = "INSERT INTO $Sem_AbwesenheitenGesamt SELECT * FROM sv_AbwesenheitenGe
 mysqli_query($con,$query5);
 
 
-$Sem_AbwesenheitenKompakt= $SemesterkuerzelDB.'_AbwesenheitenKompakt';
+$Sem_AbwesenheitenKompakt= $Semesterkuerzel.'_AbwesenheitenKompakt';
 
 $query3 = "DROP TABLE $Sem_AbwesenheitenKompakt";
 
@@ -468,7 +586,7 @@ $query5 = "INSERT INTO $Sem_AbwesenheitenKompakt SELECT * FROM sv_AbwesenheitenK
 mysqli_query($con,$query5);
 
 
-$Sem_Kurse= $SemesterkuerzelDB.'_Kurse';
+$Sem_Kurse= $Semesterkuerzel.'_Kurse';
 
 $query3 = "DROP TABLE $Sem_Kurse";
 
@@ -485,7 +603,7 @@ $query5 = "INSERT INTO $Sem_Kurse SELECT * FROM sv_Kurse";
 mysqli_query($con,$query5);
 
 
-$Sem_Kurshistorie= $SemesterkuerzelDB.'_Kurshistorie';
+$Sem_Kurshistorie= $Semesterkuerzel.'_Kurshistorie';
 
 $query3 = "DROP TABLE $Sem_Kurshistorie";
 
@@ -503,7 +621,7 @@ mysqli_query($con,$query5);
 
 
 
-$Sem_Lehrpersonen= $SemesterkuerzelDB.'_Lehrpersonen';
+$Sem_Lehrpersonen= $Semesterkuerzel.'_Lehrpersonen';
 
 $query3 = "DROP TABLE $Sem_Lehrpersonen";
 
@@ -520,7 +638,7 @@ $query5 = "INSERT INTO $Sem_Lehrpersonen SELECT * FROM sv_Lehrpersonen";
 mysqli_query($con,$query5);
 
 
-$Sem_LernenderKurs= $SemesterkuerzelDB.'_LernenderKurs';
+$Sem_LernenderKurs= $Semesterkuerzel.'_LernenderKurs';
 
 $query3 = "DROP TABLE $Sem_LernenderKurs";
 
@@ -537,7 +655,7 @@ $query5 = "INSERT INTO $Sem_LernenderKurs SELECT * FROM sv_LernenderKurs";
 mysqli_query($con,$query5);
 
 
-$Sem_ZeitenStundenplan= $SemesterkuerzelDB.'_ZeitenStundenplan';
+$Sem_ZeitenStundenplan= $Semesterkuerzel.'_ZeitenStundenplan';
 
 $query3 = "DROP TABLE $Sem_ZeitenStundenplan";
 
@@ -555,7 +673,7 @@ mysqli_query($con,$query5);
 
 
 
-$Sem_Pruefungen= $SemesterkuerzelDB.'_Pruefungen';
+$Sem_Pruefungen= $Semesterkuerzel.'_Pruefungen';
 
 $query3 = "DROP TABLE $Sem_Pruefungen";
 
@@ -572,7 +690,7 @@ $query5 = "INSERT INTO $Sem_Pruefungen SELECT * FROM sv_Pruefungen";
 mysqli_query($con,$query5);
 
 
-$Sem_Noten= $SemesterkuerzelDB.'_Noten';
+$Sem_Noten= $Semesterkuerzel.'_Noten';
 
 $query3 = "DROP TABLE $Sem_Noten";
 
@@ -605,7 +723,7 @@ $query5 = "INSERT INTO $Sem_RecLernende SELECT * FROM sv_RecoverLernende";
 
 mysqli_query($con,$query5);
 
-$Sem_Rechner= $SemesterkuerzelDB.'_Rechner';
+$Sem_Rechner= $Semesterkuerzel.'_Rechner';
 
 $query3 = "DROP TABLE $Sem_Rechner";
 
@@ -638,22 +756,6 @@ mysqli_query($con1,$query4);
 $query5 = "INSERT INTO $Sem_Users SELECT * FROM sv_users";
 
 mysqli_query($con1,$query5);
-
-$isEntry2 = "Select Semesterkuerzel From sv_SemesterArchiv";
-$result2 = mysqli_query($con, $isEntry2);
-$isFilled = false;
-while ($value3 = mysqli_fetch_array($result2)) {
-    $SemesterkuerzelDBArchiv = $value3['Semesterkuerzel'];
-
-    if ($SemesterkuerzelDB == $SemesterkuerzelDBArchiv) {
-        $isFilled = true;
-    }
-}
-if (!$isFilled)
-{
-        $sql_befehl2 = "INSERT INTO sv_SemesterArchiv (Semesterkuerzel) VALUES ('$SemesterkuerzelDB')";
-        mysqli_query($con, $sql_befehl2);
-}
 
 header('Location:'.$_SERVER['HTTP_REFERER']);
 ?>

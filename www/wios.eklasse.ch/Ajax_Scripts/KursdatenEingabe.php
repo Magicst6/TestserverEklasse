@@ -1,9 +1,17 @@
 
    <?php
-   include "db.php";
+   include "../DBFuellung/db.php";
     $Klasse = $_GET['q'];
     $EnddatumManual=$_GET['k'];
 
+  $isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
+
+    while ($line1 = mysqli_fetch_array($result)) {
+
+        $semDB=$line1['Semesterkuerzel'];
+
+    }
 
     $isEntry= "Select * From sv_Kurse Where Klasse='$Klasse' ORDER BY Startdatum" ;
     $result = mysqli_query($con, $isEntry);
@@ -39,6 +47,13 @@
             $Enddatum=$EnddatumManual;
         }
 
+		$semakt = substr($KursID, -4);
+        if($EnddatumManual<>""){
+
+            $Enddatum=$EnddatumManual;
+        }
+        if ($semakt==$semDB)
+		{
 
         echo "<tr>";
         echo '<td><input name="ID1' . $y . '" style="width: 100px" type="text"  value=' . $ID . '  readonly></td>';
@@ -54,6 +69,7 @@
         echo "</tr>";
         $y = $y + 1;
         $Enddatum=null;
+		}
     }
     echo "</tbody>";
     echo "</table>";

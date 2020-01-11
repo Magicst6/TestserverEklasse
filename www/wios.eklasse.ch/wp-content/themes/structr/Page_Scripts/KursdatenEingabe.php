@@ -134,10 +134,18 @@ $klasse=$_GET['Klasse'];
 	
 	<?php
 	
+	
  echo '<div id="plan"><b></b>';
     $Klasse = $klasse;
     $EnddatumManual=$Semesterende;
+	  $isEntry = "Select * From sv_Settings ";
+$result = mysqli_query($con, $isEntry);
 
+    while ($line1 = mysqli_fetch_array($result)) {
+
+        $semDB=$line1['Semesterkuerzel'];
+
+    }
 
     $isEntry= "Select * From sv_Kurse Where Klasse='$Klasse' ORDER BY Startdatum" ;
     $result = mysqli_query($con, $isEntry);
@@ -168,11 +176,14 @@ $klasse=$_GET['Klasse'];
         $Enddatum=$line2['Enddatum'];
         $Zimmer = $line2['Zimmer'];
         $Uhrzeit=$line2['Uhrzeit'];
+		
+		$semakt = substr($KursID, -4);
         if($EnddatumManual<>""){
 
             $Enddatum=$EnddatumManual;
         }
-
+        if ($semakt==$semDB)
+		{
 
         echo "<tr>";
         echo '<td><input name="ID1' . $y . '" style="width: 100px" type="text"  value=' . $ID . '  readonly></td>';
@@ -188,6 +199,8 @@ $klasse=$_GET['Klasse'];
         echo "</tr>";
         $y = $y + 1;
         $Enddatum=null;
+		}
+		
     }
     echo "</tbody>";
     echo "</table>";

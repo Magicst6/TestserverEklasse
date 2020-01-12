@@ -495,7 +495,7 @@ mysqli_query($con,$query5);
 $Sem_Lehrpersonen= $Semesterkuerzel.'_Lehrpersonen';
 
 	
-	$query1 = "UPDATE sv_Lehrpersonen SET Kurs1 = '',Kurs2 = '',Kurs3 = '',Kurs4 = '',Kurs5 = '',Kurs6 = '',Kurs7 = '',Kurs8 = '',Kurs9 = '',Kurs10 = '',Kurs11 = '',Kurs12 = '',Kurs13 = '',Kurs14 = '',Kurs15 = '',Kurs16 = ''";
+	$query1 = "Delete From sv_Lehrpersonen";
 
 
 mysqli_query($con,$query1);

@@ -36,7 +36,7 @@ $result = mysqli_query($con, $isEntry);
 
 <select name="klasse" id="klasse" onchange="getKlasse(this.value)" required="required">
     <?php
-    $isEntry= "Select Klasse From sv_Lernende where Klasse like '%kv%'";
+    $isEntry= "Select Klasse From sv_Lernende ";
     $result1 = mysqli_query($con,$isEntry);
     $resultarr1 = array();
     echo "<option>" . $_GET['klasse'] . "</option>";
@@ -63,17 +63,10 @@ $result = mysqli_query($con, $isEntry);
 </select>
 <br>
 <br>
-Wählen Sie das Semester aus :
+Semester:
 <br>
-<select name="semester" id="semester" onchange="getKlasse()"  value="<?php echo $semDB;?>" required="required">
-      <option><?php echo $semDB;?></option>
-	<option>FS<?php echo date("y");?></option>
-    <option>WS<?php echo date("y");?></option>
-    <option>FS<?php echo date("y")-1;?></option>
-    <option>WS<?php echo date("y")-1;?></option>
-    <option>FS<?php echo date("y")+1;?></option>
-    <option>WS<?php echo date("y")+1;?></option>
-</select>
+<input name="semester" id="semester"   value="<?php echo $semDB;?>" readonly=readonly >
+      
 
 <div id="stundenplan"><b></b></div>
 

@@ -155,7 +155,14 @@ if ($uploadOk == 0) {
 
 
 
+        $isEntry = "SELECT Farbe From sv_Kurse Where  KursID='$KursID' ";
+$result = mysqli_query($con, $isEntry);
 
+while( $value= mysqli_fetch_array($result))
+{
+	$Farbe=$value['Farbe'];
+}
+			
             if ($Kurskuerzel == "" or $Kursname == "" or $Pruefungsname == ""  or $Datum == "" or $Start == ""  or $Ende == "" or $Tag == ""  or $Gewichtung == "" or $Klasse == ""  or $Lehrperson == "" or $LP_ID == "" ) {
 
                 echo "Eintrag unvollständig";
@@ -196,7 +203,7 @@ if ($uploadOk == 0) {
 
                 if (!$isExisting) {
 
-                    $sql_befehl = "INSERT INTO sv_Pruefungen (Pruefungsname,Kursname, KursID, Datum, Tag, Start, Ende, Gewichtung, Klasse, Zimmer,ZI_ID,Lehrperson,LP_ID) VALUES ('$Pruefungsname','$Kursname','$KursID','$Datum','$Tag','$Start','$Ende','$Gewichtung','$Klasse','$Zimmer','$ZI_ID','$Lehrperson','$LP_ID')";
+                    $sql_befehl = "INSERT INTO sv_Pruefungen (Pruefungsname,Kursname, KursID, Datum, Tag, Start, Ende, Gewichtung, Klasse, Zimmer,ZI_ID,Lehrperson,LP_ID,Farbe) VALUES ('$Pruefungsname','$Kursname','$KursID','$Datum','$Tag','$Start','$Ende','$Gewichtung','$Klasse','$Zimmer','$ZI_ID','$Lehrperson','$LP_ID','$Farbe')";
 
 
 
@@ -252,9 +259,13 @@ if ($uploadOk == 0) {
 
 }
 
+
+
 echo '<meta http-equiv="refresh" content="0; url=/kurstermine" />';
 
 
 
 ?>
+
+
 

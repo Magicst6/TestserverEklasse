@@ -35,6 +35,16 @@
     <script src='/wp-content/themes/structr/Page_Scripts/fullcalendar/fullcalendar.js'></script>
 
     <script src='/wp-content/themes/structr/Page_Scripts/fullcalendar/locale-all.js'></script>
+	<script src="https://cdn.tiny.cloud/1/p4y59yu91l1ttdi8h066ovomyunbzi9p44zqccnlmn9ly5ge/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#lernziele',
+		  readonly : 1,
+		  menubar: false,
+		  height:600
+      });
+    </script>
 
     <?php
 	include "db.php";
@@ -67,7 +77,7 @@
 
     <input type="hidden" name="curruser" id="curruser" value="<?php echo $current_user->ID ?>" class="text ui-widget-content ui-corner-all" readonly >
 
-	<br><br>
+	
 <body>
 <h4>Schüler:
 </h4>
@@ -75,7 +85,7 @@
 
 <?php
 
-echo $current_user->ID;
+
 $isEntry= "Select ID From sv_LernendeModule where User_ID=$current_user->ID";
 
 $result = mysqli_query($con, $isEntry);
@@ -115,7 +125,7 @@ while( $line2= mysqli_fetch_assoc($result))
 
 
 
-    echo '<input  id="lehrer" name="lehrer" readonly="readonly" type="text" value="'.$Vorname .' '.$Name .' ID:'. $value .'" />' ;
+    echo '<input  id="lehrer" class="ninput" name="lehrer" readonly="readonly" type="text" value="'.$Vorname .' '.$Name .' ID:'. $value .'" />' ;
 
     $Lehrer=$Vorname .' '.$Name .' ID:'. $value;
 
@@ -125,7 +135,7 @@ while( $line2= mysqli_fetch_assoc($result))
 
 ?>
 
-
+<br><br>
    <!-- </br>Klasse:<br>
 
     <select name="klassedrop" id="klassedrop" onchange="reload()" >
@@ -709,9 +719,12 @@ while( $line2= mysqli_fetch_assoc($result))
                           var text1 = event.lernziele;
                     text1 = text1.replace( /!^/g,'\r');
 					text1 = text1.replace( /~!/g,'\n');			
-		
+		 
+								text1 = text1.replace(/§§§/g, '&');
+			text1 = text1.replace(/!!!!!/g, '+');
+			text1 = text1.replace(/\|\|\|\|\|/g, '#');
 							
-						    document.getElementById('lernziele').value =text1;
+						    tinymce.get('lernziele').setContent(text1); 
 
                                 document.getElementById('farbe').value = event.color;
 								
@@ -951,6 +964,13 @@ while( $line2= mysqli_fetch_assoc($result))
 
         }
 
+	 input[type=text].ninput {
+
+            width:auto;
+
+           
+
+        }
 
 
     </style>
@@ -1151,31 +1171,37 @@ while( $line2= mysqli_fetch_assoc($result))
  <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {}
-
+	.fc-list-item-title:hover{
+  background:lightgrey;
+		 cursor: pointer;
+}
         /* The Modal (background) */
+       /* The Modal (background) */
         .modal{
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 40%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+         display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 5; /* Sit on top */
+			padding-top: 400px; /* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0, 0, 0); /* Fallback color */
+			background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
         }
 
         /* Modal Content */
         .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
+                width: 85%;
+    padding: 25px;
+	background: #FFF;
+	max-width: 600px;
+    margin: 70px auto;
+	position: relative;
+	border-radius: 8px;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
         }
-
         /* The Close Button */
         .close {
             color: #aaaaaa;
@@ -1396,11 +1422,11 @@ include 'db.php';
 
 
 
-$today=date("Y-m-d");
+//$today=date("Y-m-d");
 
-$delOlder= "Delete  From sv_KurseAll Where Datum < '$today' ";
+//$delOlder= "Delete  From sv_KurseAll Where Datum < '$today' ";
 
-mysqli_query($con,$delOlder);
+//mysqli_query($con,$delOlder);
 
 
 
@@ -1409,7 +1435,7 @@ mysqli_query($con,$delOlder);
 <p>
   <input name="myBtn1" id="myBtn1" type="button" value="Termine per Mail senden"  />
 </p>
-<p>&nbsp; </p>
+
 <div id="myModal1" class="modal">
 
     <!-- Modal content -->
@@ -1418,7 +1444,7 @@ mysqli_query($con,$delOlder);
 <br>
 <br>Bitte die Mailadresse eingeben:   <input name="Mail" type="email" id="Mail" />    <input name="Button1" type="button" value="Mail versenden" onclick="Mail()" />
 
-<br><br><br>
+<br>
 <div id='status'></div>
 
         <span class="close" id="span1">&times;</span>
@@ -1429,8 +1455,8 @@ mysqli_query($con,$delOlder);
 
 </div>
 
-
-
+Auf den Termin im Kalender klicken, um die Lernziele der Prüfung anzusehen!
+<br><br><br>
 <div id='calendar'></div>
 
 <div id='respond'></div>

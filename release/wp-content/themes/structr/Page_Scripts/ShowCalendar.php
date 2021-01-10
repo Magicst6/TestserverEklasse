@@ -138,7 +138,7 @@ function getcolor(str1){
 
     <input type="hidden" name="curruser" id="curruser" value="<?php echo $current_user->ID ?>" class="text ui-widget-content ui-corner-all" readonly >
 
-    <br>
+   
 
    
    <table  id="tab1 "width="1300" >
@@ -288,6 +288,8 @@ function getcolor(str1){
                 navLinks: true, // can click day/week names to navigate views
 
                 editable: true,
+				
+				 zIndex:999,
 
                 locale: 'de',
 
@@ -1124,30 +1126,37 @@ function getcolor(str1){
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+			.fc-list-item-title:hover{
+  background:lightgrey;
+		 cursor: pointer;
+}
         body {}
 
         /* The Modal (background) */
         .modal{
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 40%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+         display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 5; /* Sit on top */
+			padding-top: 400px; /* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0, 0, 0); /* Fallback color */
+			background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
         }
 
         /* Modal Content */
         .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
+                width: 85%;
+    padding: 25px;
+	background: #FFF;
+	max-width: 600px;
+    margin: 70px auto;
+	position: relative;
+	border-radius: 8px;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
         }
 
         /* The Close Button */
@@ -1383,8 +1392,9 @@ function getcolor(str1){
     </form>
 
 </div>
-
-<br>
+	
+<input name="myBtn2 id="myBtn2" type="button" value="Heutige Kurstermine als Terminboard anzeigen" onclick="window.location.href='https://wios.eklasse.ch/wp-content/themes/structr/Page_Scripts/Terminboard.php'" />
+<br><br>
 
 <input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
 <br><br>

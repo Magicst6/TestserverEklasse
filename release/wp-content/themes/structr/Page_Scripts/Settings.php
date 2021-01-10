@@ -40,11 +40,19 @@ function empty12(){
 	
 	document.getElementById('f52').value=null;
 }	
+	
+	function subm(form) {
+	
+if (confirm("Möchten Sie die Einstellungen wirklich übernehmen?")) {
+form.submit();
+}
+	}
+	
 </script>
 <?php
 
 include 'db.php';
-$isEntry = "SELECT Semesterkuerzel, Semesteranfang, Semesterende, Ferien1von, Ferien1bis, Ferien2von, Ferien2bis, Ferien3von, Ferien3bis, Ferien4von, Ferien4bis,Ferien5von, Ferien5bis From sv_Settings";
+$isEntry = "SELECT Semesterkuerzel, Semesteranfang, Semesterende, Ferien1von, Ferien1bis, Ferien2von, Ferien2bis, Ferien3von, Ferien3bis, Ferien4von, Ferien4bis,Ferien5von, Ferien5bis, Klassenbuch From sv_Settings";
 
 $result = mysqli_query($con, $isEntry);
 
@@ -80,6 +88,8 @@ while( $value= mysqli_fetch_array($result)) {
     $Ferien5von = $value['Ferien5von'];
 
     $Ferien5bis = $value['Ferien5bis'];
+	
+	$Klassenbuch = $value['Klassenbuch'];
 
 
 
@@ -89,7 +99,7 @@ while( $value= mysqli_fetch_array($result)) {
 
 <body>
 
-<form action="/DBFuellung/DBFuellungSettings.php" method="POST">
+<form action="/DBFuellung/DBFuellungSettings.php" id="Settings"  method="POST">
     <br>
     Bitte hier die entsprechenden Daten eintragen oder modifizieren. Diese Daten sind erforderlich und müssen am Anfang des Semesters eingetragen werden.
     <br>
@@ -102,6 +112,8 @@ while( $value= mysqli_fetch_array($result)) {
 
     <select name="Semesterkuerzel" id="Semesterkuerzel"  value="<?php echo $Semesterkuerzel;?>" required="required">
         <option><?php echo $Semesterkuerzel;?></option>
+		<option>FS<?php echo date("y")-1;?></option>
+		<option>WS<?php echo date("y")-1;?></option>
 		<option>FS<?php echo date("y");?></option>
         <option>WS<?php echo date("y");?></option>
         <option>FS<?php echo date("y")+1;?></option>
@@ -152,13 +164,61 @@ while( $value= mysqli_fetch_array($result)) {
     <input name="Ferien5von"  id="f51" type="date" onclick="empty51()" value="<?php echo $Ferien5von ?>" />
     bis:
     <input name="Ferien5bis" id="f52" type="date" onclick="empty52()" value="<?php echo $Ferien5bis ?>" />
-    <br>
-    <br>
-    <input name="Senden" type="submit" value="Senden"  /></form>
+    <br><br>
+	
+	_______________________________________________
+	<h4>Klassenbucheinstellungen</h4>
+	<? if ($Klassenbuch=="true")
+{
+	echo '<input type="checkbox" id="Klassenbuch" name="Klassenbuch"  value="true" checked>';
+} else{
+	echo '<input type="checkbox" id="Klassenbuch" name="Klassenbuch"  value="true" >';
+}
+	
+	?>
+	
+	 <label for="Klassenbuch"> Das Klassenbuch mit den Kursterminen verknüpfen</label><br>
+    <br><br>
+    <input name="Senden" type="button" onClick="subm(this.form);" value="Einstellungen übernehmen"   /></form>
 
+     
 
-
+	
+	
 </body>
 
+
+<script>
+
+	 function test() {
+       alert();  
+		
+		 
+	 }
+	
+function dbbackup(){
+
+       
+     
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               
+            }
+        };
+        xmlhttp.open("GET","/Ajax_Scripts/dbbackup.php,true);
+        xmlhttp.send();
+       
+    
+}
+	
+	
+</script>
 
 </html>

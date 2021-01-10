@@ -60,7 +60,7 @@
 	  var i;  
 	  var kurs=null;
 	  
-	  for(i=1; i<17; i++){
+	  for(i=1; i<31; i++){
 		var Kursdt= data["Kurs"+i];
 		
 		 
@@ -69,8 +69,8 @@
 	 var z= '<div class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
             
 		  +'<tr>'+
-                  '<td class="title">Kurs'+i+':</td>'+
-                  '<td>'+Kursdt+'</td>'+
+                  '<td class="title"  width="1%">Kurs'+i+':</td>'+
+                  '<td  width="12%"">'+Kursdt+'</td>'+
           '</table>'+   
 		    '</div>';
 		if (kurs==null){
@@ -121,7 +121,52 @@
     
 			
 		
-    ],
+    ],"language": {
+            "decimal": ",",
+            "thousands": ".",
+            "info": "Anzeige _START_ bis _END_ von _TOTAL_ Einträgen",
+            "infoEmpty": "Keine Einträge",
+            "infoPostFix": "",
+            "infoFiltered": "(gefiltert aus insgesamt _MAX_ Einträgen)",
+            "loadingRecords": "keine Daten vorhanden...",
+            "lengthMenu": "Anzeigen von _MENU_ Einträgen",
+            "paginate": {
+                "first": "Erste",
+                "last": "Letzte",
+                "next": "Nächste",
+                "previous": "Zurück"
+            },
+            "processing": "Verarbeitung läuft ...",
+            "search": "Suche:",
+            "searchPlaceholder": "Suchbegriff",
+            "zeroRecords": "Keine Daten! Bitte ändern Sie Ihren Suchbegriff.",
+            "emptyTable": "Keine Daten vorhanden",
+            "aria": {
+                "sortAscending":  ": aktivieren, um Spalte aufsteigend zu sortieren",
+                "sortDescending": ": aktivieren, um Spalte absteigend zu sortieren"
+            },
+            //only works for built-in buttons, not for custom buttons
+            "buttons": {
+                "create": "Neu",
+                "edit": "Ändern",
+                "remove": "Löschen",
+                "copy": "Kopieren",
+                "csv": "CSV-Datei",
+                "excel": "Excel-Tabelle",
+                "pdf": "PDF-Dokument",
+                "print": "Drucken",
+                "colvis": "Spalten Auswahl",
+                "collection": "Auswahl",
+                "upload": "Datei auswählen...."
+            },
+            "select": {
+                "rows": {
+                    _: '%d Zeilen ausgewählt',
+                    0: 'Zeile anklicken um auszuwählen',
+                    1: 'Eine Zeile ausgewählt'
+                }
+            }
+        }            
     
   
   });
@@ -218,7 +263,52 @@
 
 
 
-         ],
+         ],"language": {
+            "decimal": ",",
+            "thousands": ".",
+            "info": "Anzeige _START_ bis _END_ von _TOTAL_ Einträgen",
+            "infoEmpty": "Keine Einträge",
+            "infoPostFix": "",
+            "infoFiltered": "(gefiltert aus insgesamt _MAX_ Einträgen)",
+            "loadingRecords": "keine Daten vorhanden...",
+            "lengthMenu": "Anzeigen von _MENU_ Einträgen",
+            "paginate": {
+                "first": "Erste",
+                "last": "Letzte",
+                "next": "Nächste",
+                "previous": "Zurück"
+            },
+            "processing": "Verarbeitung läuft ...",
+            "search": "Suche:",
+            "searchPlaceholder": "Suchbegriff",
+            "zeroRecords": "Keine Daten! Bitte ändern Sie Ihren Suchbegriff.",
+            "emptyTable": "Keine Daten vorhanden",
+            "aria": {
+                "sortAscending":  ": aktivieren, um Spalte aufsteigend zu sortieren",
+                "sortDescending": ": aktivieren, um Spalte absteigend zu sortieren"
+            },
+            //only works for built-in buttons, not for custom buttons
+            "buttons": {
+                "create": "Neu",
+                "edit": "Ändern",
+                "remove": "Löschen",
+                "copy": "Kopieren",
+                "csv": "CSV-Datei",
+                "excel": "Excel-Tabelle",
+                "pdf": "PDF-Dokument",
+                "print": "Drucken",
+                "colvis": "Spalten Auswahl",
+                "collection": "Auswahl",
+                "upload": "Datei auswählen...."
+            },
+            "select": {
+                "rows": {
+                    _: '%d Zeilen ausgewählt',
+                    0: 'Zeile anklicken um auszuwählen',
+                    1: 'Eine Zeile ausgewählt'
+                }
+            }
+        }            
 
 
      });

@@ -70,9 +70,7 @@
 
     <input type="hidden" name="curruser" id="curruser" value="<?php echo $current_user->ID ?>" class="text ui-widget-content ui-corner-all" readonly >
 
-    <br>
-
-    <br>
+   
 
     </br><h5>Klasse:</h5>
 
@@ -997,7 +995,10 @@
 
     <style>
 
-
+	.fc-list-item-title:hover{
+  background:lightgrey;
+		 cursor: pointer;
+}
 
         body {
 
@@ -1414,16 +1415,16 @@ include 'db.php';
 
 $today=date("Y-m-d");
 
-$delOlder= "Delete  From sv_KurseAll Where Datum < '$today' ";
+//$delOlder= "Delete  From sv_KurseAll Where Datum < '$today' ";
 
-mysqli_query($con,$delOlder);
+//mysqli_query($con,$delOlder);
 
 
 
 ?>
 
 
-<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
+<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  /><br><br>
 
 <div id="myModal1" class="modal">
 

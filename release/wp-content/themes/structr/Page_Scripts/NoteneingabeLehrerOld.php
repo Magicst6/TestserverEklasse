@@ -206,7 +206,7 @@ while( $line2= mysqli_fetch_assoc($result))
 
 
 
-    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16 From sv_Lehrpersonen Where ID = $Lehrer";
+    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = $Lehrer";
 
     $result = mysqli_query($con,$isEntry);
 
@@ -253,14 +253,14 @@ else{
 
         <?php
        
-        $isEntry= "Select SchülerID From sv_LernenderKurs WHERE KursID='$Kursname' Order By Nachname ASC";
+        $isEntry= "Select SchuelerID From sv_LernenderKurs WHERE KursID='$Kursname' Order By Nachname ASC";
         $result = mysqli_query($con, $isEntry);
         $resultarr = array();
 
 
         while( $line2= mysqli_fetch_assoc($result))
         {
-            $resultarr[] = $line2['SchülerID'];
+            $resultarr[] = $line2['SchuelerID'];
         }
         $uniquearr = array_unique($resultarr);
 
@@ -276,7 +276,7 @@ if($_GET['Schueler']==null and $Kursname<>null ) {
         echo "<option>".''. "</option>";
    }
         foreach ($uniquearr as $value) {
-            $isEntry= "Select Nachname, Vorname From sv_LernenderKurs WHERE SchülerID='$value' Order By Nachname ASC";
+            $isEntry= "Select Nachname, Vorname From sv_LernenderKurs WHERE SchuelerID='$value' Order By Nachname ASC";
             $result = mysqli_query($con, $isEntry);
             while( $line3= mysqli_fetch_array($result))
             {
@@ -294,7 +294,7 @@ if($_GET['Schueler']==null and $Kursname<>null ) {
     $Schueler=$output_array[1];
     if ($Schueler==""){$vr3=0;}
     else {$vr3= $Schueler;}
-    $isEntry = "SELECT * From sv_LernenderKurs Where KursID='$Kursname' AND SchülerID='$Schueler' ";
+    $isEntry = "SELECT * From sv_LernenderKurs Where KursID='$Kursname' AND SchuelerID='$Schueler' ";
     $result = mysqli_query($con, $isEntry);
     $y=0;
 
@@ -422,7 +422,7 @@ echo '<div id="myModal'.$i.'" class="modal">
           
 
             include "db.php";
-            $isEntry = "SELECT * From sv_LernenderKurs Where KursID='$Kursname' AND SchülerID='$Schueler' ";
+            $isEntry = "SELECT * From sv_LernenderKurs Where KursID='$Kursname' AND SchuelerID='$Schueler' ";
             $result = mysqli_query($con, $isEntry);
             $y=0;
 

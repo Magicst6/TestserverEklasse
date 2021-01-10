@@ -25,15 +25,7 @@ include 'db.php';
 
 <script>
 
-function getKurseDerLehrperson(str){
-
-    if (str == "") {
-
-        document.getElementById("lernende").innerHTML = "";
-
-        return;
-
-    } else {
+function getKurseDerLehrperson(){
 
         if (window.XMLHttpRequest) {
 
@@ -59,13 +51,13 @@ function getKurseDerLehrperson(str){
 
         };
 
-        xmlhttp.open("GET","/Ajax_Scripts/getKursnameDerLehrperson.php?q="+str,true);
+        xmlhttp.open("GET","/Ajax_Scripts/getKursnameDerLehrperson.php?q="+ document.getElementById('lehrer').value+"&k=" + document.getElementById('kurse').value,true);
 
         xmlhttp.send();
 
     }
 
-}
+
 
 //-->
 
@@ -85,7 +77,7 @@ Lehrperson:
 
     <br>
 
-<select name="lehrer" onchange="getKurseDerLehrperson(this.value)" id="lehrer" >
+<select name="lehrer" onchange="getKurseDerLehrperson()" id="lehrer" >
 
 
 
@@ -150,6 +142,21 @@ $test="fvjhdkvgdhf";
 ?>
 
 </select>
+<br>
+<br>
+Anzahl der angezeigten Kurszuordnungen:
+<br>
+<select name="kurse" onchange="getKurseDerLehrperson()" id="kurse" >
+
+	<option>30</option>
+	<option>20</option>
+	<option>10</option>
+	<option>5</option>
+
+   
+
+</select>
+
 
     <br><br>
 

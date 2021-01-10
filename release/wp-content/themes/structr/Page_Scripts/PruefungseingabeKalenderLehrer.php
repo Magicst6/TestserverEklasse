@@ -36,7 +36,14 @@
 
     <link rel='stylesheet' href='/wp-content/themes/structr/Page_Scripts/fullcalendar/fullcalendar.css' />
 	
-	
+<script src="https://cdn.tiny.cloud/1/p4y59yu91l1ttdi8h066ovomyunbzi9p44zqccnlmn9ly5ge/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#lernziele',
+		  height: 600
+      });
+    </script>
 
     <?php
 
@@ -134,9 +141,7 @@ function getcolor(str1){
 
     <input type="hidden" name="curruser" id="curruser" value="<?php echo $current_user->ID ?>" class="text ui-widget-content ui-corner-all" readonly >
 
-    <br>
-
-    <br>
+   
 
   
 <body>
@@ -198,7 +203,7 @@ $IDLP=$value;
 
 ?>
 	
-	<input  id="lehrer" name="lehrer" readonly="readonly" type="text" value="<?php echo $Lehrer; ?>" />
+	<input  id="lehrer" name="lehrer" class="ninput" readonly="readonly" type="text" value="<?php echo $Lehrer; ?>" />
 
     <script>
 
@@ -338,7 +343,10 @@ $IDLP=$value;
 
                                 "Speichern":function()  {
 
-
+ if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
+												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
+											   }
+									else{
 
                                     title = $("#title"),
 
@@ -405,10 +413,13 @@ $IDLP=$value;
                                     };
 
 
- var text = document.getElementById('lernziele').value;
+var text = tinyMCE.activeEditor.getContent();
                   text = text.replace(/\r/g, '!^');
 					text = text.replace(/\n/g, '~!');
-
+text = text.replace(/&/g, '§§§');
+		text = text.replace(/\+/g, '!!!!!');
+			
+			text = text.replace(/#/g, '|||||');
                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val() + "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value  +  "&lernziele=" + text, true);
 
                                     xmlhttp.send();
@@ -424,7 +435,7 @@ $IDLP=$value;
 
 
                                     calendar.fullCalendar('refetchEvents');
-
+									}
                                 },
 
 
@@ -647,12 +658,16 @@ $IDLP=$value;
                             
 							
                           var text1 = event.lernziele;
-                   text1 = text1.replace( /!^/g,'\r');
-					text1 = text1.replace( /~!/g,'\n');			
+							var text1 = event.lernziele;
+                  text1 = text1.replace( /!^/g,'\r');
+					text1 = text1.replace( /~!/g,'\n');	
+								text1 = text1.replace(/§§§/g, '&');
+			text1 = text1.replace(/!!!!!/g, '+');
+			text1 = text1.replace(/\|\|\|\|\|/g, '#');
 			
 		
 							
-						    document.getElementById('lernziele').value =text1;
+						    tinymce.get('lernziele').setContent(text1); 
 
 								
 							
@@ -680,7 +695,10 @@ $IDLP=$value;
 
                             "Speichern": function(){
 
-
+ if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
+												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
+											   }
+									else{
 
                                 title = $("#title");
 
@@ -746,10 +764,13 @@ $IDLP=$value;
 
                                 };
 
- var text = document.getElementById('lernziele').value;
+ var text = tinyMCE.activeEditor.getContent();
               text = text.replace(/\r/g, '!^');
 					text = text.replace(/\n/g, '~!');	
-
+								text = text.replace(/&/g, '§§§');
+		text = text.replace(/\+/g, '!!!!!');
+			
+			text = text.replace(/#/g, '|||||');
 
 
 
@@ -768,7 +789,7 @@ $IDLP=$value;
 
 
                                 calendar.fullCalendar('refetchEvents');
-
+									}
                             },
 
                              "Löschen":function(){
@@ -973,11 +994,13 @@ $IDLP=$value;
             };
 
 
- var text = document.getElementById('lernziele').value;
+ var text = tinyMCE.activeEditor.getContent();
               text = text.replace(/\r/g, '!^');
 					text = text.replace(/\n/g, '~!');	
-
-
+				text = text.replace(/&/g, '§§§');
+		text = text.replace(/\+/g, '!!!!!');
+			
+			text = text.replace(/#/g, '|||||');
             xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value +"&lernziele=" + text, true);
 
             xmlhttp.send();
@@ -1147,7 +1170,12 @@ $IDLP=$value;
 
                                 "Speichern":function()  {
 
-
+                                               if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
+												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
+											   }
+									else{
+										
+									
 
                                     title = $("#title"),
 
@@ -1215,9 +1243,13 @@ $IDLP=$value;
 
 
 
- var text = document.getElementById('lernziele').value;
+ var text = tinyMCE.activeEditor.getContent();
                text = text.replace(/\r/g, '!^');
 					text = text.replace(/\n/g, '~!');	
+					text = text.replace(/&/g, '§§§');
+		text = text.replace(/\+/g, '!!!!!');
+			
+			text = text.replace(/#/g, '|||||');
 
                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&kursid=" + document.getElementById('kursid').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
@@ -1236,6 +1268,7 @@ $IDLP=$value;
                                     calendar.fullCalendar('refetchEvents');
 									
 									return;
+									}
 
                                 },
 
@@ -1306,6 +1339,11 @@ $IDLP=$value;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {}
+		
+			.fc-list-item-title:hover{
+  background:lightgrey;
+		 cursor: pointer;
+}
 
         /* The Modal (background) */
         .modal{
@@ -1373,7 +1411,7 @@ $IDLP=$value;
       <td style="width: 150px; font-size: 12px; font-weight: bold;">Kurs:</td>
       <td colspan="2"><select type="text" name="kursid" id="kursid" value=""   onChange="getcolor(this.value)" class="text ui-widget-content ui-corner-all" >
 	<?	  	
-$isEntrylp= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16 From sv_Lehrpersonen Where ID = '$IDLP'";
+$isEntrylp= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = '$IDLP'";
 $resultlp = mysqli_query($con,$isEntrylp);
 
 
@@ -1381,7 +1419,7 @@ $resultlp = mysqli_query($con,$isEntrylp);
 
 while( $linelp= mysqli_fetch_array($resultlp))
 {
-for($x = 1; $x <= 16; $x++)
+for($x = 1; $x <= 30; $x++)
 {
 
 $valuelp = $linelp['Kurs'.$x];
@@ -1465,7 +1503,7 @@ if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
 
 
 
-<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
+<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  /><br><br>
 
 <div id="myModal1" class="modal">
 
@@ -1522,7 +1560,13 @@ if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
   width: 450px;
   height: 400px;
 }
+ input[type=text].ninput {
 
+            width:auto;
+
+           
+
+        }
 
 </style>
 

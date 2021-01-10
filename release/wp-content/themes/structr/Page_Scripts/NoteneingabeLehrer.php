@@ -70,7 +70,7 @@ include 'db.php';
                 def: document.getElementById( "Kursname" ).value
 		},		
 				  {
-			 label: "SchülerID:",
+			 label: "SchuelerID:",
                 name: "SchuelerID",
                 type: "readonly",
               
@@ -379,7 +379,7 @@ include 'db.php';
 
 
 
-    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16 From sv_Lehrpersonen Where ID = $Lehrer";
+    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = $Lehrer";
 
     $result = mysqli_query($con,$isEntry);
 
@@ -398,7 +398,7 @@ else{
 
     {
 
-        for($x = 1; $x <= 16; $x++)
+        for($x = 1; $x <= 30; $x++)
 
         {
 
@@ -427,14 +427,14 @@ else{
 <?php
 	$Tab="sv_LernenderKurs";
 
-$isEntry= "Select SchülerID From $Tab Where KursID='$Kursname' ";
+$isEntry= "Select SchuelerID From $Tab Where KursID='$Kursname' ";
 $result = mysqli_query($con,$isEntry);
 $resultarr = array();
 
 
 while( $line2= mysqli_fetch_assoc($result))
 {
-    $resultarr[] = $line2['SchülerID'];
+    $resultarr[] = $line2['SchuelerID'];
 }
 $uniquearr = array_unique($resultarr);
 

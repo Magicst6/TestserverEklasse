@@ -14,9 +14,8 @@ $y=0;
 $Kursname=$_GET['q'];
 $ID=$_GET['k'];
 $Lehrer=$_GET['l'];
-
+ 
 preg_match("/:(.*)/", $Lehrer, $output_array);
-$Lehrer=$output_array[1];
 
 $semester=$_GET['s'];
 $isEntry = "Select * From sv_Settings ";
@@ -32,12 +31,13 @@ $lkArch=$semester."_LernenderKurs";
 $notenArch=$semester."_Noten";
 
 
+
 if ($semester==$semDB){
-    $isEntry = "Select * From sv_LernenderKurs where SchülerID='$ID' order by Nachname asc ";
+    $isEntry = "Select * From sv_LernenderKurs where SchuelerID='$ID' order by Nachname asc ";
 
 } else{
 
-    $isEntry = "Select * From $lkArch where SchülerID='$ID' order by Nachname asc ";
+    $isEntry = "Select * From $lkArch where SchuelerID='$ID' order by Nachname asc ";
 
 }
 
@@ -54,17 +54,21 @@ $c=0;
 	$a=0;
     while ($line1 = mysqli_fetch_array($result)) {
 		$Kursname=$line1['KursID'];
-		
+		 
 		$data0 = array(
 			
 		  'Vorname' => $line1['Vorname'],
 			 'Nachname' => $line1['Nachname'],
-			 'IDSchueler' => $line1['SchülerID'],
+			 'IDSchueler' => $line1['SchuelerID'],
 			 'Kursname' => $line1['KursID']
 			);
 
         if ($semester==$semDB){
-            $isEntry1 = "Select * From sv_Noten where KursID='$Kursname' and SchuelerID='$ID'  ";
+            $isEntry1 = "Select * From sv_Noten where KursID='$Kursname' and SchuelerID='$ID' ";
+			
+			
+			
+			
         } else{
 
             $isEntry1 = "Select * From $notenArch where KursID='$Kursname' and SchuelerID='$ID'  ";
@@ -84,8 +88,9 @@ $c=0;
 		$data11 = null;
     while ($line2 = mysqli_fetch_array($result1)) {
 		if ($a<9){
-		$a++;
 		
+		
+			$a++;
 					$Dateb = "Datum"; 
 					$Noteb = "Note";
 					$Gewb = "Gewichtung";
@@ -123,6 +128,7 @@ $c=0;
 				'data' . $a
 			} );
 		}
+		
 		
 		}
 		

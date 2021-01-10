@@ -9,6 +9,7 @@ if( $_POST['Senden'])
     $Kursname =  $_POST['Kursname'];
     $Kurskuerzel =  $_POST['Kuerzel'];
 	$Farbe= $_POST['farbe'];
+	$Profil= $_POST['Profil'];
 	
     $dateExtra =  $_POST['Datum'];
     $Year = substr($dateExtra, 2, 2);
@@ -75,7 +76,7 @@ if( $_POST['Senden'])
         echo "<script>alert('Lehrperson:".$Lehrperson." nicht bekannt oder falsch geschrieben');</script>";
         $isExisting=false;
     }
-    $isEntryLPKurse = "SELECT Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16 From sv_Lehrpersonen Where  ID='$LP_ID' ";
+    $isEntryLPKurse = "SELECT Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where  ID='$LP_ID' ";
     $result = mysqli_query($con, $isEntryLPKurse);
 
 
@@ -83,7 +84,7 @@ if( $_POST['Senden'])
     {
         $isEntryCreated=false;
         $isKursExisting=false;
-        for($x = 1; $x <= 16; $x++) {
+        for($x = 1; $x <= 30; $x++) {
 
             $Kurs = "Kurs" . "$x";
 
@@ -128,12 +129,13 @@ if( $_POST['Senden'])
     }
     if (!$isKursExisting)
     {
-        $sql_befehl = "INSERT INTO sv_Kurse (Kursname,Klasse,KursID,Lehrperson) VALUES ('$Kursname','$Klasse','$KursID', '$LP_ID')";
+        $sql_befehl = "INSERT INTO sv_Kurse (Kursname,Klasse,KursID,Lehrperson,Farbe,Profil) VALUES ('$Kursname','$Klasse','$KursID', '$LP_ID','$Farbe','$Profil')";
         mysqli_query($con, $sql_befehl);
     }
     else
     {
-        $sql_befehl = "UPDATE sv_Kurse SET Kursname = '$Kursname', Klasse = '$Klasse',Lehrperson='$LP_ID'  where KursID ='$KursID' ";
+        $sql_befehl = "UPDATE sv_Kurse SET Kursname = '$Kursname', Klasse = '$Klasse',Lehrperson='$LP_ID', Farbe='$Farbe',Profil='$Profil' where KursID ='$KursID' ";
+		 mysqli_query($con, $sql_befehl);
     }
 }
 
@@ -167,35 +169,47 @@ $isEntry2= "Select Name, Vorname, ID, Profil From sv_LernendeModule Where Modul1
 
 $result2 = mysqli_query($con, $isEntry2);
 
-while ($row2 = mysqli_fetch_array($result2)) {
-    $dontFill=0;
-    $SchuelerID= $row2['ID'];
-    $Vorname= $row2['Vorname'];
-    $Nachname= $row2['Name'];
-    $Profil1= $row2['Profil'];
+    while ($row2 = mysqli_fetch_array($result2)) {
+		$isProfil=0;
+        $dontFill=0;
+        $SchuelerID= $row2['ID'];
+        $Vorname= $row2['Vorname'];
+        $Nachname= $row2['Name'];
+        $Profil1= $row2['Profil'];
+		
+		$ProfKomma = explode(",", $Profil1);
+		
+		$ProfDash = explode("/", $Profil1);
+		
+		foreach ($ProfKomma as $val1) {
+            if (strtolower($val1)==strtolower($Profil))
+			{
+				$isProfil=1;
+			}
+         }
+		
+		foreach ($ProfDash as $val2) {
+            if (strtolower($val2)==strtolower($Profil))
+			{
+				$isProfil=1;
+			}
+         }
 
-    preg_match("/.fz./", $Kursname, $output_array1);
-    $KursnameReg=$output_array1[0];
-    preg_match("/e/", $Profil1, $output_array2);
-    $ProfilReg=$output_array2[0];
-    preg_match("/.itplus./", $Kursname, $output_array3);
-    $KursnameReg1=$output_array3[0];
-    preg_match("/it/", $Profil1, $output_array4);
-    $ProfilReg1=$output_array4[0];
-    if ((($KursnameReg=='.fz.') and ($ProfilReg=='e')) or (($KursnameReg<>'.fz.') and ($KursnameReg1<>'.itplus.')) or (($KursnameReg1=='.itplus.') and ($ProfilReg1=='it'))) {
+       
+		if ($isProfil==1 or $Profil==''){
 
-        $isEntry4= "Select SchülerID, Vorname, Nachname, KursID From sv_LernenderKurs";
+        $isEntry4= "Select SchuelerID, Vorname, Nachname, KursID From sv_LernenderKurs";
         $result4 = mysqli_query($con, $isEntry4);
 
         while ($row4 = mysqli_fetch_array($result4)) {
-            $ID= $row4['SchülerID'];
+            $ID= $row4['SchuelerID'];
             $KursnameAbw =  $row4['KursID'];
             $VornameAbw= $row4['Vorname'];
             $NachnameAbw= $row4['Nachname'];
 
             if ( ($SchuelerID==$ID) and ($Kursname==$KursnameAbw) and (($Vorname<>$VornameAbw) or ($Nachname<>$NachnameAbw) ))
             {
-                $sql_befehl = "Update sv_LernenderKurs SET Vorname='$Vorname', Nachname='$Nachname' Where SchülerID='$ID' and KursID='$Kursname'";
+                $sql_befehl = "Update sv_LernenderKurs SET Vorname='$Vorname', Nachname='$Nachname' Where SchuelerID='$ID' and KursID='$Kursname'";
                 mysqli_query($con, $sql_befehl);
 //echo "Eintrag hinzugefügt!";
                 $dontFill=1;
@@ -214,7 +228,7 @@ while ($row2 = mysqli_fetch_array($result2)) {
         }
 
         if ($dontFill == 0 and strpos($Kursname, $Klasse) !== false){
-            $sql_befehl = "INSERT INTO sv_LernenderKurs (KursID, SchülerID, Klasse, Vorname, Nachname) VALUES ('$Kursname', '$SchuelerID', '$Klasse', '$Vorname','$Nachname')";
+            $sql_befehl = "INSERT INTO sv_LernenderKurs (KursID, SchuelerID, Klasse, Vorname, Nachname) VALUES ('$Kursname', '$SchuelerID', '$Klasse', '$Vorname','$Nachname')";
             mysqli_query($con, $sql_befehl);
 //echo "Eintrag hinzugefügt!";
         }

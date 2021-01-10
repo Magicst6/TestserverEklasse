@@ -59,7 +59,7 @@
 				var Gewichtungdt = data[ "Gewichtung" + i ];
 				var Datumdt = data[ "Datum" + i ];
 
-				if ( ( Notedt ) >= 1 && Notedt <= 6 ) {
+				if ( ( Notedt ) >= 1 && Notedt <= 100 ) {
 					var z = null;
 					var z = '<div class="details-container"><table cellpadding="5" cellspacing="0" border="0" class="details-table">'
 
@@ -141,7 +141,8 @@
 
 		table = $( '.datatables' ).DataTable( {
 
-
+        
+			responsive:true,
 			ajax: {
 
 				url: new_url,
@@ -149,7 +150,9 @@
 				dataSrc: ""
 
 			},
-			columns: [ {
+			columns: [ 
+			
+				{
 					className: 'details-control',
 					defaultContent: '',
 					data: null,
@@ -161,12 +164,58 @@
 				}, {
 					data: 'Notenschnitt'
 				}
-			],
+			], "language": {
+            "decimal": ",",
+            "thousands": ".",
+            "info": "Anzeige _START_ bis _END_ von _TOTAL_ Einträgen",
+            "infoEmpty": "Keine Einträge",
+            "infoPostFix": "",
+            "infoFiltered": "(gefiltert aus insgesamt _MAX_ Einträgen)",
+            "loadingRecords": "keine Daten vorhanden...",
+            "lengthMenu": "Anzeigen von _MENU_ Einträgen",
+            "paginate": {
+                "first": "Erste",
+                "last": "Letzte",
+                "next": "Nächste",
+                "previous": "Zurück"
+            },
+            "processing": "Verarbeitung läuft ...",
+            "search": "Suche:",
+            "searchPlaceholder": "Suchbegriff",
+            "zeroRecords": "Keine Daten! Bitte ändern Sie Ihren Suchbegriff.",
+            "emptyTable": "Keine Daten vorhanden",
+            "aria": {
+                "sortAscending":  ": aktivieren, um Spalte aufsteigend zu sortieren",
+                "sortDescending": ": aktivieren, um Spalte absteigend zu sortieren"
+            },
+            //only works for built-in buttons, not for custom buttons
+            "buttons": {
+                "create": "Neu",
+                "edit": "Ändern",
+                "remove": "Löschen",
+                "copy": "Kopieren",
+                "csv": "CSV-Datei",
+                "excel": "Excel-Tabelle",
+                "pdf": "PDF-Dokument",
+                "print": "Drucken",
+                "colvis": "Spalten Auswahl",
+                "collection": "Auswahl",
+                "upload": "Datei auswählen...."
+            },
+            "select": {
+                "rows": {
+                    _: '%d Zeilen ausgewählt',
+                    0: 'Zeile anklicken um auszuwählen',
+                    1: 'Eine Zeile ausgewählt'
+                }
+            }
+        }            
 
 
 		} );
 		table1 = $( '.datatables1' ).DataTable( {
 
+			responsive:true,
 
 			ajax: {
 
@@ -175,7 +224,9 @@
 				dataSrc: ""
 
 			},
-			columns: [ {
+			columns: [ 
+			
+				{
 					className: 'details-control',
 					defaultContent: '',
 					data: null,
@@ -187,7 +238,52 @@
 				}, {
 					data: 'AbwesenheitenGesamt'
 				}
-			],
+			], "language": {
+            "decimal": ",",
+            "thousands": ".",
+            "info": "Anzeige _START_ bis _END_ von _TOTAL_ Einträgen",
+            "infoEmpty": "Keine Einträge",
+            "infoPostFix": "",
+            "infoFiltered": "(gefiltert aus insgesamt _MAX_ Einträgen)",
+            "loadingRecords": "keine Daten vorhanden...",
+            "lengthMenu": "Anzeigen von _MENU_ Einträgen",
+            "paginate": {
+                "first": "Erste",
+                "last": "Letzte",
+                "next": "Nächste",
+                "previous": "Zurück"
+            },
+            "processing": "Verarbeitung läuft ...",
+            "search": "Suche:",
+            "searchPlaceholder": "Suchbegriff",
+            "zeroRecords": "Keine Daten! Bitte ändern Sie Ihren Suchbegriff.",
+            "emptyTable": "Keine Daten vorhanden",
+            "aria": {
+                "sortAscending":  ": aktivieren, um Spalte aufsteigend zu sortieren",
+                "sortDescending": ": aktivieren, um Spalte absteigend zu sortieren"
+            },
+            //only works for built-in buttons, not for custom buttons
+            "buttons": {
+                "create": "Neu",
+                "edit": "Ändern",
+                "remove": "Löschen",
+                "copy": "Kopieren",
+                "csv": "CSV-Datei",
+                "excel": "Excel-Tabelle",
+                "pdf": "PDF-Dokument",
+                "print": "Drucken",
+                "colvis": "Spalten Auswahl",
+                "collection": "Auswahl",
+                "upload": "Datei auswählen...."
+            },
+            "select": {
+                "rows": {
+                    _: '%d Zeilen ausgewählt',
+                    0: 'Zeile anklicken um auszuwählen',
+                    1: 'Eine Zeile ausgewählt'
+                }
+            }
+        }            
 
 
 		} );
@@ -485,13 +581,22 @@ echo '<input  id="hidschueler" name="hidschueler" readonly="readonly" type="hidd
 Wählen Sie das Semester aus :
 <br>
 <select name="semester" id="semester" onchange="tableshow()"  required="required">
-    <option>-Select-</option>
-    <option>FS<?php echo date("y");?></option>
-    <option>WS<?php echo date("y");?></option>
-    <option>FS<?php echo date("y")-1;?></option>
-    <option>WS<?php echo date("y")-1;?></option>
-    <option>FS<?php echo date("y")+1;?></option>
-    <option>WS<?php echo date("y")+1;?></option>
+   <?php
+
+    //Den aktuell eingeloggten Schüler anzeigen
+
+    $isEntry= "Select Semesterkuerzel From sv_SemesterArchiv";
+    $result = mysqli_query($con, $isEntry);
+    echo "<option>". $_GET['Semester']. "</option>";
+
+    while( $line3= mysqli_fetch_array($result))
+    {
+    $Semester = $line3['Semesterkuerzel'];
+    echo "<option>" . $Semester . "</option>";
+
+    }
+
+    ?>
 </select>
 
 <br><br>

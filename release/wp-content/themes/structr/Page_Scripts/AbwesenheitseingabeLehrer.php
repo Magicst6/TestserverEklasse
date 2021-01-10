@@ -83,7 +83,45 @@
             xmlhttp.send();
 
         }
+check();
+    }
+	function test11(){
 
+        
+
+            if (window.XMLHttpRequest) {
+
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+
+                xmlhttp = new XMLHttpRequest();
+
+            } else {
+
+                // code for IE6, IE5
+
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+
+            xmlhttp.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                    document.getElementById("lernende").innerHTML = this.responseText;
+
+                }
+
+            };
+
+            xmlhttp.open("GET","/Ajax_Scripts/showlernendeLehrer.php?q="+document.getElementById("Kursnm").value+"&k="+document.getElementById("lehrer").value+"&h="+document.getElementById("date").value+"&j="+document.getElementById("Lektionen").value +"&k="+document.getElementById("tookplace").checked,true);
+
+            xmlhttp.send();
+
+        
+
+		
+		check();
+		
     }
 
     function testdate(str){
@@ -126,6 +164,33 @@
 
         }
 
+		check();
+    }
+	
+	 function check(){
+
+
+  setTimeout(function(){
+	  
+	  var count = document.getElementById("count").value;
+	  
+	  
+	  var i;
+	  
+	  for (i=1 ; i<=count ;i++){
+		  
+		  var radio= "Dauer"+i;
+		  var abw ="abw"+i;
+	      var abw= document.getElementById(abw).value;
+		  
+	  
+	  document.querySelector('input[name="'+ radio + '"][value="' + abw  + '"]').checked = true;
+	 
+	  }				   
+					   
+					   }, 1500);
+        
+
     }
 
 </script>
@@ -157,13 +222,13 @@
 
     ?>
 
-<br><br>
+<br>
 
     Lehrer:
 
-    <br><br>
+    <br>
 
-    <select name="lehrer" onchange="getKursname(this.value)"  id="lehrer" >
+    <select name="lehrerklbu" onchange="getKursname(this.value)"  id="lehrer" >
 
 
 
@@ -229,7 +294,7 @@
 
     Kursname:
 
-    <br><br>
+    <br>
 
     <select name="Kursnm" id="Kursnm" onchange="test(this.value)" required="required" ></select>
 
@@ -237,7 +302,7 @@
 
     Aktuelles Datum:
 
-    <br><br>
+    <br>
 
     <input style="width: 145px;" name="date" id="date" type="date" value=<?php echo $heute;?>  onchange="testdate(this.value)"  required="required" />
 

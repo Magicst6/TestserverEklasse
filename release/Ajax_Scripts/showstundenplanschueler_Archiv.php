@@ -5,29 +5,71 @@ include 'db.php';
 $Klasse = $_GET['q'];
 $semester = $_GET['k'];
 
+if ($semester=='WS18FS19')
+{
+
+	$semesterold='FS19';
+	
+}
+else $semesterold=$semester;
+
 
 if ($Klasse==""){$vr2=5;}
 else {$vr2=4; }
+
+
 for($y = 1; $y < 7; $y++) {
-    ${'Uhr1' . $y} = "08:15";
+	
+	if ($y==1) $Tag= 'Montag';
+		if ($y==2) $Tag= 'Dienstag';
+		if ($y==3) $Tag= 'Mittwoch';
+		if ($y==4) $Tag= 'Donnerstag';
+		if ($y==5) $Tag= 'Freitag';
+		if ($y==6) $Tag= 'Samstag';
+	
+	   $isEntryZt= "Select * From sv_Zeiten where Tag='$Tag'";
 
-    ${'Uhr2' . $y} = "09:05";
+    $resultZt = mysqli_query($con, $isEntryZt);
 
-    ${'Uhr3' . $y} = "10:10";
 
-    ${'Uhr4' . $y} = "11:00";
 
-    ${'Uhr5' . $y} = "11:45";
 
-    ${'Uhr6' . $y} = "13:15";
 
-    ${'Uhr7' . $y} = "14:05";
 
-    ${'Uhr8' . $y} = "15:10";
 
-    ${'Uhr9' . $y} = "16:00";
+    while( $value= mysqli_fetch_array($resultZt)) {
+		
+		$Zeit1= $value['Uhrzeit1'];
+		 $Zeit2= $value['Uhrzeit2'];
+	 $Zeit3= $value['Uhrzeit3'];
+	 $Zeit4= $value['Uhrzeit4'];
+	 $Zeit5= $value['Uhrzeit5'];
+	 $Zeit6= $value['Uhrzeit6'];
+	 $Zeit7= $value['Uhrzeit7'];
+	 $Zeit8= $value['Uhrzeit8'];
+	 $Zeit9= $value['Uhrzeit9'];
+	 $Zeit10= $value['Uhrzeit10'];
+	}
+	
+    ${'Uhr1' . $y} = $Zeit1;
 
-    ${'Uhr10' . $y} = "16:45";
+    ${'Uhr2' . $y} = $Zeit2;
+
+    ${'Uhr3' . $y} = $Zeit3;
+
+    ${'Uhr4' . $y} = $Zeit4;
+
+    ${'Uhr5' . $y} = $Zeit5;
+
+    ${'Uhr6' . $y} = $Zeit6;
+
+    ${'Uhr7' . $y} = $Zeit7;
+
+    ${'Uhr8' . $y} = $Zeit8;
+
+    ${'Uhr9' . $y} = $Zeit9;
+
+    ${'Uhr10' . $y} = $Zeit10;
 
 }
 
@@ -62,14 +104,14 @@ for($y = 1; $y < 7; $y++)   {
 
     $entry = mysqli_query($con,$isEntry);
     while( $line2= mysqli_fetch_assoc($entry)) {
-        $isEntry1 = "Select Uhrzeit1,Uhrzeit2,Uhrzeit3,Uhrzeit4,Uhrzeit5,Uhrzeit6,Uhrzeit7,Uhrzeit8,Uhrzeit9,Uhrzeit10 From $ZeitStdpln Where Klasse='$Klasse' and Tag='$Tag' and Semester ='$semester' ";
+        $isEntry1 = "Select Uhrzeit1,Uhrzeit2,Uhrzeit3,Uhrzeit4,Uhrzeit5,Uhrzeit6,Uhrzeit7,Uhrzeit8,Uhrzeit9,Uhrzeit10 From $ZeitStdpln Where Klasse='$Klasse' and Tag='$Tag' and Semester ='$semesterold' ";
         $entry1 = mysqli_query($con, $isEntry1);
         while ($line3 = mysqli_fetch_assoc($entry1)) {
 
             for ($z = 1; $z <= 10; $z++) {
                 $Uhrzeit = "Uhrzeit" . "$z";
                 $UhrzeitV = $line3[$Uhrzeit];
-                if ($UhrzeitV == $line2['Uhrzeit'].":00" and $line2['Uhrzeit']<>"" and substr($line2['KursID'], -4)==$semester) {
+                if ($UhrzeitV == $line2['Uhrzeit'].":00" and $line2['Uhrzeit']<>"" and substr($line2['KursID'], -4)==$semesterold) {
                     $Uhr = ${'Uhr' . $z . $y} = $line2['Uhrzeit'];
                     preg_match("/\.(.*?)\./", $line2['KursID'], $output_array);
                     ${'Kurs' . $z . $y} = $output_array[1];
@@ -279,14 +321,14 @@ $y=0;
 $KursIDarr= array();
 while( $value= mysqli_fetch_array($result))
 {
-    $isEntry1 = "SELECT Kurs1,Kurs2,Kurs3,Kurs4,Kurs5,Kurs6,Kurs7,Kurs8,Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16, Vorname, Nachname From $LPs";
+    $isEntry1 = "SELECT Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30, Vorname, Nachname From $LPs";
     $result1 = mysqli_query($con, $isEntry1);
     $VornameLehrer='';
     $NachnameLehrer='';
 
     while( $value1= mysqli_fetch_array($result1))
     {
-        for($x = 1; $x <= 16; $x++)
+        for($x = 1; $x <= 30; $x++)
         {
 
             $Kurs = "Kurs"."$x";
@@ -315,7 +357,7 @@ while( $value= mysqli_fetch_array($result))
     }
     $KursIDarr[]=$value['KursID'];
 
-    if ($dontwrite <>1 and substr($value['KursID'], -4)==$semester){
+    if ($dontwrite <>1 and substr($value['KursID'], -4)==$semesterold){
         $y++;
         $Kursname=$value['Kursname'];
         $Startdatum=$value['Startdatum'];

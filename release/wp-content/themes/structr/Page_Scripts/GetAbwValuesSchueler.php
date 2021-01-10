@@ -24,16 +24,56 @@ while ($line1 = mysqli_fetch_array($result)) {
 
 $AbwArch=$semester."_AbwesenheitenKompakt";
 
+$LMArch=$semester."_LernendeModule";
+
+$LArch=$semester."_Lernende";
+
+ 
 
 
-preg_match( "/:(.*)/", $Lehrer, $output_array );
-$Lehrer = $output_array[ 1 ];
+
 if ($semester==$semDB){
-    $isEntry = "Select * From sv_AbwesenheitenKompakt where SchülerID=$ID  Group by Kursname ";
+    $isEntryLM = "Select * From sv_LernendeModule where ID='$ID'  ";
 
 } else{
 
-    $isEntry = "Select * From $AbwArch where SchülerID=$ID  Group by Kursname ";
+    $isEntryLM = "Select * From $LMArch where ID='$ID' ";
+
+}
+
+$resultLM = mysqli_query( $con, $isEntryLM );
+
+
+while ( $lineLM = mysqli_fetch_array( $resultLM ) ) {
+	
+	$Name=$lineLM['Name'];
+	$Vorname=$lineLM['Vorname'];
+    $EMail=$lineLM['EMail'];
+
+	
+	if ($semester==$semDB){
+    $isEntryL = "Select * From sv_Lernende where Name='$Name' and Vorname='$Vorname' and EMail='$EMail'  ";
+
+} else{
+
+    $isEntryL = "Select * From $LArch where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
+
+}
+	
+$resultL = mysqli_query( $con, $isEntryL );
+
+
+while ( $lineL = mysqli_fetch_array( $resultL ) ) {	
+	
+	$IDL=$lineL['ID'];
+
+
+if ($semester==$semDB){
+    $isEntry = "Select * From sv_AbwesenheitenKompakt where SchuelerID='$IDL'  Group by Kursname ";
+
+} else{
+
+    $isEntry = "Select * From $AbwArch where SchuelerID='$IDL'  Group by Kursname ";
 
 }
 
@@ -44,11 +84,11 @@ while ( $line2 = mysqli_fetch_array( $result ) ) {
 	$Kursname = $line2[ 'Kursname' ];
 
     if ($semester==$semDB){
-        $isEntry1 = "Select * From sv_AbwesenheitenKompakt where SchülerID=$ID and Kursname ='$Kursname' Order by Datum asc ";
+        $isEntry1 = "Select * From sv_AbwesenheitenKompakt where SchuelerID='$IDL' and Kursname ='$Kursname' Order by Datum asc ";
 
     } else{
 
-        $isEntry1 = "Select * From $AbwArch where SchülerID=$ID and Kursname ='$Kursname' Order by Datum asc ";
+        $isEntry1 = "Select * From $AbwArch where SchuelerID='$IDL' and Kursname ='$Kursname' Order by Datum asc ";
     }
 
 
@@ -89,5 +129,6 @@ while ( $line2 = mysqli_fetch_array( $result ) ) {
 
 	$data[] = array_merge( $data1, $data2, $data3 );
 }
-
+}
+}
 echo json_encode( $data );

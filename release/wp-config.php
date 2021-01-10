@@ -39,7 +39,7 @@ define('DB_USER', "9b1qp_heimmarst");
 /**
  * Ersetze passwort_hier_einfuegen mit deinem MySQL-Passwort.
  */
-define('DB_PASSWORD', "t4xray!!ST");
+define('DB_PASSWORD', "St1180REL");
 
 
 /**
@@ -97,8 +97,8 @@ $table_prefix  = 'sv_';
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
  
-define('WP_MEMORY_LIMIT', '64M');
-define('WP_DEBUG', false);
+define( 'WP_MEMORY_LIMIT', '64M' );
+define( 'WP_DEBUG', false );
 /* Das war’s, Schluss mit dem Bearbeiten! Viel Spaß beim Bloggen. */
 /* That's all, stop editing! Happy blogging. */
 /** Der absolute Pfad zum WordPress-Verzeichnis. */
@@ -107,14 +107,33 @@ if ( !defined('ABSPATH') )
 /** Definiert WordPress-Variablen und fügt Dateien ein.  */
 require_once(ABSPATH . 'wp-settings.php');
 
-define('DB_HOSTEKL', "9b1qp.myd.infomaniak.com");
+/*define('DB_HOSTEKL', "9b1qp.myd.infomaniak.com");
 
 define('DB_NAME_EKL', '9b1qp_Eklasse');
 
 
-define('DB_USER_EKL', '9b1qp_Eklasse');
+define('DB_USER_EKL', '9b1qp_heimmarst');
 
 
-define('DB_PASSWORD_EKL', "t4xray!!ST");
+define('DB_PASSWORD_EKL', "St1180REL");
+*/
+$db = get_option( 'my_option_name' );
+
+define('DB_HOSTEKL', $db['DB_HOST']);
+
+define('DB_NAME_EKL', $db['DB_NAME']);
+
+
+define('DB_USER_EKL', $db['DB_USER']);
+
+
+define('DB_PASSWORD_EKL', $db['DB_PASS']);
+
+
+
+$mydb = new wpdb(DB_USER_EKL,DB_PASSWORD_EKL,DB_NAME_EKL,DB_HOSTEKL);
+
 
 ?>
+
+

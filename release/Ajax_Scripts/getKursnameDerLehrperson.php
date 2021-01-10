@@ -1,17 +1,18 @@
 <?php
      include 'db.php';
 $Lehrer=$_GET['q'];
+$Kurse=$_GET['k'];
 preg_match("/:(.*)/", $Lehrer, $output_array);
 $Lehrer=$output_array[1];
 
-$isEntry = "SELECT Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16 From sv_Lehrpersonen Where  ID='$Lehrer' ";
+$isEntry = "SELECT Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25, Kurs26, Kurs27, Kurs28, Kurs29, Kurs30 From sv_Lehrpersonen Where  ID='$Lehrer' ";
 $result = mysqli_query($con, $isEntry);
 $y=0;
 
 while( $value= mysqli_fetch_array($result))
 {
 
-for($x = 1; $x <= 16; $x++)
+for($x = 1; $x <= $Kurse; $x++)
 {
 
 $Kurs = "Kurs"."$x";
@@ -20,7 +21,7 @@ echo '<br/>';
 echo $Kurs.': ';
 echo '<select Name='.$Kurs.'  id='.$Kurs.' >';
 
-$isEntry1= "Select KursID From sv_Kurse";
+$isEntry1= "Select KursID From sv_Kurse order by KursID asc";
 $result1 = mysqli_query($con,$isEntry1);
 $resultarr = array();
 

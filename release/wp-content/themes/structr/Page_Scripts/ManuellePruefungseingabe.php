@@ -1,5 +1,6 @@
 <script>
 function getKursname(str){
+	document.getElementById("Kursname").innerHTML="";
 if (str == "") {
         document.getElementById("Kursname").innerHTML = "";
         return;
@@ -18,7 +19,7 @@ if (str == "") {
         };
         xmlhttp.open("GET","/Ajax_Scripts/getKursname.php?q="+str,true);
         xmlhttp.send();
-        test('');
+       
     }
 }
 function test(str){
@@ -173,13 +174,7 @@ if (str == "") {
     <br>
    
    
-    Kursname:
-
-    <br>
-
-	<input name="Kurs" id="Kurs" ><br />
-
-    <br>
+    
    
    
 
@@ -295,6 +290,17 @@ if (str == "") {
         ?>
 
     </select>
+  <br>
+    <br>
+	  <label for="lpid">ID der Lehrperson:</label>
+
+             <br>
+
+             <input type="text" name="lpid" id="lpid" value="" class="text ui-widget-content ui-corner-all"  required="required" >
+
+             <br>
+
+             <br>
 
 
     <br>

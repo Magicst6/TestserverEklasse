@@ -5,6 +5,8 @@
  * Date: 30.11.2018
  * Time: 12:09
  */
+
+
 include 'db.php';
 
 $y = 0;
@@ -28,12 +30,12 @@ $AbwArch=$semester."_AbwesenheitenKompakt";
 preg_match( "/:(.*)/", $Lehrer, $output_array );
 $Lehrer = $output_array[ 1 ];
 
-if ($semester==$semDB){
-    $isEntry = "Select * From sv_AbwesenheitenKompakt where Kursname='$Kursname'  Group by SchülerID order by Nachname asc ";
+if ($semester==$semDB || $semester==''){
+    $isEntry = "Select * From sv_AbwesenheitenKompakt where Kursname='$Kursname'  Group by SchuelerID order by Nachname asc ";
 
 } else{
 
-    $isEntry = "Select * From $AbwArch where Kursname='$Kursname'  Group by SchülerID order by Nachname asc ";
+    $isEntry = "Select * From $AbwArch where Kursname='$Kursname'  Group by SchuelerID order by Nachname asc ";
 
 }
 
@@ -42,15 +44,15 @@ $result = mysqli_query( $con, $isEntry );
 $events = array();
 
 while ( $line2 = mysqli_fetch_array( $result ) ) {
-	$ID = $line2[ 'SchülerID' ];
+	$ID = $line2[ 'SchuelerID' ];
 	$Vorname = $line2[ 'Vorname' ];
 	$Nachname = $line2[ 'Nachname' ];
     if ($semester==$semDB){
-        $isEntry1 = "Select * From sv_AbwesenheitenKompakt where SchülerID=$ID and Kursname ='$Kursname' Order by Datum asc ";
+        $isEntry1 = "Select * From sv_AbwesenheitenKompakt where SchuelerID=$ID and Kursname ='$Kursname' Order by Datum asc ";
 
     } else{
 
-        $isEntry1 = "Select * From $AbwArch where SchülerID=$ID and Kursname ='$Kursname' Order by Datum asc ";
+        $isEntry1 = "Select * From $AbwArch where SchuelerID=$ID and Kursname ='$Kursname' Order by Datum asc ";
 
     }
 
@@ -91,7 +93,35 @@ while ( $line2 = mysqli_fetch_array( $result ) ) {
 		'AbwesenheitenGesamt' => $abwges );
 	
 	$data[] = array_merge( $data1, $data2, $data3 );
+	
+	 $isEntry1 = "Select * From sv_Lernende where ID='$ID'  ";
+	$result1 = mysqli_query( $con, $isEntry1 );
+	while ( $line1 = mysqli_fetch_array( $result1 ) ) {
+
+		$EMail=$line1['EMail'];
+		$Vorname=$line1['Vorname'];
+		$Nachname=$line1['Name'];
+		$Klasse=$line1['Klasse'];
+	}
+	if ($EMail==''){
+		$EMail='nomail';
+	}
+
+	$isEntry1 = "Select * From sv_LernendeModule where EMail='$EMail' or ((Vorname='$Vorname' and Name='$Nachname' ) and (Modul1='$Klasse' or Modul2='$Klasse' or Modul3='$Klasse' or Modul4='$Klasse' or Modul5='$Klasse' or Modul6='$Klasse' or Modul7='$Klasse' or Modul8='$Klasse' or Modul9='$Klasse' or Modul10='$Klasse' or Modul11='$Klasse' or Modul12='$Klasse'))";
+	$result1 = mysqli_query( $con, $isEntry1 );
+	while ( $line1 = mysqli_fetch_array( $result1 ) ) {
+      
+		$SchID=$line1['ID'];
+	}
+
+	
+	
+	$isEntryUpd = "UPDATE sv_LernenderKurs SET Abwesenheiten = '$abwges' where SchuelerID='$SchID' and KursID ='$Kursname'";
+	mysqli_query( $con, $isEntryUpd );	
+
 }
 
-
+	
 echo json_encode( $data );
+
+

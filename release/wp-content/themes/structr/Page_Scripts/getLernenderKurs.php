@@ -32,11 +32,12 @@ Editor::inst( $db, 'sv_LernenderKurs' )
             ->validator( Validate::notEmpty( ValidateOptions::inst()
                 ->message( 'Nachname muss angegeben werden' )  
             ) ),
-        Field::inst( 'SchülerID' ),
+        Field::inst( 'SchuelerID' ),
         Field::inst( 'KursID' ),
      
         Field::inst( 'Klasse' ),
-	    Field::inst( 'Profil' )
+	    Field::inst( 'Profil' ),
+	 Field::inst( 'Notenschnitt' )
        
     )
     ->process( $_POST )
@@ -56,11 +57,12 @@ Editor::inst( $db, 'sv_LernenderKurs' )
             ->validator( Validate::notEmpty( ValidateOptions::inst()
                 ->message( 'Nachname muss angegeben werden' )  
             ) ),
-        Field::inst( 'SchülerID' ),
+        Field::inst( 'SchuelerID' ),
         Field::inst( 'KursID' ),
      
         Field::inst( 'Klasse' ),
-	    Field::inst( 'Profil' )
+	    Field::inst( 'Profil' ),
+	 Field::inst( 'Notenschnitt' )
        
     )
 	->where( 'Klasse',$Klasse )

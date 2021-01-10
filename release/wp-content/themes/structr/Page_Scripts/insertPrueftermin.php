@@ -46,6 +46,8 @@ if(isset($_GET["q"]))
 	$gewichtung = $_GET['gewichtung'];
 	
 	$lernziele = $_GET['lernziele'];
+	
+	$datum=date("Y-m-d", strtotime($start));
 
 	if($klasse==""){
 
@@ -69,13 +71,36 @@ if(isset($_GET["q"]))
     }
 
     if ($lp_id) {
+		
+		$isEntryNoten= "Select * From sv_Pruefungen Where KursID='$kursid'";
 
-        $query = "INSERT INTO sv_Pruefungen (Pruefungsname,Kursname, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe, Gewichtung,Lernziele)  VALUES ('$pruefungsname','$kursname', '$start', '$end','$kursid','$klasse','$zimmer','$lehrperson','$lp_id','$farbe','$gewichtung','$lernziele')";
+    $resultNoten = mysqli_query($con, $isEntryNoten);
+
+
+$isExisting=0;
+    while( $valueN= mysqli_fetch_array($resultNoten))
+
+    {
+		$Name=$valueN['Pruefungsname'];
+		// echo $Name;
+	 if ($Name==$pruefungsname){
+		
+		 $isExisting=1;
+	 }	
+	}
+
+		if (!$isExisting){
+
+        $query = "INSERT INTO sv_Pruefungen (Pruefungsname,Kursname,Datum, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe, Gewichtung,Lernziele)  VALUES ('$pruefungsname','$kursname','$datum', '$start', '$end','$kursid','$klasse','$zimmer','$lehrperson','$lp_id','$farbe','$gewichtung','$lernziele')";
 
         mysqli_query($con, $query);
 
         echo "Eintrag hinzugefügt!";
-
+		}
+		else {
+			
+			echo "Prüfungsname bereits vorhanden!";
+		}
     }
 
     else {

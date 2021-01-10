@@ -35,7 +35,14 @@
     <script src='/wp-content/themes/structr/Page_Scripts/fullcalendar/locale-all.js'></script>
 
     <link rel='stylesheet' href='/wp-content/themes/structr/Page_Scripts/fullcalendar/fullcalendar.css' />
-	
+	<script src="https://cdn.tiny.cloud/1/p4y59yu91l1ttdi8h066ovomyunbzi9p44zqccnlmn9ly5ge/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#lernziele',
+		  height:600
+      });
+    </script>
 	
 
     <?php
@@ -135,10 +142,7 @@ if (str == "") {
 
     <input type="hidden" name="curruser" id="curruser" value="<?php echo $current_user->ID ?>" class="text ui-widget-content ui-corner-all" readonly >
 
-    <br>
-
-    <br>
-
+   
     
 
    <table  id="tab1 "width="1300" >
@@ -402,7 +406,10 @@ if (str == "") {
 
                                 "Speichern":function()  {
 
-
+ if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
+												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
+											   }
+									else{
 
                                     title = $("#title"),
 
@@ -469,10 +476,13 @@ if (str == "") {
                                     };
  
 
- var text = document.getElementById('lernziele').value;
+ var text = tinyMCE.activeEditor.getContent();
               text = text.replace(/\r/g, '!^');
 					text = text.replace(/\n/g, '~!');
-
+									text = text.replace(/&/g, '§§§');
+			text = text.replace(/\+/g, '!!!!!');
+			
+			text = text.replace(/#/g, '|||||');
                                     xmlhttp.open("POST", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value   + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
                                     xmlhttp.send();
@@ -488,7 +498,7 @@ if (str == "") {
 
 
                                     calendar.fullCalendar('refetchEvents');
-
+									}
                                 },
 
 
@@ -706,10 +716,15 @@ if (str == "") {
 						
                           var text1 = event.lernziele;
                  text1 = text1.replace( /!^/g,'\r');
-					text1 = text1.replace( /~!/g,'\n');			
+					text1 = text1.replace( /~!/g,'\n');	
+								text1 = text1.replace(/§§§/g, '&');
+			text1 = text1.replace(/!!!!!/g, '+');
+			text1 = text1.replace(/\|\|\|\|\|/g, '#');
+			
+								
 		
 							
-						    document.getElementById('lernziele').value =text1;
+						     tinymce.get('lernziele').setContent(text1); 
 							
 								
 							 document.getElementById('kidhidden').value=event.kursid;
@@ -738,6 +753,10 @@ if (str == "") {
                         buttons: {
 
                             "Speichern": function(){
+								 if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
+												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
+											   }
+									else{
 
                        var farbe= document.getElementById('farbe').value.substring(1,7);
 
@@ -805,10 +824,16 @@ if (str == "") {
 
                                 };
 
-  var text = document.getElementById('lernziele').value;
+  var text = tinyMCE.activeEditor.getContent();
             text = text.replace(/\r/g, '!^');
 					text = text.replace(/\n/g, '~!');
-
+					
+text = text.replace(/&/g, '§§§');
+		text = text.replace(/\+/g, '!!!!!');
+			
+			text = text.replace(/#/g, '|||||');
+										
+										
                                 xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value   + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value + "&klasse=" + document.getElementById('klasse').value + "&color=" + farbe + "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
                                 xmlhttp.send();
@@ -824,7 +849,7 @@ if (str == "") {
 
 
                                 calendar.fullCalendar('refetchEvents');
-
+									}
                             },
 
                              "Löschen":function(){
@@ -1028,10 +1053,14 @@ if (str == "") {
 
             };
 
-             var text = document.getElementById('lernziele').value;
+            var text = tinyMCE.activeEditor.getContent();
             text = text.replace(/\r/g, '!^');
 					text = text.replace(/\n/g, '~!');
-
+			text = text.replace(/&/g, '§§§');
+			text = text.replace(/\+/g, '!!!!!');
+			
+		text = text.replace(/#/g, '|||||');
+			
             xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
             xmlhttp.send();
@@ -1204,7 +1233,10 @@ if (str == "") {
 
                                 "Speichern":function()  {
 
-
+  if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
+												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
+											   }
+									else{
 
                                     title = $("#title"),
 
@@ -1271,10 +1303,14 @@ if (str == "") {
                                     };
 
 
- var text = document.getElementById('lernziele').value;
+ var text = tinyMCE.activeEditor.getContent();
               text = text.replace(/\r/g, '!^');
 					text = text.replace(/\n/g, '~!');
-
+								text = text.replace(/&/g, '§§§');
+			text = text.replace(/\+/g, '!!!!!');
+			
+			text = text.replace(/#/g, '|||||');
+							
                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value +   "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
                                     xmlhttp.send();
@@ -1292,7 +1328,7 @@ if (str == "") {
                               //      calendar.fullCalendar('refetchEvents');
 									
 									return;
-
+									}
                                 },
 
 
@@ -1597,7 +1633,7 @@ if (str == "") {
 </div>
  <input id="lernzielehid" type="hidden">
 
-<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
+<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  /><br><br>
 
 <div id="myModal1" class="modal">
 
@@ -1643,7 +1679,10 @@ if (str == "") {
 
     }
 
-
+	.fc-list-item-title:hover{
+  background:lightgrey;
+		 cursor: pointer;
+}
 
     #calendar {
 
@@ -1673,7 +1712,7 @@ border:none;
 		 var text = document.getElementById('lernziele').value;
                    text = text.replace(/\r/g, '^^^^');
 					text = text.replace(/\n/g, '~~~~');	
-		
+			
 		//alert(text);
 	}
 </script>

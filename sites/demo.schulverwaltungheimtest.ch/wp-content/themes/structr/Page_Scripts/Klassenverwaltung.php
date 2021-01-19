@@ -36,7 +36,7 @@
 
 				};
 
-				xmlhttp.open( "GET", "/Ajax_Scripts/addLernende.php?k=" + document.getElementById( "AnzahlSch" ).value + "&l=" + z, true );
+				xmlhttp.open( "GET", "/Ajax_Scripts/addLernende.php?k=" + document.getElementById( "AnzahlSch" ).value + "&l=" + z + "&q=" + str, true );
 
 				xmlhttp.send();
 			} else alert( 'die zu erstellende Klasse hat keinen Namen!' );

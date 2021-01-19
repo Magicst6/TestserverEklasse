@@ -9,7 +9,20 @@ include "db.php";
 
 $AnzahlSch=$_GET['k'];
 $z=$_GET['l'];
+$klasse=$_GET['q'];
+$isclass=0;
 
+            $isEntry= "Select * From sv_Lernende WHERE Klasse='$klasse'";
+
+            $result = mysqli_query($con, $isEntry);
+
+            while( $line3= mysqli_fetch_array($result))
+
+            {
+				$isclass=1;
+			}
+
+if(!$isclass){
 for($x = 0; $x < $AnzahlSch; $x++)
 					
                 {
@@ -73,12 +86,13 @@ for($x = 0; $x < $AnzahlSch; $x++)
 				
 				
 				$EMail=$line3['EMail'];
-
+                
+				$Loginname=$line3['Loginname'];
 
 
             }
 
-            echo "<option>". $Vorname .' '. $Name .' ID:'. $value . "</option>";
+            echo "<option>". $Vorname .' '. $Name .'  Loginname='.$Loginname.' EMail='.$EMail.' ID:'. $value ."</option>";
 
         }
 
@@ -149,6 +163,9 @@ echo '__________________________________________________________________________
                 }
 
 
+	
+}
+else echo "Diese Klasse existiert bereits!!";
 ?>
 
 

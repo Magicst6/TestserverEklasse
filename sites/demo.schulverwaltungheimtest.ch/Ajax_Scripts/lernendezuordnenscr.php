@@ -33,7 +33,7 @@ include 'db.php';
                  $Mail= $value1['EMail'];
 			       $ID=$value1['ID'];
 		
-if($Mail==$LoginnameMail and $Lernender<>$ID)
+if($Mail==$LoginnameMail and $Lernender<>$ID and $Mail<>'')
 {
 	 echo "Account bereits LernenderID ".$ID." zugeordnet!";
 	 $isExisting=true;
@@ -62,39 +62,35 @@ if (!$isExisting){
 		}
 	
 	$sql_befehl = "Update  sv_Lernende Set Loginname='$LoginnameReal', User_ID='$LoginnameID', EMAIL='$LoginnameMail' Where Name='$Name' and Vorname='$Vorname' and(Klasse='$Modul1' or Klasse='$Modul2' or Klasse='$Modul3' or Klasse='$Modul3' or Klasse='$Modul4' or Klasse='$Modul5' or Klasse='$Modul6' or Klasse='$Modul7' or  Klasse='$Modul8' or Klasse='$Modul9' or Klasse='$Modul10' or Klasse='$Modul11' or Klasse='$Modul12')  ";
-    //echo $sql_befehl5;
+    //echo $sql_befehl;
     if  (""== $Lernender)  {
-        //echo "Fehler: Eintrag unvollständig. ";
+      //  echo "Fehler: Eintrag unvollständig.1 ";
     }
     else {
         mysqli_query($con,$sql_befehl);
         echo "   Aktualisierung wurde ausgeführt!";
-        echo '<script language="javascript">';
-        echo 'alert("Login zugeordnet!")';
-        echo '</script>';
+      
 
     }
 
 $sql_befehl1 = "Update  sv_LernendeModule Set Loginname='$LoginnameReal', User_ID='$LoginnameID', EMAIL='$LoginnameMail' Where ID='$Lernender'";
     //echo $sql_befehl5;
     if  (""== $Lernender)  {
-        //echo "Fehler: Eintrag unvollständig. ";
+       // echo "Fehler: Eintrag unvollständig.2 ";
     }
     else {
         mysqli_query($con,$sql_befehl1);
         echo "!";
-        echo '<script language="javascript">';
-        echo 'alert("Login zugeordnet!")';
-        echo '</script>';
+      
 
     }
 	
 }
-		
+if ($LoginnameID){		
 $user = get_user_by('id', $LoginnameID);
 
 $user->add_role('lernender');
-
+}
 
 
 mysqli_close($con);

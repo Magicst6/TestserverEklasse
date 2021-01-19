@@ -5,7 +5,7 @@ include "db.php";
 
 $AnzahlSch=$_GET['k'];
 $z=$_GET['l'];
-$Klassenname=$_GET['m'];
+$Klasse=$_GET['m'];
 
 echo '<br>Hier die momentan in dieser Klasse befindlichen Schüler:<br><br>';
 
@@ -25,7 +25,7 @@ echo '<br>Hier die momentan in dieser Klasse befindlichen Schüler:<br><br>';
                 echo "<tbody>";
 
 
-                $isEntry = "SELECT ID, Name, Vorname, Loginname, EMail, Profil From sv_Lernende Where Klasse='$Klassenname' Order By Name ";
+                $isEntry = "SELECT ID, Name, Vorname, Loginname, EMail, Profil From sv_Lernende Where Klasse='$Klasse' Order By Name ";
                 $result = mysqli_query($con, $isEntry);
                 $y=0;
 
@@ -77,7 +77,7 @@ for($x = 0; $x < $AnzahlSch; $x++)
 
 
 
-        $isEntry= "Select ID From sv_LernendeModule order by Name asc ";
+        $isEntry= "Select ID From sv_LernendeModule where Modul1!='$Klasse' and Modul2!='$Klasse' and Modul3!='$Klasse' and Modul4!='$Klasse' and Modul5!='$Klasse' and Modul6!='$Klasse' and Modul7!='$Klasse' and Modul8!='$Klasse' and Modul9!='$Klasse' and Modul10!='$Klasse' and Modul11!='$Klasse' and Modul12!='$Klasse'  order by Name asc ";
 
         $result = mysqli_query($con, $isEntry);
 
@@ -124,11 +124,15 @@ for($x = 0; $x < $AnzahlSch; $x++)
 				
 				$EMail=$line3['EMail'];
 
+	$Loginname=$line3['Loginname'];
 
 
             }
+			
+			
 
-            echo "<option>". $Vorname .' '. $Name .' ID:'. $value ."</option>";
+           
+            echo "<option>". $Vorname .' '. $Name .'  Loginname='.$Loginname.' EMail='.$EMail.' ID:'. $value ."</option>";
 
         }
 

@@ -17,10 +17,10 @@ include 'db.php';
 <script type="text/javascript">
 // Load google charts
 google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawChart7);
 
 // Draw the chart and set the chart values
-function drawChart() {
+function drawChart7() {
   var data = google.visualization.arrayToDataTable([
 	  
 	  ['Name', 'Module'],
@@ -63,17 +63,17 @@ while( $line3= mysqli_fetch_array($result2))
 	      height: '300'};
 
   // Display the chart inside the <div> element with id="piechart"
-  var chart = new google.visualization.ColumnChart(document.getElementById('ModChart'));
-  chart.draw(data, options);
+  var chart7 = new google.visualization.ColumnChart(document.getElementById('ModChart'));
+  chart7.draw(data, options);
 }
 </script>	
 <script type="text/javascript">
 // Load google charts
 google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart1);
+google.charts.setOnLoadCallback(drawChart8);
 
 // Draw the chart and set the chart values
-function drawChart1() {
+function drawChart8() {
   var data = google.visualization.arrayToDataTable([
 	  
 	  ['Klasse', 'Schülerzahl'],
@@ -104,8 +104,8 @@ while( $line3= mysqli_fetch_array($result2))
 	      height: '300'};
 
   // Display the chart inside the <div> element with id="piechart"
-  var chart1 = new google.visualization.ColumnChart(document.getElementById('SchuelerChart'));
-  chart1.draw(data, options);
+  var chart8 = new google.visualization.ColumnChart(document.getElementById('SchuelerChart'));
+  chart8.draw(data, options);
 }
 </script>	
 

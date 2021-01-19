@@ -25,10 +25,7 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
     <script type='text/javascript'>
         <!--
         function zuordnen(lernender,login){
-            if (lernender == "" || login == "") {
-                document.getElementById("zuordnen").innerHTML = "";
-                return;
-            } else {
+         //  alert();
                 if (window.XMLHttpRequest) {
                     // code for IE7+, Firefox, Chrome, Opera, Safari
                     xmlhttp = new XMLHttpRequest();
@@ -44,7 +41,7 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
                 xmlhttp.open("GET","/Ajax_Scripts/lernendezuordnenscr.php?q="+lernender+"&h="+login,true);
                 xmlhttp.send();
             }
-        }
+        
         function myFunction3(){
             window.location.href = "/lernende-automatisch-zuordnen";
         }

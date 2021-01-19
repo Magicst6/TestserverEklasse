@@ -31,9 +31,9 @@ if ($_POST['Senden']) {
         while ($value3 = mysqli_fetch_array($result2)) {
             $Stattgefunden = $value3['Stattgefunden'];
         }
-        if ($Stattgefunden <> '') {
+        if ($Stattgefunden <> '' ) {
             $sql_befehl2 = "UPDATE sv_Kurshistorie SET Stattgefunden='$TookPlace', Lehrer='$Lehrer', Kommentar='$Comment' , Lektionen='$Lektionen' Where KursID='$Kursname' and Datum='$Datum'  ";
-        } else {
+        } elseif ($Kursname<>'') {
             $sql_befehl2 = "INSERT INTO sv_Kurshistorie (Datum,Stattgefunden ,KursID ,Lehrer, Kommentar,Lektionen) VALUES ('$Datum','$TookPlace','$Kursname','$Lehrer', '$Comment','$Lektionen')";
         }
 

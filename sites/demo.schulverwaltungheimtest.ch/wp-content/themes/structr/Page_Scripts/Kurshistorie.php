@@ -9,10 +9,16 @@
       </script>
 </head>
 
+<br><br>
+Lehrperson:
+<br>
 <?
 include 'db.php';
  
-	
+
+
+
+
 
     global $current_user;
 
@@ -99,7 +105,7 @@ while( $line3= mysqli_fetch_array($result2))
 ]);
 		
   // Optional; add a title and set the width and height of the chart
-  var options = {'title':'Ihre gehaltenen Lektionen', 'width':"90%", 'height':"500",is3D:true,};
+  var options = {'title':'Ihre gehaltenen Lektionen im aktuellen Semester', 'width':"90%", 'height':"500",is3D:true,};
 
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('PieChart'));

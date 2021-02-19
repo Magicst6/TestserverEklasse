@@ -196,6 +196,36 @@ else {
 
 
 }
+	
+	
+
+
+
+ $sql_befehlDel = "Delete From sv_KurseLehrer where LP_ID='$Lehrer' ";
+     mysqli_query($con,$sql_befehlDel);
+
+for($x = 1; $x <= 30; $x++)
+{
+$Kurs="Kurs"."$x";
+
+$wert=$_POST[$Kurs];
+	
+ if ($wert<>''){ 
+
+$isEntry2= "Select *  From sv_KurseLehrer where KursID='$wert' ";
+
+    $result2 = mysqli_query($con, $isEntry2);
+    
+	while ($row2= mysqli_fetch_array($result2)) {
+	$isKurs=true;
+	}
+	if (!$isKurs){
+	
+	$query1 = "INSERT INTO sv_KurseLehrer (KursID,LP_ID)  VALUES ('$wert', '$Lehrer')";
+            mysqli_query($con, $query1);
+}
+ }
+}
 if ($isdouble1==1){
 	
 			
@@ -205,6 +235,9 @@ if ($isdouble1==1){
 	if ($isdouble1<>1){
 	echo '<script>window.location.href = "\ksdlpsc";</script>';
 	}
+	
+	
+	
 	?>
 </body>
 </html>

@@ -160,9 +160,9 @@ if ($uploadOk == 0) {
 
                 $LP_ID = $spalte11;
  
-				$Farbe=$spalte13;
+				$Farbe=$spalte12;
 				
-				$Profil=$spalte12;
+				$Profil=$spalte13;
 
 
                 $isEntry = "Select * From sv_KurseAll";
@@ -213,40 +213,35 @@ if ($uploadOk == 0) {
 
                 }
 
-                $isEntryLPKurse = "SELECT  Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where  ID='$LP_ID' ";
+                $isEntryLPKurse = "SELECT  KursID From sv_KurseLehrer Where  LP_ID='$LP_ID' ";
 
                 $result = mysqli_query($con, $isEntryLPKurse);
 
-
-
-
-
-                while ($value = mysqli_fetch_array($result)) {
-
                     $isEntryCreated = false;
 
-                    $isKursExisting = false;
-
-                    for ($x = 1; $x <= 30; $x++) {
+                    $isKursExisting1 = false;
 
 
 
-                        $Kurs = "Kurs" . "$x";
+                while ($value1 = mysqli_fetch_array($result)) {
+
+                    
+
+                   
 
 
-
-                        $KursValue = $value[$Kurs];
+                        $KursValue = $value1['KursID'];
 
                         if ($KursValue == $KursID) {
 
-                            $isKursExisting = true;
+                            $isKursExisting1 = true;
 
                         }
 
+				}
+                        if (!$isKursExisting1 and !$isEntryCreated) {
 
-                        if ($KursValue == "" and !$isEntryCreated and !$isKursExisting) {
-
-                            $sql_befehlKurse = "UPDATE sv_Lehrpersonen SET $Kurs = '$KursID'  where ID ='$LP_ID' ";
+                            $sql_befehlKurse = "INSERT INTO sv_KurseLehrer ( KursID,LP_ID) VALUES ('$KursID','$LP_ID')";
 
 
                                   
@@ -258,9 +253,9 @@ if ($uploadOk == 0) {
 
                         }
 
-                    }
+                    
 
-                }
+                
 
                 // Daten hinzufügen (Anzahl der Spalten anpassen)
 
@@ -350,7 +345,7 @@ if ($uploadOk == 0) {
 
 
 
-                $Kursname = $KursID;
+                
 
 
 
@@ -380,7 +375,7 @@ if ($uploadOk == 0) {
 
                 foreach ($uniquearr3 as $value) {
 
-                    if ($value == $Kursname) {
+                    if ($value == $KursID) {
 
                         $dontFill = 1;
 
@@ -421,7 +416,7 @@ if ($uploadOk == 0) {
 		foreach ($ProfKomma as $val1) {
           
 			
-			if ($val1 == $Profil)
+			if (strtolower($val1)==strtolower($Profil))
 			{
 				
 				$isProfil=1;
@@ -439,11 +434,13 @@ if ($uploadOk == 0) {
          }
  
 		
-       
-		if ($isProfil==1 or $Profil==''){
+  
+		
+       $Profil2= substr($Profil, 0,-2);;
+		echo $Profil2;
+		if ($isProfil==1 or $Profil2=='n.a.' or $Profil2==''){
 
 			
-
                         $isEntry4 = "Select SchuelerID, Vorname, Nachname, KursID From sv_LernenderKurs";
 
                         $result4 = mysqli_query($con, $isEntry4);
@@ -462,13 +459,13 @@ if ($uploadOk == 0) {
 
 
 
-                            if (($SchuelerID == $ID) and ($Kursname == $KursnameAbw) and (($Vorname <> $VornameAbw) or ($Nachname <> $NachnameAbw))) {
+                            if (($SchuelerID == $ID) and ($KursID == $KursnameAbw) and (($Vorname <> $VornameAbw) or ($Nachname <> $NachnameAbw))) {
 
-                                $sql_befehl = "Update sv_LernenderKurs SET Vorname='$Vorname', Nachname='$Nachname' Where SchuelerID='$ID' and KursID='$Kursname'";
+                                $sql_befehl = "Update sv_LernenderKurs SET Vorname='$Vorname', Nachname='$Nachname' Where SchuelerID='$ID' and KursID='$KursID'";
 
                                 mysqli_query($con, $sql_befehl);
 
-//echo "Eintrag hinzugefügt!";
+echo "Eintrag hinzugefügt!";
 
                                 $dontFill = 1;
 
@@ -478,7 +475,7 @@ if ($uploadOk == 0) {
 
 
 
-                            if (($SchuelerID == $ID) and ($Kursname == $KursnameAbw) and ($Vorname == $VornameAbw) and ($Nachname == $NachnameAbw)) {
+                            if (($SchuelerID == $ID) and ($KursID == $KursnameAbw) and ($Vorname == $VornameAbw) and ($Nachname == $NachnameAbw)) {
 
                                 $dontFill = 1;
 
@@ -488,9 +485,9 @@ if ($uploadOk == 0) {
 
 
 
-                        if ($dontFill == 0 and strpos($Kursname, $Klasse) !== false) {
+                        if ($dontFill == 0 and strpos($KursID, $Klasse) !== false) {
 
-                            $sql_befehl = "INSERT INTO sv_LernenderKurs (KursID, SchuelerID, Klasse, Vorname, Nachname) VALUES ('$Kursname', '$SchuelerID', '$Klasse', '$Vorname','$Nachname')";
+                            $sql_befehl = "INSERT INTO sv_LernenderKurs (KursID, SchuelerID, Klasse, Vorname, Nachname) VALUES ('$KursID', '$SchuelerID', '$Klasse', '$Vorname','$Nachname')";
 
                             mysqli_query($con, $sql_befehl);
 
@@ -515,7 +512,7 @@ echo "Eintrag hinzugefügt!";
 }
 
 
-echo '<meta http-equiv="refresh" content="0; url=/kurstermine" />';
+ echo '<meta http-equiv="refresh" content="0; url=/kurstermine" />';
 
 
 

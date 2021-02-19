@@ -26,6 +26,8 @@
 
 
 
+
+
     <!--<script src='/wp-content/themes/structr/Page_Scripts/fullcalendar/lib/jquery.min.js'></script>-->
 
     <script src='/wp-content/themes/structr/Page_Scripts/fullcalendar/lib/moment.min.js'></script>
@@ -35,15 +37,6 @@
     <script src='/wp-content/themes/structr/Page_Scripts/fullcalendar/locale-all.js'></script>
 
     <link rel='stylesheet' href='/wp-content/themes/structr/Page_Scripts/fullcalendar/fullcalendar.css' />
-	
-<script src="https://cdn.tiny.cloud/1/p4y59yu91l1ttdi8h066ovomyunbzi9p44zqccnlmn9ly5ge/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <script>
-      tinymce.init({
-        selector: '#lernziele',
-		  height: 600
-      });
-    </script>
 
     <?php
 
@@ -54,13 +47,30 @@
     
 
     ?>
-      <input id="kidhidden" type="hidden">
+<input id="kidhidden" type="hidden">
 	
 	<input id="farbehid" type="hidden">
+    
+	
     <script>
 
+		function alertcol(){
+			
+			alert(document.getElementById('test').value);
+		}
+
+
+            function reload() {
+
+                var x = document.querySelector("#klassedrop").value;
+
+                
+
+                window.location.href = "/kurstermine-der-klasse?&klasse=" + x ;
+
+            }
+
 function getKursname(str){
-	
 if (str == "") {
        
         return;
@@ -82,9 +92,7 @@ if (str == "") {
        
     }
 }
-		
-function getKursnamepre(str){
-	
+		function getKursnamepre(str){
 if (str == "") {
        
         return;
@@ -101,22 +109,11 @@ if (str == "") {
                 document.getElementById("kursid").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str+"&k="+ document.getElementById('kursid').value ,true);
+        xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str+ "&k="+ document.getElementById('kidhidden').value,true);
         xmlhttp.send();
        
     }
 }
-		
-            function reload() {
-
-                var x = document.querySelector("#klassedrop").value;
-
-                var y = document.querySelector("#Lehrpersondrop").value;
-
-                window.location.href = "/pruefungen-verwaltung?&klasse=" + x + "&Lehrpersondr=" + y;
-
-            }
-
 function getcolor(str1){
 		
 		
@@ -143,74 +140,90 @@ function getcolor(str1){
 
    
 
-  
-<body>
-<h4>Lehrperson:
-</h4>
-<br>
-
-<?php
-
-include 'db.php';
-
-$isEntry= "Select ID From sv_Lehrpersonen where User_ID='$current_user->ID'";
-
-$result = mysqli_query($con, $isEntry);
-
-
-
-while( $line2= mysqli_fetch_assoc($result))
-
-{
-
-    $value=$line2['ID'];
-
-
-
-    $isEntry= "Select Nachname, Vorname From sv_Lehrpersonen WHERE ID='$value'";
-
-    $result = mysqli_query($con, $isEntry);
-
-    while( $line3= mysqli_fetch_array($result))
-
-    {
-
-        $Name = $line3['Nachname'];
-		
-		
-
-        $Vorname = $line3['Vorname'];
-
-
-
-    }
-
-
-
-
-
-
-
-    
-
-
+  Klasse:<br>
    
-    $Lehrer=$Vorname .' '.$Name .' ID:'. $value;
-	
-}
+     <select name="klassedrop" id="klassedrop" onchange="reload()" >
 
-$IDLP=$value;
 
-?>
-	
-	<input  id="lehrer" name="lehrer" class="ninput" readonly="readonly" type="text" value="<?php echo $Lehrer; ?>" />
 
+        <?php
+  global $current_user;
+
+    get_currentuserinfo();
+
+
+        include 'db.php';
+
+
+
+ $isEntry2= "Select ID From sv_Lehrpersonen where User_ID='$current_user->ID'";
+
+        $result2 = mysqli_query($con,$isEntry2);
+
+		 while( $line3= mysqli_fetch_assoc($result2))
+
+          {
+			 $ID=$line3['ID'];
+		 }
+
+
+
+        $isEntry= "Select Klasse From sv_Klassenlehrer where LP_ID='$ID'";
+
+        $result1 = mysqli_query($con,$isEntry);
+
+        $resultarr1 = array();
+          if ($_GET['klasse']){
+        echo "<option>".$_GET['klasse']."</option>";
+		  }
+		else{   
+        echo "<option>-Select-</option>";
+		}
+        while( $line2= mysqli_fetch_assoc($result1))
+
+        {
+
+            $resultarr1[] = $line2['Klasse'];
+			
+			
+
+        }
+
+        $uniquearr1 = array_unique($resultarr1);
+
+        asort($uniquearr1);
+
+
+
+
+
+        foreach ($uniquearr1 as $value)
+
+        {
+
+            if ($value == $_GET['klasse']){}
+
+            else
+
+            {
+               if ($value){
+                echo "<option>" . $value . "</option>";
+			   }
+            }
+
+        }
+
+
+
+        ?>
+
+
+
+    </select>
     <script>
 
         $(document).ready(function() {
 
-
-    
 
 
             var calendar = $('#calendar').fullCalendar({
@@ -232,19 +245,18 @@ $IDLP=$value;
                 },
 
                 theme:'jquery-ui',
-				
- 
-
 
                 navLinks: true, // can click day/week names to navigate views
 
                 editable: true,
+				
+				 zIndex:999,
 
                 locale: 'de',
 
                 eventLimit: true, // allow "more" link when too many events
 
-                events:  "/wp-content/themes/structr/Page_Scripts/GetPruefterminValues.php?q="+ document.getElementById('curruser').value,
+                events:  "/wp-content/themes/structr/Page_Scripts/GetCalendarValuesKlasse.php?q=1000000"+  "&k="+ document.getElementById('klassedrop').value,
 
                 eventTextColor: 'black',
 
@@ -302,7 +314,7 @@ $IDLP=$value;
 
                             height: 800,
 
-                            width: 600,
+                            width: 300,
 
                             modal: true,
 
@@ -324,16 +336,17 @@ $IDLP=$value;
 
                                 document.getElementById('zimmer').value = "";
 
-                                document.getElementById('lernziele').value = "";
+                                document.getElementById('kursname').value = "";
 
                                 document.getElementById('kursid').value = "";
 
-                       
+                                document.getElementById('klasse').value = "";
 
-                                document.getElementById('lehrperson').value = <?php echo $Name; ?>;
-								document.getElementById('gewicht').value = "";
+                                document.getElementById('lehrpers').value = "";
 
                                 document.getElementById('farbe').value = "";
+								
+								document.getElementById('kursidinp').value = "";
 
                             },
 
@@ -343,10 +356,7 @@ $IDLP=$value;
 
                                 "Speichern":function()  {
 
- if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
-												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
-											   }
-									else{
+
 
                                     title = $("#title"),
 
@@ -413,14 +423,10 @@ $IDLP=$value;
                                     };
 
 
-var text = tinyMCE.activeEditor.getContent();
-                  text = text.replace(/\r/g, '!^');
-					text = text.replace(/\n/g, '~!');
-text = text.replace(/&/g, '§§§');
-		text = text.replace(/\+/g, '!!!!!');
-			
-			text = text.replace(/#/g, '|||||');
-                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val() + "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value  +  "&lernziele=" + text, true);
+
+
+
+                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&farbe=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrpers').value +"&kursidinp=" + document.getElementById('kursidinp').value, true);
 
                                     xmlhttp.send();
 
@@ -435,7 +441,7 @@ text = text.replace(/&/g, '§§§');
 
 
                                     calendar.fullCalendar('refetchEvents');
-									}
+
                                 },
 
 
@@ -443,7 +449,6 @@ text = text.replace(/&/g, '§§§');
                                 Cancel: function () {
 
                                     dialog.dialog("close");
-									
 									 calendar.fullCalendar('refetchEvents');
 
                                 },
@@ -526,7 +531,7 @@ text = text.replace(/&/g, '§§§');
 
 
 
-                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePruefterminDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
+                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
 
                     xmlhttp.send();
 
@@ -586,7 +591,7 @@ text = text.replace(/&/g, '§§§');
 
 
 
-                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePruefterminDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
+                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
 
                     xmlhttp.send();
 
@@ -618,7 +623,7 @@ text = text.replace(/&/g, '§§§');
 
                         height: 800,
 
-                        width: 600,
+                        width: 300,
 
                         modal: true,
 
@@ -637,11 +642,6 @@ text = text.replace(/&/g, '§§§');
                             var endtime = $.fullCalendar.formatDate(event.end, "HH:mm:ss");
 
                             var id= event.ID;
-							
-							   
-							document.getElementById('kursid').value = event.kursid;
-
-								document.getElementById('gewicht').value = event.gewichtung;
 
                             document.getElementById('startdate').value = startdate;
 
@@ -654,51 +654,35 @@ text = text.replace(/&/g, '§§§');
                             document.getElementById('title').value = event.title;
 
                             document.getElementById('zimmer').value = event.zimmer;
-	                     
-                            
-							
-                          var text1 = event.lernziele;
-							var text1 = event.lernziele;
-                  text1 = text1.replace( /!^/g,'\r');
-					text1 = text1.replace( /~!/g,'\n');	
-								text1 = text1.replace(/§§§/g, '&');
-			text1 = text1.replace(/!!!!!/g, '+');
-			text1 = text1.replace(/\|\|\|\|\|/g, '#');
-			
-		
-							
-						    tinymce.get('lernziele').setContent(text1); 
+							document.getElementById('kidhidden').value=event.kursid;
 
-								
-							
+                            
+							getKursnamepre(event.klasse);
 							
 							 document.getElementById('farbehid').value = event.color;
 							
 							getcolor(event.kursid);
-							
-						
                            
+							document.getElementById('kursname').value = event.kursname;
 
-                            document.getElementById('lehrperson').value = event.lehrperson;
+                            document.getElementById('kursid').value = event.kursid;
 							
-						
+							 document.getElementById('kursidinp').value = "";
+
+                            document.getElementById('klasse').value = event.klasse;
+
+                            document.getElementById('lehrpers').value = event.lehrperson;
 
                             document.getElementById('farbe').value = event.color;
-						
-
                         },
 
-                         eventColor: event.color,
 
 
                         buttons: {
 
                             "Speichern": function(){
 
- if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
-												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
-											   }
-									else{
+           var farbe= document.getElementById('farbe').value.substring(1,7);
 
                                 title = $("#title");
 
@@ -764,17 +748,11 @@ text = text.replace(/&/g, '§§§');
 
                                 };
 
- var text = tinyMCE.activeEditor.getContent();
-              text = text.replace(/\r/g, '!^');
-					text = text.replace(/\n/g, '~!');	
-								text = text.replace(/&/g, '§§§');
-		text = text.replace(/\+/g, '!!!!!');
-			
-			text = text.replace(/#/g, '|||||');
 
 
 
-                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updatePrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value +  "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value  + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&gewichtung=" + document.getElementById('gewicht').value  +  "&lernziele=" + text, true);
+
+                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value  + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrpers').value + "&klasse=" + document.getElementById('klasse').value + "&farbe=" + farbe +"&kursidinp=" + document.getElementById('kursidinp').value, true);
 
                                 xmlhttp.send();
 
@@ -789,7 +767,7 @@ text = text.replace(/&/g, '§§§');
 
 
                                 calendar.fullCalendar('refetchEvents');
-									}
+
                             },
 
                              "Löschen":function(){
@@ -824,14 +802,13 @@ text = text.replace(/&/g, '§§§');
 
 
 
-                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/deletePrueftermin.php?f=" + id, true);
+                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/deleteCalendar.php?f=" + id, true);
 
                                      xmlhttp.send();
 
                                      calendar.fullCalendar('refetchEvents');
 
                                      alert("Event Removed");
-										dialog.dialog("close");
 
                                  }
 
@@ -840,7 +817,6 @@ text = text.replace(/&/g, '§§§');
                             Cancel: function () {
 
                                 dialog.dialog("close");
-								
 								 calendar.fullCalendar('refetchEvents');
 
                             },
@@ -994,14 +970,10 @@ text = text.replace(/&/g, '§§§');
             };
 
 
- var text = tinyMCE.activeEditor.getContent();
-              text = text.replace(/\r/g, '!^');
-					text = text.replace(/\n/g, '~!');	
-				text = text.replace(/&/g, '§§§');
-		text = text.replace(/\+/g, '!!!!!');
-			
-			text = text.replace(/#/g, '|||||');
-            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value +"&lernziele=" + text, true);
+
+
+
+            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&farbe=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&l=" + document.getElementById('lehrpers').value +"&kursidinp=" + document.getElementById('kursidinp').value, true);
 
             xmlhttp.send();
 
@@ -1057,7 +1029,7 @@ text = text.replace(/&/g, '§§§');
 
                 height: 800,
 
-                width: 600,
+                width: 300,
 
                 modal: true,
 
@@ -1094,225 +1066,6 @@ text = text.replace(/&/g, '§§§');
 
 
     <script>
-		
-		function pruefungerfassen() {
-
-
-
-
-
-                    var dialog, form,
-
-
-
-                        // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
-
-                        tips = $(".validateTips");
-
-
-
-                 
-
-
-
-
-
-
-
-
-
-                        dialog = $("#dialog-form").dialog({
-
-
-
-                            autoOpen: false,
-
-                            height: 800,
-
-                            width: 600,
-
-                            modal: true,
-
-
-
-
-
-                            open: function () {
-
-                                document.getElementById('startdate').value = "";
-
-                                document.getElementById('enddate').value = "";
-
-                                document.getElementById('starttime').value = "";
-
-                                document.getElementById('endtime').value = "";
-
-                                document.getElementById('title').value = "";
-
-                                document.getElementById('zimmer').value = "";
-
-                                document.getElementById('lernziele').value = "";
-
-                                document.getElementById('kursid').value = "";
-
-                               
-
-                                 document.getElementById('lehrperson').value = <?php echo $Name; ?>;
-								document.getElementById('gewicht').value = "";
-
-                                document.getElementById('farbe').value = "";
-
-                            },
-
-
-
-                            buttons: {
-
-                                "Speichern":function()  {
-
-                                               if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
-												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
-											   }
-									else{
-										
-									
-
-                                    title = $("#title"),
-
-                                        startCustdate = $("#startdate"),
-
-                                        endCustdate = $("#enddate"),
-
-                                        startCusttime = $("#starttime"),
-
-                                        endCusttime = $("#endtime"),
-
-                                        allFields = $([]).add(title).add(startCustdate).add(endCustdate).add(startCusttime).add(endCusttime);
-
-
-
-
-
-                                    var valid = true;
-
-                                    allFields.removeClass("ui-state-error");
-
-
-
-                                    $("#users tbody").append("<tr>" +
-
-                                        "<td>" + title.val() + "</td>" +
-
-                                        "<td>" + startCustdate.val() + "</td>" +
-
-                                        "<td>" + endCustdate.val() + "</td>" +
-
-                                        "<td>" + startCusttime.val() + "</td>" +
-
-                                        "<td>" + endCusttime.val() + "</td>" +
-
-                                        "</tr>");
-
-
-
-
-
-                                    if (window.XMLHttpRequest) {
-
-                                        // code for IE7+, Firefox, Chrome, Opera, Safari
-
-                                        xmlhttp = new XMLHttpRequest();
-
-                                    } else {
-
-                                        // code for IE6, IE5
-
-                                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-
-                                    }
-
-                                    xmlhttp.onreadystatechange = function () {
-
-                                        if (this.readyState == 4 && this.status == 200) {
-
-                                            document.getElementById("respond").innerHTML = this.responseText;
-
-                                        }
-
-                                    };
-
-
-
- var text = tinyMCE.activeEditor.getContent();
-               text = text.replace(/\r/g, '!^');
-					text = text.replace(/\n/g, '~!');	
-					text = text.replace(/&/g, '§§§');
-		text = text.replace(/\+/g, '!!!!!');
-			
-			text = text.replace(/#/g, '|||||');
-
-                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&kursid=" + document.getElementById('kursid').value + "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +  "&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
-
-                                    xmlhttp.send();
-
-
-
-                                    dialog.dialog("close");
-
-
-
-                                    
-
-
-
-                                    calendar.fullCalendar('refetchEvents');
-									
-									return;
-									}
-
-                                },
-
-
-
-                                Cancel: function () {
-
-                                    dialog.dialog("close");
-									
-								//	 calendar.fullCalendar('refetchEvents');
-									
-									return;
-
-                                },
-
-
-
-
-
-                            },
-
-                            close: function () {
-
-                               // calendar.fullCalendar('refetchEvents');
-
-                                return;
-
-                            }
-
-                        });
-
-
-
-
-
-                        dialog.dialog("open");
-
-
-
-                    };
-
-
-
-
 
         $(function(){
 
@@ -1329,44 +1082,42 @@ text = text.replace(/&/g, '§§§');
 
 
         });
-		
-
- 
 
     </script>
-	
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body {}
-		
 			.fc-list-item-title:hover{
   background:lightgrey;
 		 cursor: pointer;
 }
+        body {}
 
         /* The Modal (background) */
         .modal{
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 40%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+         display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 5; /* Sit on top */
+			padding-top: 400px; /* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0, 0, 0); /* Fallback color */
+			background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
         }
 
         /* Modal Content */
         .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
+                width: 85%;
+    padding: 25px;
+	background: #FFF;
+	max-width: 600px;
+    margin: 70px auto;
+	position: relative;
+	border-radius: 8px;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
         }
 
         /* The Close Button */
@@ -1390,148 +1141,223 @@ text = text.replace(/&/g, '§§§');
     </style>
 </head>
 
-
-
 <body>
-	
-	<div id="dialog-form" title="Prüfungsdaten">
+
+<div id="dialog-form" title="Termin">
+
+    <p class="validateTips">Bitte Felder ausfüllen oder ändern</p>
 
 
 
-<table class="timecard"  border="0">
-  <caption>
-    Prüfungsdaten
-  </caption>
-  <tbody>
-    <tr>
-      <td style="width: 150px; font-size: 12px; font-weight: bold;">Prüfungsname:</td>
-      <td colspan="2"><input type="text" name="title" id="title" value="" width="400px" ></td>
-    </tr>
-	 <tr>
-      <td style="width: 150px; font-size: 12px; font-weight: bold;">Kurs:</td>
-      <td colspan="2"><select type="text" name="kursid" id="kursid" value=""   onChange="getcolor(this.value)" class="text ui-widget-content ui-corner-all" >
-	<?	  	
-/*$isEntrylp= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = '$IDLP'";
-$resultlp = mysqli_query($con,$isEntrylp);
+    <form>
 
+       <fieldset>
 
- echo "<option>" . '-Select-' . "</option>";
+            <label for="Title">Titel:</label>
 
-while( $linelp= mysqli_fetch_array($resultlp))
-{
-for($x = 1; $x <= 30; $x++)
-{
+            <br>
 
-$valuelp = $linelp['Kurs'.$x];
-if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
+            <input type="text" name="title" id="title" value="" width="400px" readonly>
 
-}
-}*/
-		   $isEntry= "Select KursID From sv_KurseLehrer Where LP_ID = '$IDLP'";
+            <br>
 
-    $result = mysqli_query($con,$isEntry);
+            <label for="start">Startdatum und Zeit:</label>
 
+            <br>
 
+            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" required="required">
 
+            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" required="required">
 
+            <br>
 
-    echo "<option>" . '-Select-' . "</option>";
+            <label for="end">Enddatum und Zeit:</label>
 
+            <br>
 
+            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" required="required">
 
-    while( $line2= mysqli_fetch_array($result))
+            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all"required="required" >
 
-    {
+            
 
-        
+           
+            <br>
 
-            $value = $line2['KursID'];
+            <label for="kursname">Kursname:</label>
 
-            if ($value<>"") echo "<option>" . $value . "</option>";
+            <br>
+
+            <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" >
+
+            <br>
+
+            <label for="klasse">Klasse:</label>
+
+            <br>
+
+           <select name="klasse" id="klasse" onchange="getKursname(this.value)"   required="required">
 
 
 
-        
+        <?php
 
-    }
-		  
-		  
-		 ?> 
-		  </select></td>
-    </tr>
-    <tr>
-		<td style="width: 150px; font-size: 12px; font-weight: bold;">Startdatum und Zeit:</td>
+
+
+        include 'db.php';
+
+
+
+
+
+
+
+        $isEntry= "Select Klasse From sv_Lernende";
+
+        $result1 = mysqli_query($con,$isEntry);
+
+        $resultarr1 = array();
+
+        echo "<option>".$_GET['klasse']."</option>";
+
+        echo "<option></option>";
+
+        while( $line2= mysqli_fetch_assoc($result1))
+
+        {
+
+            $resultarr1[] = $line2['Klasse'];
+
+        }
+
+        $uniquearr1 = array_unique($resultarr1);
+
+        asort($uniquearr1);
+
+
+
+
+
+        foreach ($uniquearr1 as $value)
+
+        {
+
+            if ($value == $_GET['klasse']){}
+
+            else
+
+            {
+
+                echo "<option>" . $value . "</option>";
+
+            }
+
+        }
+
+
+
+        ?>
+																		</select>
+
+
+            <br>
+																			     <br>
+
+            <label for="kursid">KursID:</label>
+
+            <br>
+
+             <select name="kursid" id="kursid" onChange="getcolor(this.value)" >
 			
-      <td><input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" ></td></td>
-      <td><input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" ></td>
-    </tr>
-    <tr>
-      <td style="width: 150px; font-size: 12px; font-weight: bold;">Enddatum und Zeit:</td>
-      <td><input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" ></td>
-      <td><input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all" ></td>
-    </tr>
-	 <tr>
-      <td style="width: 150px; font-size: 12px; font-weight: bold;">Gewichtung:</td>
-      <td><input type="text" name="gewicht" id="gewicht"  class="text ui-widget-content ui-corner-all"></td>
-      <td style="padding-left: 5px;padding-bottom:3px; font-size: 10px;">Wert 1 entspricht einfacher Gewichtung</td>
-    </tr>
-	
-  </tbody>
-</table>
 
-<table class="timecard"  border="0">
-  <caption>
-    Ort und Aufsicht
-  </caption>
-  <tbody>
-    <tr>
-      <td style="width: 150px; font-size: 12px; font-weight: bold;">Zimmer:</td>
-      <td> <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" ></td>
-    </tr>
-	  <tr>
-      <td style="width: 150px; font-size: 12px; font-weight: bold;">Lehrperson:</td>
-      <td><input type="text" name="lehrperson" id="lehrperson"  class="text ui-widget-content ui-corner-all"  readonly value="<?php echo $Name; ?>">
-		     
+																		</select>
+		   
+		   <input name="kursidinp" id="kursidinp" value="" type="hidden" class="text ui-widget-content ui-corner-all" >
+			
+
+																		
+<br><br>
+
+            <label for="zimmer">Zimmer:</label>
+
+            <br>
+
+            <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" >
+
+            <br>
+
+            <label for="lehrpers">Lehrperson:</label>
+
+            <br>
+
+              <select name="lehrpers"  id="lehrpers"    >
 
 
-        
-	  
-	
-  </tbody>
-</table>	
 
-<table class="timecard"  border="0">
-  <caption>
-    Lernziele
-  </caption>
-  <tbody>
-    <tr>
-		<td><textarea  id="lernziele" class="text ui-widget-content ui-corner-all" ></textarea></td>
-      
-    </tr>
-	 
-   
-  </tbody>
-</table>
-	
-	
+        <?php
+
+        $isEntry= "Select * From sv_Lehrpersonen Order By Nachname ASC";
+
+        $result = mysqli_query($con, $isEntry);
+
+
+
+        echo "<option>".$_GET['Lehrpersondr']."</option>";
+
+        echo "<option></option>";
+
+        while( $line2= mysqli_fetch_array($result))
+
+        {
+
+            $ID = $line2['ID'];
+
+            $Name = $line2['Nachname'];
+
+            $Vorname = $line2['Vorname'];
+
+
+
+
+
+            echo "<option>".$Name."</option>";
+
+        }
+
+        ?>
+
+
+
+
+
+    </select>
+
+
+            <br>
+
             <label for="farbe">Farbe:</label>
 
             <br>
-         <div id="farbediv"></div>
-   
+            <div id="farbediv"></div>
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+
+
+
         </fieldset>
 
+       
 
     </form>
 
 </div>
+	
 
 
-
-
-<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  /><br><br>
-
+<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
+<br><br>
 <div id="myModal1" class="modal">
 
     <!-- Modal content -->
@@ -1552,13 +1378,12 @@ if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
 </div>
 
 
+
 <div id='calendar'></div>
 
 <div id='respond'></div>
 
 <div id='lernende'></div>
-	
-		<br><br><input name="pruefungerf" id="pruefungserf" type="button" value="Prüfung erfassen"  onClick="pruefungerfassen()" /><br><br>
 
 </body>
 
@@ -1583,17 +1408,14 @@ if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
         margin: 0 auto;
 
     }
-	textarea {
-  width: 450px;
-  height: 400px;
+table td{
+border:none;
 }
- input[type=text].ninput {
+table {
+border:none;
+}
 
-            width:auto;
 
-           
-
-        }
 
 </style>
 
@@ -1617,6 +1439,7 @@ if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
        document.getElementById("myModal"+1).style.display = "none";
     }
 		  
+  
     function Mail(){
 
 
@@ -1648,7 +1471,7 @@ if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
 
         };
 
-        xmlhttp.open("GET","/wp-content/themes/structr/Page_Scripts/GetPruefterminValuesMail.php?q="+ document.getElementById('curruser').value+ "&m=" +document.getElementById('Mail').value,true);
+        xmlhttp.open("GET","/wp-content/themes/structr/Page_Scripts/GetCalendarValuesMail.php?q=1000000" + "&k="+ document.getElementById('klassedrop').value + "&l="+ document.getElementById('Lehrpersondrop').value + "&m="+ document.getElementById('Mail').value,true);
 
         xmlhttp.send();
 

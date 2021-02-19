@@ -33,6 +33,41 @@ if ($SemesterkuerzelDB==$Semesterkuerzel){
 	
 }
 	else{
+		
+			$Sem_KurseLehrer1= $SemesterkuerzelDB.'_KurseLehrer';
+
+$query10 = "DROP TABLE $Sem_KurseLehrer1";
+
+mysqli_query($con,$query10);
+
+
+
+$query20 = "CREATE TABLE $Sem_KurseLehrer1 LIKE sv_KurseLehrer";
+
+mysqli_query($con,$query20);
+
+$query30 = "INSERT INTO $Sem_KurseLehrer1 SELECT * FROM sv_KurseLehrer";
+
+mysqli_query($con,$query30);
+		
+		
+		$Sem_Klassenlehrer1= $SemesterkuerzelDB.'_Klassenlehrer';
+
+$query11 = "DROP TABLE $Sem_Klassenlehrer1";
+
+mysqli_query($con,$query11);
+
+
+
+$query21 = "CREATE TABLE $Sem_Klassenlehrer1 LIKE sv_Klassenlehrer";
+
+mysqli_query($con,$query21);
+
+$query31 = "INSERT INTO $Sem_Klassenlehrer1 SELECT * FROM sv_Klassenlehrer";
+
+mysqli_query($con,$query31);
+		
+		
 $Sem_lernende= $SemesterkuerzelDB.'_Lernende';
 
 $query = "DROP TABLE $Sem_lernende";
@@ -312,328 +347,7 @@ echo $Ferien1von;
 
     mysqli_query($con, $sql_befehl_del);
 
-    $isEntryStundenplan= "Select * From sv_Kurse where Stundenplan = 1 ";
-
-    $resultStundenplan = mysqli_query($con, $isEntryStundenplan);
-
-
-
-
-
-
-
-    while( $valueStundenplan= mysqli_fetch_array($resultStundenplan)) {
-
-        $KursID = $valueStundenplan['KursID'];
-
-        $Tag = $valueStundenplan['Tag'];
-
-        $Klasse = $valueStundenplan['Klasse'];
-
-        $Zimmer= $valueStundenplan['Zimmer'];
-
-        $Kursname = $valueStundenplan['Kursname'];
-
-        $Startdatum = $valueStundenplan['Startdatum'];
-
-        $Enddatum = $valueStundenplan['Enddatum'];
-
-        $Uhr=$valueStundenplan['Uhrzeit'];
-
-        $Farbe=$valueStundenplan['Farbe'];
-
-        $time= null;
-
-        if ($Uhr== '815')
-
-        {
-
-            $time= "08:15:00";
-
-        }
-
-        else if ($Uhr== '905')
-
-        {
-
-            $time= "09:05:00";
-
-        }
-
-        else if ($Uhr== '1010')
-
-        {
-
-            $time= "10:10:00";
-
-        }
-
-        else if ($Uhr== '1100')
-
-        {
-
-            $time= "11:00:00";
-
-        }
-
-        else if ($Uhr== '1145')
-
-        {
-
-            $time= "11:45:00";
-
-        }
-
-        else if ($Uhr== '1315')
-
-        {
-
-            $time= "13:15:00";
-
-        }
-
-        else if ($Uhr== '1405')
-
-        {
-
-            $time= "14:05:00";
-
-        }
-
-        else if ($Uhr== '1510')
-
-        {
-
-            $time= "15:10:00";
-
-        }
-
-        else if ($Uhr== '1600')
-
-        {
-
-            $time= "16:00:00";
-
-        }
-
-
-
-        else if ($Uhr== '1645')
-
-        {
-
-            $time= "16:45:00";
-
-        }
-
-        else $time=$Uhr.":00";
-
-        // echo $time;
-
-        if ($time<>null) {
-
-
-
-            $Datum = date('Y-m-d', strtotime($Startdatum));
-
-            $Start = date('Y-m-d H:i:s', strtotime($Startdatum . " " . $time));
-
-
-
-            $End = date('Y-m-d H:i:s', strtotime($Start . '+45 minutes'));
-
-            $isEntry = "Select * From sv_KurseAll";
-
-            $result = mysqli_query($con, $isEntry);
-
-            $isExisting = false;
-
-            while ($value = mysqli_fetch_array($result)) {
-
-                if (($value['Start'] == $Start) and ($value['Ende'] == $End) and ($value['KursID'] == $KursID)) {
-
-                    $isExisting = true;
-
-                    // echo "line already existing";
-
-                }
-
-
-
-            }
-
-            if ($Enddatum == '0000-00-00' || $Enddatum == null || $Enddatum=="") {
-
-                //    echo "Enddatum fehlt. Bitte eintragen!')";
-
-            } else {
-
-
-
-                $isEntryLPKurse = "SELECT Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30,ID, Nachname From sv_Lehrpersonen  ";
-
-                $result = mysqli_query($con, $isEntryLPKurse);
-
-
-
-                $LP_ID=0;
-
-                $Lehrperson="";
-
-                while( $value= mysqli_fetch_array($result))
-
-                {
-
-                    $isEntryCreated=false;
-
-                    $isKursExisting=false;
-
-                    for($x = 1; $x <= 30; $x++) {
-
-
-
-                        $Kurs = "Kurs" . "$x";
-
-
-
-                        $KursValue = $value[$Kurs];
-
-                        if ($KursValue == $KursID) {
-
-                            $LP_ID = $value['ID'];
-
-                            $Lehrperson = $value['Nachname'];
-
-                        }
-
-
-
-
-
-
-
-                    }
-
-
-
-                }
-
-
-
-                if (!$isExisting) {
-
-                    $sql_befehl = "INSERT INTO sv_KurseAll (Kursname, KursID, Tag, Klasse, LP_ID,Datum, Start, Ende, Lehrperson,Farbe,Zimmer, Stundenplan ) VALUES ('$Kursname','$KursID','$Tag','$Klasse','$LP_ID','$Datum','$Start','$End','$Lehrperson','$Farbe','$Zimmer', 1)";
-
-
-
-// In die DB-Tabelle eintragen
-
-                    mysqli_query($con, $sql_befehl);
-
-                }
-
-                $y = 0;
-
-
-
-
-
-                if  ($Startdatum<$Enddatum) {
-
-                    $datetime1 = date_create($Startdatum);
-
-                    $datetime2 = date_create($Enddatum);
-
-                    $interval = date_diff($datetime1, $datetime2);
-
-                    $days = $interval->format('%R%a days');
-
-                    $weeks = intval($days / 7);
-
-                    //  echo $weeks;
-
-                    $y = $weeks;
-
-
-
-                }
-                echo "test";
-                for ($x = 0; $x < $y; $x++) {
-
-                    $isExisting = false;
-
-                    $Datum = date('Y-m-d', strtotime($Datum . ' + 7 days'));
-
-                    $Start = date('Y-m-d H:i:s', strtotime($Start . ' + 7 days'));
-
-                    $isEntrySet = "Select Ferien1von,Ferien1bis,Ferien2von,Ferien2bis,Ferien3von,Ferien3bis,Ferien4von,Ferien4bis,Ferien5von,Ferien5bis From sv_Settings";
-
-                    $resultSet = mysqli_query($con, $isEntrySet);
-
-
-                    while ($valueSet = mysqli_fetch_array($resultSet)) {
-
-                        if (($Start>=$valueSet['Ferien1von'] and $Start<=$valueSet['Ferien1bis']) or ($Start>=$valueSet['Ferien2von'] and $Start<=$valueSet['Ferien2bis']) or ($Start>=$valueSet['Ferien3von'] and $Start<=$valueSet['Ferien3bis']) or ($Start>=$valueSet['Ferien4von'] and $Start<=$valueSet['Ferien4bis']) or ($Start>=$valueSet['Ferien5von'] and $Start<=$valueSet['Ferien5bis'])) {
-
-
-                            $isExisting = true;
-
-                        }//     echo "line already existing";
-
-                    }
-
-                    $End = date('Y-m-d H:i:s', strtotime($Start . '+45 minutes'));
-
-                    $isEntry = "Select * From sv_KurseAll";
-
-                    $result = mysqli_query($con, $isEntry);
-
-
-
-                    while ($value = mysqli_fetch_array($result)) {
-
-                        if (($value['Start'] == $Start) and ($value['Ende'] == $End) and ($value['KursID'] == $KursID)) {
-
-                            $isExisting = true;
-
-
-                        }
-                    }
-
-
-
-
-
-
-
-                    if (!$isExisting) {
-
-                        $sql_befehl = "INSERT INTO sv_KurseAll (Kursname,KursID, Tag, Klasse, LP_ID,Datum, Start, Ende, Lehrperson,Farbe,Zimmer,Stundenplan ) VALUES ('$Kursname','$KursID','$Tag','$Klasse','$LP_ID','$Datum','$Start','$End','$Lehrperson','$Farbe','$Zimmer',1)";
-
-
-
-
-
-// In die DB-Tabelle eintragen
-
-                        mysqli_query($con, $sql_befehl);
-
-                    }
-
-                }
-
-            }
-
-            $Enddatum = null;
-
-
-
-
-
-        }
-
-    }
-
+   
 
 
 $con = @mysqli_connect(DB_HOST, DB_USER_EKL, DB_PASSWORD_EKL);
@@ -811,6 +525,38 @@ mysqli_query($con,$query5);
 	
 }
 
+$Sem_Klassenlehrer= $Semesterkuerzel.'_Klassenlehrer';
+
+$query12 = "Delete From sv_Klassenlehrer";
+
+mysqli_query($con,$query12);
+
+
+
+
+$query32 = "INSERT INTO sv_Klassenlehrer  SELECT * FROM $Sem_Klassenlehrer";
+
+mysqli_query($con,$query32);	
+	
+
+			$Sem_KurseLehrer= $Semesterkuerzel.'_KurseLehrer';
+
+$query13 = "Delete From sv_KurseLehrer";
+
+mysqli_query($con,$query13);
+
+
+
+
+
+$query33 = "INSERT INTO sv_KurseLehrer  SELECT * FROM $Sem_KurseLehrer ";
+
+mysqli_query($con,$query33);
+		
+			
+	
+	
+	
 $Sem_lernende= $Semesterkuerzel.'_Lernende';
 
 $query = "DROP TABLE $Sem_lernende";
@@ -1063,6 +809,325 @@ $query5 = "INSERT INTO $Sem_Users SELECT * FROM sv_users";
 
 mysqli_query($con1,$query5);
 }
+ $isEntryStundenplan= "Select * From sv_Kurse where Stundenplan = 1 ";
+
+    $resultStundenplan = mysqli_query($con, $isEntryStundenplan);
+
+
+
+
+
+
+
+    while( $valueStundenplan= mysqli_fetch_array($resultStundenplan)) {
+
+        $KursID = $valueStundenplan['KursID'];
+
+        $Tag = $valueStundenplan['Tag'];
+
+        $Klasse = $valueStundenplan['Klasse'];
+
+        $Zimmer= $valueStundenplan['Zimmer'];
+
+        $Kursname = $valueStundenplan['Kursname'];
+
+        $Startdatum = $valueStundenplan['Startdatum'];
+
+        $Enddatum = $valueStundenplan['Enddatum'];
+
+        $Uhr=$valueStundenplan['Uhrzeit'];
+
+        $Farbe=$valueStundenplan['Farbe'];
+
+        $time= null;
+
+        if ($Uhr== '815')
+
+        {
+
+            $time= "08:15:00";
+
+        }
+
+        else if ($Uhr== '905')
+
+        {
+
+            $time= "09:05:00";
+
+        }
+
+        else if ($Uhr== '1010')
+
+        {
+
+            $time= "10:10:00";
+
+        }
+
+        else if ($Uhr== '1100')
+
+        {
+
+            $time= "11:00:00";
+
+        }
+
+        else if ($Uhr== '1145')
+
+        {
+
+            $time= "11:45:00";
+
+        }
+
+        else if ($Uhr== '1315')
+
+        {
+
+            $time= "13:15:00";
+
+        }
+
+        else if ($Uhr== '1405')
+
+        {
+
+            $time= "14:05:00";
+
+        }
+
+        else if ($Uhr== '1510')
+
+        {
+
+            $time= "15:10:00";
+
+        }
+
+        else if ($Uhr== '1600')
+
+        {
+
+            $time= "16:00:00";
+
+        }
+
+
+
+        else if ($Uhr== '1645')
+
+        {
+
+            $time= "16:45:00";
+
+        }
+
+        else $time=$Uhr.":00";
+
+        // echo $time;
+
+        if ($time<>null) {
+
+
+
+            $Datum = date('Y-m-d', strtotime($Startdatum));
+
+            $Start = date('Y-m-d H:i:s', strtotime($Startdatum . " " . $time));
+
+
+
+            $End = date('Y-m-d H:i:s', strtotime($Start . '+45 minutes'));
+
+            $isEntry = "Select * From sv_KurseAll";
+
+            $result = mysqli_query($con, $isEntry);
+
+            $isExisting = false;
+
+            while ($value = mysqli_fetch_array($result)) {
+
+                if (($value['Start'] == $Start) and ($value['Ende'] == $End) and ($value['KursID'] == $KursID)) {
+
+                    $isExisting = true;
+
+                    // echo "line already existing";
+
+                }
+
+
+
+            }
+
+            if ($Enddatum == '0000-00-00' || $Enddatum == null || $Enddatum=="") {
+
+                //    echo "Enddatum fehlt. Bitte eintragen!')";
+
+            } else {
+
+
+
+                $isEntryLPKurse = "SELECT * From sv_KurseLehrer  ";
+
+                $result = mysqli_query($con, $isEntryLPKurse);
+
+
+
+                $LP_ID=0;
+
+                $Lehrperson="";
+
+                while( $value= mysqli_fetch_array($result))
+
+                {
+
+                    $isEntryCreated=false;
+
+                    $isKursExisting=false;
+
+                   
+						$KursValue = $value[ 'KursID' ];
+
+						if ( $KursValue == $KursID ) {
+
+							$LP_ID = $value[ 'LP_ID' ];
+
+
+							$isEntry3 = "SELECT Nachname,Vorname From sv_Lehrpersonen where ID='$LP_ID' ";
+							$result3 = mysqli_query( $con, $isEntry3 );
+
+							while ( $value3 = mysqli_fetch_array( $result3 ) ) {
+                                 $Lehrperson=$value3['Nachname'];
+							}
+
+
+
+
+
+
+
+}
+
+
+
+}
+
+
+
+                if (!$isExisting) {
+
+                    $sql_befehl = "INSERT INTO sv_KurseAll (Kursname, KursID, Tag, Klasse, LP_ID,Datum, Start, Ende, Lehrperson,Farbe,Zimmer, Stundenplan ) VALUES ('$Kursname','$KursID','$Tag','$Klasse','$LP_ID','$Datum','$Start','$End','$Lehrperson','$Farbe','$Zimmer', 1)";
+
+
+
+// In die DB-Tabelle eintragen
+
+                    mysqli_query($con, $sql_befehl);
+
+                }
+
+                $y = 0;
+
+
+
+
+
+                if  ($Startdatum<$Enddatum) {
+
+                    $datetime1 = date_create($Startdatum);
+
+                    $datetime2 = date_create($Enddatum);
+
+                    $interval = date_diff($datetime1, $datetime2);
+
+                    $days = $interval->format('%R%a days');
+
+                    $weeks = intval($days / 7);
+
+                    //  echo $weeks;
+
+                    $y = $weeks;
+
+
+
+                }
+                echo "test";
+                for ($x = 0; $x < $y; $x++) {
+
+                    $isExisting = false;
+
+                    $Datum = date('Y-m-d', strtotime($Datum . ' + 7 days'));
+
+                    $Start = date('Y-m-d H:i:s', strtotime($Start . ' + 7 days'));
+
+                    $isEntrySet = "Select Ferien1von,Ferien1bis,Ferien2von,Ferien2bis,Ferien3von,Ferien3bis,Ferien4von,Ferien4bis,Ferien5von,Ferien5bis From sv_Settings";
+
+                    $resultSet = mysqli_query($con, $isEntrySet);
+
+
+                    while ($valueSet = mysqli_fetch_array($resultSet)) {
+
+                        if (($Start>=$valueSet['Ferien1von'] and $Start<=$valueSet['Ferien1bis']) or ($Start>=$valueSet['Ferien2von'] and $Start<=$valueSet['Ferien2bis']) or ($Start>=$valueSet['Ferien3von'] and $Start<=$valueSet['Ferien3bis']) or ($Start>=$valueSet['Ferien4von'] and $Start<=$valueSet['Ferien4bis']) or ($Start>=$valueSet['Ferien5von'] and $Start<=$valueSet['Ferien5bis'])) {
+
+
+                            $isExisting = true;
+
+                        }//     echo "line already existing";
+
+                    }
+
+                    $End = date('Y-m-d H:i:s', strtotime($Start . '+45 minutes'));
+
+                    $isEntry = "Select * From sv_KurseAll";
+
+                    $result = mysqli_query($con, $isEntry);
+
+
+
+                    while ($value = mysqli_fetch_array($result)) {
+
+                        if (($value['Start'] == $Start) and ($value['Ende'] == $End) and ($value['KursID'] == $KursID)) {
+
+                            $isExisting = true;
+
+
+                        }
+                    }
+
+
+
+
+
+
+
+                    if (!$isExisting) {
+
+                        $sql_befehl = "INSERT INTO sv_KurseAll (Kursname,KursID, Tag, Klasse, LP_ID,Datum, Start, Ende, Lehrperson,Farbe,Zimmer,Stundenplan ) VALUES ('$Kursname','$KursID','$Tag','$Klasse','$LP_ID','$Datum','$Start','$End','$Lehrperson','$Farbe','$Zimmer',1)";
+
+
+
+
+
+// In die DB-Tabelle eintragen
+
+                        mysqli_query($con, $sql_befehl);
+
+                    }
+
+                }
+
+            }
+
+            $Enddatum = null;
+
+
+
+
+
+        }
+
+    }
+
 
 header('Location:'.$_SERVER['HTTP_REFERER']);
 ?>

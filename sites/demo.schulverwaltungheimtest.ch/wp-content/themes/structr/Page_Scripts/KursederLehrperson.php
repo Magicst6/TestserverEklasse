@@ -1,4 +1,3 @@
-
 <head>
 
 
@@ -9,6 +8,7 @@
          google.charts.load('current', {packages: ['table']});     
       </script>
 </head>
+
 
 <em>Hier werden die Kurse den Lehrpersonen zugeordnet  </em>
 
@@ -61,7 +61,7 @@ function getKurseDerLehrperson(){
 
         };
 
-        xmlhttp.open("GET","/Ajax_Scripts/getKursnameDerLehrperson.php?q="+ document.getElementById('lehrer').value+"&k=" + document.getElementById('kurse').value,true);
+        xmlhttp.open("GET","/Ajax_Scripts/getKursnameLehrperson1.php?q="+ document.getElementById('lehrer').value+"&k=" + document.getElementById('kurse').value,true);
 
         xmlhttp.send();
 
@@ -200,55 +200,25 @@ function drawChart() {
 
   <?  
       
-  $isEntry= " 
-SELECT Nachname,SUM(CASE WHEN Kurs1 IS NULL or Kurs1 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs2 IS NULL or Kurs2 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs3 IS NULL or Kurs3 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs4 IS NULL or Kurs4 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs5 IS NULL or Kurs5 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs6 IS NULL or Kurs6 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs7 IS NULL or Kurs7 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs8 IS NULL or Kurs8 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs9 IS NULL or Kurs9 ='' THEN 0 ELSE 1 END    
-        + CASE WHEN Kurs10 IS NULL or Kurs10 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs11 IS NULL or Kurs11 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs12 IS NULL or Kurs12 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs13 IS NULL or Kurs13 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs14 IS NULL or Kurs14 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs15 IS NULL or Kurs15 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs16 IS NULL or Kurs16 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs17 IS NULL or Kurs17 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs18 IS NULL or Kurs18 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs19 IS NULL or Kurs19 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs20 IS NULL or Kurs20 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs21 IS NULL or Kurs21 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs22 IS NULL or Kurs22 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs23 IS NULL or Kurs23 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs24 IS NULL or Kurs24 ='' THEN 0 ELSE 1 END    
-        + CASE WHEN Kurs25 IS NULL or Kurs25 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs26 IS NULL or Kurs26 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs27 IS NULL or Kurs27 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs28 IS NULL or Kurs28 ='' THEN 0 ELSE 1 END
-        + CASE WHEN Kurs29 IS NULL or Kurs29 ='' THEN 0 ELSE 1 END                        
-        + CASE WHEN Kurs30 IS NULL or Kurs30 ='' THEN 0 ELSE 1 END) AS Kurszahl
-FROM sv_Lehrpersonen Group by ID order by Nachname asc";
+  $isEntry= "SELECT COUNT(KursID) as Kurszahl,sv_Lehrpersonen.Nachname as Nachname  From sv_KurseLehrer INNER JOIN sv_Lehrpersonen ON sv_KurseLehrer.LP_ID = sv_Lehrpersonen.ID Group by LP_ID ";
 $result2=	mysqli_query( $con, $isEntry );	
 while( $line3= mysqli_fetch_array($result2))
 
     {
-
-
-
- echo "['".$line3[Nachname]."',".$line3[Kurszahl]." ],";
+	
+  
+	
 			
-  }
+  
+	 echo "['$line3[Nachname]',".$line3[Kurszahl]." ],";
+}
   ?>
 ]);
 		
   // Optional; add a title and set the width and height of the chart
   var options = { title : 'Kurszahl der Lehrer',
           vAxis: {title: 'Kurszahl'},
-          hAxis: {title: 'Schüler'},
+          hAxis: {title: 'Lehrer'},
           seriesType: 'bars',
           series: {5: {type: 'line'}},
 	      width:"95%",

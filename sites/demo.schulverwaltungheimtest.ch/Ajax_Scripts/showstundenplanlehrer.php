@@ -115,6 +115,7 @@ if ($semester==$semDB){
     $LPs="sv_Lehrpersonen";
 	 $ZeitStdpln="sv_ZeitenStundenplan";
 	$Zeiten="sv_Zeiten";
+	$KLs="sv_KurseLehrer";
 
 } else{
 
@@ -122,6 +123,7 @@ if ($semester==$semDB){
     $LPs=$semester."_Lehrpersonen";
   $ZeitStdpln=$semester."_ZeitenStundenplan";
 	$Zeiten=$semester."_Zeiten";
+	$KLs=$semester."_KurseLehrer";
 }
 
 
@@ -357,28 +359,35 @@ if ($semester==$semDB){
 <?php
 
 
-$isEntry = "SELECT Startdatum,Farbe, KursID,Kursname From $KurseDB Where Klasse = '$Klasse' ORDER BY Startdatum ASC ";
+$isEntry = "SELECT Startdatum,Farbe, KursID,Kursname From $KurseDB Where Lehrperson = '$lid' ORDER BY Startdatum ASC ";
 $result = mysqli_query($con, $isEntry);
 $y=0;
 $KursIDarr= array();
 while( $value= mysqli_fetch_array($result))
 {
-    $isEntry1 = "SELECT Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30, Vorname, Nachname From $LPs ";
+    $isEntry1 = "SELECT * From $KLs ";
     $result1 = mysqli_query($con, $isEntry1);
     $VornameLehrer='';
     $NachnameLehrer='';
 
     while( $value1= mysqli_fetch_array($result1))
     {
-        for($x = 1; $x <= 30; $x++)
-        {
-
-            $Kurs = "Kurs"."$x";
-            $KursValue= $value1[$Kurs];
+       
+           
+           
+            $KursValue= $value1['KursID'];
+		    $LP_IDKL= $value1['LP_ID'];
+		 
             if (($KursValue==$value['KursID']) and ($KursValue<>''))
             {
-                $VornameLehrer=$value1['Vorname'];
-                $NachnameLehrer=$value1['Nachname'];
+				
+				$isEntry3 = "SELECT Nachname,Vorname From $LPs where ID='$LP_IDKL' ";
+    $result3 = mysqli_query($con, $isEntry3);
+    
+    while( $value3= mysqli_fetch_array($result3))
+    {
+                $VornameLehrer=$value3['Vorname'];
+                $NachnameLehrer=$value3['Nachname'];
 
                 $isEntry2 = "SELECT Kursname From sv_Kurse Where KursID= '$KursValue'";
                 $result2 = mysqli_query($con, $isEntry2);

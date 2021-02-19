@@ -1580,6 +1580,7 @@ Kursname:
     include 'db.php';
 
     $lp=$sem.'_Lehrpersonen';
+	$kl=$sem.'_KurseLehrer';
 
     preg_match("/:(.*)/", $Lehrer, $output_array);
 
@@ -1595,37 +1596,34 @@ Kursname:
 
 
 
-    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From $lp Where ID = $Lehrer";
+    
+    $isEntry= "Select KursID From $kl Where LP_ID = '$Lehrer'";
 
     $result = mysqli_query($con,$isEntry);
 
 
 
- echo "<option>" . $Kursnme . "</option>";
 
- 
+
+    echo "<option>" . '-Select-' . "</option>";
+
 
 
     while( $line2= mysqli_fetch_array($result))
 
     {
 
-        for($x = 1; $x <= 30; $x++)
+        
 
-        {
-
-
-
-            $value = $line2['Kurs'.$x];
+            $value = $line2['KursID'];
 
             if ($value<>"") echo "<option>" . $value . "</option>";
 
 
 
-        }
+        
 
     }
-
     ?>
 
 

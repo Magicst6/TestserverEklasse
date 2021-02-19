@@ -210,7 +210,10 @@ $wochentag= $wochentage[$wochentagz];
             }
         }
     
+$isEntry2= "Delete From sv_KurseLehrer where KursID='$KursID' ";
 
+    $result2 = mysqli_query($con, $isEntry2);
+  
 
 
 //Daten in DB speichern
@@ -256,7 +259,22 @@ echo $sql_befehl;
     }
 
 
+$isEntry2= "Select *  From sv_KurseLehrer where KursID='$KursID' ";
 
+    $result2 = mysqli_query($con, $isEntry2);
+    
+	while ($row2= mysqli_fetch_array($result2)) {
+	$isKurs=true;
+	}
+	if (!$isKurs){
+	
+		$query1 = "INSERT INTO sv_KurseLehrer (KursID,LP_ID)  VALUES ('$KursID', '$LP_ID1')";
+            mysqli_query($con, $query1);
+	}
+      else {
+		  $q5 = "Update sv_KurseLehrer Set LP_ID='$LP_ID1' Where KursID='$KursID' ";
+                mysqli_query($con, $q5);
+	  }
 
 
 
@@ -490,6 +508,26 @@ echo $sql_befehl;
 
                 }
 
+				
+$isEntry2= "Select *  From sv_KurseLehrer where KursID='$KursID' ";
+
+    $result2 = mysqli_query($con, $isEntry2);
+    
+	while ($row2= mysqli_fetch_array($result2)) {
+	$LP_ID=$row2['LP_ID'];
+	}
+	
+$isEntry7= "Select *  From sv_Lehrpersonen where ID='$LP_ID' ";
+
+    $result7 = mysqli_query($con, $isEntry7);
+    
+	while ($row7= mysqli_fetch_array($result7)) {
+
+
+         $Lehrperson=$row7['Nachname'];
+
+
+    }
 				
 			/*	$isEntryLPKurse1 = "SELECT Nachname From sv_Lehrpersonen Where ID='$LP_IDK'" ;
 

@@ -10,9 +10,12 @@ include 'db.php';
    
 	$Klasse=  $_GET['k'];
 		
-
-
 		
+  $isEntry2= "Delete  From sv_Klassenlehrer where Klasse='$Klasse' ";
+
+    mysqli_query($con, $isEntry2);
+    
+
 		
 $query2 = "INSERT INTO sv_RecoverLernende SELECT * FROM sv_Lernende where Klasse='$Klasse'";
 

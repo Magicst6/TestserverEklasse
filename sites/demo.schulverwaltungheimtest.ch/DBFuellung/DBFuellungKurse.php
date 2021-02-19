@@ -104,7 +104,23 @@ if( $_POST['Senden'])
             }
         }
     }
+ $isEntry2= "Select *  From sv_KurseLehrer where KursID='$KursID' ";
 
+    $result2 = mysqli_query($con, $isEntry2);
+    
+	while ($row2= mysqli_fetch_array($result2)) {
+	$isKurs=true;
+	}
+	if (!$isKurs){
+	
+		$query1 = "INSERT INTO sv_KurseLehrer (KursID,LP_ID)  VALUES ('$KursID', '$LP_ID')";
+            mysqli_query($con, $query1);
+	}
+      else {
+		  $q5 = "Update sv_KurseLehrer Set LP_ID='$LP_ID' Where KursID='$KursID' ";
+                mysqli_query($con, $q5);
+	  }
+		
 
     // Daten hinzufügen (Anzahl der Spalten anpassen)
 //    $daten[] = "('" . $spalte1 . "','" . $spalte2 . "','" . $spalte3 . "','" . $spalte4 . "','" . $spalte5 . "','" . $spalte6 . "','" . $spalte7 . "','" . $spalte8 . "','" . $spalte9 . "','" . $spalte10 . "','" . $spalte11 . "','" . $spalte12 . "')" . chr(13);

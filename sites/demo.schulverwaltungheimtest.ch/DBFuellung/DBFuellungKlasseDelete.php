@@ -15,7 +15,7 @@ if( $_POST['Senden'])
 
 		
 		
-
+//echo $Klasse;
 
 	
 
@@ -24,6 +24,41 @@ if( $_POST['Senden'])
    mysqli_query($con, $isEntry1);
     
 
+
+ $isEntry2= "Select *  From sv_Lehrpersonen  ";
+
+    $result2 = mysqli_query($con, $isEntry2);
+    
+	while ($row2= mysqli_fetch_array($result2)) {
+		$ID=$row2['ID'];
+		if ($row2['Klasse1']== $Klasse){
+			$q1 = "Update sv_Lehrpersonen Set Klasse1='' Where ID='$ID' ";
+                mysqli_query($con, $q1);
+			
+		} 
+		if ($row2['Klasse2']== $Klasse){
+			$q2 = "Update sv_Lehrpersonen Set Klasse2='' Where ID='$ID' ";
+                mysqli_query($con, $q2);
+			
+		} 
+		if ($row2['Klasse3']== $Klasse){
+			$q3 = "Update sv_Lehrpersonen Set Klasse3='' Where ID='$ID' ";
+                mysqli_query($con, $q3);
+			
+		} 
+		if ($row2['Klasse4']== $Klasse){
+			$q4 = "Update sv_Lehrpersonen Set Klasse4='' Where ID='$ID' ";
+                mysqli_query($con, $q4);
+			
+		} 
+		if ($row2['Klasse5']== $Klasse){
+			$q5 = "Update sv_Lehrpersonen Set Klasse5='' Where ID='$ID' ";
+                mysqli_query($con, $q5);
+			
+		} 
+		
+		
+	}
 
 
 

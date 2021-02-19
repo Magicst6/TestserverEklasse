@@ -159,14 +159,17 @@ while( $row5= mysqli_fetch_array($result1))
 			}
          }
 
+       $Profil2= substr($Profil, 0,-2);;
+		echo $Profil2;
        
-		if ($isProfil==1 or $Profil==''){
+		if ($isProfil==1 or $Profil2=='' or $Profil2=='n.a.' or $Profil=='' ){
 		
             $isEntry4= "Select SchuelerID, Vorname, Nachname, KursID From sv_LernenderKurs where KursID='$Kursnme'";
             $result4 = mysqli_query($con, $isEntry4);
 
             while ($row4 = mysqli_fetch_array($result4)) {
 				$isfilled=0;
+				
                 $ID= $row4['SchuelerID'];
                 $KursnameAbw =  $row4['KursID'];
                 $VornameAbw= $row4['Vorname'];

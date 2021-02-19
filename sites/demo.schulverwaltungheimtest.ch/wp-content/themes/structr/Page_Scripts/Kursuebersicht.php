@@ -1098,7 +1098,7 @@ tr.shown td.details-control:before {
 </div>
 
 
-</form> & nbsp;
+</form> 
 <style>
 	button {
 		color: white;

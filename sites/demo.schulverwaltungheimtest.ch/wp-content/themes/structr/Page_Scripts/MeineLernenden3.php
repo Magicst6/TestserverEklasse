@@ -54,18 +54,18 @@ var	editor1;
 	function tableshow(){
 		
 		 var urlParams = new URLSearchParams(window.location.search);
-		var Kursname = urlParams.get('q');	
+		var Klasse = urlParams.get('q');	
 		
 		//alert(Kursname);
 		
-		if (Kursname == '-Select-'){
-		document.getElementById( "Kursname" ).value="-Select-";
+		if (Klasse == '-Select-'){
+		document.getElementById( "klasse" ).value="-Select-";
 		}
 		if (urlParams.get('q') == ''){
-		document.getElementById( "Kursname" ).value="-Select-";
+		document.getElementById( "klasse" ).value="-Select-";
 		}
-		if ( Kursname != null){
-			document.getElementById( "Kursname" ).value=Kursname;
+		if ( Klasse != null){
+			document.getElementById( "klasse" ).value=Klasse;
 		}
 		
 	if ( table1 ) {
@@ -75,13 +75,13 @@ var	editor1;
 	if ( editor1 ) {
 		editor1.destroy();
 	}
-		loadeditor1(Kursname);
+		loadeditor1(Klasse);
 	}
 	
 
   
 
-	function loadeditor1(Kursname){
+	function loadeditor1(Klasse){
 	
 	 // Activate an inline edit on click of a table cell
     /*$('#dtbl1').on( 'click', 'tbody td:not(:first-child)', function (e) {
@@ -92,9 +92,9 @@ var	editor1;
 		
 		 editor1 = new $.fn.dataTable.Editor( {
 		 ajax:{
-            url:  "/wp-content/themes/structr/Page_Scripts/getlernendeModuleKw1.php",
+            url:  "/wp-content/themes/structr/Page_Scripts/getlernendeModuleKw2.php",
             type: 'POST',
-            data: {'KID':  Kursname
+            data: {'Klasse':  Klasse
                   
 			}
         }, 
@@ -221,9 +221,9 @@ var	editor1;
             } 
             ],
         ajax:{
-            url:  "/wp-content/themes/structr/Page_Scripts/getlernendeModuleKw1.php",
+            url:  "/wp-content/themes/structr/Page_Scripts/getlernendeModuleKw2.php",
             type: 'POST',
-            data: {'KID': Kursname
+            data: {'Klasse': Klasse
                  
 			}
         }, 
@@ -351,14 +351,14 @@ var	editor1;
 	function reloadpage1()
 {
  	 
-var Kursnme = document.getElementById( "Kursname" ).value;
+var Klasse = document.getElementById( "klasse" ).value;
 	
 
 	
 	
 //U2FsdGVkX18ZUVvShFSES21qHsQEqZXMxQ9zgHy+bu0=
 
-window.location.href= "/meine-lernenden?q=" + Kursnme;
+window.location.href= "/meine-schueler?q=" + Klasse;
 
 }
 	
@@ -763,62 +763,88 @@ while( $line2= mysqli_fetch_assoc($result))
 <br><br>
 
 
-Kursname:
-<br>
- 
-<select id="Kursname" name="Kursname"   onchange="reloadpage1()" >
 
-    <?php
-
-    include 'db.php';
-
-    
-
-    preg_match("/:(.*)/", $Lehrer, $output_array);
-
-    $Lehrer=$output_array[1];
-
-
-
-    $y=0;
-
-
-
-
-
-
-
+ Klasse:<br>
    
-    $isEntry= "Select KursID From sv_KurseLehrer Where LP_ID = $Lehrer";
-
-    $result = mysqli_query($con,$isEntry);
+     <select name="klasse" id="klasse" onchange="reloadpage1()" >
 
 
 
+        <?php
+  global $current_user;
+
+    get_currentuserinfo();
 
 
-    echo "<option>" . '-Select-' . "</option>";
-
-
-
-    while( $line2= mysqli_fetch_array($result))
-
-    {
-
-        
-
-            $value = $line2['KursID'];
-
-            if ($value<>"") echo "<option>" . $value . "</option>";
+        include 'db.php';
 
 
 
-        
+ $isEntry2= "Select ID From sv_Lehrpersonen where User_ID='$current_user->ID'";
 
-    }
+        $result2 = mysqli_query($con,$isEntry2);
 
-    ?>
-</select>
+		 while( $line3= mysqli_fetch_assoc($result2))
+
+          {
+			 $ID=$line3['ID'];
+		 }
+
+
+
+        $isEntry= "Select Klasse From sv_Klassenlehrer where LP_ID='$ID'";
+
+        $result1 = mysqli_query($con,$isEntry);
+
+        $resultarr1 = array();
+          if ($_GET['klasse']){
+        echo "<option>".$_GET['klasse']."</option>";
+		  }
+		else{   
+        echo "<option>-Select-</option>";
+		}
+        while( $line2= mysqli_fetch_assoc($result1))
+
+        {
+
+            $resultarr1[] = $line2['Klasse'];
+			
+			
+
+        }
+
+        $uniquearr1 = array_unique($resultarr1);
+
+        asort($uniquearr1);
+
+
+
+
+
+        foreach ($uniquearr1 as $value)
+
+        {
+
+            if ($value == $_GET['klasse']){}
+
+            else
+
+            {
+               if ($value){
+                echo "<option>" . $value . "</option>";
+			   }
+            }
+
+        }
+
+
+
+        ?>
+
+
+
+    </select>
+
 
 <br><br>
 <button id="sendmail"  onclick="sendMail()">Mail an Auswahl senden</button>

@@ -2274,7 +2274,7 @@ get_currentuserinfo();
 	
 						
 	<?
-	
+	/*
 	$isEntrylp = "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = '$IDLP'";
 	$resultlp = mysqli_query( $con, $isEntrylp );
 
@@ -2288,7 +2288,35 @@ get_currentuserinfo();
 			if ( $valuelp <> "" )echo "<option>" . $valuelp . "</option>";
 
 		}
-	}
+	}*/
+						    
+    $isEntry= "Select KursID From sv_KurseLehrer Where LP_ID = '$IDLP'";
+
+    $result = mysqli_query($con,$isEntry);
+
+
+
+
+
+    echo "<option>" . '-Select-' . "</option>";
+
+
+
+    while( $line2= mysqli_fetch_array($result))
+
+    {
+
+        
+
+            $value = $line2['KursID'];
+
+            if ($value<>"") echo "<option>" . $value . "</option>";
+
+
+
+        
+
+    }
 
 
 	?>

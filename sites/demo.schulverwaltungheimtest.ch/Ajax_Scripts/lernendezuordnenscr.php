@@ -88,7 +88,7 @@ $sql_befehl1 = "Update  sv_LernendeModule Set Loginname='$LoginnameReal', User_I
 }
 if ($LoginnameID){		
 $user = get_user_by('id', $LoginnameID);
-
+$user->remove_role('lehrpersonhs');
 $user->add_role('lernender');
 }
 

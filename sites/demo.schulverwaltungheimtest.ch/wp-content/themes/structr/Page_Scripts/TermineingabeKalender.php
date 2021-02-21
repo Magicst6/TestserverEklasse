@@ -26,8 +26,6 @@
 
 
 
-
-
     <!--<script src='/wp-content/themes/structr/Page_Scripts/fullcalendar/lib/jquery.min.js'></script>-->
 
     <script src='/wp-content/themes/structr/Page_Scripts/fullcalendar/lib/moment.min.js'></script>
@@ -37,6 +35,15 @@
     <script src='/wp-content/themes/structr/Page_Scripts/fullcalendar/locale-all.js'></script>
 
     <link rel='stylesheet' href='/wp-content/themes/structr/Page_Scripts/fullcalendar/fullcalendar.css' />
+	<script src="https://cdn.tiny.cloud/1/p4y59yu91l1ttdi8h066ovomyunbzi9p44zqccnlmn9ly5ge/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#Beschreibung',
+		  height:600
+      });
+    </script>
+	
 
     <?php
 
@@ -44,31 +51,14 @@
 
     get_currentuserinfo();
 
-    
+	
 
     ?>
-<input id="kidhidden" type="hidden">
-	
-	<input id="farbehid" type="hidden">
+	<input id="kidhidden" type="hidden">
     
-	
+<input id="farbehid" type="hidden">
+    
     <script>
-
-		function alertcol(){
-			
-			alert(document.getElementById('test').value);
-		}
-
-
-            function reload() {
-
-                var x = document.querySelector("#klassedrop").value;
-
-                
-
-                window.location.href = "/kurstermine-der-klasse?&klasse=" + x ;
-
-            }
 
 function getKursname(str){
 if (str == "") {
@@ -85,6 +75,7 @@ if (str == "") {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("kursid").innerHTML = this.responseText;
+				
             }
         };
         xmlhttp.open("GET","/Ajax_Scripts/getKursnamewthoutselect.php?q="+str,true);
@@ -114,7 +105,19 @@ if (str == "") {
        
     }
 }
-function getcolor(str1){
+
+            function reload() {
+
+                var x = document.querySelector("#klassedrop").value;
+
+               
+
+                window.location.href = "/termine-der-klassen?&klasse=" + x;
+
+            }
+
+
+	function getcolor(str1){
 		
 		
 	 if (window.XMLHttpRequest) {
@@ -127,6 +130,7 @@ function getcolor(str1){
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("farbediv").innerHTML = this.responseText ;
+				
             }
         };
         xmlhttp.open("GET","/Ajax_Scripts/getcolorAK.php?q="+str1+"&c="+document.getElementById('farbehid').value.substring(1,7),true);
@@ -139,6 +143,7 @@ function getcolor(str1){
     <input type="hidden" name="curruser" id="curruser" value="<?php echo $current_user->ID ?>" class="text ui-widget-content ui-corner-all" readonly >
 
    
+    
 
   Klasse:<br>
    
@@ -220,10 +225,13 @@ function getcolor(str1){
 
 
     </select>
+
     <script>
 
         $(document).ready(function() {
 
+
+    
 
 
             var calendar = $('#calendar').fullCalendar({
@@ -245,18 +253,19 @@ function getcolor(str1){
                 },
 
                 theme:'jquery-ui',
+				
+ 
+
 
                 navLinks: true, // can click day/week names to navigate views
 
                 editable: true,
-				
-				 zIndex:999,
 
                 locale: 'de',
 
                 eventLimit: true, // allow "more" link when too many events
 
-                events:  "/wp-content/themes/structr/Page_Scripts/GetCalendarValuesKlasse.php?q=1000000"+  "&k="+ document.getElementById('klassedrop').value,
+                events:  "/wp-content/themes/structr/Page_Scripts/GetTerminValues.php?q=1000000" + "&k="+ document.getElementById('klassedrop').value,
 
                 eventTextColor: 'black',
 
@@ -336,17 +345,16 @@ function getcolor(str1){
 
                                 document.getElementById('zimmer').value = "";
 
-                                document.getElementById('kursname').value = "";
+                                document.getElementById('Beschreibung').value = "";
 
-                                document.getElementById('kursid').value = "";
+                                
 
                                 document.getElementById('klasse').value = "";
 
-                                document.getElementById('lehrpers').value = "";
+                                document.getElementById('lehrperson').value = "";
+								
 
                                 document.getElementById('farbe').value = "";
-								
-								document.getElementById('kursidinp').value = "";
 
                             },
 
@@ -356,7 +364,10 @@ function getcolor(str1){
 
                                 "Speichern":function()  {
 
-
+ if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
+												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
+											   }
+									else{
 
                                     title = $("#title"),
 
@@ -421,12 +432,11 @@ function getcolor(str1){
                                         }
 
                                     };
+ 
 
-
-
-
-
-                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&farbe=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrpers').value +"&kursidinp=" + document.getElementById('kursidinp').value, true);
+ var text = tinyMCE.activeEditor.getContent();
+          
+                                    xmlhttp.open("POST", "/wp-content/themes/structr/Page_Scripts/insertKlassentermin.php?q=" + title.val() + "&k=" + startCustdate.val() + " " + startCusttime.val() + "&g=" + endCustdate.val() + " " + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +   "&Beschreibung=" + text, true);
 
                                     xmlhttp.send();
 
@@ -441,7 +451,7 @@ function getcolor(str1){
 
 
                                     calendar.fullCalendar('refetchEvents');
-
+									}
                                 },
 
 
@@ -449,6 +459,7 @@ function getcolor(str1){
                                 Cancel: function () {
 
                                     dialog.dialog("close");
+									
 									 calendar.fullCalendar('refetchEvents');
 
                                 },
@@ -531,11 +542,11 @@ function getcolor(str1){
 
 
 
-                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
+                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateKlassenterminDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
 
                     xmlhttp.send();
 
-                    
+                   // calendar.fullCalendar('refetchEvents');
 
                     alert('Event Update');
 
@@ -591,11 +602,11 @@ function getcolor(str1){
 
 
 
-                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
+                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateKlassenterminDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
 
                     xmlhttp.send();
 
-                  
+                    //calendar.fullCalendar('refetchEvents');
 
                     alert("Event Updated");
 
@@ -623,7 +634,7 @@ function getcolor(str1){
 
                         height: 800,
 
-                        width: 300,
+                        width: 600,
 
                         modal: true,
 
@@ -654,35 +665,50 @@ function getcolor(str1){
                             document.getElementById('title').value = event.title;
 
                             document.getElementById('zimmer').value = event.zimmer;
-							document.getElementById('kidhidden').value=event.kursid;
+                       document.getElementById('lehrperson').value = event.lehrperson;
+						
+                          var text1 = event.Beschreibung;
+                
+			
+								
+		
+							
+						     tinymce.get('Beschreibung').setContent(text1); 
+							
+								
+							
 
-                            
-							getKursnamepre(event.klasse);
-							
-							 document.getElementById('farbehid').value = event.color;
-							
-							getcolor(event.kursid);
                            
-							document.getElementById('kursname').value = event.kursname;
-
-                            document.getElementById('kursid').value = event.kursid;
 							
-							 document.getElementById('kursidinp').value = "";
+							
+							
+							
+
+                          
 
                             document.getElementById('klasse').value = event.klasse;
 
-                            document.getElementById('lehrpers').value = event.lehrperson;
+                           
+							
+							 
+							
 
                             document.getElementById('farbe').value = event.color;
+
                         },
 
+                         eventColor: event.color,
 
 
                         buttons: {
 
                             "Speichern": function(){
+								 if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
+												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
+											   }
+									else{
 
-           var farbe= document.getElementById('farbe').value.substring(1,7);
+                       var farbe= document.getElementById('farbe').value.substring(1,7);
 
                                 title = $("#title");
 
@@ -748,11 +774,11 @@ function getcolor(str1){
 
                                 };
 
-
-
-
-
-                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+  "&f=" + event.id  + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value  + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrpers').value + "&klasse=" + document.getElementById('klasse').value + "&farbe=" + farbe +"&kursidinp=" + document.getElementById('kursidinp').value, true);
+  var text = tinyMCE.activeEditor.getContent();
+            
+										
+										
+                                xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateKlassentermin.php?q=" + title.val() + "&k=" + startCustdate.val() + " " + startCusttime.val() + "&g=" + endCustdate.val() + " " + endCusttime.val()+  "&f=" + event.id  +  "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value + "&klasse=" + document.getElementById('klasse').value + "&color=" + farbe  + "&Beschreibung=" + text, true);
 
                                 xmlhttp.send();
 
@@ -767,7 +793,7 @@ function getcolor(str1){
 
 
                                 calendar.fullCalendar('refetchEvents');
-
+									}
                             },
 
                              "Löschen":function(){
@@ -802,13 +828,14 @@ function getcolor(str1){
 
 
 
-                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/deleteCalendar.php?f=" + id, true);
+                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/deleteKlassentermin.php?f=" + id, true);
 
                                      xmlhttp.send();
 
                                      calendar.fullCalendar('refetchEvents');
 
                                      alert("Event Removed");
+									dialog.dialog("close");
 
                                  }
 
@@ -817,6 +844,7 @@ function getcolor(str1){
                             Cancel: function () {
 
                                 dialog.dialog("close");
+								
 								 calendar.fullCalendar('refetchEvents');
 
                             },
@@ -969,11 +997,10 @@ function getcolor(str1){
 
             };
 
-
-
-
-
-            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertCalendar.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value + "&kursname=" + document.getElementById('kursname').value + "&farbe=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&l=" + document.getElementById('lehrpers').value +"&kursidinp=" + document.getElementById('kursidinp').value, true);
+            var text = tinyMCE.activeEditor.getContent();
+           ;
+			
+            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertKlassentermin.php?q=" + title.val() + "&k=" + startCustdate.val() + " " + startCusttime.val() + "&g=" + endCustdate.val() + " " + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value  +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&l=" + document.getElementById('lehrperson').value  + "&Beschreibung=" + text, true);
 
             xmlhttp.send();
 
@@ -1029,7 +1056,7 @@ function getcolor(str1){
 
                 height: 800,
 
-                width: 300,
+                width: 600,
 
                 modal: true,
 
@@ -1059,6 +1086,8 @@ function getcolor(str1){
 
         } );
 
+		
+		
 
 
     </script>
@@ -1067,6 +1096,218 @@ function getcolor(str1){
 
     <script>
 
+		
+		function terminerfassen() {
+
+
+
+
+
+                    var dialog, form,
+
+
+
+                        // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+
+                        tips = $(".validateTips");
+
+
+
+                 
+
+
+
+
+
+
+
+
+
+                        dialog = $("#dialog-form").dialog({
+
+
+
+                            autoOpen: false,
+
+                            height: 800,
+
+                            width: 600,
+
+                            modal: true,
+
+
+
+
+
+                            open: function () {
+
+                                document.getElementById('startdate').value = "";
+
+                                document.getElementById('enddate').value = "";
+
+                                document.getElementById('starttime').value = "";
+
+                                document.getElementById('endtime').value = "";
+
+                                document.getElementById('title').value = "";
+
+                                document.getElementById('zimmer').value = "";
+
+                                document.getElementById('lernziele').value = "";
+
+                                document.getElementById('kursid').value = "";
+
+                                document.getElementById('klasse').value = "";
+
+                                document.getElementById('lehrperson').value = "";
+								document.getElementById('gewicht').value = "";
+
+                                document.getElementById('farbe').value = "";
+
+                            },
+
+
+
+                            buttons: {
+
+                                "Speichern":function()  {
+
+  if (document.getElementById('startdate').value=="" || document.getElementById('enddate').value=="" || document.getElementById('starttime').value=="" || document.getElementById('endtime').value=="" ){
+												   alert('bitte Startzeitpunkt und Endzeitpunkt eingeben!!');
+											   }
+									else{
+
+                                    title = $("#title"),
+
+                                        startCustdate = $("#startdate"),
+
+                                        endCustdate = $("#enddate"),
+
+                                        startCusttime = $("#starttime"),
+
+                                        endCusttime = $("#endtime"),
+
+                                        allFields = $([]).add(title).add(startCustdate).add(endCustdate).add(startCusttime).add(endCusttime);
+
+
+
+
+
+                                    var valid = true;
+
+                                    allFields.removeClass("ui-state-error");
+
+
+
+                                    $("#users tbody").append("<tr>" +
+
+                                        "<td>" + title.val() + "</td>" +
+
+                                        "<td>" + startCustdate.val() + "</td>" +
+
+                                        "<td>" + endCustdate.val() + "</td>" +
+
+                                        "<td>" + startCusttime.val() + "</td>" +
+
+                                        "<td>" + endCusttime.val() + "</td>" +
+
+                                        "</tr>");
+
+
+
+
+
+                                    if (window.XMLHttpRequest) {
+
+                                        // code for IE7+, Firefox, Chrome, Opera, Safari
+
+                                        xmlhttp = new XMLHttpRequest();
+
+                                    } else {
+
+                                        // code for IE6, IE5
+
+                                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+                                    }
+
+                                    xmlhttp.onreadystatechange = function () {
+
+                                        if (this.readyState == 4 && this.status == 200) {
+
+                                            document.getElementById("respond").innerHTML = this.responseText;
+
+                                        }
+
+                                    };
+
+
+ var text = tinyMCE.activeEditor.getContent();
+           
+							
+                                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertKlassentermin.php?q=" + title.val() + "&k=" + startCustdate.val() + " " + startCusttime.val() + "&g=" + endCustdate.val() + " " + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value +    "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value + "&l=" + document.getElementById('lehrperson').value +   "&Beschreibung=" + text, true);
+
+                                    xmlhttp.send();
+
+
+
+                                    dialog.dialog("close");
+
+
+
+                                    
+
+
+
+                              //      calendar.fullCalendar('refetchEvents');
+									
+									return;
+									}
+                                },
+
+
+
+                                Cancel: function () {
+
+                                    dialog.dialog("close");
+									
+								//	 calendar.fullCalendar('refetchEvents');
+									
+									return;
+
+                                },
+
+
+
+
+
+                            },
+
+                            close: function () {
+
+                               // calendar.fullCalendar('refetchEvents');
+
+                                return;
+
+                            }
+
+                        });
+
+
+
+
+
+                        dialog.dialog("open");
+
+
+
+                    };
+
+
+
+
+
+		
         $(function(){
 
 
@@ -1082,42 +1323,39 @@ function getcolor(str1){
 
 
         });
+		
+
+ 
 
     </script>
+	
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-			.fc-list-item-title:hover{
-  background:lightgrey;
-		 cursor: pointer;
-}
         body {}
 
         /* The Modal (background) */
         .modal{
-         display: none; /* Hidden by default */
-			position: fixed; /* Stay in place */
-			z-index: 5; /* Sit on top */
-			padding-top: 400px; /* Location of the box */
-			left: 0;
-			top: 0;
-			width: 100%; /* Full width */
-			height: 100%; /* Full height */
-			overflow: auto; /* Enable scroll if needed */
-			background-color: rgb(0, 0, 0); /* Fallback color */
-			background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 40%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
 
         /* Modal Content */
         .modal-content {
-                width: 85%;
-    padding: 25px;
-	background: #FFF;
-	max-width: 600px;
-    margin: 70px auto;
-	position: relative;
-	border-radius: 8px;
-	box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
         }
 
         /* The Close Button */
@@ -1141,65 +1379,28 @@ function getcolor(str1){
     </style>
 </head>
 
+
+
 <body>
-
-<div id="dialog-form" title="Termin">
-
-    <p class="validateTips">Bitte Felder ausfüllen oder ändern</p>
+	
+	<div id="dialog-form" title="Prüfungsdaten">
 
 
 
-    <form>
-
-       <fieldset>
-
-            <label for="Title">Titel:</label>
-
-            <br>
-
-            <input type="text" name="title" id="title" value="" width="400px" readonly>
-
-            <br>
-
-            <label for="start">Startdatum und Zeit:</label>
-
-            <br>
-
-            <input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" required="required">
-
-            <input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" required="required">
-
-            <br>
-
-            <label for="end">Enddatum und Zeit:</label>
-
-            <br>
-
-            <input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" required="required">
-
-            <input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all"required="required" >
-
-            
-
-           
-            <br>
-
-            <label for="kursname">Kursname:</label>
-
-            <br>
-
-            <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" >
-
-            <br>
-
-            <label for="klasse">Klasse:</label>
-
-            <br>
-
-           <select name="klasse" id="klasse" onchange="getKursname(this.value)"   required="required">
-
-
-
+<table class="timecard"  border="0">
+  <caption>
+    Termindaten
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Eventname:</td>
+      <td colspan="2"><input type="text" name="title" id="title" value="" width="400px" ></td>
+    </tr>
+	   <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Klasse:</td>
+      <td colspan="2"><select type="text"  onchange="getKursname(this.value)"  name="klasse" id="klasse" value="" class="text ui-widget-content ui-corner-all" >
+		  
+		  
         <?php
 
 
@@ -1257,41 +1458,39 @@ function getcolor(str1){
 
 
         ?>
-																		</select>
-
-
-            <br>
-																			     <br>
-
-            <label for="kursid">KursID:</label>
-
-            <br>
-
-             <select name="kursid" id="kursid" onChange="getcolor(this.value)" >
+		  
+		  </select></td>
+    </tr>
+	
+    <tr>
+		<td style="width: 150px; font-size: 12px; font-weight: bold;">Startdatum und Zeit:</td>
 			
+      <td><input type="date" name="startdate" id="startdate" value=""  class="text ui-widget-content ui-corner-all" ></td></td>
+      <td><input type="time" name="starttime" id="starttime" value=""  class="text ui-widget-content ui-corner-all" ></td>
+    </tr>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Enddatum und Zeit:</td>
+      <td><input type="date" name="enddate" id="enddate" value="" class="text ui-widget-content ui-corner-all" ></td>
+      <td><input type="time" name="endtime" id="endtime" value="" class="text ui-widget-content ui-corner-all" ></td>
+    </tr>
 
-																		</select>
-		   
-		   <input name="kursidinp" id="kursidinp" value="" type="hidden" class="text ui-widget-content ui-corner-all" >
-			
+	
+  </tbody>
+</table>
 
-																		
-<br><br>
-
-            <label for="zimmer">Zimmer:</label>
-
-            <br>
-
-            <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" >
-
-            <br>
-
-            <label for="lehrpers">Lehrperson:</label>
-
-            <br>
-
-              <select name="lehrpers"  id="lehrpers"    >
-
+<table class="timecard"  border="0">
+  <caption>
+    Ort und Aufsicht
+  </caption>
+  <tbody>
+    <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Zimmer:</td>
+      <td> <input type="text" name="zimmer" id="zimmer" value="" class="text ui-widget-content ui-corner-all" ></td>
+    </tr>
+	  <tr>
+      <td style="width: 150px; font-size: 12px; font-weight: bold;">Lehrperson:</td>
+      <td><select type="text" name="lehrperson" id="lehrperson" class="text ui-widget-content ui-corner-all" >
+		     
 
 
         <?php
@@ -1302,9 +1501,9 @@ function getcolor(str1){
 
 
 
-        echo "<option>".$_GET['Lehrpersondr']."</option>";
+       
 
-        echo "<option></option>";
+        
 
         while( $line2= mysqli_fetch_array($result))
 
@@ -1327,37 +1526,39 @@ function getcolor(str1){
         ?>
 
 
+		  </select></td>
+	  
+	
+  </tbody>
+</table>	
 
-
-
-    </select>
-
-
-            <br>
-
-            <label for="farbe">Farbe:</label>
-
-            <br>
-            <div id="farbediv"></div>
-
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-
-
-
+<table class="timecard"  border="0" >
+  <caption>
+    Beschreibung
+  </caption>
+  <tbody height="400px">
+    <tr>
+		<td><textarea id="Beschreibung" class="text ui-widget-content ui-corner-all"  onchange="show()"></textarea></td>
+      
+    </tr>
+	 
+   
+  </tbody>
+</table>
+	<td>Farbe:</td>
+	
+          <td> <input type="color" name="farbe" id="farbe" value="" class="text ui-widget-content ui-corner-all" ></td>
+   
         </fieldset>
 
-       
 
     </form>
 
 </div>
-	
+ <input id="lernzielehid" type="hidden">
 
+<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  /><br><br>
 
-<input name="myBtn1" id="myBtn1" type="button" value="Mail versenden"  />
-<br><br>
 <div id="myModal1" class="modal">
 
     <!-- Modal content -->
@@ -1378,12 +1579,15 @@ function getcolor(str1){
 </div>
 
 
-
 <div id='calendar'></div>
+	
+	
 
 <div id='respond'></div>
 
 <div id='lernende'></div>
+	
+	<br><br><input name="pruefungerf" id="pruefungserf" type="button" value="Termin erfassen"  onClick="terminerfassen()" /><br><br>
 
 </body>
 
@@ -1399,7 +1603,10 @@ function getcolor(str1){
 
     }
 
-
+	.fc-list-item-title:hover{
+  background:lightgrey;
+		 cursor: pointer;
+}
 
     #calendar {
 
@@ -1408,6 +1615,11 @@ function getcolor(str1){
         margin: 0 auto;
 
     }
+
+	textarea {
+  width: 450px;
+  height: 400px;
+}
 table td{
 border:none;
 }
@@ -1415,9 +1627,19 @@ table {
 border:none;
 }
 
-
-
+	
 </style>
+
+<script>
+	function show()
+	{
+		 var text = document.getElementById('lernziele').value;
+                   text = text.replace(/\r/g, '^^^^');
+					text = text.replace(/\n/g, '~~~~');	
+			
+		//alert(text);
+	}
+</script>
 
 <script>
 											 
@@ -1439,7 +1661,6 @@ border:none;
        document.getElementById("myModal"+1).style.display = "none";
     }
 		  
-  
     function Mail(){
 
 
@@ -1471,7 +1692,7 @@ border:none;
 
         };
 
-        xmlhttp.open("GET","/wp-content/themes/structr/Page_Scripts/GetCalendarValuesMail.php?q=1000000" + "&k="+ document.getElementById('klassedrop').value + "&l="+ document.getElementById('Lehrpersondrop').value + "&m="+ document.getElementById('Mail').value,true);
+        xmlhttp.open("GET","/wp-content/themes/structr/Page_Scripts/GetKlassenterminValuesMail.php?q=1000000" + "&k="+ document.getElementById('klassedrop').value  + "&m="+ document.getElementById('Mail').value,true);
 
         xmlhttp.send();
 

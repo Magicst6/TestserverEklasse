@@ -27,7 +27,7 @@ if ($userID=="1000000" and $KlasseInput == "" and $Lehrer == "") {
     while ($line2 = mysqli_fetch_array($result)) {
         $data[] = array(
             'id' => $line2['ID'],
-            
+            'resourceId' => $line2['Zimmer'],
             'title' => $line2['Pruefungsname'],
             'start' => $line2['Start'],
             'end' => $line2['Ende'],
@@ -62,7 +62,7 @@ else {
             while ($line2 = mysqli_fetch_array($result)) {
                 $data[] = array(
                     'id' => $line2['ID'],
-					
+					'resourceId' => $line2['Zimmer'],
 					'title' => $line2['Pruefungsname'],
 					'start' => $line2['Start'],
 					'end' => $line2['Ende'],
@@ -97,7 +97,7 @@ else {
                         while ($line2 = mysqli_fetch_array($result)) {
                             $data[] = array(
                                 'id' => $line2['ID'],
-								
+								'resourceId' => $line2['Zimmer'],
 								'title' => $line2['Pruefungsname'],
 								'start' => $line2['Start'],
 								'end' => $line2['Ende'],
@@ -129,7 +129,7 @@ else {
         while ($line2 = mysqli_fetch_array($result)) {
             $data[] = array(
                'id' => $line2['ID'],
-				
+				'resourceId' => $line2['Zimmer'],
 				'title' => $line2['Pruefungsname'],
 				'start' => $line2['Start'],
 				'end' => $line2['Ende'],
@@ -156,7 +156,7 @@ else {
         while ($line2 = mysqli_fetch_array($result)) {
             $data[] = array(
                'id' => $line2['ID'],
-				
+				'resourceId' => $line2['Zimmer'],
 				'title' => $line2['Pruefungsname'],
 				'start' => $line2['Start'],
 				'end' => $line2['Ende'],
@@ -182,7 +182,7 @@ else {
         while ($line2 = mysqli_fetch_array($result)) {
             $data[] = array(
                 'id' => $line2['ID'],
-				
+				'resourceId' => $line2['Zimmer'],
 				'title' => $line2['Pruefungsname'],
 				'start' => $line2['Start'],
 				'end' => $line2['Ende'],

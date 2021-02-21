@@ -137,7 +137,7 @@ $y=0;
 			  $sql_befehl1 = "Update  sv_LernendeModule Set Loginname='$Login', User_ID='$ID', EMail='$Mail' Where Name='$Name' and Vorname='$Vorname' ";
 
 $user = get_user_by('id', $ID);
-
+$user->remove_role('lehrpersonhs');
 $user->add_role('lernender');
 
 ////echo $sql_befehl5;

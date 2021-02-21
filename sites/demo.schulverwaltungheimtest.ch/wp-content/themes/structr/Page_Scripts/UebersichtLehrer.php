@@ -3949,27 +3949,10 @@ function pruefungerfassen() {
 								include 'db.php';
 								$Kursnme=base64_decode($_GET['q']);
 
-
-								$select='Select Nachname, Note1, Note2,Note3, Note4, Note5, Note6, Note7, Note8, Note9 From sv_LernenderKurs Where KursID="';
-								 $sel1=$Kursnme;
-
-								$sel2= '" ';
-								 $isEntryUpd1 = "UPDATE sv_postmeta SET meta_value  = '$select$sel1$sel2' where post_id='18106' and meta_key='visualizer-db-query' ";
-									mysqli_query( $con1, $isEntryUpd1 );	
-
-
-
-
-								$select='Select Nachname, Abwesenheiten From sv_LernenderKurs Where KursID="';
-								 $sel1=$Kursnme;
-
-								$sel2= '" ';
-								 $isEntryUpd2 = "UPDATE sv_postmeta SET meta_value  = '$select$sel1$sel2' where post_id='18110' and meta_key='visualizer-db-query' ";
-									mysqli_query( $con1, $isEntryUpd2 );	
-
+                      
+								
 								?>
 								<script>
-
 
 
 
@@ -5187,7 +5170,7 @@ reloadpage1();
 
 
 
-    echo "<option>" . '-Select-' . "</option>";
+    echo "<option>" . $Kursnme . "</option>";
 
 
 
@@ -5287,7 +5270,7 @@ reloadpage1();
 								</div>
 
 
-								<div id="myModal" class="modal"  onhide="tableshow()">
+								<div id="myModal" class="modal"  >
 
 									<!-- Modal content -->
 									<div class="modal-content">
@@ -5323,7 +5306,7 @@ reloadpage1();
 									</div>
 								</div>
 										</div>          
-									  <span class="close" onclick="reloadpage1()" id="span">&times;</span>
+									  <span class="close"  id="span">&times;</span>
 
 
 

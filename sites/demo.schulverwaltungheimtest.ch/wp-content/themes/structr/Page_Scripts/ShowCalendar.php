@@ -574,8 +574,7 @@ function getcolor(str1){
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
-
+                    
                     alert('Event Update');
 
 
@@ -634,7 +633,7 @@ function getcolor(str1){
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
+                  
 
                     alert("Event Updated");
 

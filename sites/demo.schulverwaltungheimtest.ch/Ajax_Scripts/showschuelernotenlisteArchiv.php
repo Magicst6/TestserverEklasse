@@ -115,7 +115,7 @@ input[type=text], select {
 
        
 
-            <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" readonly>
+            <input type="hidden" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" readonly>
 
     
 

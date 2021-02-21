@@ -34,6 +34,24 @@ if ($SemesterkuerzelDB==$Semesterkuerzel){
 }
 	else{
 		
+		
+			$Sem_Klassentermine= $SemesterkuerzelDB.'_Klassentermine';
+
+$query15 = "DROP TABLE $Sem_Klassentermine";
+
+mysqli_query($con,$query15);
+
+
+
+$query25 = "CREATE TABLE $Sem_Klassentermine LIKE sv_Klassentermine";
+
+mysqli_query($con,$query25);
+
+$query35 = "INSERT INTO $Sem_Klassentermine SELECT * FROM sv_Klassentermine";
+
+mysqli_query($con,$query35);
+		
+		
 			$Sem_KurseLehrer1= $SemesterkuerzelDB.'_KurseLehrer';
 
 $query10 = "DROP TABLE $Sem_KurseLehrer1";
@@ -444,7 +462,6 @@ else{
 
 
 
-
 $query1 = "Delete From sv_Pruefungen";
 
 mysqli_query($con,$query1);
@@ -452,6 +469,18 @@ mysqli_query($con,$query1);
 $query5 = "INSERT INTO sv_Pruefungen SELECT * FROM $Sem_Pruefungen";
 
 mysqli_query($con,$query5);
+		
+
+$Sem_Klassentermine= $Semesterkuerzel.'_Klassentermine';
+		
+$query16 = "Delete From sv_Klassentermine";
+
+mysqli_query($con,$query16);
+
+$query56 = "INSERT INTO sv_Klassentermine SELECT * FROM $Sem_Klassentermine";
+
+mysqli_query($con,$query56);
+		
 	
 	
 $Sem_AbwesenheitenKompakt= $Semesterkuerzel.'_AbwesenheitenKompakt';

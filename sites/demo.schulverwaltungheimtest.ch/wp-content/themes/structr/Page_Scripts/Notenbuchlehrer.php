@@ -63,7 +63,7 @@
 include 'db.php';
 $Kursnme=base64_decode($_GET['q']);
 
-
+/*
 $select='Select Nachname, Note1, Note2,Note3, Note4, Note5, Note6, Note7, Note8, Note9 From sv_LernenderKurs Where KursID="';
  $sel1=$Kursnme;
 		
@@ -80,7 +80,7 @@ $select='Select Nachname, Abwesenheiten From sv_LernenderKurs Where KursID="';
 $sel2= '" ';
  $isEntryUpd2 = "UPDATE sv_postmeta SET meta_value  = '$select$sel1$sel2' where post_id='18110' and meta_key='visualizer-db-query' ";
 	mysqli_query( $con1, $isEntryUpd2 );	
-
+*/
 ?>
 <script>
 
@@ -1396,7 +1396,7 @@ Kursname:
 
 
 
-    echo "<option>" . '-Select-' . "</option>";
+    echo "<option>" . $Kursnme . "</option>";
 
 
 

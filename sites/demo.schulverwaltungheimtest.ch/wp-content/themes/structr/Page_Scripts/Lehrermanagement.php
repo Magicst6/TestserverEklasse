@@ -50,26 +50,15 @@ $(document).ready(function() {
         ajax: "/wp-content/themes/structr/Page_Scripts/getLehrpersonenEdit.php",
         table: "#dtbl",
         fields: [ 
-               
-			
+              
 			{
                 label: "Vorname:",
                 name: "Vorname"
             }, {
                 label: "Nachname:",
                 name: "Nachname"
-            },
-			{
-                label: "EMail (optional):",
-                name: "EMAIL"
-            }, {
-                label: "UserID (optional):",
-                name: "User_ID"
-            },
-			{
-                label: "Loginname (optional):",
-                name: "Loginname"
             }
+			
         ],i18n: {
             remove: {
                 button: "Löschen",
@@ -87,8 +76,8 @@ $(document).ready(function() {
             },
             create: {
                 button: "Neuer Eintrag",
-                title:  "Neuen Eintrag anlegen",
-                submit: "Neuen Eintrag speichern"
+                title:  "Neue Leherperson anlegen",
+                submit: "Neue Lehrperson speichern"
             },
             datetime: {
                     previous: 'Zurück',
@@ -109,6 +98,11 @@ $(document).ready(function() {
             },
         }      
     } );
+	
+	
+
+
+ 
  
     // Activate an inline edit on click of a table cell
     $('#dtbl').on( 'click', 'tbody td:not(:first-child)', function (e) {
@@ -145,9 +139,8 @@ $(document).ready(function() {
 		 
 		 
         buttons: [
-            { extend: "create", editor: editor, text:"Neue Lehrperson" },
-            
-            { extend: "remove", editor: editor, text:"Lehrperson löschen" }
+            { extend: "create", editor: editor, text:"Neue Lehrperson" }
+           
         ],
 		  "language": {
             "decimal": ",",
@@ -340,6 +333,7 @@ $(document).ready(function() {
 </script>
 
 
+
 <style>
 	 button {
           color: white;
@@ -359,8 +353,71 @@ $(document).ready(function() {
             </tr>
         </thead>
     </table>
+<br>
+<br>
+
+<h3>Lehrperson löschen  (die Lehrperson wird komplett aus dem System entfernt)</h3>
+
+Zu löschende Lehrperson wählen:<br />
+<select name="Lehrer"  id="Lehrer" style="width: 100px" type="text"  value=""  >
+		<?		
+         include 'db.php';
+        $isEntry1= "Select ID From sv_Lehrpersonen ";
+
+        $result1 = mysqli_query($con, $isEntry1);
+
+        $resultarr = array();
 
 
+
+
+
+        while( $line2= mysqli_fetch_assoc($result1))
+
+        {
+
+            $resultarr[] = $line2['ID'];
+
+        }
+
+        $uniquearr = array_unique($resultarr);
+
+
+
+
+
+      
+
+
+
+        foreach ($uniquearr as $value) {
+
+            $isEntry3= "Select Nachname, Vorname From sv_Lehrpersonen WHERE ID='$value'";
+
+            $result3 = mysqli_query($con, $isEntry3);
+
+            while( $line3= mysqli_fetch_array($result3))
+
+            {
+
+                $Name = $line3['Nachname'];
+
+                $Vorname = $line3['Vorname'];
+
+
+
+            }
+
+            echo "<option>" . $Vorname .' '. $Name .' ID:'. $value . "</option>";
+
+        }
+
+        
+?>
+  </select>		
+			<button onclick="deleteLehrperson(document.getElementById('Lehrer').value)">Lehrperson löschen</button> 
+<br>
+<div id="del"></div>
 <script>
 	
 
@@ -623,8 +680,60 @@ tr.shown td.details-control:before {
 
     }
 
+	
+	function deleteLehrperson(str){
+
+      var check = confirm('Wollen Sie den Lehrer '+ str+' wirklich löschen ?'); 
+	if (check == false) {
+	} else{
+
+        if (str == "") {
+
+            document.getElementById("Kursnm").innerHTML = "";
+
+            return;
+
+        } else {
+
+            if (window.XMLHttpRequest) {
+
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+
+                xmlhttp = new XMLHttpRequest();
+
+            } else {
+
+                // code for IE6, IE5
+
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+
+            xmlhttp.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                    document.getElementById("del").innerHTML = this.responseText;
+
+                }
+
+            };
+
+            xmlhttp.open("GET","/Ajax_Scripts/deleteLehrperson?lehrer="+str,true);
+
+            xmlhttp.send();
+
+        }
+		var check1 = confirm('Wollen Sie die Seite aktualisieren?'); 
+	if (check1 == false) {
+		
+	}
+		else{
+			window.location.href ="/lehrerverwaltung";
+		}
+    }
   
-  
+	}
 
     function checkKurs(str){
 
@@ -730,8 +839,7 @@ $heute=date("Y-m-d");
   </div>
 </div>
   
-		
-			 
+
 
 </form>&nbsp;
 

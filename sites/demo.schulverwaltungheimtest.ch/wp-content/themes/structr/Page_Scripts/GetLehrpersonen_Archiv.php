@@ -31,6 +31,7 @@ if ($semDB==$Semester){
 	$Semester='sv';
 }
 $KurseTab=$Semester."_Lehrpersonen";
+$KurseLehrer=$Semester."_KurseLehrer";
 				
 
 
@@ -39,49 +40,71 @@ $KurseTab=$Semester."_Lehrpersonen";
     $events = array();
 if ($Semester<>""){
 	
-	
+	$y=0;
 
     while ($line2 = mysqli_fetch_array($result)) {
+		$x=0;
 		
+		$LP_ID=$line2['ID'];
+		 $isEntry1 = "Select * From $KurseLehrer where LP_ID='$LP_ID' ";
+    $result1 = mysqli_query($con, $isEntry1);
+		unset($Kursarray);
+		   while ($line3 = mysqli_fetch_array($result1)) {
+		$x++;
+			  
+			  
+			   
+			   $Kursarray[]=$line3['KursID']; 
+			
+           
+		   }
 		$data[] = array(
 			
 			 'Vorname' => $line2['Vorname'],
 			'Nachname' => $line2['Nachname'],
 			'EMAIL' => $line2['EMAIL'],
-			'Loginname' => $line2['Loginname'],
-		'Kurs1' => $line2['Kurs1'],
-			'Kurs2' => $line2['Kurs2'],
-			'Kurs3' => $line2['Kurs3'],
-			'Kurs4' => $line2['Kurs4'],
-			'Kurs5' => $line2['Kurs5'],
-			'Kurs6' => $line2['Kurs6'],
-			'Kurs7' => $line2['Kurs7'],
-			'Kurs8' => $line2['Kurs8'],
-			'Kurs9' => $line2['Kurs9'],
-			'Kurs10' => $line2['Kurs10'],
-			'Kurs11' => $line2['Kurs11'],
-			'Kurs12' => $line2['Kurs12'],
-			'Kurs13' => $line2['Kurs13'],
-			'Kurs14' => $line2['Kurs14'],
-			'Kurs15' => $line2['Kurs15'],
-			'Kurs16' => $line2['Kurs16'],
-			'Kurs17' => $line2['Kurs17'],
-			'Kurs18' => $line2['Kurs18'],
-			'Kurs19' => $line2['Kurs19'],
-			'Kurs20' => $line2['Kurs20'],
-			'Kurs21' => $line2['Kurs21'],
-			'Kurs22' => $line2['Kurs22'],
-			'Kurs23' => $line2['Kurs23'],
-			'Kurs24' => $line2['Kurs24'],
-			'Kurs25' => $line2['Kurs25'],
-			'Kurs26' => $line2['Kurs26'],
-			'Kurs27' => $line2['Kurs27'],
-			'Kurs28' => $line2['Kurs28'],
-			'Kurs29' => $line2['Kurs29'],
-			'Kurs30' => $line2['Kurs30']);
-           
-           
-	
+			'Loginname' => $line2['Loginname']);
+		
+		for ($a=0;$a<$x;$a++){
+			$d=$a+1;
+			$Kurs='Kurs'.$d;
+			$data[$y][$Kurs]=$Kursarray[$a];
+		}
+			 
+		/*}
+		
+			'Kurs1' => $Kursarray[0],
+		'Kurs2' => $Kursarray[1],
+		'Kurs3' => $Kursarray[2],
+		'Kurs4' => $Kursarray[3],
+		'Kurs5' => $Kursarray[4],
+		'Kurs6' => $Kursarray[5],
+		'Kurs7' => $Kursarray[6],
+		'Kurs8' => $Kursarray[7],
+		'Kurs9' => $Kursarray[8],
+		'Kurs10' => $Kursarray[9],
+		'Kurs11' => $Kursarray[10],
+		'Kurs12' => $Kursarray[11],
+		'Kurs13' => $Kursarray[12],
+		'Kurs14' => $Kursarray[13],
+		'Kurs15' => $Kursarray[14],
+		'Kurs16' => $Kursarray[15],
+		'Kurs17' => $Kursarray[16],
+		'Kurs18' => $Kursarray[17],
+		'Kurs19' => $Kursarray[18],
+		'Kurs20' => $Kursarray[19],
+		'Kurs21' => $Kursarray[20],
+		'Kurs22' => $Kursarray[21],
+		'Kurs23' => $Kursarray[22],
+		'Kurs24' => $Kursarray[23],
+		'Kurs25' => $Kursarray[24],
+		'Kurs26' => $Kursarray[25],
+		'Kurs27' => $Kursarray[26],
+		'Kurs28' => $Kursarray[27],
+		'Kurs29' => $Kursarray[28],
+		'Kurs30' => $Kursarray[29]);
+		*/
+	$y++;
     }
 		
 }

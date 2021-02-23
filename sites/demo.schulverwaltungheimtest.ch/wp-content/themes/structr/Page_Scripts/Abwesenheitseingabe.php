@@ -22,6 +22,11 @@ if (str == "") {
     }
 }
 function test(str){
+		
+			tableshow();
+			drawAbw();
+		
+		
     if (str == "" || str == "-Select-") {
         document.getElementById("lernende").innerHTML = "";
         return;

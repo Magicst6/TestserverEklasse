@@ -27,7 +27,7 @@ if(isset($_GET["q"]))
 {
   $eventname= $_GET['q'];
  
-    
+    $start1=$_GET['k'];
 
     $start = $_GET['k'].":00";
 
@@ -43,13 +43,13 @@ if(isset($_GET["q"]))
 
     $farbe = "#".$_GET['color'];
 	
-	echo $farbe;
+	//echo $farbe;
 	
-	echo $klasse;
+//	echo $klasse;
 	
 	$beschreibung = $_GET['Beschreibung'];
 	
-	$datum=date("Y-m-d", strtotime($start));
+	$datum=date("Y-m-d", strtotime($start1));
 
 	
     $isEntryLPID= "Select ID From sv_Lehrpersonen Where Nachname='$lehrperson'";
@@ -91,7 +91,7 @@ $isExisting=0;
 			
 
         $query = "INSERT INTO sv_Klassentermine (Eventname,Datum, Start, Ende,Klasse, Zimmer, Lehrperson, LP_ID, Farbe,Beschreibung)  VALUES ('$eventname','$datum','$start','$end','$klasse','$zimmer','$lehrperson','$lp_id','$farbe','$beschreibung')";
-  echo $query;
+ // echo $query;
        
 			mysqli_query($con, $query);
 

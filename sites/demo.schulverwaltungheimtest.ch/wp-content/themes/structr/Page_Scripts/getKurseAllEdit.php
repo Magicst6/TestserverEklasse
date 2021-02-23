@@ -1,5 +1,8 @@
 <?php
- 
+ $Lehrer=$_POST['lehrer'];
+preg_match("/:(.*)/", $Lehrer, $output_array);
+$Lehrer=$output_array[1];
+
 /*
  * Example PHP implementation used for the index.html example
  */
@@ -18,6 +21,49 @@ use
     DataTables\Editor\Validate,
     DataTables\Editor\ValidateOptions;
  
+if($Lehrer)
+{
+	
+// Build our Editor instance and process the data coming from _POST
+Editor::inst( $db, 'sv_KurseAll' )
+    ->fields(
+	
+        Field::inst( 'ID' )
+          ,
+        Field::inst( 'Kursname' )
+           ,
+        Field::inst( 'KursID' ),
+        Field::inst( 'Tag' ),
+            
+        Field::inst( 'Klasse' ),
+	
+	  Field::inst( 'Lehrperson' ),
+	  Field::inst( 'LP_ID' ),
+	  Field::inst( 'Zimmer' ),
+	  Field::inst( 'Lektionen' ),
+	 Field::inst( 'Farbe' ),
+	
+	
+	 Field::inst( 'Datum' )
+	  ->validator( Validate::dateFormat( 'Y-m-d' ) )
+            ->getFormatter( Format::dateSqlToFormat( 'Y-m-d' ) )
+            ->setFormatter( Format::dateFormatToSql('Y-m-d' ) ),
+	
+     Field::inst( 'Start' ),
+	
+	
+	 Field::inst( 'Ende' )
+	  
+	
+	
+    )
+	->where("LP_ID",$Lehrer)
+    ->process( $_POST )
+    ->json();
+}
+else{
+	
+
 // Build our Editor instance and process the data coming from _POST
 Editor::inst( $db, 'sv_KurseAll' )
     ->fields(
@@ -53,3 +99,4 @@ Editor::inst( $db, 'sv_KurseAll' )
     )
     ->process( $_POST )
     ->json();
+}

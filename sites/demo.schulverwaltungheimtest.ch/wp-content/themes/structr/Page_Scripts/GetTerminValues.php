@@ -17,14 +17,24 @@ $userID=$_GET['q'];
 $KlasseInput=$_GET['k'];
 $Lehrer=$_GET['l'];
 
+
+$sem=$_GET['s'];
 preg_match("/:(.*)/", $Lehrer, $output_array);
 $Lehrer=$output_array[1];
 
+if ($sem){
+	
+	$Klterm=$sem."_Klassentermine";
+}
+
+else{ 
+  $Klterm="sv_Klassentermine";
+}
 
 if ($userID==1000000){
 
  
-        $isEntry = "Select * From sv_Klassentermine Where Klasse='$KlasseInput'";
+        $isEntry = "Select * From $Klterm Where Klasse='$KlasseInput'";
         $result = mysqli_query($con, $isEntry);
         $events = array();
 

@@ -119,7 +119,7 @@ echo "<option>$Profil</option>";
 
             }
 
-            echo "<option>" . $Vorname .' '. $Name .' ID:'. $LP_ID . "</option>";
+            echo "<option>" . $Vorname .' '. $Name .' ID1:'. $LP_ID . "</option>";
 
          $isEntry2= "Select * From sv_Lehrpersonen ";
 

@@ -22,7 +22,7 @@ while ($line1 = mysqli_fetch_array($result)) {
 }
 
 if ($semester==$semDB or $semester==null){
-    $Tab='sv_Lehrpersonen';
+    $Tab='sv_KurseLehrer';
     $TabKurse="sv_Kurse";
 
 } else{

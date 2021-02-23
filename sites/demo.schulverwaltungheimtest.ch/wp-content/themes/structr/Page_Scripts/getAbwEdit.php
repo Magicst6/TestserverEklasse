@@ -1,7 +1,16 @@
 <?php
  $sem=$_POST['sem'];
-
+$kid=$_POST['kid'];
+$sid=$_POST['sid'];
+preg_match("/:(.*)/", $sid, $output_array);
+$sid=$output_array[1];
+if ($sem){
 $abwKomp=$sem.'_AbwesenheitenKompakt';
+}
+else {
+	$abwKomp='sv_AbwesenheitenKompakt';
+}
+
 
 /*
  * Example PHP implementation used for the index.html example
@@ -21,6 +30,77 @@ use
     DataTables\Editor\Validate,
     DataTables\Editor\ValidateOptions;
  
+
+if ($kid){
+	Editor::inst( $db, $abwKomp )
+    ->fields(
+	
+        Field::inst( 'Vorname' )
+            ->validator( Validate::notEmpty( ValidateOptions::inst()
+                ->message( 'Vorname muss angegeben werden' ) 
+            ) ),
+        Field::inst( 'Nachname' )
+            ->validator( Validate::notEmpty( ValidateOptions::inst()
+                ->message( 'Nachname muss angegeben werden' )  
+            ) ),
+        Field::inst( 'Klasse' ),
+        Field::inst( 'Kursname' ),
+            
+        Field::inst( 'Abwesenheitsdauer' ),
+	
+	  Field::inst( 'Kommentar' ),
+	  Field::inst( 'KommentVerw' ),
+	  Field::inst( 'Lehrer' ),
+	  Field::inst( 'Entschuldigt' ),
+	
+	
+	 Field::inst( 'Datum' )
+	  ->validator( Validate::dateFormat( 'Y-m-d' ) )
+            ->getFormatter( Format::dateSqlToFormat( 'Y-m-d' ) )
+            ->setFormatter( Format::dateFormatToSql('Y-m-d' ) )
+	
+       
+    )
+		->where( 'Kursname',$kid )
+    ->process( $_POST )
+    ->json();
+}
+
+else if ($sid){
+	Editor::inst( $db, $abwKomp )
+    ->fields(
+	
+        Field::inst( 'Vorname' )
+            ->validator( Validate::notEmpty( ValidateOptions::inst()
+                ->message( 'Vorname muss angegeben werden' ) 
+            ) ),
+        Field::inst( 'Nachname' )
+            ->validator( Validate::notEmpty( ValidateOptions::inst()
+                ->message( 'Nachname muss angegeben werden' )  
+            ) ),
+        Field::inst( 'Klasse' ),
+        Field::inst( 'Kursname' ),
+            
+        Field::inst( 'Abwesenheitsdauer' ),
+	
+	  Field::inst( 'Kommentar' ),
+	  Field::inst( 'KommentVerw' ),
+	  Field::inst( 'Lehrer' ),
+	  Field::inst( 'Entschuldigt' ),
+	
+	
+	 Field::inst( 'Datum' )
+	  ->validator( Validate::dateFormat( 'Y-m-d' ) )
+            ->getFormatter( Format::dateSqlToFormat( 'Y-m-d' ) )
+            ->setFormatter( Format::dateFormatToSql('Y-m-d' ) )
+	
+       
+    )
+		->where( 'SchuelerID',$sid )
+    ->process( $_POST )
+    ->json();
+}
+else{
 // Build our Editor instance and process the data coming from _POST
 Editor::inst( $db, $abwKomp )
     ->fields(
@@ -53,3 +133,4 @@ Editor::inst( $db, $abwKomp )
     )
     ->process( $_POST )
     ->json();
+}

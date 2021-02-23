@@ -35,6 +35,41 @@ if ($SemesterkuerzelDB==$Semesterkuerzel){
 	else{
 		
 		
+		$Sem_Zeiten= $SemesterkuerzelDB.'_Zeiten';
+
+$query40 = "DROP TABLE $Sem_Zeiten";
+
+mysqli_query($con,$query40);
+
+
+
+$query41 = "CREATE TABLE $Sem_Zeiten LIKE sv_Zeiten";
+
+mysqli_query($con,$query41);
+
+$query42 = "INSERT INTO $Sem_Zeiten SELECT * FROM sv_Zeiten";
+
+mysqli_query($con,$query42);
+		
+		
+		
+			$Sem_KurseStammdaten= $SemesterkuerzelDB.'_KurseStammdaten';
+
+$query16 = "DROP TABLE $Sem_KurseStammdaten";
+
+mysqli_query($con,$query16);
+
+
+
+$query26 = "CREATE TABLE $Sem_KurseStammdaten LIKE sv_KurseStammdaten";
+
+mysqli_query($con,$query26);
+
+$query36 = "INSERT INTO $Sem_KurseStammdaten SELECT * FROM sv_KurseStammdaten";
+
+mysqli_query($con,$query36);
+		
+		
 			$Sem_Klassentermine= $SemesterkuerzelDB.'_Klassentermine';
 
 $query15 = "DROP TABLE $Sem_Klassentermine";
@@ -567,8 +602,48 @@ $query32 = "INSERT INTO sv_Klassenlehrer  SELECT * FROM $Sem_Klassenlehrer";
 
 mysqli_query($con,$query32);	
 	
+	
+	
+			$Sem_KurseStammdaten= $Semesterkuerzel.'_KurseStammdaten';
 
-			$Sem_KurseLehrer= $Semesterkuerzel.'_KurseLehrer';
+$query18 = "Delete From sv_KurseStammdaten";
+
+mysqli_query($con,$query18);
+
+
+
+
+
+$query38 = "INSERT INTO sv_KurseStammdaten  SELECT * FROM $Sem_KurseStammdaten ";
+
+mysqli_query($con,$query38);
+
+	
+	
+	
+	
+	
+	
+	$Sem_Zeiten= $Semesterkuerzel.'_Zeiten';
+
+$query19 = "Delete From sv_Zeiten";
+
+mysqli_query($con,$query19);
+
+
+
+
+
+$query39 = "INSERT INTO sv_Zeiten  SELECT * FROM $Sem_Zeiten ";
+
+mysqli_query($con,$query39);
+
+	
+	
+	
+	$Sem_KurseLehrer= $Semesterkuerzel.'_KurseLehrer';
+	
+	
 
 $query13 = "Delete From sv_KurseLehrer";
 

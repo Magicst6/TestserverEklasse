@@ -1605,7 +1605,7 @@ Kursname:
 
 
 
-    echo "<option>" . '-Select-' . "</option>";
+    echo "<option>" . $Kursnme . "</option>";
 
 
 

@@ -51,7 +51,7 @@ function loading(){
 	document.getElementById('loader').style.display="block";
 	document.getElementById('loadwarn').style.display="block";
 	document.getElementById('Settings').style.display="none";
-   $('button').hide();
+  // $('button').hide();
   var num = 0;
     for(i=0; i<=100; i++) {
         setTimeout(function() { 
@@ -127,9 +127,7 @@ while( $value= mysqli_fetch_array($result)) {
 
 }
 
-?>
-
-<body>
+?><body>
 	
 	
 
@@ -256,6 +254,8 @@ function dbbackup(){
 	
 	
 </script>
+
+
 
 <style>
 

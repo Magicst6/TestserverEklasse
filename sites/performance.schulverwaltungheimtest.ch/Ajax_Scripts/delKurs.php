@@ -19,5 +19,8 @@ $klasseTab="sv_KurseAll".$Klasse;
 $isEntry= "Delete From $klasseTab where KursID='$KID'";
     mysqli_query($con,$isEntry);
 				}
+
+$isEntry= "Delete From sv_KurseAll where KursID='$KID'";
+    mysqli_query($con,$isEntry);
 echo "Kurs ".$KID." gelöscht!";
     ?>

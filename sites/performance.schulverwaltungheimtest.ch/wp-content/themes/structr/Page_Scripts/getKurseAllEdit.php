@@ -26,6 +26,8 @@ use
 
 
 
+				
+
  if($KursID)
 {	
 
@@ -72,7 +74,7 @@ Editor::inst( $db, $klasseTab )
 	 
  }
 				
-else{
+else if ($Klasse){
 $Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
 $klasseTab="sv_KurseAll".$Klasse;
 

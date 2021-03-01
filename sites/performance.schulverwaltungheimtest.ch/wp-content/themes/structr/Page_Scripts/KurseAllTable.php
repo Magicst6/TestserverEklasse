@@ -455,6 +455,8 @@ Wählen Sie die Klasse:<br>
          
         echo "<option></option>";
 		
+		
+		
         while( $line2= mysqli_fetch_assoc($result1))
 
         {

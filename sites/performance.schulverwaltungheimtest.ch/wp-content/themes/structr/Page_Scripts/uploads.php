@@ -275,6 +275,10 @@ $klasseTab="sv_KurseAll".$Klasse1;
 
                     mysqli_query($con, $sql_befehl);
 					
+					 $sql_befehl1 = "INSERT INTO sv_KurseAll (Kursname, KursID, Datum, Tag, Start, Ende, Lektionen, Klasse, Zimmer,ZI_ID,Lehrperson,LP_ID,Farbe) VALUES ('$Kursname','$KursID','$Datum','$Tag','$Start','$Ende','$Lektionen','$Klasse','$Zimmer','$ZI_ID','$Lehrperson','$LP_ID','$Farbe')";
+					
+					
+					mysqli_query($con, $sql_befehl1);
 					echo "Termin eingetragen";
 
                 }

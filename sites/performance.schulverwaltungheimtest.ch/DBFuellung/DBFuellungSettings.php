@@ -201,12 +201,7 @@ echo $Klassenbuch;
         $SemesterkuerzelDB = $value3['Semesterkuerzel'];
     }
 	
-if ($SemesterkuerzelDB==$Semesterkuerzel){
-	
-	
-}
-	else{
-		
+
 		
 		$Sem_Zeiten= $SemesterkuerzelDB.'_Zeiten';
 
@@ -548,7 +543,7 @@ $query5 = "INSERT INTO $Sem_Users SELECT * FROM sv_users";
 
 mysqli_query($con1,$query5);
 
-	}
+	
 
 echo $Ferien1von;
     $isEntry2 = "Select Semesterkuerzel From sv_Settings";
@@ -574,7 +569,7 @@ $isEntry1 = "SELECT  Klasse From sv_Kurse Group by Klasse";
 					
 					$Klasse=$value1['Klasse'];
 					$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
-					
+		if ($Klasse){			
 $klasseTab="sv_KurseAll".$Klasse;
 
 
@@ -587,7 +582,7 @@ $klasseTab="sv_KurseAll".$Klasse;
 // In die DB-Tabelle eintragen
 
     mysqli_query($con, $sql_befehl_del);
-
+				}
 				}
 
 
@@ -598,7 +593,7 @@ $isEntrytbl = "SELECT  Klasse From sv_Lernende Group by Klasse";
 					
 					$Klasse=$valuetbl['Klasse'];
 					$Klasse =stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
-					
+					if ($Klasse){
 $klasseTab="sv_KurseAll".$Klasse;
 $crtbl="	CREATE TABLE $klasseTab (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -621,7 +616,8 @@ $crtbl="	CREATE TABLE $klasseTab (
   PRIMARY KEY (ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 mysqli_query($con, $crtbl);
-				}
+					}
+					}
 
 
 $con = @mysqli_connect(DB_HOST, DB_USER_EKL, DB_PASSWORD_EKL);
@@ -709,11 +705,7 @@ mysqli_query($con,$query1);
 
 else{
 	
-	if ($SemesterkuerzelDB==$Semesterkuerzel){
-
 	
-}
-	else{
 	$Sem_Pruefungen= $Semesterkuerzel.'_Pruefungen';
 
 
@@ -1133,14 +1125,53 @@ mysqli_query($con1,$query4);
 $query5 = "INSERT INTO $Sem_Users SELECT * FROM sv_users";
 
 mysqli_query($con1,$query5);
-}
- $isEntryStundenplan= "Select * From sv_Kurse where Stundenplan = 1 ";
+
+
+$isEntryStundenplan= "Select * From sv_KurseAll ";
 
     $resultStundenplan = mysqli_query($con, $isEntryStundenplan);
 
 
 
+    while( $valueStundenplan= mysqli_fetch_array($resultStundenplan)) {
+		
+		$KursID = $valueStundenplan['KursID'];
 
+        $Tag = $valueStundenplan['Tag'];
+
+        $Klasse = $valueStundenplan['Klasse'];
+
+        $Zimmer= $valueStundenplan['Zimmer'];
+
+        $Kursname = $valueStundenplan['Kursname'];
+
+        $Start = $valueStundenplan['Start'];
+
+        $End = $valueStundenplan['Ende'];
+
+       
+
+        $Farbe=$valueStundenplan['Farbe'];
+		
+		$Lehrperson=$valueStundenplan['Lehrperson'];
+		
+		$LP_ID=$valueStundenplan['LP_ID'];
+		
+		$Datum=$valueStundenplan['Datum'];
+		
+		
+$Klasse1 = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+					$klasseTab="sv_KurseAll".$Klasse1;
+					
+                    $sql_befehl = "INSERT INTO $klasseTab (Kursname, KursID, Tag, Klasse, LP_ID,Datum, Start, Ende, Lehrperson,Farbe,Zimmer, Stundenplan ) VALUES ('$Kursname','$KursID','$Tag','$Klasse','$LP_ID','$Datum','$Start','$End','$Lehrperson','$Farbe','$Zimmer', 0 )";
+
+		               mysqli_query($con, $sql_befehl);
+	}
+
+
+ $isEntryStundenplan= "Select * From sv_Kurse where Stundenplan=1";
+
+    $resultStundenplan = mysqli_query($con, $isEntryStundenplan);
 
 
 
@@ -1295,7 +1326,7 @@ mysqli_query($con1,$query5);
 
 
 
-                $isEntryLPKurse = "SELECT * From sv_KurseLehrer  ";
+                $isEntryLPKurse = "SELECT * From sv_KurseLehrer where KursID='$KursID'  ";
 
                 $result = mysqli_query($con, $isEntryLPKurse);
 

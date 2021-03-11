@@ -25,10 +25,7 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
     <script type='text/javascript'>
         <!--
         function zuordnen(lernender,login){
-            if (lernender == "" || login == "") {
-                document.getElementById("zuordnen").innerHTML = "";
-                return;
-            } else {
+         //  alert();
                 if (window.XMLHttpRequest) {
                     // code for IE7+, Firefox, Chrome, Opera, Safari
                     xmlhttp = new XMLHttpRequest();
@@ -44,7 +41,7 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
                 xmlhttp.open("GET","/Ajax_Scripts/lernendezuordnenscr.php?q="+lernender+"&h="+login,true);
                 xmlhttp.send();
             }
-        }
+        
         function myFunction3(){
             window.location.href = "/lernende-automatisch-zuordnen";
         }
@@ -92,8 +89,9 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
 
         echo "<option>".''. "</option>";
 
-        $isEntry= "Select * From sv_users INNER JOIN sv_usermeta ON sv_users.ID = sv_usermeta.user_id WHERE sv_usermeta.meta_key = 'sv_capabilities' AND (sv_usermeta.meta_value LIKE '%kv%' or sv_usermeta.meta_value LIKE '%hs%'  or sv_usermeta.meta_value LIKE '%sveb%') Order By user_login ASC";
-        $result = mysqli_query($con1, $isEntry);
+        //$isEntry= "Select * From sv_users INNER JOIN sv_usermeta ON sv_users.ID = sv_usermeta.user_id WHERE sv_usermeta.meta_key = 'sv_capabilities' AND (sv_usermeta.meta_value LIKE '%kv%' or sv_usermeta.meta_value LIKE '%hs%'  or sv_usermeta.meta_value LIKE '%sveb%') Order By user_login ASC";
+        $isEntry="Select * From sv_users Order By user_login ASC";
+		$result = mysqli_query($con1, $isEntry);
         while( $line3= mysqli_fetch_array($result))
         {
             $Login = $line3['user_login'];

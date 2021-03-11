@@ -23,7 +23,7 @@
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 	
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
@@ -307,7 +307,44 @@ tr.shown td.details-control:before {
 
 	
 
-   
+   <? include "db.php"; ?>
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+	  
+	  ['Lehrer', 'Lektionen'],
+
+  <?  
+      
+        $isEntry= "Select Lehrer, SUM(Lektionen) as Lektionen1 from sv_Kurshistorie where Stattgefunden='ja' Group by Lehrer";  
+	  $result = mysqli_query($con, $isEntry);
+
+        while( $line3= mysqli_fetch_array($result))
+
+        {
+
+
+ echo "['".$line3[Lehrer]."',".$line3[Lektionen1]." ],";
+			
+  }
+  ?>
+]);
+		
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'gehaltene Lektionen der einzelnen Lehrer', 'width':"90%", 'height':"500",pieHole: 0.4,};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('PieChart'));
+  chart.draw(data, options);
+}
+</script>	
+
+	<div id="PieChart"></div>
 
 
 

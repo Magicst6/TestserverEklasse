@@ -44,7 +44,7 @@ if( $_POST['Senden']) {
                 $Date1 = new Datetime($Startdatum);
                 $Datum1 = $Date1->format('Y-m-d');
                 $Kursname0 = strtolower($_POST['Text' . $x . $y]);
-                
+                $Zimmer = $_POST['Tex' . $x . $y];
 				 $isEntry10 = "Select * From sv_KurseStammdaten where KursKuerzel='$Kursname0' ";
                     $result10 = mysqli_query($con, $isEntry10);
                     $n=0;
@@ -55,7 +55,10 @@ if( $_POST['Senden']) {
 				$Color = '#'.$valuecol['Farbe'];
 							$Lehrer = $valuecol['Lehrer'];
 						$KursnameStamm= $valuecol['Kursname'];
+						
+						if (!$Zimmer){
 						$Zimmer= $valuecol['Zimmer'];
+						}
 						$Profil= $valuecol['Profil'];
 						//echo $KursnameStamm.'hhhhhhhhhhh';
 						  preg_match("/:(.*)/", $Lehrer, $output_array);
@@ -145,7 +148,7 @@ if( $_POST['Senden']) {
         }
 
 
-    $isEntry2 = "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30,Nachname,ID From sv_Lehrpersonen  ";
+   /* $isEntry2 = "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30,Nachname,ID From sv_Lehrpersonen  ";
     $result2 = mysqli_query($con, $isEntry2);
 
     while ($value3 = mysqli_fetch_array($result2)) {
@@ -157,7 +160,7 @@ if( $_POST['Senden']) {
           mysqli_query($con, $sql_befehl2);
         }
 
-    }
+    }*/
 }
      echo '<meta http-equiv="refresh"  content="0; url=/kursformular?Klasse='.$Klassenname.'" />';
 ?>

@@ -1014,7 +1014,7 @@ function tableshowne() {
 
 	function checkKurs( str ) {
 
-		if ( str == "-Select-" ) {
+		if ( str == "" ) {
 
 			alert( 'Bitte einen Kurs auswählen' )
 
@@ -1126,7 +1126,7 @@ $result = mysqli_query($con, $isEntry);
 ?>
 
 <br><br>
-	Semester:<br>
+	Semester/Schuljahr:<br>
 <select id="Semester" name="Semester"  onchange="getLehrer(this.value)">
 	<option value="<? echo $sem;?>" selected><? echo $sem;?></option>
     <?php
@@ -2253,8 +2253,8 @@ window.location.href= "/notenbuch-lehrer-archiv?q="+  encrypted + "&sem=" +  doc
 		 table.destroy();
 			 }
 
-		 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValuesArchiv.php?q=" + "-Select-" + "&s=" + document.getElementById( "Semester" ).value;
-		var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValuesArchiv.php?k=" + "-Select-" + "&s=" + document.getElementById( "Semester" ).value;
+		 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValuesArchiv.php?q=" + "" + "&s=" + document.getElementById( "Semester" ).value;
+		var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValuesArchiv.php?k=" + "" + "&s=" + document.getElementById( "Semester" ).value;
          $.fn.dataTable.ext.errMode = 'throw';
     table = $( '.datatables' ).DataTable( {
 

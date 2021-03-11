@@ -7,6 +7,25 @@
 
 	  });
 function getKursname(str){
+	
+	if (str){
+	
+	document.getElementById("Kursname").disabled = false;
+		document.getElementById("Kuerzel").disabled = false;
+		document.getElementById("semester").disabled= false;
+	}
+	else{
+			document.getElementById("Kursname").disabled = true;
+		document.getElementById("Kuerzel").disabled = true;
+		document.getElementById("semester").disabled= true;
+		
+		
+	}
+
+
+	
+        
+     
 
         if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -28,7 +47,7 @@ function getKursname(str){
 	
 	
 	function getlehrperson(str1){
-if (str1 == "-Select-" || str1=="") {
+if (str1 == "" || str1=="") {
 	
 	document.getElementById("Kursname").disabled = false;
 		document.getElementById("Kuerzel").disabled = false;
@@ -297,7 +316,7 @@ $result = mysqli_query($con, $isEntry);
 
                 $Vorname = $line3['Vorname'];
 
-  echo "<option>". $Name ." ".$Vorname.":".$ID."</option>";
+  echo "<option>". $Name .":".$ID."</option>";
 
             }
 

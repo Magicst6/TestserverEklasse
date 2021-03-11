@@ -297,7 +297,7 @@ tr.shown td.details-control:before {
 
     function checkKurs(str){
 
-        if (str == "-Select-") {
+        if (str == "") {
 
           alert('Bitte einen Kurs auswählen')
 
@@ -394,7 +394,7 @@ while( $line2= mysqli_fetch_assoc($result))
 Wählen Sie das Semester aus :
 <br>
 <select name="semester" id="semester" onchange="tableshow()"  required="required">
-    <option>-Select-</option>
+    <option></option>
     <option>WS18FS19</option>
     <option>WS<?php echo date("y");?></option>
 </select>
@@ -431,7 +431,7 @@ Wählen Sie das Semester aus :
 
 
 
-    echo "<option>" . '-Select-' . "</option>";
+    echo "<option>" . '' . "</option>";
 
 
 

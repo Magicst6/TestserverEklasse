@@ -1411,11 +1411,11 @@ text = text.replace(/&/g, '§§§');
       <td style="width: 150px; font-size: 12px; font-weight: bold;">Kurs:</td>
       <td colspan="2"><select type="text" name="kursid" id="kursid" value=""   onChange="getcolor(this.value)" class="text ui-widget-content ui-corner-all" >
 	<?	  	
-$isEntrylp= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = '$IDLP'";
+/*$isEntrylp= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = '$IDLP'";
 $resultlp = mysqli_query($con,$isEntrylp);
 
 
- echo "<option>" . '-Select-' . "</option>";
+ echo "<option>" . '' . "</option>";
 
 while( $linelp= mysqli_fetch_array($resultlp))
 {
@@ -1426,7 +1426,34 @@ $valuelp = $linelp['Kurs'.$x];
 if ($valuelp<>"") echo "<option>" . $valuelp. "</option>";
 
 }
-}
+}*/
+		   $isEntry= "Select KursID From sv_KurseLehrer Where LP_ID = '$IDLP'";
+
+    $result = mysqli_query($con,$isEntry);
+
+
+
+
+
+    echo "<option>" . '' . "</option>";
+
+
+
+    while( $line2= mysqli_fetch_array($result))
+
+    {
+
+        
+
+            $value = $line2['KursID'];
+
+            if ($value<>"") echo "<option>" . $value . "</option>";
+
+
+
+        
+
+    }
 		  
 		  
 		 ?> 

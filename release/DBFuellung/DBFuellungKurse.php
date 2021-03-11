@@ -25,7 +25,7 @@ if( $_POST['Senden'])
     $Ende = date('Y-m-d H:i:s', $endstr);
     $Lektionen = $_POST['Lektionen'];
     $KursID=$_POST['kursid'];
-	if ($KursID=="-Select-" or $KursID==""){
+	if ($KursID=="" or $KursID==""){
 	$KursID = $_POST['Klasse'] . '.' .$_POST['Kuerzel']. '.' . $_POST['semester'];
 	}
 	else{
@@ -76,6 +76,7 @@ if( $_POST['Senden'])
         echo "<script>alert('Lehrperson:".$Lehrperson." nicht bekannt oder falsch geschrieben');</script>";
         $isExisting=false;
     }
+	/*
     $isEntryLPKurse = "SELECT Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where  ID='$LP_ID' ";
     $result = mysqli_query($con, $isEntryLPKurse);
 
@@ -103,13 +104,38 @@ if( $_POST['Senden'])
                 $isEntryCreated=true;
             }
         }
-    }
+    }*/
+ $isEntry2= "Select *  From sv_KurseLehrer where KursID='$KursID' ";
 
+    $result2 = mysqli_query($con, $isEntry2);
+    
+	while ($row2= mysqli_fetch_array($result2)) {
+	$isKurs=true;
+	}
+	if (!$isKurs){
+	
+		$query1 = "INSERT INTO sv_KurseLehrer (KursID,LP_ID)  VALUES ('$KursID', '$LP_ID')";
+            mysqli_query($con, $query1);
+	}
+      else {
+		  $q5 = "Update sv_KurseLehrer Set LP_ID='$LP_ID' Where KursID='$KursID' ";
+                mysqli_query($con, $q5);
+	  }
+		
 
     // Daten hinzufügen (Anzahl der Spalten anpassen)
 //    $daten[] = "('" . $spalte1 . "','" . $spalte2 . "','" . $spalte3 . "','" . $spalte4 . "','" . $spalte5 . "','" . $spalte6 . "','" . $spalte7 . "','" . $spalte8 . "','" . $spalte9 . "','" . $spalte10 . "','" . $spalte11 . "','" . $spalte12 . "')" . chr(13);
     if (!$isExisting) {
         $sql_befehl = "INSERT INTO sv_KurseAll (Kursname, KursID, Datum, Tag, Start, Ende, Lektionen, Klasse, Zimmer,ZI_ID,Lehrperson,LP_ID,Farbe) VALUES ('$Kursname','$KursID','$Datum','$Tag','$Start','$Ende','$Lektionen','$Klasse','$Zimmer','$ZI_ID','$Lehrperson','$LP_ID','$Farbe')";
+
+
+// In die DB-Tabelle eintragen
+        mysqli_query($con, $sql_befehl);
+		
+		$Klasse1 = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+					
+$klasseTab="sv_KurseAll".$Klasse1;
+		 $sql_befehl = "INSERT INTO $klasseTab (Kursname, KursID, Datum, Tag, Start, Ende, Lektionen, Klasse, Zimmer,ZI_ID,Lehrperson,LP_ID,Farbe) VALUES ('$Kursname','$KursID','$Datum','$Tag','$Start','$Ende','$Lektionen','$Klasse','$Zimmer','$ZI_ID','$Lehrperson','$LP_ID','$Farbe')";
 
 
 // In die DB-Tabelle eintragen

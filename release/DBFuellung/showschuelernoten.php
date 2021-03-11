@@ -267,7 +267,7 @@ input.err:focus{
 	 Kommentar zur Prüfung:
      <textarea name="Comment"><?php echo $Comment;?></textarea>
 <?php
-if ($Kursnme<>'' && $Kursnme<>"-Select-") {
+if ($Kursnme<>'' && $Kursnme<>"") {
     
     echo '<br>';
 

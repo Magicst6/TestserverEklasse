@@ -47,7 +47,8 @@ if ($semester==$semDB){
 
     $result = mysqli_query($con, $isEntry);
     $events = array();
-if ($Kursname<>"-Select-"){
+
+if ($Kursname==""){
 	
 	$Notenschnitt=null;
 		$Notegesamt=0;	
@@ -55,6 +56,7 @@ $c=0;
 	
 	$a=0;
     while ($line1 = mysqli_fetch_array($result)) {
+			
 		$Kursname=$line1['KursID'];
 		 
 		$data0 = array(
@@ -68,7 +70,7 @@ $c=0;
         if ($semester==$semDB){
             $isEntry1 = "Select * From sv_Noten where KursID='$Kursname' and SchuelerID='$ID' ";
 			
-			
+		
 			
 			
         } else{

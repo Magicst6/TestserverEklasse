@@ -1,7 +1,7 @@
 <?php
 include 'db.php';
 ?>
-Semester:<br>
+Semester/Schuljahr:<br>
 <select id="Semester" name="Semester" onchange="myFunction()">
     <?php
 
@@ -58,7 +58,7 @@ Klasse:
 <select name="klasse" id="klasse" onchange="getKlasse(this.value)" required="required">
     <?php
     $lernende= $Semester.'_Lernende';
-    $isEntry= "Select Klasse From $lernende where Klasse like '%kv%'";
+    $isEntry= "Select Klasse From $lernende";
     $result1 = mysqli_query($con,$isEntry);
     $resultarr1 = array();
     echo "<option>" . $_GET['klasse'] . "</option>";

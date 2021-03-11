@@ -442,7 +442,7 @@
 
 	function checkKurs( str ) {
 
-		if ( str == "-Select-" ) {
+		if ( str == "" ) {
 
 			alert( 'Bitte einen Kurs auswählen' )
 
@@ -549,7 +549,7 @@ $result = mysqli_query($con, $isEntry);
 
 <br><br>
 
-Semester:<br>
+Semester/Schuljahr:<br>
 <select id="Semester" name="Semester" onchange="getKursname()" >
     <?php
 

@@ -337,7 +337,39 @@ echo "<option>$Profil</option>";
 			
 			
 		echo '	</select></td>';
-				  echo '<td><input name="Zimmer'.$y.'"  id="Zimmer'.$y.'" style="width: 80px" type="text"  value="'.$Zimmer.'"  ></td>';
+				  		echo '<td><select name="Zimmer' . $y . '"  type="text" style="width: 80px" value="' . $Zimmer . '"  >';
+			
+			  $isEntry= "Select Name From sv_Zimmer";
+
+    $result1 = mysqli_query($con,$isEntry);
+
+
+
+echo "<option>$Zimmer</option>";
+
+    echo "<option></option>";
+
+
+
+    while( $line3= mysqli_fetch_array($result1))
+	{
+
+    
+
+
+            $value = $line3['Name'];
+
+            if ($value<>"") echo "<option>" . $value . "</option>";
+
+
+
+        }
+
+    
+
+			
+			
+		echo '	</select></td>';
 				echo '<td><input name="Delete'.$y.'" onclick="del('.$y.')" type="button" value="Löschen"   style="width: 120px" ></td>';
 			
 			echo '<td><input name="Update'.$y.'" onclick="updateKursST('.$y.')"  type="button" value="Update" style="width:120px" ></td>';
@@ -387,7 +419,7 @@ echo '<td><input name="Farbe"  id="farbe" style="width: 40px" type="color"  valu
 
 
 
-        echo "<option>".'--Select--'. "</option>";
+        echo "<option>".'--'. "</option>";
 
 
 
@@ -449,7 +481,39 @@ echo '<td><select name="Profil" id="Profil"  type="text" style="width: 60px" val
 			
 			
 		echo '	</select></td>';
-echo '<td><input name="Zimmer"  id="Zimmer" style="width: 80px" type="text"  value=""  ></td>';
+		echo '<td><select name="Zimmer" id="Zimmer"  type="text" style="width: 80px" value=""  >';
+			
+			  $isEntry= "Select Name From sv_Zimmer";
+
+    $result1 = mysqli_query($con,$isEntry);
+
+
+
+echo "<option>$Zimmer</option>";
+
+    echo "<option></option>";
+
+
+
+    while( $line3= mysqli_fetch_array($result1))
+	{
+
+    
+
+
+            $value = $line3['Name'];
+
+            if ($value<>"") echo "<option>" . $value . "</option>";
+
+
+
+        }
+
+    
+
+			
+			
+		echo '	</select></td>';
 		echo '<td><input name="Anlegen" onclick="create()" type="button" value="Erstellen"   style="width:120px" ></td>';
 			
 			

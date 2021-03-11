@@ -25,16 +25,21 @@ while ($line1 = mysqli_fetch_array($result)) {
 }
 
 $AbwArch=$semester."_AbwesenheitenKompakt";
-
+$LK=$semester."_LernenderKurs";
 
 preg_match( "/:(.*)/", $Lehrer, $output_array );
 $Lehrer = $output_array[ 1 ];
 
 if ($semester==$semDB || $semester==''){
+	$isEntryUpdate = " UPDATE sv_LernenderKurs SET Abwesenheiten = '' where KursID ='$Kursname'"; 
+
+mysqli_query( $con, $isEntryUpdate );
     $isEntry = "Select * From sv_AbwesenheitenKompakt where Kursname='$Kursname'  Group by SchuelerID order by Nachname asc ";
 
 } else{
+$isEntryUpdate = " UPDATE $LK SET Abwesenheiten = '' where KursID ='$Kursname'"; 
 
+mysqli_query( $con, $isEntryUpdate );
     $isEntry = "Select * From $AbwArch where Kursname='$Kursname'  Group by SchuelerID order by Nachname asc ";
 
 }
@@ -94,31 +99,21 @@ while ( $line2 = mysqli_fetch_array( $result ) ) {
 	
 	$data[] = array_merge( $data1, $data2, $data3 );
 	
-	 $isEntry1 = "Select * From sv_Lernende where ID='$ID'  ";
-	$result1 = mysqli_query( $con, $isEntry1 );
-	while ( $line1 = mysqli_fetch_array( $result1 ) ) {
-
-		$EMail=$line1['EMail'];
-		$Vorname=$line1['Vorname'];
-		$Nachname=$line1['Name'];
-		$Klasse=$line1['Klasse'];
-	}
-	if ($EMail==''){
-		$EMail='nomail';
-	}
-
-	$isEntry1 = "Select * From sv_LernendeModule where EMail='$EMail' or ((Vorname='$Vorname' and Name='$Nachname' ) and (Modul1='$Klasse' or Modul2='$Klasse' or Modul3='$Klasse' or Modul4='$Klasse' or Modul5='$Klasse' or Modul6='$Klasse' or Modul7='$Klasse' or Modul8='$Klasse' or Modul9='$Klasse' or Modul10='$Klasse' or Modul11='$Klasse' or Modul12='$Klasse'))";
-	$result1 = mysqli_query( $con, $isEntry1 );
-	while ( $line1 = mysqli_fetch_array( $result1 ) ) {
-      
-		$SchID=$line1['ID'];
-	}
-
 	
+		$SchID=$ID;
+	
+	
+	if ($semester==$semDB || $semester==''){
 	
 	$isEntryUpd = "UPDATE sv_LernenderKurs SET Abwesenheiten = '$abwges' where SchuelerID='$SchID' and KursID ='$Kursname'";
 	mysqli_query( $con, $isEntryUpd );	
-
+	}
+	else{
+		$isEntryUpd = "UPDATE $LK SET Abwesenheiten = '$abwges' where SchuelerID='$SchID' and KursID ='$Kursname'";
+	mysqli_query( $con, $isEntryUpd );	
+		
+	}
+	
 }
 
 	

@@ -4,7 +4,7 @@
 $isEntry= "Select Klasse From ".$sem."_Lernende";
     $result1 = mysqli_query($con,$isEntry);
     $resultarr1 = array();
-    echo "<option>-Select-</option>";
+    echo "<option></option>";
 
     while( $line2= mysqli_fetch_assoc($result1))
     {

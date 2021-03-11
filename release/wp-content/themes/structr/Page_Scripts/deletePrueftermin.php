@@ -20,12 +20,13 @@ if(isset($_GET["f"]))
 
                 while ($value4 = mysqli_fetch_array($result4)) {
 				 $NamePr = $value4['Pruefungsname'];
+					$KursPr = $value4['KursID'];
                    
 				}
 
 	
 	
-	$isEntry1 = "SELECT  * From sv_Noten where Name='$NamePr'";
+	$isEntry1 = "SELECT  * From sv_Noten where Name='$NamePr' and KursID='$KursPr'";
                 $result1 = mysqli_query($con, $isEntry1);
 
                 while ($value1 = mysqli_fetch_array($result1)) {
@@ -50,7 +51,7 @@ if(isset($_GET["f"]))
 
     mysqli_query($con,$query);
 	
-	$query = "DELETE from sv_Noten WHERE Name='$NamePr'";
+	$query = "DELETE from sv_Noten WHERE Name='$NamePr' and KursID='$KursPr'";
 
     mysqli_query($con,$query);
 }

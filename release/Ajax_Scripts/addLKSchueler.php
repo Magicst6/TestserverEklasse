@@ -6,7 +6,7 @@ include "db.php";
 
 	$Schueler =  $_GET['k'];
 	$Kursname =   $_GET['l'];
-	if ($Schueler and  $Kursname and ($Kursname <> '-Select-') ){
+	if ($Schueler and  $Kursname and ($Kursname <> '') ){
 
         preg_match("/:(.*)/", $Schueler, $output_array);
 

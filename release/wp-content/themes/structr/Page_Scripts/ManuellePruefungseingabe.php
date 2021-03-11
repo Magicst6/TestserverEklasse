@@ -23,7 +23,7 @@ if (str == "") {
     }
 }
 function test(str){
-    if (str == "" || str == "-Select-") {
+    if (str == "" || str == "") {
         document.getElementById("lernende").innerHTML = "";
         return;
     } else {
@@ -66,7 +66,7 @@ if (str == "") {
 }
 	function AlertKursID(){
 		
-    if  (document.getElementById("Kursname").value == "-Select-" || document.getElementById("Kursname").value == "" ) {
+    if  (document.getElementById("Kursname").value == "" || document.getElementById("Kursname").value == "" ) {
 		alert('KursID nicht gewählt');
 
 
@@ -261,7 +261,7 @@ if (str == "") {
 
 
 
-        echo "<option>".'--Select--'. "</option>";
+        echo "<option>".'--'. "</option>";
 
 
 

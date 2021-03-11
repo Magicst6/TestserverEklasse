@@ -19,6 +19,12 @@
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 	<script type="text/javascript" language="javascript" class="init">
 	</script>
+	
+	
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	 <script type = "text/javascript">
+         google.charts.load('current', {packages: ['table']});     
+      </script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
 </head>
@@ -75,6 +81,111 @@ $sel2= '" ';
 	var table2;
 	var table3;
 	$(document).ready(function() {
+		
+			var kn = "<? echo $Kursnme; ?>";
+		var sem = "<? echo $sem; ?>";
+			  $.ajax({
+        url:"/wp-content/themes/structr/Page_Scripts/getDataNotenKurs.php",
+        method:"POST",
+        data:{q:kn,sem:sem
+			  },
+        dataType:"JSON",
+        success:function(data)
+        {
+           drawChart3(data);
+        }
+    });
+		
+
+  $.ajax({
+        url:"/wp-content/themes/structr/Page_Scripts/getDataAbwKurs.php",
+        method:"POST",
+        data:{q:kn,sem:sem},
+        dataType:"JSON",
+        success:function(data)
+        {
+           drawChart4(data);
+        }
+    });
+		
+			
+		// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart3);
+			
+			function drawChart3(chart_data) {
+		 var jsonData = chart_data;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Nachname');
+    data.addColumn('number', 'Note1');
+				data.addColumn('number', 'Note2');
+				data.addColumn('number', 'Note3');
+				data.addColumn('number', 'Note4');
+				data.addColumn('number', 'Note5');
+				data.addColumn('number', 'Note6');
+				data.addColumn('number', 'Note7');
+				data.addColumn('number', 'Note8');
+				data.addColumn('number', 'Note9');
+			
+    $.each(jsonData, function(i, jsonData){
+        var Nachname = jsonData.Nachname;
+        var Note1 = jsonData.Note1;
+		var Note2 = jsonData.Note2;
+		var Note3 = jsonData.Note3;
+		var Note4 = jsonData.Note4;
+		var Note5 = jsonData.Note5;
+		var Note6 = jsonData.Note6;
+		var Note7 = jsonData.Note7;
+		var Note8 = jsonData.Note8;
+		var Note9 = jsonData.Note9;
+        data.addRows([[Nachname,Note1,Note2,Note3,Note4,Note5,Note6,Note7,Note8,Note9]]);
+    });
+  var options = {
+          title : 'Noten der Schüler',
+          vAxis: {title: 'Note'},
+          hAxis: {title: 'Nachname'},
+          seriesType: 'bars',
+          series: {5: {type: 'line'}},
+	      width:"95%",
+	      height: '300'
+        };
+
+        var chart3 = new google.visualization.ComboChart(document.getElementById('notenchart'));
+        chart3.draw(data, options);
+      }
+
+		
+		
+		// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart4);
+			
+			function drawChart4(chart_data) {
+		 var jsonData = chart_data;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Nachname');
+    data.addColumn('number', 'Abwesenheiten');
+				
+			
+    $.each(jsonData, function(i, jsonData){
+        var Nachname = jsonData.Nachname;
+        var Abwesenheit = jsonData.Abwesenheit;
+		
+        data.addRows([[Nachname,Abwesenheit]]);
+    });
+  var options = {
+          title : 'Abwesenheiten der Schüler',
+          vAxis: {title: 'Abwesenheiten(Lektionen)'},
+          hAxis: {title: 'Nachname'},
+          seriesType: 'bars',
+          series: {5: {type: 'line'}},
+	      width:"95%",
+	      height: '300'
+        };
+
+        var chart4 = new google.visualization.ColumnChart(document.getElementById('abwchart'));
+        chart4.draw(data, options);
+      }
  var urlParams = new URLSearchParams(window.location.search);
 	
 
@@ -1236,7 +1347,7 @@ function tableshowne() {
 
 	function checkKurs( str ) {
 
-		if ( str == "-Select-" ) {
+		if ( str == "" ) {
 
 			alert( 'Bitte einen Kurs auswählen' )
 
@@ -1270,7 +1381,7 @@ include 'db.php';
 
 
 
-Semester:<br>
+Semester/Schuljahr:<br>
 <select id="Semester" name="Semester"  onchange="getKursnameAll(this.value)">
 	<option value="<? echo $sem;?>" selected><? echo $sem;?></option>
     <?php
@@ -1315,7 +1426,7 @@ while( $line2= mysqli_fetch_assoc($result))
 $uniquearr = array_unique($resultarr);
 
 echo "<option>" .$Kursnme. "</option>";
-echo "<option>" .'-Select-'. "</option>";
+echo "<option>" .''. "</option>";
 foreach ($uniquearr as $value)
 {
     echo "<option>" . $value . "</option>";
@@ -2536,8 +2647,8 @@ window.location.href= "/notenbuch-archiv?q="+  encrypted + "&sem=" +  document.g
 		 table.destroy();
 			 }
 
-		 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValuesArchiv.php?q=" + "-Select-" + "&s=" + document.getElementById( "Semester" ).value;
-		var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValuesArchiv.php?k=" + "-Select-" + "&s=" + document.getElementById( "Semester" ).value;
+		 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValuesArchiv.php?q=" + "" + "&s=" + document.getElementById( "Semester" ).value;
+		var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValuesArchiv.php?k=" + "" + "&s=" + document.getElementById( "Semester" ).value;
          $.fn.dataTable.ext.errMode = 'throw';
     table = $( '.datatables' ).DataTable( {
 
@@ -2955,7 +3066,12 @@ function sendNote(){
 
 </script>
 
-
+<br><br>
+<div class="left">
+<div id="abwchart"></div>
+<br><br>
+<div id="notenchart"></div>
+</div>
 <style>
 	body {
 		font-family: "Dosis", "Helvetica Neue", sans-serif;

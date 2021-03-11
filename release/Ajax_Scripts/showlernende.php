@@ -16,7 +16,7 @@
 	$Kursnme = $_GET[ 'q' ];
 	$heute = $_GET[ 'h' ];
 
-	if ( $Kursnme <> '' && $Kursnme <> "-Select-" ) {
+	if ( $Kursnme <> '' && $Kursnme <> "" ) {
 		$isEntry2 = "Select Stattgefunden,Kommentar From sv_Kurshistorie Where KursID='$Kursnme' and Datum='$heute'";
 		$result2 = mysqli_query( $con, $isEntry2 );
 		echo '<br>';

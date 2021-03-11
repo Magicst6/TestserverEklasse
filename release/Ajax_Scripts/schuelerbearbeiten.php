@@ -53,15 +53,78 @@
 
 
 			$Klassenname =  $_GET['k'];
-
-
-
-
-
-
-			echo 'Klassenname: ';
+		
+		echo 'Klassenname: ';
 
 			echo $Klassenname;
+
+	echo ' <br>Klassenleiter: <br>  <select name="lehrpers"  id="lehrpers" onchange=sendKlasse(this.value)   >';
+
+
+ $isEntry1= "Select * From sv_Klassenlehrer where Klasse='$Klassenname'  ";
+
+        $result1 = mysqli_query($con, $isEntry1);
+
+
+        while( $line3= mysqli_fetch_array($result1))
+
+        {
+			$ID1 = $line3['LP_ID'];
+			
+              $isEntry3= "Select * From sv_Lehrpersonen where ID='$ID1'  ";
+
+        $result3 = mysqli_query($con, $isEntry3);
+
+
+        while( $line4= mysqli_fetch_array($result3))
+		
+		{
+
+            $Name1 = $line4['Nachname'];
+
+            $Vorname1 = $line4['Vorname'];
+
+            echo "<option>".$Name1.' ID:'.$ID1."</option>";
+			
+        }
+        
+		}
+       echo "<option></option>";
+
+
+			     $isEntry3= "Select * From sv_Lehrpersonen   ";
+
+        $result4 = mysqli_query($con, $isEntry3);
+
+
+        while( $line5= mysqli_fetch_array($result4))
+		
+		{
+			 $ID = $line5['ID'];
+			
+            $Name = $line5['Nachname'];
+
+            $Vorname = $line5['Vorname'];
+			
+		
+
+
+		
+			
+        
+         echo "<option>".$Name.' ID:'.$ID."</option>";
+		 }
+		
+
+		
+
+      echo '  </select><br>';
+				
+
+
+
+
+			
 
 
 

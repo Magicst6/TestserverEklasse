@@ -1,10 +1,12 @@
 <form action="/DBFuellung/DBFuellungStundenplan.php" method="POST">
    
    
-    Bitte keine Leerzeichen oder mathematische Operatoren(+,-,...) in den Namen der Kurse verwenden
+    Bitte keine Leerzeichen oder mathematische Operatoren(+,-,...) in den Namen der Kurse verwenden.
     &nbsp;<br><br>
+	Das Zimmer Dropdown leer lassen um das in den Stammdaten dem Kurs zugewiesene Zimmer zu verwenden. 
+	<br><br>
     Klasse:
-    <br><br>
+    <br>
     <?php
    include 'db.php';
 	
@@ -44,7 +46,9 @@ function check(str,tag,uhr){
                     if (this.readyState == 4 && this.status == 200) {
                        if (this.responseText.length>10)
 						   {
+							  
 						  alert(this.responseText);
+							   
 						   }
 					}
                 };
@@ -100,7 +104,7 @@ $result = mysqli_query($con, $isEntry);
 ?>
     </select>
     <br><br>
-   Semester:
+   Semester/Schuljahr:
     <br>
     <input name="semester" id="semester" readonly  value="<? echo $semDB; ?>" required="required">
 	

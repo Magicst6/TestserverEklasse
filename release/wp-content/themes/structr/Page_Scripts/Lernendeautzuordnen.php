@@ -74,16 +74,45 @@ while( $line2= mysqli_fetch_array($result))
 
     $x=0;
 
+$y=0;
 
-
-    $isEntry1= "Select * From sv_users INNER JOIN sv_usermeta ON (sv_users.ID = sv_usermeta.user_id) INNER JOIN sv_usermeta AS w1 ON (sv_users.ID = w1.user_id) INNER JOIN sv_usermeta AS w2 ON (sv_users.ID = w2.user_id) WHERE sv_usermeta.meta_key = 'sv_capabilities'  AND w1.meta_key = 'last_name' AND w1.meta_value='$Name' AND w2.meta_key = 'first_name' AND w2.meta_value='$Vorname' ";
+    $isEntry1= "Select * From sv_Lernende Where Name='$Name' and Vorname='$Vorname' ";
 
     $result1 = mysqli_query($con1, $isEntry1);
 
-    while( $line3= mysqli_fetch_array($result1))
+    while( $line5= mysqli_fetch_array($result1))
 
     {
+        $x++;
+	}
+	$isEntry1= "Select * From sv_Lernende Where Name='$Name' and Vorname='$Vorname' ";
 
+    $result1 = mysqli_query($con1, $isEntry1);
+
+    while( $line5= mysqli_fetch_array($result1))
+
+    {
+        $x++;
+	}
+	
+	$isEntry2= "Select * From sv_users INNER JOIN sv_usermeta ON (sv_users.ID = sv_usermeta.user_id) INNER JOIN sv_usermeta AS w1 ON (sv_users.ID = w1.user_id) INNER JOIN sv_usermeta AS w2 ON (sv_users.ID = w2.user_id) WHERE sv_usermeta.meta_key = 'sv_capabilities'  AND w1.meta_key = 'last_name' AND w1.meta_value='$Name' AND w2.meta_key = 'first_name' AND w2.meta_value='$Vorname' ";
+
+    $result2 = mysqli_query($con1, $isEntry2);
+	
+	 while( $line3= mysqli_fetch_array($result2))
+
+    {
+		 $y++;
+	}
+	
+	  $isEntry2= "Select * From sv_users INNER JOIN sv_usermeta ON (sv_users.ID = sv_usermeta.user_id) INNER JOIN sv_usermeta AS w1 ON (sv_users.ID = w1.user_id) INNER JOIN sv_usermeta AS w2 ON (sv_users.ID = w2.user_id) WHERE sv_usermeta.meta_key = 'sv_capabilities'  AND w1.meta_key = 'last_name' AND w1.meta_value='$Name' AND w2.meta_key = 'first_name' AND w2.meta_value='$Vorname' ";
+
+    $result2 = mysqli_query($con1, $isEntry2);
+	
+	 while( $line3= mysqli_fetch_array($result2))
+
+    {
+		 if ($x==1 and $y==1){
         $Login = $line3['user_login'];
 
         $Mail = $line3['user_email'];
@@ -92,21 +121,13 @@ while( $line2= mysqli_fetch_array($result))
 
 
 
-        $x++;
+       
 
-        if ($x==2){
-
-            echo '<script language="javascript">';
-
-            echo 'alert("'.$Name.' '.$Vorname.' doppelt! Bitte diesen User manuell anpassen")';
-
-            echo '</script>';
+           
 
 
 
-        }
-
-        else{
+        
 
 
 
@@ -115,9 +136,20 @@ while( $line2= mysqli_fetch_array($result))
             $sql_befehl = "Update  sv_Lernende Set Loginname='$Login', User_ID='$ID', EMAIL='$Mail' Where ID='$LernenderID' ";
 			  $sql_befehl1 = "Update  sv_LernendeModule Set Loginname='$Login', User_ID='$ID', EMail='$Mail' Where Name='$Name' and Vorname='$Vorname' ";
 
-
+$user = get_user_by('id', $ID);
+$user->remove_role('lehrpersonhs');
+$user->add_role('lernender');
 
 ////echo $sql_befehl5;
+		 }
+		 else{
+			     echo '<script language="javascript">';
+
+            echo 'alert("'.$Name.' '.$Vorname.' mehrfach im System! Bitte diesen User manuell anpassen")';
+
+            echo '</script>';
+			 
+		 }
 
             if  (""== $ID)  {
 
@@ -139,7 +171,7 @@ while( $line2= mysqli_fetch_array($result))
 
     }
 
-}
+
 
 echo "Script ausgeführt";
 

@@ -22,7 +22,12 @@ if (str == "") {
     }
 }
 function test(str){
-    if (str == "" || str == "-Select-") {
+		
+			tableshow();
+			drawAbw();
+		
+		
+    if (str == "" || str == "") {
         document.getElementById("lernende").innerHTML = "";
         return;
     } else {
@@ -97,7 +102,7 @@ while( $line2= mysqli_fetch_assoc($result1))
 }
 $uniquearr1 = array_unique($resultarr1);
 asort($uniquearr1);
-echo "<option>" . '-Select-' . "</option>";
+echo "<option>" . '' . "</option>";
 
 
 foreach ($uniquearr1 as $value)

@@ -36,7 +36,7 @@
 
 				};
 
-				xmlhttp.open( "GET", "/Ajax_Scripts/addLernende.php?k=" + document.getElementById( "AnzahlSch" ).value + "&l=" + z, true );
+				xmlhttp.open( "GET", "/Ajax_Scripts/addLernende.php?k=" + document.getElementById( "AnzahlSch" ).value + "&l=" + z + "&q=" + str, true );
 
 				xmlhttp.send();
 			} else alert( 'die zu erstellende Klasse hat keinen Namen!' );
@@ -120,6 +120,41 @@
 
 	}
 
+	function sendKlasse(str) {
+
+       
+
+		if ( window.XMLHttpRequest ) {
+
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+
+			xmlhttp = new XMLHttpRequest();
+
+		} else {
+
+			// code for IE6, IE5
+
+			xmlhttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+
+		}
+
+		xmlhttp.onreadystatechange = function () {
+
+			if ( this.readyState == 4 && this.status == 200 ) {
+
+				document.getElementById( "msg1" ).innerHTML = this.responseText;
+
+			}
+
+		};
+
+		xmlhttp.open( "GET", "/Ajax_Scripts/sendKlasse.php?k=" +str + "&q=" + document.getElementById( "klasse2" ).value, true );
+
+		xmlhttp.send();
+
+	}
+
+	
 	function fromexistingclass() {
 
 
@@ -407,7 +442,7 @@
 			margin: auto;
 			padding: 20px;
 			border: 1px solid #888;
-			width: 1400px;
+			width: 1700px;
 		}
 		
 		.modal-content2 {
@@ -416,6 +451,13 @@
 			padding: 20px;
 			border: 1px solid #888;
 			width: 2400px;
+		}
+		.modal-content3 {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 1500px;
 		}
 		
 		/* The Close Button */
@@ -472,6 +514,44 @@
 				echo '<br>Neue Klasse (Klassenname darf kein Leerzeichen enthalten):<br><input name="klasse" id="klasse" required="required"  /><br><br>';
 				echo 'Anzahl der hinzuzufügenden Schüler:<br>';
 				echo '<input name="AnzahlSch" id="AnzahlSch" value="" required="required">';
+				echo '<br><br>Klassenlehrer:<br>';
+				echo '   <select name="lehrpers"  id="lehrpers"    >';
+
+
+
+        
+
+        $isEntry= "Select * From sv_Lehrpersonen Order By Nachname ASC";
+
+        $result = mysqli_query($con, $isEntry);
+
+
+        while( $line2= mysqli_fetch_array($result))
+
+        {
+
+            $ID = $line2['ID'];
+
+            $Name = $line2['Nachname'];
+
+            $Vorname = $line2['Vorname'];
+
+
+
+
+
+            echo "<option>".$Name.' ID:'.$ID."</option>";
+
+        }
+
+       
+
+
+
+
+
+      echo '  </select>';
+				
 				echo '<br><br><input type="button" name="add" id="add" value="Schüler hinzufügen" onclick="insert(' . $z . ')"><br><br>';
 				echo '_______________________________________________________________________________________________________________________________________________________________________________________<br><br>';
 				echo '<div id="schuelerdiv"></div>';
@@ -590,7 +670,7 @@
 	<div id="myModal3" class="modal1">
 
 		<!-- Modal content -->
-		<div class="modal-content1">
+		<div class="modal-content3">
 
 
 			<h2><strong>Schüler bearbeiten</strong></h2>
@@ -666,6 +746,7 @@
 
 			echo '_______________________________________________________________________________________________________________________________________________________________________________________<br><br>';
 			echo '<div id="schuelerdiv3"></div>';
+			echo '<div id="msg1"></div>';
 
 
 			?>

@@ -674,7 +674,7 @@ if ( table2 ) {
 </script>
 	
 	
-Semester:<br>
+Semester/Schuljahr:<br>
 <select id="Semester" name="Semester" onchange="getKlasse()">
     <?php
 

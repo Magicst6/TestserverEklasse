@@ -92,7 +92,7 @@ for($x = 0; $x < $AnzahlSch; $x++)
 
 
 
-        echo "<option>".'--Select--'. "</option>";
+        echo "<option>".'--'. "</option>";
 
 
 

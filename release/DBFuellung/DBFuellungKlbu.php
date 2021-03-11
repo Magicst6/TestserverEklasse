@@ -17,7 +17,7 @@ if ($_POST['Senden']) {
 
 
     $TookPlace = $_POST['tookplace'];
-    if ($Kursname == "-Select-") {
+    if ($Kursname == "") {
         echo '<meta http-equiv="refresh" content="0; url=/klassenbuch-der-lehrpersonen" />';
     } else {
         if ($TookPlace == '') {
@@ -31,9 +31,9 @@ if ($_POST['Senden']) {
         while ($value3 = mysqli_fetch_array($result2)) {
             $Stattgefunden = $value3['Stattgefunden'];
         }
-        if ($Stattgefunden <> '') {
+        if ($Stattgefunden <> '' ) {
             $sql_befehl2 = "UPDATE sv_Kurshistorie SET Stattgefunden='$TookPlace', Lehrer='$Lehrer', Kommentar='$Comment' , Lektionen='$Lektionen' Where KursID='$Kursname' and Datum='$Datum'  ";
-        } else {
+        } else if ($Kursname<>'') {
             $sql_befehl2 = "INSERT INTO sv_Kurshistorie (Datum,Stattgefunden ,KursID ,Lehrer, Kommentar,Lektionen) VALUES ('$Datum','$TookPlace','$Kursname','$Lehrer', '$Comment','$Lektionen')";
         }
 
@@ -104,6 +104,9 @@ if ($_POST['Senden']) {
 		}
     }
 }
+
+
+
 header('Location:'.$_SERVER['HTTP_REFERER']);
 ?>
 

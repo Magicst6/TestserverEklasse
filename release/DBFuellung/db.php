@@ -1,5 +1,5 @@
-<?php include "../wp-config.php";?>
-<?php include "../Eklasse_DB.php";?>
+<?php include $_SERVER['DOCUMENT_ROOT']."/wp-config.php";?>
+
 
 <?php
 $con = @mysqli_connect(DB_HOST, DB_USER_EKL, DB_PASSWORD_EKL);

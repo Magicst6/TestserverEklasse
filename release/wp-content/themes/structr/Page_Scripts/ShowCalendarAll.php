@@ -526,7 +526,7 @@
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
+                   
 
                     alert('Event Update');
 
@@ -586,7 +586,7 @@
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
+                   
 
                     alert("Event Updated");
 

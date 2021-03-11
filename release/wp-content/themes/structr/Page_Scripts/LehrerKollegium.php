@@ -403,7 +403,7 @@ tr.shown td.details-control:before {
 
     function checkKurs(str){
 
-        if (str == "-Select-") {
+        if (str == "") {
 
           alert('Bitte einen Kurs auswählen')
 

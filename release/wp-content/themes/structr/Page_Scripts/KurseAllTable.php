@@ -72,7 +72,8 @@
             data: {
                   
 				
-				
+				 'klasse': document . getElementById( "klasse" ) . value
+			
 			
 			}
         },
@@ -82,10 +83,7 @@
         table: ".datatables",
         fields: [ 
                
-			 {
-                label: "ID:",
-                name: "ID"
-            },
+			
 			 {
                 label: "Klasse:",
                 name: "Klasse"
@@ -192,7 +190,8 @@
             type: 'POST',
             data: {
                   
-				
+				 'klasse': document . getElementById( "klasse" ) . value
+			
 				
 			
 			}
@@ -206,7 +205,7 @@
                 orderable: false
             },
 			
-			{ data: "ID"},
+			
 			{ data: "Klasse"},
 			{ data: "Kursname"},
 			{ data: "Datum"},
@@ -254,30 +253,7 @@
 
 
 
-		
-function tableshow(){
-	
 
-        if ( table2 ) {
-            table2.destroy();
-        }
-	 if ( editor ) {
-           editor.destroy();
-        }
-
-
-
-
-
-        loadtable();
-
-
-
-
-   
-//	table1.ajax.url( new_url1 ).load();
-}		
-		
 		
 	</script>
 	
@@ -390,7 +366,7 @@ tr.shown td.details-control:before {
 
     function checkKurs(str){
 
-        if (str == "-Select-") {
+        if (str == "") {
 
           alert('Bitte einen Kurs auswählen')
 
@@ -439,7 +415,117 @@ $heute=date("Y-m-d");
 ?>
 
 
+Wählen Sie die Klasse:<br>
 
+    <select name="klasse" id="klasse" onchange="tableshow()"  required="required">
+
+
+
+<?php
+
+
+
+        
+  global $current_user;
+
+    get_currentuserinfo();
+
+
+        include 'db.php';
+
+
+
+ $isEntry2= "Select ID From sv_Lehrpersonen where User_ID='$current_user->ID'";
+
+        $result2 = mysqli_query($con,$isEntry2);
+
+		 while( $line3= mysqli_fetch_assoc($result2))
+
+          {
+			 $ID=$line3['ID'];
+		 }
+
+
+
+        $isEntry= "Select Klasse From sv_Lernende ";
+
+        $result1 = mysqli_query($con,$isEntry);
+
+        $resultarr1 = array();
+         
+        echo "<option></option>";
+		
+		
+		
+        while( $line2= mysqli_fetch_assoc($result1))
+
+        {
+
+            $resultarr1[] = $line2['Klasse'];
+			
+			
+
+        }
+
+        $uniquearr1 = array_unique($resultarr1);
+
+        asort($uniquearr1);
+
+
+
+
+
+        foreach ($uniquearr1 as $value)
+
+        {
+
+            if ($value == $_GET['klasse']){}
+
+            else
+
+            {
+               if ($value){
+                echo "<option>" . $value . "</option>";
+			   }
+            }
+
+        }
+
+
+
+        ?>
+
+
+
+
+
+</select>
+
+<script> 	
+function tableshow(){
+	
+
+        if ( table2 ) {
+            table2.destroy();
+        }
+	 if ( editor ) {
+           editor.destroy();
+        }
+
+
+
+
+
+        loadtable();
+
+
+
+
+   
+//	table1.ajax.url( new_url1 ).load();
+}		
+	</script>		
+<br><br>
 
 <div class="container">
   <div class="row">
@@ -451,7 +537,6 @@ $heute=date("Y-m-d");
         <thead>
           <tr>
             <th></th>
-			<th>ID</th>
             <th>Klasse</th>
             <th>Kursname</th>
 			<th>Datum</th>

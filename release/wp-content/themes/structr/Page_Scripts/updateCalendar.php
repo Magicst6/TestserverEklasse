@@ -68,13 +68,15 @@ if(isset($_GET["f"]))
 
 
 if ($lp_id) {
-	
+	$Klasse1 = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $klasse));
+	$klasseTab="sv_KurseAll".$Klasse1;
+					
 	if ($kursidinp==""){
 
-    $query = "UPDATE sv_KurseAll  SET Datum='$datum', Kursname= '$kursname', Start='$start', Ende='$end' ,KursID= '$kursid', Klasse='$klasse', Zimmer='$zimmer',Lehrperson= '$lehrperson', LP_ID='$lp_id', Farbe='$farbe' WHERE id='$id'";
+    $query = "UPDATE $klasseTab  SET Datum='$datum', Kursname= '$kursname', Start='$start', Ende='$end' ,KursID= '$kursid', Klasse='$klasse', Zimmer='$zimmer',Lehrperson= '$lehrperson', LP_ID='$lp_id', Farbe='$farbe' WHERE id='$id'";
 	}
 	else{
-		$query = "UPDATE sv_KurseAll  SET Datum='$datum', Kursname= '$kursname', Start='$start', Ende='$end' ,KursID= '$kursidinp', Klasse='$klasse', Zimmer='$zimmer',Lehrperson= '$lehrperson', LP_ID='$lp_id', Farbe='$farbe' WHERE id='$id'";
+		$query = "UPDATE $klasseTab  SET Datum='$datum', Kursname= '$kursname', Start='$start', Ende='$end' ,KursID= '$kursidinp', Klasse='$klasse', Zimmer='$zimmer',Lehrperson= '$lehrperson', LP_ID='$lp_id', Farbe='$farbe' WHERE id='$id'";
 	}
 
     mysqli_query($con, $query);

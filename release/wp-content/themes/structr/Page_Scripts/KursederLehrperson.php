@@ -1,3 +1,13 @@
+<head>
+
+
+
+
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	 <script type = "text/javascript">
+         google.charts.load('current', {packages: ['table']});     
+      </script>
+</head>
 
 
 <em>Hier werden die Kurse den Lehrpersonen zugeordnet  </em>
@@ -51,7 +61,7 @@ function getKurseDerLehrperson(){
 
         };
 
-        xmlhttp.open("GET","/Ajax_Scripts/getKursnameDerLehrperson.php?q="+ document.getElementById('lehrer').value+"&k=" + document.getElementById('kurse').value,true);
+        xmlhttp.open("GET","/Ajax_Scripts/getKursnameLehrperson1.php?q="+ document.getElementById('lehrer').value+"&k=" + document.getElementById('kurse').value,true);
 
         xmlhttp.send();
 
@@ -175,3 +185,49 @@ Anzahl der angezeigten Kurszuordnungen:
 
 
 </form>
+
+
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+	  
+	  ['Nachname', 'Kurszahl'],
+
+  <?  
+      
+  $isEntry= "SELECT COUNT(KursID) as Kurszahl,sv_Lehrpersonen.Nachname as Nachname  From sv_KurseLehrer INNER JOIN sv_Lehrpersonen ON sv_KurseLehrer.LP_ID = sv_Lehrpersonen.ID Group by LP_ID ";
+$result2=	mysqli_query( $con, $isEntry );	
+while( $line3= mysqli_fetch_array($result2))
+
+    {
+	
+  
+	
+			
+  
+	 echo "['$line3[Nachname]',".$line3[Kurszahl]." ],";
+}
+  ?>
+]);
+		
+  // Optional; add a title and set the width and height of the chart
+  var options = { title : 'Kurszahl der Lehrer',
+          vAxis: {title: 'Kurszahl'},
+          hAxis: {title: 'Lehrer'},
+          seriesType: 'bars',
+          series: {5: {type: 'line'}},
+	      width:"95%",
+	      height: '300'};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.ColumnChart(document.getElementById('KursChart'));
+  chart.draw(data, options);
+}
+</script>	
+<br>
+<div id="KursChart"></div>

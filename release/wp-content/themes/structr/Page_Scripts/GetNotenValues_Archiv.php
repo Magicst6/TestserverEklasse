@@ -41,7 +41,7 @@ $Lehrer=$output_array[1];
   $isEntry = "Select * From $Tab where KursID='$Kursname' order by Nachname asc ";
     $result = mysqli_query($con, $isEntry);
     $events = array();
-if ($Kursname<>"-Select-"){
+if ($Kursname<>""){
 	
 	$Notenschnitt=null;
 		$Notegesamt=0;	

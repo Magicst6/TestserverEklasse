@@ -19,7 +19,20 @@ preg_match("/:(.*)/", $Lehrer, $output_array);
 $Lehrer=$output_array[1];
 
 if ($userID=="1000000" and $KlasseInput == "" and $Lehrer == "") {
-    $isEntry = "Select * From sv_KurseAll";
+    
+	      
+$isEntry2 = "SELECT  Klasse From sv_Kurse Group by Klasse";
+                $result2 = mysqli_query($con, $isEntry2);
+
+                while ($value1 = mysqli_fetch_array($result2)) {
+					
+					$Klasse=$value1['Klasse'];
+					$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+					
+$klasseTab="sv_KurseAll".$Klasse;
+					
+	
+	$isEntry = "Select * From $klasseTab";
     $result = mysqli_query($con, $isEntry);
     $events = array();
 
@@ -40,6 +53,7 @@ if ($userID=="1000000" and $KlasseInput == "" and $Lehrer == "") {
 
 
     }
+				}
     echo json_encode($data);
 }
 else {
@@ -53,7 +67,20 @@ else {
 
         }
         if ($LP_ID) {
-            $isEntry = "Select * From sv_KurseAll Where LP_ID = $LP_ID ";
+			
+			      
+$isEntry2 = "SELECT  Klasse From sv_Kurse Group by Klasse";
+                $result2 = mysqli_query($con, $isEntry2);
+
+                while ($value1 = mysqli_fetch_array($result2)) {
+					
+					$Klasse=$value1['Klasse'];
+					$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+					
+$klasseTab="sv_KurseAll".$Klasse;
+					
+			
+            $isEntry = "Select * From $klasseTab Where LP_ID = $LP_ID ";
             $result = mysqli_query($con, $isEntry);
 
 
@@ -72,6 +99,7 @@ else {
 
 
             }
+				}
             echo json_encode($data);
         } // Output json for our calendar
 
@@ -91,9 +119,19 @@ else {
 			       $KID=$line6['KursID'];
 			
 			
-			
+			      
+$isEntry2 = "SELECT  Klasse From sv_Kurse Group by Klasse";
+                $result2 = mysqli_query($con, $isEntry2);
+
+                while ($value1 = mysqli_fetch_array($result2)) {
+					
+					$Klasse=$value1['Klasse'];
+					$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+					
+$klasseTab="sv_KurseAll".$Klasse;
+					
                
-                        $isEntry = "Select * From sv_KurseAll Where KursID='$KID' ";
+                        $isEntry = "Select * From $klasseTab Where KursID='$KID' ";
                         $result = mysqli_query($con, $isEntry);
 
 
@@ -114,7 +152,7 @@ else {
                         }
 
                     }
-
+			}
                 
                 echo json_encode($data);
             }
@@ -122,8 +160,20 @@ else {
         
     }
     if ($Lehrer <> "" and $KlasseInput == "") {
+		
+		      
+$isEntry2 = "SELECT  Klasse From sv_Kurse Group by Klasse";
+                $result2 = mysqli_query($con, $isEntry2);
 
-        $isEntry = "Select * From sv_KurseAll Where LP_ID = $Lehrer ";
+                while ($value1 = mysqli_fetch_array($result2)) {
+					
+					$Klasse=$value1['Klasse'];
+					$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+					
+$klasseTab="sv_KurseAll".$Klasse;
+					
+
+        $isEntry = "Select * From $klasseTab Where LP_ID = $Lehrer ";
         $result = mysqli_query($con, $isEntry);
 
 
@@ -142,11 +192,18 @@ else {
 
 
         }
+				}
         echo json_encode($data);
         // Output json for our calendar
     }
     if ($KlasseInput <> "" and $Lehrer == "") {
-        $isEntry = "Select * From sv_KurseAll Where Klasse='$KlasseInput'";
+		      
+
+					$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $KlasseInput));
+					
+$klasseTab="sv_KurseAll".$Klasse;
+					
+        $isEntry = "Select * From $klasseTab Where Klasse='$KlasseInput'";
         $result = mysqli_query($con, $isEntry);
         $events = array();
 
@@ -170,7 +227,11 @@ else {
 
     }
     if ($KlasseInput <> "" and $Lehrer <> "") {
-        $isEntry = "Select * From sv_KurseAll Where Klasse='$KlasseInput' AND LP_ID='$Lehrer'";
+		
+			$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $KlasseInput));
+					
+$klasseTab="sv_KurseAll".$Klasse;
+        $isEntry = "Select * From $klasseTab Where Klasse='$KlasseInput' AND LP_ID='$Lehrer'";
         $result = mysqli_query($con, $isEntry);
         $events = array();
 

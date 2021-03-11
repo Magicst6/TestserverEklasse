@@ -40,7 +40,7 @@ while( $line2= mysqli_fetch_assoc($result))
 $uniquearr = array_unique($resultarr);
 
 
-echo "<option>" .'-Select-'. "</option>";
+echo "<option>" .''. "</option>";
 
 
 

@@ -28,7 +28,19 @@ $Lehrer=$output_array[1];
 
         }
       
-            $isEntry = "Select * From sv_KurseAll Where LP_ID = $LP_ID order by Datum ";
+$isEntry2 = "SELECT  Klasse From sv_Kurse Group by Klasse";
+                $result2 = mysqli_query($con, $isEntry2);
+
+                while ($value1 = mysqli_fetch_array($result2)) {
+					
+					$Klasse=$value1['Klasse'];
+					$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+					
+$klasseTab="sv_KurseAll".$Klasse;
+					
+					
+
+            $isEntry = "Select * From $klasseTab Where LP_ID = $LP_ID order by Datum ";
             $result = mysqli_query($con, $isEntry);
                 $i=0;
 
@@ -45,7 +57,8 @@ $Lehrer=$output_array[1];
 				
 			}
 				
-				$isEntry5 = "Select * From sv_KurseAll Where KursID='$KursID1' and Datum='$Datum1' order by Start ";
+				
+				$isEntry5 = "Select * From $klasseTab Where KursID='$KursID1' and Datum='$Datum1' order by Start ";
             $result5 = mysqli_query($con, $isEntry5);
                $z=0;
 
@@ -99,8 +112,8 @@ $Lehrer=$output_array[1];
 				
 				$Datum[] = $line2['Datum'];
 				$KursID[]= $line2['KursID'];
-            }
-            echo json_encode($data);
+            }}
+           echo json_encode($data);
         
 
        

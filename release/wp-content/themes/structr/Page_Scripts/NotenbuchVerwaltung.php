@@ -651,7 +651,7 @@ function loadtables(){
 
 	function checkKurs( str ) {
 
-		if ( str == "-Select-" ) {
+		if ( str == "" ) {
 
 			alert( 'Bitte einen Kurs auswählen' )
 
@@ -757,7 +757,7 @@ Lehrperson:
 
 
 
-        echo "<option>".'--Select--'. "</option>";
+        echo "<option>".'--'. "</option>";
 
         echo "<option>".'Alle'. "</option>";
 

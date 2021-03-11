@@ -91,6 +91,7 @@ if ($_POST['Senden']) {
       }
     
 
+
 header('Location:'.$_SERVER['HTTP_REFERER']);
 ?>
 <!--<meta http-equiv="refresh" content="0; url=/klassenbuch-der-lehrpersonen"/>

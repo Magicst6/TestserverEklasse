@@ -527,7 +527,7 @@ include 'db.php';
             else{}
 
         }
-		 echo "<option>-Select-</option>";
+		 echo "<option></option>";
         echo "<option>Alle</option>";
         foreach ($uniquearr as $value)
         {

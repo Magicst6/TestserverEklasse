@@ -34,6 +34,10 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	 <script type = "text/javascript">
+         google.charts.load('current', {packages: ['table']});     
+      </script>
 </head>
 <!--
 <div class="demo-html width=50%"></div>
@@ -59,7 +63,7 @@
 include 'db.php';
 $Kursnme=base64_decode($_GET['q']);
 
-
+/*
 $select='Select Nachname, Note1, Note2,Note3, Note4, Note5, Note6, Note7, Note8, Note9 From sv_LernenderKurs Where KursID="';
  $sel1=$Kursnme;
 		
@@ -76,11 +80,9 @@ $select='Select Nachname, Abwesenheiten From sv_LernenderKurs Where KursID="';
 $sel2= '" ';
  $isEntryUpd2 = "UPDATE sv_postmeta SET meta_value  = '$select$sel1$sel2' where post_id='18110' and meta_key='visualizer-db-query' ";
 	mysqli_query( $con1, $isEntryUpd2 );	
-
+*/
 ?>
 <script>
-	
-
 
 	
 	
@@ -94,6 +96,110 @@ $sel2= '" ';
 	var table2;
 	var table3;
 	$(document).ready(function() {
+		var kn = "<? echo $Kursnme; ?>";
+		
+			  $.ajax({
+        url:"/wp-content/themes/structr/Page_Scripts/getDataNotenKurs.php",
+        method:"POST",
+        data:{q:kn},
+        dataType:"JSON",
+        success:function(data)
+        {
+           drawChart3(data);
+        }
+    });
+		
+
+  $.ajax({
+        url:"/wp-content/themes/structr/Page_Scripts/getDataAbwKurs.php",
+        method:"POST",
+        data:{q:kn},
+        dataType:"JSON",
+        success:function(data)
+        {
+           drawChart4(data);
+        }
+    });
+		
+			
+		// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart3);
+			
+			function drawChart3(chart_data) {
+		 var jsonData = chart_data;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Nachname');
+    data.addColumn('number', 'Note1');
+				data.addColumn('number', 'Note2');
+				data.addColumn('number', 'Note3');
+				data.addColumn('number', 'Note4');
+				data.addColumn('number', 'Note5');
+				data.addColumn('number', 'Note6');
+				data.addColumn('number', 'Note7');
+				data.addColumn('number', 'Note8');
+				data.addColumn('number', 'Note9');
+			
+    $.each(jsonData, function(i, jsonData){
+        var Nachname = jsonData.Nachname;
+        var Note1 = jsonData.Note1;
+		var Note2 = jsonData.Note2;
+		var Note3 = jsonData.Note3;
+		var Note4 = jsonData.Note4;
+		var Note5 = jsonData.Note5;
+		var Note6 = jsonData.Note6;
+		var Note7 = jsonData.Note7;
+		var Note8 = jsonData.Note8;
+		var Note9 = jsonData.Note9;
+        data.addRows([[Nachname,Note1,Note2,Note3,Note4,Note5,Note6,Note7,Note8,Note9]]);
+    });
+  var options = {
+          title : 'Noten der Schüler',
+          vAxis: {title: 'Note'},
+          hAxis: {title: 'Nachname'},
+          seriesType: 'bars',
+          series: {5: {type: 'line'}},
+	      width:"95%",
+	      height: '300'
+        };
+
+        var chart3 = new google.visualization.ComboChart(document.getElementById('notenchart'));
+        chart3.draw(data, options);
+      }
+
+		
+		
+		// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart4);
+			
+			function drawChart4(chart_data) {
+		 var jsonData = chart_data;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Nachname');
+    data.addColumn('number', 'Abwesenheiten');
+				
+			
+    $.each(jsonData, function(i, jsonData){
+        var Nachname = jsonData.Nachname;
+        var Abwesenheit = jsonData.Abwesenheit;
+		
+        data.addRows([[Nachname,Abwesenheit]]);
+    });
+  var options = {
+          title : 'Abwesenheiten der Schüler',
+          vAxis: {title: 'Abwesenheiten(Lektionen)'},
+          hAxis: {title: 'Nachname'},
+          seriesType: 'bars',
+          series: {5: {type: 'line'}},
+	      width:"95%",
+	      height: '300'
+        };
+
+        var chart4 = new google.visualization.ColumnChart(document.getElementById('abwchart'));
+        chart4.draw(data, options);
+      }
+		
  var urlParams = new URLSearchParams(window.location.search);
 		
 tableshow();    
@@ -1151,7 +1257,7 @@ function tableshowne() {
 
 	function checkKurs( str ) {
 
-		if ( str == "-Select-" ) {
+		if ( str == "" ) {
 
 			alert( 'Bitte einen Kurs auswählen' )
 
@@ -1281,34 +1387,32 @@ Kursname:
 
 
 
-    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = $Lehrer";
+        
+    $isEntry= "Select KursID From sv_KurseLehrer Where LP_ID = '$Lehrer'";
 
     $result = mysqli_query($con,$isEntry);
 
 
 
- echo "<option>" . $sel1 . "</option>";
 
- 
+
+    echo "<option>" . $Kursnme . "</option>";
+
 
 
     while( $line2= mysqli_fetch_array($result))
 
     {
 
-        for($x = 1; $x <= 30; $x++)
+        
 
-        {
-
-
-
-            $value = $line2['Kurs'.$x];
+            $value = $line2['KursID'];
 
             if ($value<>"") echo "<option>" . $value . "</option>";
 
 
 
-        }
+        
 
     }
 
@@ -1857,9 +1961,9 @@ var Kursnme = document.getElementById( "Kursname" ).value;
 	
 var encrypted = btoa(Kursnme);
 	
-	test();
-	test1();
-	tableshow();
+//	test();
+	//test1();
+	//tableshow();
 //U2FsdGVkX18ZUVvShFSES21qHsQEqZXMxQ9zgHy+bu0=
 
 window.location.href= "/notenbuch-lehrer?q=" + encrypted;
@@ -2159,8 +2263,8 @@ window.location.href= "/notenbuch-lehrer?q=" + encrypted;
 		 table.destroy();
 			 }
 
-		 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + "-Select-" + "&s=" + document.getElementById( "semDB" ).value;
-		var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + "-Select-" + "&s=" + document.getElementById( "semDB" ).value;
+		 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + "" + "&s=" + document.getElementById( "semDB" ).value;
+		var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + "" + "&s=" + document.getElementById( "semDB" ).value;
          $.fn.dataTable.ext.errMode = 'throw';
     table = $( '.datatables' ).DataTable( {
 
@@ -2510,8 +2614,12 @@ if ((document.getElementById("Notecr").value != "") && (document.getElementById(
   
 
 </script>
-
-
+<br><br>
+<div class="left">
+<div id="abwchart"></div>
+<br><br>
+<div id="notenchart"></div>
+</div>
 <style>
 		.left {
   float: auto;

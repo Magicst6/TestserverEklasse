@@ -172,7 +172,7 @@ while ( $line0 = mysqli_fetch_array( $result0 ) ) {
 
     $result = mysqli_query($con, $isEntry);
     $events = array();
-if ($Kursname<>"-Select-"){
+if ($Kursname<>""){
 	
 	$Notenschnitt=null;
 		$Notegesamt=0;	
@@ -368,7 +368,7 @@ $c=0;
         $uniquearr = array_unique($resultarr);
 
        
-		 echo "<option>-Select-</option>";
+		 echo "<option></option>";
         echo "<option>Alle</option>";
         foreach ($uniquearr as $value)
         {
@@ -391,7 +391,7 @@ $c=0;
 	$schueler=$_GET['q'];				
               
 					
-					echo '<br><select name="schueler" id="schueler" onchange="reloadpage1()" value="-Select-">';
+					echo '<br><select name="schueler" id="schueler" onchange="reloadpage1()" value="">';
 
                       
 

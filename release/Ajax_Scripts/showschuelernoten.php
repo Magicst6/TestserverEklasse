@@ -112,7 +112,7 @@ input[type=text], select {
 
        
 
-            <input type="text" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" readonly>
+           <input type="hidden" name="kursname" id="kursname" value="" class="text ui-widget-content ui-corner-all" readonly>
 
     
 
@@ -269,7 +269,7 @@ input.err:focus{
 	echo ' Kommentar zur Prüfung:';
     echo ' <textarea name="Comment"> '.$Comment.'</textarea>';
 
-if ($Kursnme<>'' && $Kursnme<>"-Select-") {
+if ($Kursnme<>'' && $Kursnme<>"") {
     
     echo '<br>';
 

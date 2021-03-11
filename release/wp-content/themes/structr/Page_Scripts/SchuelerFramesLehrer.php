@@ -118,7 +118,7 @@ while ( $line0 = mysqli_fetch_array( $result0 ) ) {
 
     $result = mysqli_query($con, $isEntry);
     $events = array();
-if ($Kursname<>"-Select-"){
+if ($Kursname<>""){
 	
 	$Notenschnitt=null;
 		$Notegesamt=0;	
@@ -470,8 +470,8 @@ $schueler=$_GET['q'];
 
 $result0 = mysqli_query( $con, $isEntry0 );
 
- echo '<select class="link"  id="schueler" name="schueler" readonly="readonly"  onchange="getSchueler(this.value)" value="-Select-">' ;
-	echo '<option>-Select-</option>' ;
+ echo '<select class="link"  id="schueler" name="schueler" readonly="readonly"  onchange="getSchueler(this.value)" value="">' ;
+	echo '<option></option>' ;
 
 while ( $line0 = mysqli_fetch_array( $result0 ) ) {
 	 

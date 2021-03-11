@@ -212,7 +212,7 @@ while( $line2= mysqli_fetch_assoc($result))
 
 if ($Kursname==null)
 {
-	 echo "<option>" . '-Select-' . "</option>";
+	 echo "<option>" . '' . "</option>";
 }
 else{
  echo "<option>" . $Kursname . "</option>";
@@ -269,7 +269,7 @@ if ($Kursname==null and $_GET['Schueler']==null )
 	 echo "<option></option>";
 }
 if($_GET['Schueler']==null and $Kursname<>null ) {
- echo "<option>" . "-Select-". "</option>";
+ echo "<option>" . "". "</option>";
 		}
    if($_GET['Schueler']<>null and $Kursname<>null  ){
         echo "<option>" . $_GET['Schueler'] . "</option>";

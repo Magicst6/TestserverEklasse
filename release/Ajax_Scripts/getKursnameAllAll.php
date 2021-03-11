@@ -2,11 +2,16 @@
 include 'db.php';
 $q = $_GET['q'];
 $semester =$_GET['s'];
+$isEntry2 = "Select Semesterkuerzel From sv_Settings";
+$result2 = mysqli_query($con, $isEntry2);
 
-if ($semester){
-$Tab=$semester."_Kurse";
+while ($value3 = mysqli_fetch_array($result2)) {
+    $SemesterkuerzelDBnew = $value3['Semesterkuerzel'];
 }
-else $Tab = "sv_Kurse";
+if ($semester==$SemesterkuerzelDBnew or $semester==''){
+$Tab="sv_Kurse";
+}
+else $Tab = $semester."_Kurse";
 $isEntry= "Select KursID From $Tab order by KursID asc ";
 $result = mysqli_query($con,$isEntry);
 $resultarr = array();
@@ -19,7 +24,7 @@ while( $line2= mysqli_fetch_assoc($result))
 $uniquearr = array_unique($resultarr);
 
 
-echo "<option>" .'-Select-'. "</option>";
+echo "<option>" .''. "</option>";
 echo "<option>" .'Alle'. "</option>";
 foreach ($uniquearr as $value)
 {

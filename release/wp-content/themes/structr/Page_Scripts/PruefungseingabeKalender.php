@@ -593,8 +593,7 @@ if (str == "") {
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
-
+                   
                     alert('Event Update');
 
 
@@ -653,7 +652,7 @@ if (str == "") {
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
+                    
 
                     alert("Event Updated");
 
@@ -1061,7 +1060,7 @@ text = text.replace(/&/g, '§§§');
 			
 		text = text.replace(/#/g, '|||||');
 			
-            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&lehrperson=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
+            xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/insertPrueftermin.php?q=" + title.val() + "&k=" + startCustdate.val() + "T" + startCusttime.val() + "&g=" + endCustdate.val() + "T" + endCusttime.val()+ "&klasse=" + document.getElementById('klasse').value + "&kursid=" + document.getElementById('kursid').value +  "&color=" + document.getElementById('farbe').value.substring(1,7) + "&zimmer=" + document.getElementById('zimmer').value+ "&l=" + document.getElementById('lehrperson').value +"&gewichtung=" + document.getElementById('gewicht').value + "&lernziele=" + text, true);
 
             xmlhttp.send();
 

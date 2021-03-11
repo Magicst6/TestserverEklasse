@@ -1,4 +1,4 @@
-<?php include "../../../../wp-config.php";?>
+<?php include $_SERVER['DOCUMENT_ROOT']."/wp-config.php";?>
 <?php include "../../../../Eklasse_DB.php";?>
 
 

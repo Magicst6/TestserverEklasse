@@ -158,7 +158,7 @@ while ( $line0 = mysqli_fetch_array( $result0 ) ) {
 
     $result = mysqli_query($con, $isEntry);
     $events = array();
-if ($Kursname<>"-Select-"){
+if ($Kursname<>""){
 	
 	$Notenschnitt=null;
 		$Notegesamt=0;	

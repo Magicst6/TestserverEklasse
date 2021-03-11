@@ -52,11 +52,11 @@ while ( $lineLM = mysqli_fetch_array( $resultLM ) ) {
 
 	
 	if ($semester==$semDB){
-    $isEntryL = "Select * From sv_Lernende where Name='$Name' and Vorname='$Vorname' and EMail='$EMail'  ";
+    $isEntryL = "Select * From sv_LernendeModule where Name='$Name' and Vorname='$Vorname' and EMail='$EMail'  ";
 
 } else{
 
-    $isEntryL = "Select * From $LArch where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
+    $isEntryL = "Select * From $LMArch where Name='$Name' and Vorname='$Vorname' and EMail='$EMail' ";
 
 }
 	

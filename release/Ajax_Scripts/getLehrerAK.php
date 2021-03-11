@@ -6,7 +6,7 @@ $semester =$_GET['s'];
 $Tab=$semester."_Lehrpersonen";
 $Tab="sv_Lehrpersonen";
 
-if ($q<>""){
+
 $isEntry= "Select Lehrperson From sv_Kurse where KursID='$q'  ";
 $result = mysqli_query($con,$isEntry);
 $resultarr = array();
@@ -52,25 +52,25 @@ $uniquearr = array_unique($resultarr);
 
 
 
-        $isEntry= "Select ID From sv_Lehrpersonen ";
+        $isEntry1= "Select ID From sv_Lehrpersonen ";
 
-        $result = mysqli_query($con, $isEntry);
+        $result1 = mysqli_query($con, $isEntry1);
 
-        $resultarr = array();
-
-
+        $resultarr1 = array();
 
 
 
-        while( $line2= mysqli_fetch_assoc($result))
+
+
+        while( $line2= mysqli_fetch_assoc($result1))
 
         {
 
-            $resultarr[] = $line2['ID'];
+            $resultarr1[] = $line2['ID'];
 
         }
 
-        $uniquearr = array_unique($resultarr);
+        $uniquearr1 = array_unique($resultarr1);
 
 
 
@@ -80,19 +80,19 @@ $uniquearr = array_unique($resultarr);
 
 
 
-        foreach ($uniquearr as $value) {
+        foreach ($uniquearr1 as $value1) {
 
-            $isEntry= "Select Nachname, Vorname From sv_Lehrpersonen WHERE ID='$value'";
+            $isEntry2= "Select Nachname, Vorname From sv_Lehrpersonen WHERE ID='$value1'";
 
-            $result = mysqli_query($con, $isEntry);
+            $result2 = mysqli_query($con, $isEntry2);
 
-            while( $line3= mysqli_fetch_array($result))
+            while( $line4= mysqli_fetch_array($result2))
 
             {
 
-                $Name = $line3['Nachname'];
+                $Name = $line4['Nachname'];
 
-                $Vorname = $line3['Vorname'];
+                $Vorname = $line4['Vorname'];
 
 
 
@@ -101,7 +101,7 @@ $uniquearr = array_unique($resultarr);
             echo "<option>". $Name .":".$value."</option>";
 
         }
-}
+
         ?>
 
         

@@ -541,6 +541,8 @@ function getcolor(str1){
                     var title = event.title;
 
                     var id = event.id;
+					
+					var klasse =event.klasse;
 
                     var color = event.color;
 
@@ -570,12 +572,11 @@ function getcolor(str1){
 
 
 
-                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
+                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id + "&c=" + klasse, true);
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
-
+                    
                     alert('Event Update');
 
 
@@ -603,6 +604,7 @@ function getcolor(str1){
                     var id = event.id;
 
 
+					var klasse =event.klasse;
 
                     if (window.XMLHttpRequest) {
 
@@ -630,11 +632,11 @@ function getcolor(str1){
 
 
 
-                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
+                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id +"&c=" + klasse, true);
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
+                  
 
                     alert("Event Updated");
 
@@ -815,6 +817,7 @@ function getcolor(str1){
 
                                      var id = event.id;
 
+									var klasse = event.klasse;
                                      if (window.XMLHttpRequest) {
 
                                          // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -841,7 +844,7 @@ function getcolor(str1){
 
 
 
-                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/deleteCalendar.php?f=" + id, true);
+                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/deleteCalendar.php?f=" + id + "&c" + klasse, true);
 
                                      xmlhttp.send();
 

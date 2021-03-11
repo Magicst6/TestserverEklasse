@@ -261,7 +261,7 @@ while( $value= mysqli_fetch_array($result))
 
 
 
-echo '<meta http-equiv="refresh" content="0; url=/kurstermine" />';
+echo '<meta http-equiv="refresh" content="0; url=/pruefungen-verwaltung-2" />';
 
 
 

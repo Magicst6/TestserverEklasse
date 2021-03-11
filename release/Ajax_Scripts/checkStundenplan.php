@@ -33,7 +33,31 @@ $lehrer=$_GET['l'];
         $LP_ID=$output_array[1];
 		
 		$Kursname=$value['Kursname'];
+		
+		
+			$ZimmerStamm=$value['Zimmer'];
+		
+		
 
+	}
+
+$isEntry1= "Select * From sv_Zimmer";
+
+    $result1 = mysqli_query($con, $isEntry1);
+
+
+
+
+$isZimmer=false;
+
+
+    while( $value1= mysqli_fetch_array($result1)) {
+		
+		
+		if ($Kuerzel==$value1['Name'])
+		{
+			$isZimmer=true;
+		}	
 	}
 
 
@@ -48,7 +72,22 @@ $lehrer=$_GET['l'];
 
 
     while( $valueCheck= mysqli_fetch_array($resultCheck)) {
-	
+	if($isZimmer){
+		if ( ($valueCheck['Zimmer']==$Kuerzel) and ($valueCheck['Uhrzeit']==$Uhr) and ($valueCheck['Tag']==$Tag) and $isZimmer )
+		{
+			echo "Zimmer ".$Kuerzel." ist zu diesem Zeitpunkt bereits belegt!";
+			
+      
+		}
+		
+	}else{
+		
+		if ( ($ZimmerStamm==$valueCheck['Zimmer']) and ($valueCheck['Uhrzeit']==$Uhr) and ($valueCheck['Tag']==$Tag)  )
+		{
+			echo "Das dem Kurs in den Stammdaten zugeordnete Zimmer ".$ZimmerStamm." ist zu diesem Zeitpunkt bereits belegt!";
+			
+      
+		}
 		
 		if ( ($valueCheck['Lehrperson']==$LP_ID) and ($valueCheck['Uhrzeit']==$Uhr) and ($valueCheck['Tag']==$Tag) )
 		{
@@ -109,6 +148,6 @@ $z=0;
 		
 		
 	}
-		
+	}
 	
 	}

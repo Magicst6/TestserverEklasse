@@ -449,7 +449,7 @@
 
 	function checkKurs( str ) {
 
-		if ( str == "-Select-" ) {
+		if ( str == "" ) {
 
 			alert( 'Bitte einen Kurs auswählen' )
 
@@ -493,7 +493,7 @@ $heute=date("Y-m-d");
 ?>
 
 
-Semester:<br>
+Semester/Schuljahr:<br>
 <select id="Semester" name="Semester" onchange="getLehrer(this.value),getKursnameAll(this.value)">
     <?php
 

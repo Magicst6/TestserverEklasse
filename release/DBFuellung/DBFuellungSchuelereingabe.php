@@ -13,8 +13,110 @@ if( $_POST['Senden'])
     if ($AnzahlSch==''){$AnzahlSch=$AnzahlSch1;}
    
 	$Klasse=  $_POST['klasse'];
-		
+	
+			$Klasse1 = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+					
+$klasseTab="sv_KurseAll".$Klasse1;
+$crtbl="	CREATE TABLE $klasseTab (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Kursname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `KursID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Datum` date DEFAULT NULL,
+  `Tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Start` datetime DEFAULT NULL,
+  `Ende` datetime DEFAULT NULL,
+  `Lektionen` int(11) DEFAULT NULL,
+  `Klasse` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Zimmer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ZI_ID` int(11) DEFAULT NULL,
+  `Lehrperson` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LP_ID` int(11) DEFAULT NULL,
+  `Farbe` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Startdatum` date DEFAULT NULL,
+  `Enddatum` date DEFAULT NULL,
+  `Stundenplan` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+mysqli_query($con, $crtbl);
+	
+	$Lehrperson=  $_POST['lehrpers'];
+	//echo $Lehrperson;
+	 preg_match("/:(.*)/", $Lehrperson, $output_array);
+	
+	$LID=$output_array[1];
+	
+	//echo $LID;
+	$isKlasse=0;		
+  $isEntry2= "Select *  From sv_Klassenlehrer where Klasse='$Klasse' ";
 
+    $result2 = mysqli_query($con, $isEntry2);
+    
+	while ($row2= mysqli_fetch_array($result2)) {
+	$isKlasse=true;
+	}
+	if (!$isKlasse){
+	
+		$query1 = "INSERT INTO sv_Klassenlehrer (Klasse,LP_ID)  VALUES ('$Klasse', '$LID')";
+            mysqli_query($con, $query1);
+	}
+      else {
+		  $q5 = "Update sv_Lehrpersonen Set LP_ID='$LID' Where Klasse='$Klasse' ";
+                mysqli_query($con, $q5);
+	  }
+		
+			
+	$isEntry4= "Select *  From sv_Lehrpersonen ";
+
+    $result4 = mysqli_query($con, $isEntry4);
+    
+	while ($row4= mysqli_fetch_array($result4)) {
+	$userid1= $row4['User_ID'];
+		$user = get_user_by('id', $userid1);
+			$roles = ( array ) $user->roles;
+		foreach($roles as $role)
+		{
+			if ($role=='klassenleiter'){
+				 $user->remove_role('klassenleiter');
+			}
+		}
+		
+	}
+	
+		
+$isEntry5= "Select *  From sv_Klassenlehrer  ";
+
+    $result5 = mysqli_query($con, $isEntry5);
+    
+	while ($row5= mysqli_fetch_array($result5)) {
+	$Lid1= $row5['LP_ID'];
+	
+
+
+
+
+$isEntry3= "Select *  From sv_Lehrpersonen where ID='$Lid1' ";
+
+    $result3 = mysqli_query($con, $isEntry3);
+    
+	while ($row3= mysqli_fetch_array($result3)) {
+	$userid= $row3['User_ID'];
+	
+
+		
+	$user = get_user_by('id', $userid);
+
+$user->add_role('klassenleiter');	
+		
+	}
+	
+	}	
+		
+		
+	
+	
+ 
+//echo 'Klassenleiter wurde gewechselt auf '.$Lehrperson;
+	
 	
     for($x = 0; $x < $AnzahlSch; $x++)
     {
@@ -64,7 +166,7 @@ if ($Vorname=="" and $Nachname=="" and $EMail=="" and $Loginname=="" and $Profil
         else {
             mysqli_query($con,$sql_befehl);
 //echo "Eintrag hinzugefügt.";
-           header('Location:'.$_SERVER['HTTP_REFERER']);
+          header('Location:'.$_SERVER['HTTP_REFERER']);
 
 
 

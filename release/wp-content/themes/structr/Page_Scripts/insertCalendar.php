@@ -65,13 +65,17 @@ if(isset($_GET["q"]))
     }
 
     if ($lp_id) {
+		$Klasse1 = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $klasse));
+			$klasseTab="sv_KurseAll".$Klasse1;
 		if ($kursidinp==""){
 
-        $query = "INSERT INTO sv_KurseAll (Kursname, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe)  VALUES ('$kursname', '$start', '$end','$kursid','$klasse','$zimmer','$lehrperson','$lp_id','$farbe')";
+			
+			
+        $query = "INSERT INTO $klasseTab (Kursname, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe)  VALUES ('$kursname', '$start', '$end','$kursid','$klasse','$zimmer','$lehrperson','$lp_id','$farbe')";
 			
 		}
 		else{
-			  $query = "INSERT INTO sv_KurseAll (Kursname, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe)  VALUES ('$kursname', '$start', '$end','$kursidinp','$klasse','$zimmer','$lehrperson','$lp_id','$farbe')";
+			  $query = "INSERT INTO $klasseTab (Kursname, Start, Ende, KursID, Klasse, Zimmer, Lehrperson, LP_ID, Farbe)  VALUES ('$kursname', '$start', '$end','$kursidinp','$klasse','$zimmer','$lehrperson','$lp_id','$farbe')";
 		}
 
         mysqli_query($con, $query);

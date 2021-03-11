@@ -51,6 +51,14 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
         <!--
 
         function zuordnen(lehrperson,login){
+		
+			mess1='Möchten Sie den Lehrer('+ lehrperson +') wirklich dem User(' + login + ')zuordnen(Der User bekommt Userrechte einer Lehrperson)?';
+math=99;
+x = confirm(mess1); 
+if (x == true)
+{
+
+
 
            <?php
 
@@ -100,12 +108,19 @@ echo 'User Rolle2: ' . $current_user->roles[1] . "\n";
 
                 xmlhttp.send();
 
-                alert(lehrperson);
+               // alert(lehrperson);
+				
+				alert('Zuordung ist erfolgt!')
 
             }
 
         }
 
+else
+{
+alert("Der Lehrer wurde nicht zugeordnet."); } 
+		}
+		
         //-->
 
     </script>

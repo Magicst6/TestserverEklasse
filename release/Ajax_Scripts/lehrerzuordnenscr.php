@@ -45,6 +45,12 @@ while( $line2= mysqli_fetch_assoc($result)) {
 
     }
 
+$user = get_user_by('id', $LoginnameID);
+
+$user->add_role('lehrpersonhs');
+
+
+
 /*
  $isEntry1 = "SELECT * From sv_Lehrpersonen  Order by Name";
 

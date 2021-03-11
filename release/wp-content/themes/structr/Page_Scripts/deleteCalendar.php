@@ -14,10 +14,13 @@ if(isset($_GET["f"]))
 
     include 'db.php';
     $id = $_GET['f'];
+	$Klasse = $_GET['c'];
+$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+$klasseTab="sv_KurseAll".$Klasse;
 
 
 
- $query = "DELETE from sv_KurseAll WHERE ID='$id'";
+ $query = "DELETE from $klasseTab WHERE ID='$id'";
 
     mysqli_query($con,$query);
 }

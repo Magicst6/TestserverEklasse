@@ -514,7 +514,7 @@ tr.shown td.details-control:before {
 
     function checkKurs(str){
 
-        if (str == "-Select-") {
+        if (str == "") {
 
           alert('Bitte einen Kurs auswählen')
 
@@ -746,7 +746,7 @@ check();
 
     function checkKurs(str){
 
-        if (str == "-Select-") {
+        if (str == "") {
 
           alert('Bitte einen Kurs auswählen')
 
@@ -926,7 +926,7 @@ echo '<select id="Kursnm" name="Kursnm" required="required"  onchange="test10(th
 
 
 
-    $isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = $Lehrer";
+    $isEntry= "Select KursID From sv_KurseLehrer Where LP_ID = '$Lehrer'";
 
     $result = mysqli_query($con,$isEntry);
 
@@ -934,7 +934,7 @@ echo '<select id="Kursnm" name="Kursnm" required="required"  onchange="test10(th
 
 
 
-    echo "<option>" . '-Select-' . "</option>";
+    echo "<option>" . '' . "</option>";
 
 
 
@@ -942,19 +942,15 @@ echo '<select id="Kursnm" name="Kursnm" required="required"  onchange="test10(th
 
     {
 
-        for($x = 1; $x <= 30; $x++)
+        
 
-        {
-
-
-
-            $value = $line2['Kurs'.$x];
+            $value = $line2['KursID'];
 
             if ($value<>"") echo "<option>" . $value . "</option>";
 
 
 
-        }
+        
 
     }
 
@@ -3817,11 +3813,11 @@ function pruefungerfassen() {
 						
 	<?
 	
-	$isEntrylp = "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = '$IDLP'";
+	/*$isEntrylp = "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = '$IDLP'";
 	$resultlp = mysqli_query( $con, $isEntrylp );
 
 
-	echo "<option>" . '-Select-' . "</option>";
+	echo "<option>" . '' . "</option>";
 
 	while ( $linelp = mysqli_fetch_array( $resultlp ) ) {
 		for ( $x = 1; $x <= 30; $x++ ) {
@@ -3830,7 +3826,34 @@ function pruefungerfassen() {
 			if ( $valuelp <> "" )echo "<option>" . $valuelp . "</option>";
 
 		}
-	}
+	}*/
+						 $isEntry= "Select KursID From sv_KurseLehrer Where LP_ID = '$IDLP'";
+
+    $result = mysqli_query($con,$isEntry);
+
+
+
+
+
+    echo "<option>" . '' . "</option>";
+
+
+
+    while( $line2= mysqli_fetch_array($result))
+
+    {
+
+        
+
+            $value = $line2['KursID'];
+
+            if ($value<>"") echo "<option>" . $value . "</option>";
+
+
+
+        
+
+    }
 
 
 	?>
@@ -3926,27 +3949,10 @@ function pruefungerfassen() {
 								include 'db.php';
 								$Kursnme=base64_decode($_GET['q']);
 
-
-								$select='Select Nachname, Note1, Note2,Note3, Note4, Note5, Note6, Note7, Note8, Note9 From sv_LernenderKurs Where KursID="';
-								 $sel1=$Kursnme;
-
-								$sel2= '" ';
-								 $isEntryUpd1 = "UPDATE sv_postmeta SET meta_value  = '$select$sel1$sel2' where post_id='18106' and meta_key='visualizer-db-query' ";
-									mysqli_query( $con1, $isEntryUpd1 );	
-
-
-
-
-								$select='Select Nachname, Abwesenheiten From sv_LernenderKurs Where KursID="';
-								 $sel1=$Kursnme;
-
-								$sel2= '" ';
-								 $isEntryUpd2 = "UPDATE sv_postmeta SET meta_value  = '$select$sel1$sel2' where post_id='18110' and meta_key='visualizer-db-query' ";
-									mysqli_query( $con1, $isEntryUpd2 );	
-
+                      
+								
 								?>
 								<script>
-
 
 
 
@@ -5029,7 +5035,7 @@ reloadpage1();
 
 									function checkKurs( str ) {
 
-										if ( str == "-Select-" ) {
+										if ( str == "" ) {
 
 											alert( 'Bitte einen Kurs auswählen' )
 
@@ -5156,37 +5162,33 @@ reloadpage1();
 
 
 
-									$isEntry= "Select Kurs1, Kurs2, Kurs3, Kurs4, Kurs5, Kurs6, Kurs7, Kurs8, Kurs9,Kurs10,Kurs11,Kurs12,Kurs13,Kurs14,Kurs15,Kurs16,Kurs17, Kurs18, Kurs19, Kurs20, Kurs21, Kurs22, Kurs23, Kurs24, Kurs25,Kurs26,Kurs27,Kurs28,Kurs29,Kurs30 From sv_Lehrpersonen Where ID = $Lehrer";
+								 $isEntry= "Select KursID From sv_KurseLehrer Where LP_ID = '$Lehrer'";
 
-									$result = mysqli_query($con,$isEntry);
-
-
-
-								 echo "<option>" . $sel1 . "</option>";
+    $result = mysqli_query($con,$isEntry);
 
 
 
 
-									while( $line2= mysqli_fetch_array($result))
 
-									{
-
-										for($x = 1; $x <= 30; $x++)
-
-										{
+    echo "<option>" . $Kursnme . "</option>";
 
 
 
-											$value = $line2['Kurs'.$x];
+    while( $line2= mysqli_fetch_array($result))
 
-											if ($value<>"") echo "<option>" . $value . "</option>";
+    {
+
+        
+
+            $value = $line2['KursID'];
+
+            if ($value<>"") echo "<option>" . $value . "</option>";
 
 
 
-										}
+        
 
-									}
-
+    }
 									?>
 
 
@@ -5268,7 +5270,7 @@ reloadpage1();
 								</div>
 
 
-								<div id="myModal" class="modal"  onhide="tableshow()">
+								<div id="myModal" class="modal"  >
 
 									<!-- Modal content -->
 									<div class="modal-content">
@@ -5304,7 +5306,7 @@ reloadpage1();
 									</div>
 								</div>
 										</div>          
-									  <span class="close" onclick="reloadpage1()" id="span">&times;</span>
+									  <span class="close"  id="span">&times;</span>
 
 
 
@@ -6057,8 +6059,8 @@ reloadpage1();
 										 table10.destroy();
 											 }
 
-										 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + "-Select-" + "&s=" + document.getElementById( "semDB" ).value;
-										var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + "-Select-" + "&s=" + document.getElementById( "semDB" ).value;
+										 var url3 = "/wp-content/themes/structr/Page_Scripts/GetNotenValues.php?q=" + "" + "&s=" + document.getElementById( "semDB" ).value;
+										var url4 = "/wp-content/themes/structr/Page_Scripts/GetAbwValues.php?k=" + "" + "&s=" + document.getElementById( "semDB" ).value;
 										 $.fn.dataTable.ext.errMode = 'throw';
 									table10 = $( '.datatables10' ).DataTable( {
 

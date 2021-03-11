@@ -25,7 +25,7 @@
 
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
 	<script type="text/javascript" language="javascript" class="init">
@@ -791,7 +791,45 @@
 
 	}
 </script>
+<? include "db.php"; ?>
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+	  
+	  ['Kurs', 'Stunden pro Woche'],
+
+  <?  
+      
+        $isEntry= "Select KursID,Count(KursID) as Wochenstunden From sv_Kurse group by KursID";  
+	  $result = mysqli_query($con, $isEntry);
+
+        while( $line3= mysqli_fetch_array($result))
+
+        {
+
+
+ echo "['".$line3[KursID]."',".$line3[Wochenstunden]." ],";
+			
+  }
+  ?>
+]);
+		
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Wochenstunden der einzelnen Kurse', 'width':"90%", 'height':"500"};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.ColumnChart(document.getElementById('ColumnChart'));
+  chart.draw(data, options);
+}
+</script>	
+
+	<div id="ColumnChart"></div>
+	
 <input type="hidden" id="sid">
 
 
@@ -1060,7 +1098,7 @@ tr.shown td.details-control:before {
 </div>
 
 
-</form> & nbsp;
+</form> 
 <style>
 	button {
 		color: white;

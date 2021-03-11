@@ -18,16 +18,19 @@ $Lehrer=$_GET['l'];
 preg_match("/:(.*)/", $Lehrer, $output_array);
 $Lehrer=$output_array[1];
 
-
+if ($Semester<>""){
 
 $KurseTab=$Semester."_users";
 				
-
+}
+else{
+	$KurseTab="sv_users";
+}
 
     $isEntry = "Select * From $KurseTab  ";
     $result = mysqli_query($con1, $isEntry);
     $events = array();
-if ($Semester<>""){
+
 	
 	
 
@@ -51,7 +54,7 @@ if ($Semester<>""){
 	
     }
 		
-}
+
 	
 
 	echo json_encode($data);

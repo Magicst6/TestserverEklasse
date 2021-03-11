@@ -532,7 +532,7 @@ var editor; // use a global for the submit and return data rendering in the exam
 
 	function checkKurs( str ) {
 
-		if ( str == "-Select-" ) {
+		if ( str == "" ) {
 
 			alert( 'Bitte einen Kurs auswählen' )
 
@@ -623,7 +623,7 @@ $heute=date("Y-m-d");
  
 
 
-Semester:<br>
+Semester/Schuljahr:<br>
 <input id="Semester" name="Semester" value="<? echo $Semester;?>" readonly="readonly"> 
    
 
@@ -690,7 +690,7 @@ Kursname:
 
 
 
-        echo "<option>".'--Select--'. "</option>";
+        echo "<option>".'--'. "</option>";
 
 
 

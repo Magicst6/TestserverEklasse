@@ -72,7 +72,7 @@ function showdata() {
 
 	function checkKurs( str ) {
 
-		if ( str == "-Select-" ) {
+		if ( str == "" ) {
 
 			alert( 'Bitte einen Kurs auswählen' )
 
@@ -246,14 +246,14 @@ $heute = date( "Y-m-d" );
 
 Wählen Sie das Semester aus :
 <br>
-<select name="semester" id="semester" onchange="getKursname()" value="-Select-" required="required">
+<select name="semester" id="semester" onchange="getKursname()" value="" required="required">
    <?php
 
     //Den aktuell eingeloggten Schüler anzeigen
 
     $isEntry= "Select Semesterkuerzel From sv_SemesterArchiv";
     $result = mysqli_query($con, $isEntry);
-    echo "<option>-Select-</option>";
+    echo "<option></option>";
 
     while( $line3= mysqli_fetch_array($result))
     {

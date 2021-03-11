@@ -46,6 +46,8 @@
 
     function test(str){
 
+		
+		
         if (str == "") {
 
             document.getElementById("lernende").innerHTML = "";
@@ -193,6 +195,11 @@ check();
 
     }
 
+	
+	function dfunc(str) {
+  showTable();
+  test(str);
+}
 </script>
 
 <form action=" /DBFuellung/DBFuellungAbwEngbLehrer.php" method="POST">
@@ -260,7 +267,7 @@ check();
 
 
 
-        echo "<option>".'--Select--'. "</option>";
+        echo "<option>".'--'. "</option>";
 
 
 
@@ -296,7 +303,7 @@ check();
 
     <br>
 
-    <select name="Kursnm" id="Kursnm" onchange="test(this.value)" required="required" ></select>
+    <select name="Kursnm" id="Kursnm" onchange="dfunc(this.value)" required="required" ></select>
 
     <br><br>
 

@@ -216,7 +216,7 @@ preg_match( "/:(.*)/", $IDSchueler, $output_array );
 $IDSchueler = $output_array[ 1 ];
 
 
-if ( $Kursname <> '' && $Kursname <> "-Select-" ) {
+if ( $Kursname <> '' && $Kursname <> "" ) {
 
 
 

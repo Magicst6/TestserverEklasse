@@ -64,7 +64,7 @@ function getKurseDerLehrperson(){
 
 </script>
 
-Semester:<br>
+Semester/Schuljahr:<br>
 <select id="Semester3" name="Semester3" onchange="myFunction3()">
    <?php
 

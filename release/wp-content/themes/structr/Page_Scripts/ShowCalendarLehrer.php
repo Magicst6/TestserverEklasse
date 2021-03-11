@@ -476,6 +476,7 @@ $IDLP=$value;
 
                 eventResize:function(event) {
 
+                
                     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
 
                     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
@@ -483,6 +484,8 @@ $IDLP=$value;
                     var title = event.title;
 
                     var id = event.id;
+					
+					var klasse =event.klasse;
 
                     var color = event.color;
 
@@ -512,13 +515,13 @@ $IDLP=$value;
 
 
 
-                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
+                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id + "&c=" + klasse, true);
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
-
+                    
                     alert('Event Update');
+
 
 
 
@@ -536,7 +539,7 @@ $IDLP=$value;
 
                 {
 
-                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                 var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
 
                     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
 
@@ -545,6 +548,7 @@ $IDLP=$value;
                     var id = event.id;
 
 
+					var klasse =event.klasse;
 
                     if (window.XMLHttpRequest) {
 
@@ -572,14 +576,13 @@ $IDLP=$value;
 
 
 
-                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id, true);
+                    xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/updateCalendarDrop.php?k=" + start + "&g=" + end + "&f=" + id +"&c=" + klasse, true);
 
                     xmlhttp.send();
 
-                    calendar.fullCalendar('refetchEvents');
+                  
 
                     alert("Event Updated");
-
                     },
 
 
@@ -756,7 +759,7 @@ $IDLP=$value;
                                 if(confirm("Are you sure you want to remove it?")) {
 
                                      var id = event.id;
-
+                                     var klasse= event.klasse;
                                      if (window.XMLHttpRequest) {
 
                                          // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -783,7 +786,7 @@ $IDLP=$value;
 
 
 
-                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/deleteCalendar.php?f=" + id, true);
+                                     xmlhttp.open("GET", "/wp-content/themes/structr/Page_Scripts/deleteCalendar.php?f=" + id + "&c"+ klasse , true);
 
                                      xmlhttp.send();
 

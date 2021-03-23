@@ -184,7 +184,7 @@ function showdata() {
 
 		};
 			
-			xmlhttp.open( "GET", "/Ajax_Scripts/updateStammdaten.php?Vorname=" + document.getElementById( "Vorname" ).value+"&Nachname="+ document.getElementById("Nachname").value +"&EMail=" +document.getElementById("EMail").value +"&Geburtstag="+ document.getElementById("Geburtstag").value +"&Nation=" +document.getElementById("Nation").value +"&Strasse="+document.getElementById("Strasse").value +"&HNummer="+document.getElementById("HNummer").value  + "&PLZ="+document.getElementById("PLZ").value+"&Ort="+document.getElementById("Ort").value+"&Tel="+document.getElementById("Tel").value+"&ElternTel="+document.getElementById("ElternTel").value +"&ElternMail="+document.getElementById("ElternMail").value +"&ID="+document.getElementById("ID").value +"&sem="+document.getElementById("sem").value, true );
+			xmlhttp.open( "GET", "/Ajax_Scripts/updateStammdaten.php?Vorname=" + document.getElementById( "Vorname" ).value+"&Nachname="+ document.getElementById("Nachname").value +"&EMail=" +document.getElementById("EMail").value +"&Geburtstag="+ document.getElementById("Geburtstag").value +"&Nation=" +document.getElementById("Nation").value +"&Strasse="+document.getElementById("Strasse").value +"&HNummer="+document.getElementById("HNummer").value  + "&PLZ="+document.getElementById("PLZ").value+"&Ort="+document.getElementById("Ort").value+"&Tel="+document.getElementById("Tel").value+"&ElternTel="+document.getElementById("ElternTel").value +"&ElternMail="+document.getElementById("ElternMail").value +"&ID="+document.getElementById("ID").value +"&sem="+document.getElementById("sem").value +"&GebOrt="+document.getElementById("Geburtsort").value, true );
 
 			xmlhttp.send();
 	

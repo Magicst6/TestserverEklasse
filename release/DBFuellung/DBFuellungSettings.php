@@ -1,4 +1,4 @@
-<div class="loading"><span></span><div class="loader"></div></div>
+<<div class="loading"><span></span><div class="loader"></div></div>
 
 <br/><br/>
 <button>Replay</button>
@@ -7,8 +7,8 @@
 <footer><br/>
   Created by Roodper and
   <a target="_blank" href="http://geekben.com">GeekBen</a></footer>
-
 <script>
+	
 $(document).ready(function() {
     
     loading();
@@ -38,6 +38,7 @@ function loading(){
 	</script>
 
 <style>
+	
 body{
   text-align:center; 
   margin:100px auto; 
@@ -173,9 +174,12 @@ footer a{
 
 
 <?php
+
+
 include 'db.php';
 
-
+ $Schulname = $_POST['Schulname'];
+ $Schulort = $_POST['Schulort'];
     $Semesterkuerzel = $_POST['Semesterkuerzel'];
 if (!$Semesterkuerzel){
 	
@@ -191,15 +195,18 @@ if (!$Semesterkuerzel)
     $Klassenbuch = $_POST['Klassenbuch'];
 
 echo $Klassenbuch;
-
+$isnotentered=0;
  $isEntry2 = "Select Semesterkuerzel From sv_Settings";
     $result2 = mysqli_query($con, $isEntry2);
 
     while ($value3 = mysqli_fetch_array($result2)) {
         $SemesterkuerzelDB = $value3['Semesterkuerzel'];
     }
-	
-
+	if (!$SemesterkuerzelDB){
+		$isnotentered=1;
+		$SemesterkuerzelDB=$Semesterkuerzel;
+	}
+echo $Semesterkuerzel;
 		
 		$Sem_Zeiten= $SemesterkuerzelDB.'_Zeiten';
 
@@ -217,7 +224,23 @@ $query42 = "INSERT INTO $Sem_Zeiten SELECT * FROM sv_Zeiten";
 
 mysqli_query($con,$query42);
 		
-		
+	
+			$Sem_Zeugnisse= $SemesterkuerzelDB.'_Zeugnisse';
+
+$query16 = "DROP TABLE $Sem_Zeugnisse";
+
+mysqli_query($con,$query16);
+
+
+
+$query26 = "CREATE TABLE $Sem_Zeugnisse LIKE sv_Zeugnisse";
+
+mysqli_query($con,$query26);
+
+$query36 = "INSERT INTO $Sem_Zeugnisse SELECT * FROM sv_Zeugnisse";
+
+mysqli_query($con,$query36);
+
 		
 			$Sem_KurseStammdaten= $SemesterkuerzelDB.'_KurseStammdaten';
 
@@ -568,10 +591,10 @@ echo $Ferien1von;
     while ($value3 = mysqli_fetch_array($result2)) {
         $SemesterkuerzelDB = $value3['Semesterkuerzel'];
     }
-    if ($SemesterkuerzelDB <> '') {
-        $sql_befehl2 = "UPDATE sv_Settings SET Semesterkuerzel='$Semesterkuerzel', Semesteranfang='$Semesteranfang', Semesterende='$Semesterende', Ferien1von='$Ferien1von', Ferien1bis='$Ferien1bis', Ferien2von='$Ferien2von', Ferien2bis='$Ferien2bis', Ferien3von='$Ferien3von', Ferien3bis='$Ferien3bis',Ferien5von='$Ferien4von', Ferien5bis='$Ferien4bis', Ferien5von='$Ferien5von', Ferien5bis='$Ferien5bis', Klassenbuch='$Klassenbuch'";
+    if ($SemesterkuerzelDB <> '' && !$isnotentered) {
+        $sql_befehl2 = "UPDATE sv_Settings SET Semesterkuerzel='$Semesterkuerzel', Semesteranfang='$Semesteranfang', Semesterende='$Semesterende', Ferien1von='$Ferien1von', Ferien1bis='$Ferien1bis', Ferien2von='$Ferien2von', Ferien2bis='$Ferien2bis', Ferien3von='$Ferien3von', Ferien3bis='$Ferien3bis',Ferien5von='$Ferien4von', Ferien5bis='$Ferien4bis', Ferien5von='$Ferien5von', Ferien5bis='$Ferien5bis', Klassenbuch='$Klassenbuch', Schulname='$Schulname', Schulort='$Schulort'";
     } else {
-        $sql_befehl2 = "INSERT INTO sv_Settings (Semesterkuerzel, Semesteranfang, Semesterende, Ferien1von, Ferien1bis, Ferien2von, Ferien2bis, Ferien3von, Ferien3bis, Ferien4von, Ferien4bis,Ferien5von, Ferien5bis,Klassenbuch) VALUES ('$Semesterkuerzel', '$Semesteranfang','$Semesterende', '$Ferien1von', '$Ferien1bis', '$Ferien2von', '$Ferien2bis','$Ferien3von', '$Ferien3bis','$Ferien4von', '$Ferien4bis', '$Ferien5von', '$Ferien5bis', '$Klassenbuch')";
+        $sql_befehl2 = "INSERT INTO sv_Settings (Semesterkuerzel, Semesteranfang, Semesterende, Ferien1von, Ferien1bis, Ferien2von, Ferien2bis, Ferien3von, Ferien3bis, Ferien4von, Ferien4bis,Ferien5von, Ferien5bis,Klassenbuch,Schulname,Schulort) VALUES ('$Semesterkuerzel', '$Semesteranfang','$Semesterende', '$Ferien1von', '$Ferien1bis', '$Ferien2von', '$Ferien2bis','$Ferien3von', '$Ferien3bis','$Ferien4von', '$Ferien4bis', '$Ferien5von', '$Ferien5bis', '$Klassenbuch','$Schulname','$Schulort')";
     }
 
 
@@ -686,12 +709,18 @@ while ($value3 = mysqli_fetch_array($result2)) {
         $isFilled = true;
     }
 }
+
+ $sql_befehl3 = "Update sv_SemesterArchiv  SET Semesteranfang= '$Semesteranfang',Semesterende='$Semesterende' where Semesterkuerzel='$SemesterkuerzelDBnew' ";
+        mysqli_query($con, $sql_befehl3);
+
 if (!$isFilled)
 	
 {
-    
-	$sql_befehl2 = "INSERT INTO sv_SemesterArchiv (Semesterkuerzel) VALUES ('$SemesterkuerzelDBnew')";
+    $sql_befehl2 = "INSERT INTO sv_SemesterArchiv (Semesterkuerzel,Semesteranfang,Semesterende) VALUES ('$SemesterkuerzelDBnew','$Semesteranfang','$Semesterende')";
         mysqli_query($con, $sql_befehl2);
+	
+	
+	
 	$query1 = "Delete From sv_Pruefungen";
 
 mysqli_query($con,$query1);
@@ -718,8 +747,21 @@ mysqli_query($con,$query1);
 	
 	
 }
-
 else{
+
+	
+		$Sem_Zeugnisse= $Semesterkuerzel.'_Zeugnisse';
+
+
+
+$query1 = "Delete From sv_Zeugnisse";
+
+mysqli_query($con,$query1);
+
+$query5 = "INSERT INTO sv_Zeugnisse SELECT * FROM $Sem_Zeugnisse";
+
+mysqli_query($con,$query5);
+		
 	
 	
 	$Sem_Pruefungen= $Semesterkuerzel.'_Pruefungen';
@@ -741,7 +783,7 @@ $query16 = "Delete From sv_Klassentermine";
 
 mysqli_query($con,$query16);
 
-$query56 = "INSERT INTO sv_Klassentermine SELECT * FROM $Sem_Klassentermine";
+$query56 = "INSERT INTO sv_Klassentermine SELECT * FROM $Sem_Klassentermine1";
 
 mysqli_query($con,$query56);
 		
@@ -816,7 +858,7 @@ $query5 = "INSERT INTO sv_ZeitenStundenplan SELECT * FROM  $Sem_ZeitenStundenpla
 
 mysqli_query($con,$query5);	
 	
-}
+
 
 $Sem_Klassenlehrer= $Semesterkuerzel.'_Klassenlehrer';
 
@@ -833,19 +875,7 @@ mysqli_query($con,$query32);
 	
 	
 	
-			$Sem_KurseStammdaten= $Semesterkuerzel.'_KurseStammdaten';
 
-$query18 = "Delete From sv_KurseStammdaten";
-
-mysqli_query($con,$query18);
-
-
-
-
-
-$query38 = "INSERT INTO sv_KurseStammdaten  SELECT * FROM $Sem_KurseStammdaten ";
-
-mysqli_query($con,$query38);
 
 	
 	
@@ -903,9 +933,32 @@ mysqli_query($con,$query13);
 $query33 = "INSERT INTO sv_NotenKurs  SELECT * FROM $Sem_NotenKurs ";
 
 mysqli_query($con,$query33);
-			
 	
 	
+	$Sem_KurseStammdaten= $Semesterkuerzel.'_KurseStammdaten';
+		
+$query16 = "Delete From sv_KurseStammdaten";
+
+mysqli_query($con,$query16);
+
+$query56 = "INSERT INTO sv_KurseStammdaten SELECT * FROM $Sem_KurseStammdaten";
+
+mysqli_query($con,$query56);
+		
+
+}
+
+
+$Sem_Klassentermine= $Semesterkuerzel.'_Klassentermine';
+		
+$query16 = "Delete From sv_Klassentermine";
+
+mysqli_query($con,$query16);
+
+$query56 = "INSERT INTO sv_Klassentermine SELECT * FROM $Sem_Klassentermine";
+
+mysqli_query($con,$query56);
+		
 	
 $Sem_lernende= $Semesterkuerzel.'_Lernende';
 

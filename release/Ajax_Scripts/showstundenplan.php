@@ -1138,7 +1138,7 @@ $isStdpln=0;
 		?></select>Zimmer:<select  style="width: 149px; height: 39px;" name="Tex54" onchange="check(this.value,'Donnerstag','<?php echo $Uhr54;?>')" type="text" value="<?php echo $Zimmer54;?>"  />
 			
 			  <? $isEntry2= "Select Name From sv_Zimmer";
-                   echo "<option>" . $Zimmer11 . "</option>";
+                   echo "<option>" . $Zimmer54 . "</option>";
             $result2 = mysqli_query($con, $isEntry2);
 
             while( $line3= mysqli_fetch_array($result2))
@@ -1402,7 +1402,7 @@ $isStdpln=0;
 		?></select>Zimmer:<select  style="width: 149px; height: 39px;" name="Tex72" onchange="check(this.value,'Dienstag','<?php echo $Uhr72;?>')" type="text" value="<?php echo $Zimmer72;?>"  />
 			
 			  <? $isEntry2= "Select Name From sv_Zimmer";
-                   echo "<option>" . $Zimmer11 . "</option>";
+                   echo "<option>" . $Zimmer72 . "</option>";
             $result2 = mysqli_query($con, $isEntry2);
 
             while( $line3= mysqli_fetch_array($result2))
@@ -1664,7 +1664,7 @@ $isStdpln=0;
 		?></select>Zimmer:<select  style="width: 149px; height: 39px;" name="Tex86" onchange="check(this.value,'Samstag','<?php echo $Uhr86;?>')" type="text" value="<?php echo $Zimmer86;?>"  />
 			
 			  <? $isEntry2= "Select Name From sv_Zimmer";
-                   echo "<option>" . $Zimmer11 . "</option>";
+                   echo "<option>" . $Zimmer86 . "</option>";
             $result2 = mysqli_query($con, $isEntry2);
 
             while( $line3= mysqli_fetch_array($result2))

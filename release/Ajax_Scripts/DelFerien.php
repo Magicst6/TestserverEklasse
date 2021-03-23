@@ -10,13 +10,14 @@ $ID = $_GET[ 'k' ];
 
 echo "";
 
-
+ $sems=$_GET['semshow'];
   $sem=$_GET['sem'];
 
   $sem1=$_GET['sem1'];
   if ($sem1){
 	  $sem=$sem1;
   }
+ if (!$sem1 && !$sem) $sem=$sems;
  $isEntry2 = "Select Semesterkuerzel From sv_Settings";
     $result2 = mysqli_query($con, $isEntry2);
 

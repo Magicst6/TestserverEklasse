@@ -77,14 +77,20 @@ if(isset($_GET["f"]))
 
 if ($lp_id) {
 	
-	 $isEntry4 = "SELECT  Pruefungsname From sv_Pruefungen where KursID='$kursid' and id='$id'";
+	 $isEntry4 = "SELECT  Pruefungsname From sv_Pruefungen where id='$id'";
                 $result4 = mysqli_query($con, $isEntry4);
 
                 while ($value4 = mysqli_fetch_array($result4)) {
 				 $NamePr = $value4['Pruefungsname'];
-                   
+                   $KursidDB=$value4['KursID'];
 				}
-
+if ($kursid<>$KursidDB){
+	
+	echo "KursID kann nicht geändert werden. Bitte neue Prüfung anlegen und diese löschen.";
+}
+ else{
+	 
+ 
 		$isEntryNoten= "Select * From sv_Pruefungen Where KursID='$kursid'";
 
     $resultNoten = mysqli_query($con, $isEntryNoten);
@@ -137,7 +143,7 @@ echo "Prüfung editiert!";
 
 
 }
-
+}
 else {
 
     echo "Lehrperson nicht erkannt. Bitte Termin erneut ändern!";

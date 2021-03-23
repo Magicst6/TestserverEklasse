@@ -1183,7 +1183,7 @@ get_currentuserinfo();
 
 										"Löschen": function () {
 
-											if ( confirm( "Are you sure you want to remove it?" ) ) {
+											if ( confirm( "Möchten Sie die Prüfung wirklich löschen? Es werden alle zur Prüfung eingetragenen Noten aus dem System gelöscht!" ) ) {
 
 												var id = event.id;
 
@@ -1653,7 +1653,7 @@ get_currentuserinfo();
 
 													if ( this.readyState == 4 && this.status == 200 ) {
 
-														document.getElementById( "respond" ).innerHTML = this.responseText;
+														document.getElementById( "respond1" ).innerHTML = this.responseText;
 
 													}
 
@@ -1677,7 +1677,7 @@ get_currentuserinfo();
 
 												dialog.dialog( "close" );
 
-                                                  alert( "Prüfungsdaten gespeichert" );
+                                                  alert( "Prüfungsdaten verarbeitet.Bitte Statusmeldung über der Prüfungstabelle beachten!" );
 
 
 
@@ -1685,12 +1685,12 @@ get_currentuserinfo();
 												
 											}
 
-											rl();
+											//rl();
 										},
 
 										"Löschen": function () {
 
-											if ( confirm( "Are you sure you want to remove it?" ) ) {
+											if ( confirm( "Möchten Sie die Prüfung wirklich löschen? Es werden alle zur Prüfung eingetragenen Noten aus dem System gelöscht!" ) ) {
 
 												var id = event.id;
 

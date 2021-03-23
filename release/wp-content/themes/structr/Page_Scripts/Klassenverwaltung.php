@@ -459,6 +459,13 @@
 			border: 1px solid #888;
 			width: 1500px;
 		}
+			.modal-content4 {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 1400px;
+		}
 		
 		/* The Close Button */
 		.close {
@@ -569,7 +576,7 @@
 	<div id="myModal2" class="modal">
 
 		<!-- Modal content -->
-		<div class="modal-content">
+		<div class="modal-content4">
 
 			<form action="/DBFuellung/DBFuellungSchuelereingabeErw.php " method="POST">
 				<h2><strong>Klasse erweitern</strong></h2>

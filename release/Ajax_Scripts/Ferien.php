@@ -1,12 +1,14 @@
 <?php
 include 'db.php';
 
+ $sems=$_GET['semshow'];
   $sem=$_GET['sem'];
 
   $sem1=$_GET['sem1'];
   if ($sem1){
 	  $sem=$sem1;
   }
+ if (!$sem1 && !$sem) $sem=$sems;
  $isEntry2 = "Select Semesterkuerzel From sv_Settings";
     $result2 = mysqli_query($con, $isEntry2);
 
@@ -15,14 +17,22 @@ include 'db.php';
     }
 	$semkl=$sem."_Klassentermine";
 
-			if ($SemesterkuerzelDB==$sem || !$SemesterkuerzelDB){     
-		   $isEntry = "SELECT * From sv_Klassentermine where Kommentar='Ferien' order by Start asc";
-			}
-            else{
-				$isEntry = "SELECT * From $semkl where Kommentar='Ferien' order by Start asc";
-			}
 		
-			$result = mysqli_query($con,$isEntry);
+$isEntry4 = "Select * From sv_SemesterArchiv where Semesterkuerzel='$sem'";
+    $result4 = mysqli_query($con, $isEntry4);
+
+    while ($value4 = mysqli_fetch_array($result4)) {
+		$Semesteranfang=$value4['Semesteranfang'];
+		$Semesterende=$value4['Semesterende'];
+
+	}
+        echo    "<br><br><strong>Semesteranfang:</strong>";
+   echo '<input name="Semesteranfang" type="date" value="'.$Semesteranfang.'" /><br><br>';
+   
+   echo     '<strong>Semesterende:</strong>';
+   echo  '<input name="Semesterende" type="date" value="'.$Semesterende.'" /><br><br>';
+   
+         echo '<h1>Ferien und Feiertage</h1>';    
 
 			echo '<table id="table_id" class="display" width="50%">';
 
@@ -53,6 +63,14 @@ include 'db.php';
             echo "<tbody>";
 
  $y=0;
+	if ($SemesterkuerzelDB==$sem || !$SemesterkuerzelDB){     
+		   $isEntry = "SELECT * From sv_Klassentermine where Kommentar='Ferien' order by Start asc";
+			}
+            else{
+				$isEntry = "SELECT * From $semkl where Kommentar='Ferien' order by Start asc";
+			}
+		
+			$result = mysqli_query($con,$isEntry);
 
 			while( $value= mysqli_fetch_array($result))
 

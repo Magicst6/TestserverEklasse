@@ -1178,12 +1178,14 @@ get_currentuserinfo();
 												calendar.fullCalendar( 'refetchEvents' );
 											}
 
-											//rl();
+					tableshow();
+		
+		showCalendar();
 										},
 
 										"Löschen": function () {
 
-											if ( confirm( "Are you sure you want to remove it?" ) ) {
+											if ( confirm( "Möchten Sie die Prüfung wirklich löschen? Es werden alle zur Prüfung eingetragenen Noten aus dem System gelöscht!" ) ) {
 
 												var id = event.id;
 
@@ -1439,13 +1441,15 @@ get_currentuserinfo();
                               
 
 
+
 						
 							return;
 							
 							
-
 						}
-
+						tableshow();
+		
+		showCalendar();
 						
 					},
 
@@ -1653,7 +1657,7 @@ get_currentuserinfo();
 
 													if ( this.readyState == 4 && this.status == 200 ) {
 
-														document.getElementById( "respond" ).innerHTML = this.responseText;
+														document.getElementById( "respond1" ).innerHTML = this.responseText;
 
 													}
 
@@ -1677,7 +1681,7 @@ get_currentuserinfo();
 
 												dialog.dialog( "close" );
 
-                                                  alert( "Prüfungsdaten gespeichert" );
+                                                  alert( "Prüfungsdaten verarbeitet.Bitte Statusmeldung über der Prüfungstabelle beachten!" );
 
 
 
@@ -1685,12 +1689,14 @@ get_currentuserinfo();
 												
 											}
 
-											rl();
+												tableshow();
+		
+		showCalendar();
 										},
 
 										"Löschen": function () {
 
-											if ( confirm( "Are you sure you want to remove it?" ) ) {
+											if ( confirm( "Möchten Sie die Prüfung wirklich löschen? Es werden alle zur Prüfung eingetragenen Noten aus dem System gelöscht!" ) ) {
 
 												var id = event.id;
 
@@ -2341,7 +2347,10 @@ get_currentuserinfo();
 				</tr>
 				<tr>
 					<td style="width: 150px; font-size: 12px; font-weight: bold;">Gewichtung:</td>
-					<td><input type="text" name="gewicht" id="gewicht1" value="<?php echo $_GET['e'];?>" class="text ui-widget-content ui-corner-all">
+					<td><input type="text" name="gewicht" id="gewicht1" value="<?php 
+						if ($_GET['e']) {echo $_GET['e'];}
+						else {echo '1';}
+						?>" class="text ui-widget-content ui-corner-all" >
 					</td>
 					<td style="padding-left: 5px;padding-bottom:3px; font-size: 10px;">Wert 1 entspricht einfacher Gewichtung</td>
 				</tr>

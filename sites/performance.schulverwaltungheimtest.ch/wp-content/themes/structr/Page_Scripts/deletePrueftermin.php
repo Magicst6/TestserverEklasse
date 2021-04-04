@@ -8,6 +8,7 @@
 
 
 //delete.php
+echo $_GET["f"];
 
 if(isset($_GET["f"]))
 {
@@ -15,13 +16,13 @@ if(isset($_GET["f"]))
     include 'db.php';
     $id = $_GET['f'];
 
-	$isEntry4 = "SELECT  Pruefungsname,Datum From sv_Pruefungen where id='$id'";
+	$isEntry4 = "SELECT  * From sv_Pruefungen where id='$id'";
                 $result4 = mysqli_query($con, $isEntry4);
 
                 while ($value4 = mysqli_fetch_array($result4)) {
 				 $NamePr = $value4['Pruefungsname'];
 					$KursPr = $value4['KursID'];
-                   
+                   echo $NamePr;
 				}
 
 	
@@ -51,9 +52,9 @@ if(isset($_GET["f"]))
 
     mysqli_query($con,$query);
 	
-	$query = "DELETE from sv_Noten WHERE Name='$NamePr' and KursID='$KursPr'";
+	$query1 = "DELETE from sv_Noten WHERE Name='$NamePr' and KursID='$KursPr'";
 
-    mysqli_query($con,$query);
+    mysqli_query($con,$query1);
 }
 
 ?>

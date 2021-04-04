@@ -623,7 +623,7 @@ $heute=date("Y-m-d");
  
 
 
-Semester:<br>
+Semester/Schuljahr:<br>
 <input id="Semester" name="Semester" value="<? echo $Semester;?>" readonly="readonly"> 
    
 

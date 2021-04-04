@@ -24,7 +24,7 @@
 
     </script>
 <br>
-    Semester:<br>
+    Semester/Schuljahr:<br>
     <select id="Semester" name="Semester" onchange="myFunction()">
         <?php
         include 'db.php';

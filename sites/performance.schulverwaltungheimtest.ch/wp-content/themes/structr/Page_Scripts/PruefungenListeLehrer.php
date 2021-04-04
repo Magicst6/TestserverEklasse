@@ -1097,6 +1097,8 @@ p.start-editing {
   text-align: center;
 }
     </style>
+	<div id='respond1'></div>
+	
 <div id="myModal2" class="modal3">
 
     <!-- Modal content -->

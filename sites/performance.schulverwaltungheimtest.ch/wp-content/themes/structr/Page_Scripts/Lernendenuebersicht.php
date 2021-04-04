@@ -555,7 +555,6 @@ google.charts.setOnLoadCallback(drawChart2);
 		}
 
 	
-
 	}
 	
 </script>

@@ -194,8 +194,41 @@ $result = mysqli_query($con, $isEntry);
         echo '<td><input name="Kursname1' . $y . '" style="width: 240px" required="required" type="text" value="' . $Kursname . '"    ></td>';
         echo '<td><input name="Startdatum1' . $y . '" type="date" style="width: 100px" value="' . $Startdatum . '" required="required" ></td>';
         echo '<td><input name="Enddatum1' . $y . '" type="date" style="width: 240px" value="' . $Enddatum . '" required="required" ></td>';
-        echo '<td><input name="Zimmer1' . $y . '" type="text" style="width: 120px" value="' . $Zimmer . '"  ></td>';
-        echo '<td><input name="Uhrzeit1' . $y . '"  required="required" type="text" style="width: 70px" value="' . $Uhrzeit . '"  ></td>';
+       // echo '<td><input name="Zimmer1' . $y . '" type="text" style="width: 120px" value="' . $Zimmer . '"  ></td>';
+         			echo '<td><select name="Zimmer1' . $y . '"  type="text" style="width: 80px" value="' . $Zimmer . '"  >';
+			
+			  $isEntry= "Select Name From sv_Zimmer";
+
+    $result1 = mysqli_query($con,$isEntry);
+
+
+
+echo "<option>$Zimmer</option>";
+
+    echo "<option></option>";
+
+
+
+    while( $line3= mysqli_fetch_array($result1))
+	{
+
+    
+
+
+            $value = $line3['Name'];
+
+            if ($value<>"") echo "<option>" . $value . "</option>";
+
+
+
+        }
+
+    
+
+			
+			
+		echo '	</select></td>';
+			echo '<td><input name="Uhrzeit1' . $y . '"  required="required" type="text" style="width: 70px" value="' . $Uhrzeit . '"  ></td>';
 			echo '<td><select name="Profil1' . $y . '"   type="text" style="width: 60px" value="' . $Profil . '"  >';
 			
 			  $isEntry= "Select Profil From sv_Profile";

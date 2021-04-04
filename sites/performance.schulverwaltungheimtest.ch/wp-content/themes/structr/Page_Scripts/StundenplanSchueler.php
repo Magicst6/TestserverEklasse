@@ -63,7 +63,7 @@ $result = mysqli_query($con, $isEntry);
 </select>
 <br>
 <br>
-Semester:
+Semester/Schuljahr:
 <br>
 <input name="semester" id="semester"   value="<?php echo $semDB;?>" readonly=readonly >
       

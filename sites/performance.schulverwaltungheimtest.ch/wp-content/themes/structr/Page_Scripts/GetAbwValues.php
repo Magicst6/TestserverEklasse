@@ -103,10 +103,16 @@ while ( $line2 = mysqli_fetch_array( $result ) ) {
 		$SchID=$ID;
 	
 	
+	if ($semester==$semDB || $semester==''){
 	
 	$isEntryUpd = "UPDATE sv_LernenderKurs SET Abwesenheiten = '$abwges' where SchuelerID='$SchID' and KursID ='$Kursname'";
 	mysqli_query( $con, $isEntryUpd );	
-
+	}
+	else{
+		$isEntryUpd = "UPDATE $LK SET Abwesenheiten = '$abwges' where SchuelerID='$SchID' and KursID ='$Kursname'";
+	mysqli_query( $con, $isEntryUpd );	
+		
+	}
 	
 }
 

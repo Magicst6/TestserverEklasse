@@ -33,8 +33,7 @@ if(isset($_GET["q"]))
 
     $end = $_GET['g'].":00";
 
-    
- echo $end;
+
     $klasse = $_GET['klasse'];
 
     $zimmer = $_GET['zimmer'];
@@ -45,7 +44,7 @@ if(isset($_GET["q"]))
 	
 	//echo $farbe;
 	
-//	echo $klasse;
+	echo $klasse;
 	
 	$beschreibung = $_GET['Beschreibung'];
 	

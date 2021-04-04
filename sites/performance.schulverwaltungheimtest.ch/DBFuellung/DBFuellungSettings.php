@@ -1,4 +1,4 @@
-<div class="loading"><span></span><div class="loader"></div></div>
+<<div class="loading"><span></span><div class="loader"></div></div>
 
 <br/><br/>
 <button>Replay</button>
@@ -7,8 +7,8 @@
 <footer><br/>
   Created by Roodper and
   <a target="_blank" href="http://geekben.com">GeekBen</a></footer>
-
 <script>
+	
 $(document).ready(function() {
     
     loading();
@@ -38,6 +38,7 @@ function loading(){
 	</script>
 
 <style>
+	
 body{
   text-align:center; 
   margin:100px auto; 
@@ -173,23 +174,24 @@ footer a{
 
 
 <?php
+
+
 include 'db.php';
 
-
+ $Schulname = $_POST['Schulname'];
+ $Schulort = $_POST['Schulort'];
     $Semesterkuerzel = $_POST['Semesterkuerzel'];
-echo $Semesterkuerzel;
+if (!$Semesterkuerzel){
+	
+    $Semesterkuerzel = $_POST['Semester'];
+}
+if (!$Semesterkuerzel)
+{
+	$Semesterkuerzel = $_POST['Semestershow'];
+}
     $Semesteranfang = $_POST['Semesteranfang'];
     $Semesterende = $_POST['Semesterende'];
-    $Ferien1von = $_POST['Ferien1von'];
-    $Ferien1bis = $_POST['Ferien1bis'];
-    $Ferien2von = $_POST['Ferien2von'];
-    $Ferien2bis = $_POST['Ferien2bis'];
-    $Ferien3von = $_POST['Ferien3von'];
-    $Ferien3bis = $_POST['Ferien3bis'];
-    $Ferien4von = $_POST['Ferien4von'];
-    $Ferien4bis = $_POST['Ferien4bis'];
-    $Ferien5von = $_POST['Ferien5von'];
-    $Ferien5bis = $_POST['Ferien5bis'];
+   
     $Klassenbuch = $_POST['Klassenbuch'];
 
 echo $Klassenbuch;
@@ -201,7 +203,7 @@ echo $Klassenbuch;
         $SemesterkuerzelDB = $value3['Semesterkuerzel'];
     }
 	
-
+echo $Semesterkuerzel;
 		
 		$Sem_Zeiten= $SemesterkuerzelDB.'_Zeiten';
 
@@ -271,6 +273,24 @@ $query30 = "INSERT INTO $Sem_KurseLehrer1 SELECT * FROM sv_KurseLehrer";
 
 mysqli_query($con,$query30);
 		
+
+	$Sem_NotenKurs= $SemesterkuerzelDB.'_NotenKurs';
+
+$query10 = "DROP TABLE $Sem_NotenKurs";
+
+mysqli_query($con,$query10);
+
+
+
+$query20 = "CREATE TABLE $Sem_NotenKurs LIKE sv_NotenKurs";
+
+mysqli_query($con,$query20);
+
+$query30 = "INSERT INTO $Sem_NotenKurs SELECT * FROM sv_NotenKurs";
+
+mysqli_query($con,$query30);
+
+
 		
 		$Sem_Klassenlehrer1= $SemesterkuerzelDB.'_Klassenlehrer';
 
@@ -553,9 +573,9 @@ echo $Ferien1von;
         $SemesterkuerzelDB = $value3['Semesterkuerzel'];
     }
     if ($SemesterkuerzelDB <> '') {
-        $sql_befehl2 = "UPDATE sv_Settings SET Semesterkuerzel='$Semesterkuerzel', Semesteranfang='$Semesteranfang', Semesterende='$Semesterende', Ferien1von='$Ferien1von', Ferien1bis='$Ferien1bis', Ferien2von='$Ferien2von', Ferien2bis='$Ferien2bis', Ferien3von='$Ferien3von', Ferien3bis='$Ferien3bis',Ferien5von='$Ferien4von', Ferien5bis='$Ferien4bis', Ferien5von='$Ferien5von', Ferien5bis='$Ferien5bis', Klassenbuch='$Klassenbuch'";
+        $sql_befehl2 = "UPDATE sv_Settings SET Semesterkuerzel='$Semesterkuerzel', Semesteranfang='$Semesteranfang', Semesterende='$Semesterende', Ferien1von='$Ferien1von', Ferien1bis='$Ferien1bis', Ferien2von='$Ferien2von', Ferien2bis='$Ferien2bis', Ferien3von='$Ferien3von', Ferien3bis='$Ferien3bis',Ferien5von='$Ferien4von', Ferien5bis='$Ferien4bis', Ferien5von='$Ferien5von', Ferien5bis='$Ferien5bis', Klassenbuch='$Klassenbuch', Schulname='$Schulname', Schulort='$Schulort'";
     } else {
-        $sql_befehl2 = "INSERT INTO sv_Settings (Semesterkuerzel, Semesteranfang, Semesterende, Ferien1von, Ferien1bis, Ferien2von, Ferien2bis, Ferien3von, Ferien3bis, Ferien4von, Ferien4bis,Ferien5von, Ferien5bis,Klassenbuch) VALUES ('$Semesterkuerzel', '$Semesteranfang','$Semesterende', '$Ferien1von', '$Ferien1bis', '$Ferien2von', '$Ferien2bis','$Ferien3von', '$Ferien3bis','$Ferien4von', '$Ferien4bis', '$Ferien5von', '$Ferien5bis', '$Klassenbuch')";
+        $sql_befehl2 = "INSERT INTO sv_Settings (Semesterkuerzel, Semesteranfang, Semesterende, Ferien1von, Ferien1bis, Ferien2von, Ferien2bis, Ferien3von, Ferien3bis, Ferien4von, Ferien4bis,Ferien5von, Ferien5bis,Klassenbuch,Schulname,Schulort) VALUES ('$Semesterkuerzel', '$Semesteranfang','$Semesterende', '$Ferien1von', '$Ferien1bis', '$Ferien2von', '$Ferien2bis','$Ferien3von', '$Ferien3bis','$Ferien4von', '$Ferien4bis', '$Ferien5von', '$Ferien5bis', '$Klassenbuch','$Schulname','$Schulort')";
     }
 
 
@@ -670,12 +690,18 @@ while ($value3 = mysqli_fetch_array($result2)) {
         $isFilled = true;
     }
 }
+
+ $sql_befehl3 = "Update sv_SemesterArchiv  SET Semesteranfang= '$Semesteranfang',Semesterende='$Semesterende' where Semesterkuerzel='$SemesterkuerzelDBnew' ";
+        mysqli_query($con, $sql_befehl3);
+
 if (!$isFilled)
 	
 {
-    
-	$sql_befehl2 = "INSERT INTO sv_SemesterArchiv (Semesterkuerzel) VALUES ('$SemesterkuerzelDBnew')";
+    $sql_befehl2 = "INSERT INTO sv_SemesterArchiv (Semesterkuerzel,Semesteranfang,Semesterende) VALUES ('$SemesterkuerzelDBnew','$Semesteranfang','$Semesterende')";
         mysqli_query($con, $sql_befehl2);
+	
+	
+	
 	$query1 = "Delete From sv_Pruefungen";
 
 mysqli_query($con,$query1);
@@ -702,8 +728,8 @@ mysqli_query($con,$query1);
 	
 	
 }
-
 else{
+
 	
 	
 	$Sem_Pruefungen= $Semesterkuerzel.'_Pruefungen';
@@ -725,7 +751,7 @@ $query16 = "Delete From sv_Klassentermine";
 
 mysqli_query($con,$query16);
 
-$query56 = "INSERT INTO sv_Klassentermine SELECT * FROM $Sem_Klassentermine";
+$query56 = "INSERT INTO sv_Klassentermine SELECT * FROM $Sem_Klassentermine1";
 
 mysqli_query($con,$query56);
 		
@@ -800,7 +826,7 @@ $query5 = "INSERT INTO sv_ZeitenStundenplan SELECT * FROM  $Sem_ZeitenStundenpla
 
 mysqli_query($con,$query5);	
 	
-}
+
 
 $Sem_Klassenlehrer= $Semesterkuerzel.'_Klassenlehrer';
 
@@ -817,19 +843,7 @@ mysqli_query($con,$query32);
 	
 	
 	
-			$Sem_KurseStammdaten= $Semesterkuerzel.'_KurseStammdaten';
 
-$query18 = "Delete From sv_KurseStammdaten";
-
-mysqli_query($con,$query18);
-
-
-
-
-
-$query38 = "INSERT INTO sv_KurseStammdaten  SELECT * FROM $Sem_KurseStammdaten ";
-
-mysqli_query($con,$query38);
 
 	
 	
@@ -870,9 +884,49 @@ $query33 = "INSERT INTO sv_KurseLehrer  SELECT * FROM $Sem_KurseLehrer ";
 
 mysqli_query($con,$query33);
 		
-			
+
+
+$Sem_KurseLehrer= $Semesterkuerzel.'_NotenKurs';
 	
 	
+
+$query13 = "Delete From sv_NotenKurs";
+
+mysqli_query($con,$query13);
+
+
+
+
+
+$query33 = "INSERT INTO sv_NotenKurs  SELECT * FROM $Sem_NotenKurs ";
+
+mysqli_query($con,$query33);
+	
+	
+	$Sem_KurseStammdaten= $Semesterkuerzel.'_KurseStammdaten';
+		
+$query16 = "Delete From sv_KurseStammdaten";
+
+mysqli_query($con,$query16);
+
+$query56 = "INSERT INTO sv_KurseStammdaten SELECT * FROM $Sem_KurseStammdaten";
+
+mysqli_query($con,$query56);
+		
+
+}
+
+
+$Sem_Klassentermine= $Semesterkuerzel.'_Klassentermine';
+		
+$query16 = "Delete From sv_Klassentermine";
+
+mysqli_query($con,$query16);
+
+$query56 = "INSERT INTO sv_Klassentermine SELECT * FROM $Sem_Klassentermine";
+
+mysqli_query($con,$query56);
+		
 	
 $Sem_lernende= $Semesterkuerzel.'_Lernende';
 
@@ -1423,15 +1477,17 @@ $Klasse1 = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Kla
 
                     $Start = date('Y-m-d H:i:s', strtotime($Start . ' + 7 days'));
 
-                    $isEntrySet = "Select Ferien1von,Ferien1bis,Ferien2von,Ferien2bis,Ferien3von,Ferien3bis,Ferien4von,Ferien4bis,Ferien5von,Ferien5bis From sv_Settings";
+                    $isEntrySet = "Select * From sv_Klassentermine where Kommentar='Ferien'";
 
                     $resultSet = mysqli_query($con, $isEntrySet);
 
 
                     while ($valueSet = mysqli_fetch_array($resultSet)) {
 
-                        if (($Start>=$valueSet['Ferien1von'] and $Start<=$valueSet['Ferien1bis']) or ($Start>=$valueSet['Ferien2von'] and $Start<=$valueSet['Ferien2bis']) or ($Start>=$valueSet['Ferien3von'] and $Start<=$valueSet['Ferien3bis']) or ($Start>=$valueSet['Ferien4von'] and $Start<=$valueSet['Ferien4bis']) or ($Start>=$valueSet['Ferien5von'] and $Start<=$valueSet['Ferien5bis'])) {
-
+						 if (($Start>=$valueSet['Start'] and $Start<=$valueSet['Ende'])){
+						
+                       /* if (($Start>=$valueSet['Ferien1von'] and $Start<=$valueSet['Ferien1bis']) or ($Start>=$valueSet['Ferien2von'] and $Start<=$valueSet['Ferien2bis']) or ($Start>=$valueSet['Ferien3von'] and $Start<=$valueSet['Ferien3bis']) or ($Start>=$valueSet['Ferien4von'] and $Start<=$valueSet['Ferien4bis']) or ($Start>=$valueSet['Ferien5von'] and $Start<=$valueSet['Ferien5bis'])) {
+*/
 
                             $isExisting = true;
 

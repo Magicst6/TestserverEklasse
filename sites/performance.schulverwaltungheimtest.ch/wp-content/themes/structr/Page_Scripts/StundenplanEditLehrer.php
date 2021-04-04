@@ -99,7 +99,7 @@ $result = mysqli_query($con, $isEntry);
 
 </select>
     <br><br>
-   Semester:
+   Semester/Schuljahr:
     <br>
     <input name="semester" id="semester" readonly  value="<? echo $semDB; ?>" required="required">
 	

@@ -1200,7 +1200,7 @@ input[type=text], select {
 
 
 
-<div id="dialog-form" title="Prüfungsdaten">
+<div id="dialog-form" title="Eventdaten">
 
 
 

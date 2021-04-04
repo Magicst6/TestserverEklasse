@@ -35,7 +35,7 @@ $result = mysqli_query( $con, $isEntry );
 
 
 while ( $line2 = mysqli_fetch_array( $result ) ) {
-	
+	$Geburtsort=$line2['Geburtsort'];
 	$Geburtstag=$line2['Geburtsdatum'];
 	$Nation=$line2['Nation'];
 	$Strasse=$line2['Strasse'];
@@ -85,7 +85,7 @@ while ( $line2 = mysqli_fetch_array( $result ) ) {
 	  
 
 Vorname:&nbsp;  <input id="Vorname" type="text" class="data" value="<? echo $Vorname; ?>">  &nbsp; &nbsp;&nbsp;     Nachname: &nbsp; <input id="Nachname" type="text" class="data" value="<? echo $Nachname; ?>"> &nbsp; &nbsp; &nbsp;   E-Mail:&nbsp;  <input id="EMail" type="text" class="datamail" value="<? echo $EMail; ?>"><br><br><hr /><br>
-Geburtsdatum:&nbsp;  <input id="Geburtstag" type="date" class="data" value="<? echo $Geburtstag; ?>"> &nbsp; &nbsp; &nbsp;  Nationalität: <input id="Nation" type="text" class="data" value="<? echo $Nation; ?>"><br><br><hr /><br>
+Geburtsdatum:&nbsp;  <input id="Geburtstag" type="date" class="data" value="<? echo $Geburtstag; ?>"> &nbsp; &nbsp; &nbsp;  Nationalität: <input id="Nation" type="text" class="data" value="<? echo $Nation; ?>">&nbsp; &nbsp; &nbsp;  Geburtsort: <input id="Geburtsort" type="text" class="data" value="<? echo $Geburtsort; ?>"><br><br><hr /><br>
 Strasse:&nbsp;  <input id="Strasse" type="text" class="data" value="<? echo $Strasse; ?>">&nbsp;&nbsp;   Hausnummer:&nbsp;  <input id="HNummer" type="text" class="datahn" value="<? echo $HNummer; ?>">&nbsp; &nbsp; &nbsp; &nbsp; PLZ:&nbsp;  <input id="PLZ" type="text" class="data" value="<? echo $PLZ; ?>">&nbsp;&nbsp;    Wohnort: &nbsp; <input id="Ort" type="text" class="data" value="<? echo $Ort; ?>"><br><br><hr /><br>
 Telefon:&nbsp;  <input id="Tel" type="text" class="data" value="<? echo $Tel; ?>"><br><br><hr /><br>
 	

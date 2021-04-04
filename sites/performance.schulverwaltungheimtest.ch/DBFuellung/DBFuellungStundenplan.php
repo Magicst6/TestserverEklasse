@@ -44,7 +44,7 @@ if( $_POST['Senden']) {
                 $Date1 = new Datetime($Startdatum);
                 $Datum1 = $Date1->format('Y-m-d');
                 $Kursname0 = strtolower($_POST['Text' . $x . $y]);
-                
+                $Zimmer = $_POST['Tex' . $x . $y];
 				 $isEntry10 = "Select * From sv_KurseStammdaten where KursKuerzel='$Kursname0' ";
                     $result10 = mysqli_query($con, $isEntry10);
                     $n=0;
@@ -55,7 +55,10 @@ if( $_POST['Senden']) {
 				$Color = '#'.$valuecol['Farbe'];
 							$Lehrer = $valuecol['Lehrer'];
 						$KursnameStamm= $valuecol['Kursname'];
+						
+						if (!$Zimmer){
 						$Zimmer= $valuecol['Zimmer'];
+						}
 						$Profil= $valuecol['Profil'];
 						//echo $KursnameStamm.'hhhhhhhhhhh';
 						  preg_match("/:(.*)/", $Lehrer, $output_array);

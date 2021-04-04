@@ -104,6 +104,9 @@ if ($_POST['Senden']) {
 		}
     }
 }
+
+
+
 header('Location:'.$_SERVER['HTTP_REFERER']);
 ?>
 

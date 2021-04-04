@@ -1,5 +1,11 @@
 <script>
 	
+   $(document).ready( function () {
+
+       
+		showFerien();
+
+    } );
 
 
 function empty11(){
@@ -43,7 +49,7 @@ function empty12(){
 	document.getElementById('f52').value=null;
 }	
 	
-	
+
 	
 function loading(){
 	
@@ -84,7 +90,7 @@ form.submit();
 <?php
 
 include 'db.php';
-$isEntry = "SELECT Semesterkuerzel, Semesteranfang, Semesterende, Ferien1von, Ferien1bis, Ferien2von, Ferien2bis, Ferien3von, Ferien3bis, Ferien4von, Ferien4bis,Ferien5von, Ferien5bis, Klassenbuch From sv_Settings";
+$isEntry = "SELECT * From sv_Settings";
 
 $result = mysqli_query($con, $isEntry);
 
@@ -122,9 +128,10 @@ while( $value= mysqli_fetch_array($result)) {
     $Ferien5bis = $value['Ferien5bis'];
 	
 	$Klassenbuch = $value['Klassenbuch'];
+    
+	$Schulname = $value['Schulname'];
 
-
-
+    $Schulort = $value['Schulort'];
 }
 
 ?><body>
@@ -135,14 +142,16 @@ while( $value= mysqli_fetch_array($result)) {
     <br>
     Bitte hier die entsprechenden Daten eintragen oder modifizieren. Diese Daten sind erforderlich und müssen am Anfang des Semesters eingetragen werden.
     <br>
-    <br><br>
+    <br>
+	Schulname:&nbsp; <input type=text name="Schulname" id="Schulname"   value="<?php echo $Schulname;?>"  >&nbsp;&nbsp; Schulort:&nbsp; <input type=text name="Schulort" id="Schulort"   value="<?php echo $Schulort;?>"  >
+	<br>
     <br />
     <strong>Semesterkürzel</strong> (bitte für das Frühjahrssemester des aktuellen Jahres(hier
     2019) das Kürzel <strong>FS19</strong> und für das Herbstsemester 2019 das
-    Kürzel <strong>WS19</strong> eintragen):<br />
+    Kürzel <strong>WS19</strong> eintragen). Für ein ganzes Schuljahr(2019/2020) das Kürzel <strong>SJ1920</strong> eintragen:<br />
     <br />
 
-    <select name="Semesterkuerzel" id="Semesterkuerzel"  value="<?php echo $Semesterkuerzel;?>" required="required">
+  <!--  <select name="Semesterkuerzel" id="Semesterkuerzel"  value="<?php echo $Semesterkuerzel;?>" required="required">
         <option><?php echo $Semesterkuerzel;?></option>
 		<option>FS<?php echo date("y")-1;?></option>
 		<option>WS<?php echo date("y")-1;?></option>
@@ -152,51 +161,264 @@ while( $value= mysqli_fetch_array($result)) {
         <option>WS<?php echo date("y")+1;?></option>
         <option>FS<?php echo date("y")+2;?></option>
         <option>WS<?php echo date("y")+2;?></option>
-    </select>
-    <br>
-    <br />
-    <strong>Semesteranfang:</strong>
-    <input name="Semesteranfang" type="date" value="<?php echo $Semesteranfang ?>" />
-    <br>
-    <br>
-        <strong>Semesterende:</strong>
-    <input name="Semesterende" type="date" value="<?php echo $Semesterende ?>" />
-    <br>
-    <br><strong>Ferien 1:</strong><br />
+    </select>-->
+	<br><br>
+	Aktuelles Semester:<br>
+	<input type=text name="Semestershow" id="Semestershow"   value="<?php echo $Semesterkuerzel;?>"  readonly="readonly">
+	<br><br>
+	<h4>Semester oder Schuljahr wählen</h4> <br>Bitte Dropdown oder Textfeld wählen um das Semester zu wechseln. Bitte beide leer lassen, wenn das Semester oder Schuljahr nicht geändert werden soll! 
+	<hr>
+	
+	Im System befindliche Semester/Schuljahre:<br>
+<select id="Semester" name="Semester" onchange="showFerien()">
+    <?php
 
-    von:
-    <input name="Ferien1von" id="f11" type="date" onclick="empty11()" value="<?php echo $Ferien1von ?>" />
-    bis:
-    <input name="Ferien1bis" id="f12" type="date" onclick="empty12()" value="<?php echo $Ferien1bis ?>" />
-    <br>
-    <br><strong>Ferien 2:</strong><br />
+    //Den aktuell eingeloggten Schüler anzeigen
 
-    von:
-    <input name="Ferien2von" id="f21" type="date" onclick="empty21()"  value="<?php echo $Ferien2von ?>"/>
-    bis:
-    <input name="Ferien2bis" id="f22" type="date" onclick="empty22()" value="<?php echo $Ferien2bis ?>" />
-    <br>
-    <br><strong>Ferien 3:</strong><br />
+    $isEntry= "Select * From sv_SemesterArchiv";
+    $result = mysqli_query($con, $isEntry);
+    echo "<option></option>";
 
-    von:
-    <input name="Ferien3von" id="f31"type="date" onclick="empty31()" value="<?php echo $Ferien3von ?>" />
-    bis:
-    <input name="Ferien3bis" id="f32" type="date" onclick="empty32()" value="<?php echo $Ferien3bis ?>" />
-    <br>
-    <br><strong>Ferien 4:</strong><br />
+    while( $line3= mysqli_fetch_array($result))
+    {
+	$Semesteranfang=$line3['Semesteranfang'];
+	$Semesterende= $line3['Semesterende'];	
+    $Semester = $line3['Semesterkuerzel'];
+    echo "<option>" . $Semester . "</option>";
 
-    von:
-    <input name="Ferien4von"  id="f41" type="date" onclick="empty41()" value="<?php echo $Ferien4von ?>" />
-    bis:
-    <input name="Ferien4bis" id="f42" type="date" onclick="empty42()" value="<?php echo $Ferien4bis ?>" />
-    <br>
-    <br><strong>Ferien 5:</strong><br />
+    }
 
-    von:
-    <input name="Ferien5von"  id="f51" type="date" onclick="empty51()" value="<?php echo $Ferien5von ?>" />
-    bis:
-    <input name="Ferien5bis" id="f52" type="date" onclick="empty52()" value="<?php echo $Ferien5bis ?>" />
+    ?>
+</select>
+	<br><br>
+    Neues Semester/Schuljahr anlegen:<br>
+	<input type=text name="Semesterkuerzel" id="Semesterkuerzel" value="" onChange="showFerien()">
     <br><br>
+    <hr>
+   
+	
+   <script type='text/javascript'>
+
+    <!--
+
+    $(document).ready( function () {
+
+        $('#table_id').DataTable();
+		showFerien();
+
+    } );
+
+
+
+    //-->
+	
+	function del(str){
+
+      var r = confirm("Soll der Eintrag wirklich gelöscht werden?");
+       if (r == true) {
+ 
+
+
+        
+        
+
+            if (window.XMLHttpRequest) {
+
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+
+                xmlhttp = new XMLHttpRequest();
+
+            } else {
+
+                // code for IE6, IE5
+
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+
+         
+            xmlhttp.open("GET","/Ajax_Scripts/DelFerien.php?k="+document.getElementById("ID"+str).value + "&sem="+document.getElementById("Semester").value + "&sem1="+document.getElementById("Semesterkuerzel").value + "&semshow="+document.getElementById("Semestershow").value,true);
+
+           xmlhttp.timeout = 2000; // time in milliseconds
+
+xmlhttp.onload = function () {
+ showFerien();
+};
+
+xmlhttp.ontimeout = function (e) {
+  // XMLHttpRequest timed out. Do something here.
+};
+
+
+		
+            xmlhttp.send();
+
+        }
+
+		
+	
+		
+	}
+	function updateProfil(y){
+		
+      var r = confirm("Soll der Eintrag  wirklich geändert werden?"   );
+       if (r == true) {
+ 
+
+
+        
+
+      
+
+            if (window.XMLHttpRequest) {
+
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+
+                xmlhttp = new XMLHttpRequest();
+
+            } else {
+
+                // code for IE6, IE5
+
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+
+           
+		   
+		  
+
+            xmlhttp.open("GET","/Ajax_Scripts/UpdateProfil.php?k="+document.getElementById("Profil"+y).value + "&l="+document.getElementById("Beschreibung"+y).value + "&m="+document.getElementById("ID"+y).value + "&sem="+document.getElementById("Semester").value + "&sem1="+document.getElementById("Semesterkuerzel").value,true);
+
+            xmlhttp.timeout = 2000; // time in milliseconds
+
+xmlhttp.onload = function () {
+ window.location.href = "/settings";
+};
+
+xmlhttp.ontimeout = function (e) {
+  // XMLHttpRequest timed out. Do something here.
+};
+
+
+		
+            xmlhttp.send();
+
+
+        }
+
+		
+	}
+	
+	function create(){
+		
+      
+
+
+        
+
+      
+
+            if (window.XMLHttpRequest) {
+
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+
+                xmlhttp = new XMLHttpRequest();
+
+            } else {
+
+                // code for IE6, IE5
+
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+
+            xmlhttp.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                   
+
+                }
+
+            };
+		   
+		  xmlhttp
+            xmlhttp.open("GET","/Ajax_Scripts/createFerien.php?s="+document.getElementById("Start").value + "&e="+document.getElementById("Ende").value + "&n="+document.getElementById("Name").value + "&sem=" + document.getElementById("Semester").value + "&sem1="+document.getElementById("Semesterkuerzel").value + "&semshow="+document.getElementById("Semestershow").value,true);
+
+		xmlhttp.timeout = 2000; // time in milliseconds
+
+xmlhttp.onload = function () {
+ showFerien();
+};
+
+xmlhttp.ontimeout = function (e) {
+  // XMLHttpRequest timed out. Do something here.
+};
+
+
+		
+            xmlhttp.send();
+
+
+		
+	 
+		
+	
+	}
+	   
+	   
+    function showFerien(){
+
+      
+document.getElementById('FerienTab').innerHTML = '';
+		
+       semester=document.getElementById("Semesterkuerzel").value;
+		if (semester){
+			document.getElementById("Semester").value='';
+		}
+
+            if (window.XMLHttpRequest) {
+
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+
+                xmlhttp = new XMLHttpRequest();
+
+            } else {
+
+                // code for IE6, IE5
+
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+
+            xmlhttp.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                    document.getElementById("FerienTab").innerHTML = this.responseText;
+
+                }
+
+            };
+
+            xmlhttp.open("GET","/Ajax_Scripts/Ferien.php?sem="+document.getElementById("Semester").value + "&sem1="+document.getElementById("Semesterkuerzel").value + "&semshow="+document.getElementById("Semestershow").value,true);
+
+            xmlhttp.send();
+
+        }
+
+    
+		
+	
+
+
+</script>
+<br><br>
+<h3>Semesterdaten:</h3>
+<input id="Fereinbutton" onclick="showFerien()" size="24"  value="Semesterdaten anzeigen" STYLE=" background-color: darkgrey; cursor: pointer" size="10" maxlength="30" readonly>
+<div id="FerienTab"></div>
+
 	
 	_______________________________________________
 	<h4>Klassenbucheinstellungen</h4>
@@ -213,7 +435,7 @@ while( $value= mysqli_fetch_array($result)) {
     <br><br>
     <input name="Senden" id="Senden" type="button" onClick="subm(this.form);" value="Einstellungen übernehmen"   /></form>
 <div class="loading" id="loading" style="display:none"><span></span><div class="loader" id="loader" style="display:none"></div></div>
-    <div id="loadwarn"  style="display:none" >Die Einstellungen werden übernmommen. Bitte warten und auf der Seite bleiben bis das Ladesymbol verschwunden ist... </div> 
+    <div id="loadwarn"  style="display:none" >Die Einstellungen werden übernommen. Bitte warten und auf der Seite bleiben bis das Ladesymbol verschwunden ist... </div> 
 
 	
 	

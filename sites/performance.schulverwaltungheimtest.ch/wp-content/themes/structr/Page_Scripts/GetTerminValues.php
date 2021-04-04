@@ -31,7 +31,7 @@ else{
   $Klterm="sv_Klassentermine";
 }
 
-if ($userID==1000000){
+if ($userID==1000000 and $KlasseInput<> 'Allgemeine Termine'){
 
  
         $isEntry = "Select * From $Klterm Where Klasse='$KlasseInput'";
@@ -56,6 +56,35 @@ if ($userID==1000000){
         echo json_encode($data);
 
 }
+
+
+
+if ($KlasseInput=='Allgemeine Termine'){
+
+ 
+        $isEntry = "Select * From $Klterm where Klasse='allgemein' ";
+        $result = mysqli_query($con, $isEntry);
+        $events = array();
+
+
+        while ($line2 = mysqli_fetch_array($result)) {
+            $data[] = array(
+               'id' => $line2['ID'],
+				'lehrperson' => $line2['Lehrperson'],
+				'title' => $line2['Eventname'],
+				'start' => $line2['Start'],
+				'end' => $line2['Ende'],
+				'color' => $line2['Farbe'],				
+				'zimmer' => $line2['Zimmer'],
+				'klasse' => $line2['Klasse'],
+			    'Beschreibung' => $line2['Beschreibung'],
+				'lehrperson' => $line2['Lehrperson']);
+
+        }
+        echo json_encode($data);
+
+}
+
  else{  
  $isEntryLP = "Select Modul1,Modul2,Modul3,Modul4,Modul5,Modul6,Modul7,Modul8,Modul9,Modul10,Modul11,Modul12 From sv_LernendeModule Where User_ID =$userID";
             $resultLP = mysqli_query($con, $isEntryLP);
@@ -89,8 +118,25 @@ if ($userID==1000000){
 
                     }
 
-                }
+                }  $isEntry = "Select * From sv_Klassentermine Where Klasse='allgemein' ";
+                        $result = mysqli_query($con, $isEntry);
+
+
+                        while ($line2 = mysqli_fetch_array($result)) {
+                            $data[] = array(
+                                'id' => $line2['ID'],
+				'lehrperson' => $line2['Lehrperson'],
+				'title' => $line2['Eventname'],
+				'start' => $line2['Start'],
+				'end' => $line2['Ende'],
+				'color' => $line2['Farbe'],				
+				'zimmer' => $line2['Zimmer'],
+				'klasse' => $line2['Klasse'],
+			    'Beschreibung' => $line2['Beschreibung'],
+				'lehrperson' => $line2['Lehrperson']);
 				
+				
+						}
                 echo json_encode($data);
             }
 

@@ -199,7 +199,7 @@ if (str == "") {
         asort($uniquearr1);
 
 
-
+         echo "<option>Allgemeine Termine</option>";
 
 
         foreach ($uniquearr1 as $value)
@@ -349,7 +349,7 @@ if (str == "") {
 
                                 
 
-                                document.getElementById('klasse').value = "";
+                              //  document.getElementById('klasse').value = "";
 
                                 document.getElementById('lehrperson').value = "";
 								
@@ -1157,7 +1157,7 @@ if (str == "") {
 
                                 document.getElementById('kursid').value = "";
 
-                                document.getElementById('klasse').value = "";
+                               // document.getElementById('klasse').value = "";
 
                                 document.getElementById('lehrperson').value = "";
 								document.getElementById('gewicht').value = "";
@@ -1383,7 +1383,7 @@ if (str == "") {
 
 <body>
 	
-	<div id="dialog-form" title="Prüfungsdaten">
+	<div id="dialog-form" title="Eventdaten">
 
 
 

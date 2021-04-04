@@ -426,7 +426,7 @@ while ($value3 = mysqli_fetch_array($result2)) {
   
 
 
-Semester:<br>
+Semester/Schuljahr:<br>
 <select id="Semester" name="Semester" onchange="tableshow()">
     <?php
 

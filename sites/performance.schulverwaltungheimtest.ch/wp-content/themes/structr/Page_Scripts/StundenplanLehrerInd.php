@@ -45,7 +45,7 @@ get_currentuserinfo();
 <input type="hidden" id="uid" value="<? echo $current_user->ID;?>"
 <br>
 <br>
-Semester:
+Semester/Schuljahr:
 <br>
 <input name="semester" id="semester"   value="<?php echo $semDB;?>" readonly=readonly >
  <br><br>

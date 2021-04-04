@@ -44,7 +44,7 @@ echo '<br>Hier die momentan in dieser Klasse befindlichen Schüler:<br><br>';
                     echo '<td><input name="ID1'.$y.'" style="width: 80px" type="text" readonly  value='.$ID.' ></td>';
                     echo '<td><input name="Nachname1'.$y.'" style="width: 200px" type="text" readonly value='.$Name.'  ></td>';
                     echo '<td><input name="Vorname1'.$y.'" type="text" value='.$Vorname.' readonly style="width: 200px"   ></td>';
-                    echo '<td><input name="Profil' . $y . '" id="Profiles"  type="text" style="width: 120px"  onchange="setVal(this.value)" readonly></td>';
+                    echo '<td><input name="Profil1' . $y . '" id="Profiles1"  type="text" style="width: 120px"  onchange="setVal(this.value)" readonly></td>';
 			
 			 
                     echo '<td><input name="Loginname1'.$y.'" type="text" style="width: 200px" readonly  value='.$Loginname.'  ></td>';

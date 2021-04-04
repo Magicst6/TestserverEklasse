@@ -291,6 +291,7 @@ $isEntry2= "Select *  From sv_KurseLehrer where KursID='$KursID' ";
 $klasseTab="sv_KurseAll".$Klasse1;
 if ($Klasse){		
     $sql_befehl_del = "Delete From $klasseTab where Stundenplan = 1 and Klasse='$Klasse'";
+	 mysqli_query($con, $sql_befehl_del);
 		}
 	if ($LP_ID)
 {		
@@ -620,29 +621,21 @@ $klasseTab="sv_KurseAll".$Klasse1;
 
                     $Start = date('Y-m-d H:i:s', strtotime($Start . ' + 7 days'));
 
-                    $isEntrySet = "Select Ferien1von,Ferien1bis,Ferien2von,Ferien2bis,Ferien3von,Ferien3bis,Ferien4von,Ferien4bis,Ferien5von,Ferien5bis,Semesteranfang,Semesterende From sv_Settings";
+              $isEntrySet = "Select * From sv_Klassentermine where Kommentar='Ferien'";
 
                     $resultSet = mysqli_query($con, $isEntrySet);
 
 
                     while ($valueSet = mysqli_fetch_array($resultSet)) {
-						
-                     $ferien1bis= date('Y-m-d', strtotime($valueSet['Ferien1bis'].' + 1 days'));
-						 $ferien2bis= date('Y-m-d', strtotime($valueSet['Ferien2bis'].' + 1 days'));
-						 $ferien3bis= date('Y-m-d', strtotime($valueSet['Ferien3bis'].' + 1 days'));
-						 $ferien4bis= date('Y-m-d', strtotime($valueSet['Ferien4bis'].' + 1 days'));
-						 $ferien5bis= date('Y-m-d', strtotime($valueSet['Ferien5bis'].' + 1 days'));
-						$Semesteranfang= date('Y-m-d', strtotime($valueSet['Semesteranfang']));
-						 $Semesterende= date('Y-m-d', strtotime($valueSet['Semesterende']));
-						 
 
-                        if (  ($Start>=$valueSet['Ferien1von'] and $Start<=$ferien1bis) or ($Start>=$valueSet['Ferien2von'] and $Start<=$ferien2bis) or ($Start>=$valueSet['Ferien3von'] and $Start<=$ferien3bis) or ($Start>=$valueSet['Ferien4von'] and $Start<=$ferien4bis) or ($Start>=$valueSet['Ferien5von'] and $Start<=$ferien5bis)) {
-                           
-                           
+						 if (($Start>=$valueSet['Start'] and $Start<=$valueSet['Ende'])){
+						
+                       /* if (($Start>=$valueSet['Ferien1von'] and $Start<=$valueSet['Ferien1bis']) or ($Start>=$valueSet['Ferien2von'] and $Start<=$valueSet['Ferien2bis']) or ($Start>=$valueSet['Ferien3von'] and $Start<=$valueSet['Ferien3bis']) or ($Start>=$valueSet['Ferien4von'] and $Start<=$valueSet['Ferien4bis']) or ($Start>=$valueSet['Ferien5von'] and $Start<=$valueSet['Ferien5bis'])) {
+*/
+
                             $isExisting = true;
 
-							}
-                        //     echo "line already existing";
+                        }//     echo "line already existing";
 
                     }
 

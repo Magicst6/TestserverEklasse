@@ -87,7 +87,7 @@ include "db.php";
  $value=$_POST['q'];
 preg_match("/:(.*)/", $value, $output_array);
 $value=$output_array[1];
-$value=296;
+
 $sem=$_POST['sem'];
 
  $isEntry2 = "Select Semesterkuerzel From sv_Settings";

@@ -4,7 +4,7 @@
 	
 Wählen Sie die Klasse:<br>
 
-    <select name="klasse" id="klasse"  required="required">
+    <select name="klasseupl" id="klasseupl"  required="required">
 
 
 
@@ -64,15 +64,13 @@ Wählen Sie die Klasse:<br>
 
         {
 
-            if ($value == $_GET['klasse']){}
+           
 
-            else
-
-            {
+            
                if ($value){
                 echo "<option>" . $value . "</option>";
 			   }
-            }
+            
 
         }
 

@@ -32,11 +32,14 @@ $isEntry2 = "SELECT  Klasse From sv_Kurse Group by Klasse";
                 $result2 = mysqli_query($con, $isEntry2);
 
                 while ($value1 = mysqli_fetch_array($result2)) {
-					
+					unset($KursID);
+					unset($Datum);
 					$Klasse=$value1['Klasse'];
-					$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
+					$Klasse =  stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_",$Klasse));
 					
 $klasseTab="sv_KurseAll".$Klasse;
+					
+				
 					
 					
 
@@ -48,6 +51,7 @@ $klasseTab="sv_KurseAll".$Klasse;
 				$isEntered="nein";
 				$Datum1= $line2['Datum'];
 				$KursID1=$line2['KursID'];
+			
 				$isEntry1 = "Select * From sv_Kurshistorie Where KursID='$KursID1' and Datum='$Datum1'  ";
             $result1 = mysqli_query($con, $isEntry1);
                
@@ -68,6 +72,7 @@ $klasseTab="sv_KurseAll".$Klasse;
 				}
 				$z++;
 				$endday=$line5['Ende'];
+				
 			}
 				
 				
@@ -86,9 +91,12 @@ $klasseTab="sv_KurseAll".$Klasse;
 				{
 				}
 				else{
+					
 					if ($line2['Lektionen']){
 						$z=$line2['Lektionen'];
 					}
+					
+					
 						
                 $data[] = array(
 					'lektionen' => $z,

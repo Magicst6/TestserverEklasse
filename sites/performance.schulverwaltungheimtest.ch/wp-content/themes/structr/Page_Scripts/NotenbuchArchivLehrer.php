@@ -1545,7 +1545,7 @@ $result = mysqli_query($con, $isEntry);
 ?>
 
 <br><br>
-	Semester:<br>
+	Semester/Schuljahr:<br>
 <select id="Semester" name="Semester"  onchange="getLehrer(this.value)">
 	<option value="<? echo $sem;?>" selected><? echo $sem;?></option>
     <?php

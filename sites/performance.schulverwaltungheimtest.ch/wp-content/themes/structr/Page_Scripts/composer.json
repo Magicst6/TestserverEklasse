@@ -1,5 +1,13 @@
 {
     "require": {
-        "phpoffice/phpword": "^0.17.0"
+        "phpoffice/phpword": "^0.17.0",
+		  "setasign/fpdf": "1.*",
+        "setasign/fpdi": "2.0",
+        "dompdf/dompdf": "^1.0",
+        "gears/pdf": "*",
+        "convertio/convertio-php": "^0.4.0"
+		
     }
+
+
 }

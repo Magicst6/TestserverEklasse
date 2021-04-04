@@ -1381,7 +1381,7 @@ include 'db.php';
 
 
 
-Semester:<br>
+Semester/Schuljahr:<br>
 <select id="Semester" name="Semester"  onchange="getKursnameAll(this.value)">
 	<option value="<? echo $sem;?>" selected><? echo $sem;?></option>
     <?php

@@ -1,7 +1,7 @@
 <?php
 include 'db.php';
 ?>
-Semester:<br>
+Semester/Schuljahr:<br>
 <select id="Semester" name="Semester" onchange="myFunction()">
     <?php
 

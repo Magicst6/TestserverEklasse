@@ -33,6 +33,8 @@ $Nachname= $_GET['Nachname'];
 	
 	$semester=$_GET['sem'];
 
+    $Geburtsort=$_GET['GebOrt'];
+
 	
 $isEntry = "Select * From sv_Settings ";
 $result = mysqli_query($con, $isEntry);
@@ -62,7 +64,7 @@ if ($semester==$semDB || $semester==''){
 
 
 
-        $query = "Update $LM SET Name='$Nachname', Vorname='$Vorname', EMail='$EMail', Strasse='$Strasse', Hausnummer='$HNummer', PLZ='$PLZ', Wohnort='$Ort', Telefon='$Tel', Nation='$Nation',Geburtsdatum='$Geburtstag', ElternMail='$ElternMail', ElternTel='$ElternTel' where ID='$ID' ";
+        $query = "Update $LM SET Name='$Nachname', Vorname='$Vorname', EMail='$EMail', Strasse='$Strasse', Hausnummer='$HNummer', PLZ='$PLZ', Wohnort='$Ort', Telefon='$Tel', Nation='$Nation',Geburtsdatum='$Geburtstag', ElternMail='$ElternMail', ElternTel='$ElternTel', Geburtsort='$Geburtsort' where ID='$ID' ";
 
         mysqli_query($con, $query);
 

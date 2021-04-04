@@ -161,7 +161,7 @@ $c=0;
 			 'IDSchueler' => $line1['SchuelerID']
 			);
           
-		$isEntryUpdNull = "UPDATE sv_LernenderKurs SET Note1  = '',Note2  = '',Note3  = '',Note4  = '',Note5  = '',Note6  = '',Note7  = '',Note8  = '',Note9  = '' where SchuelerID='$ID' and KursID ='$Kursname'";
+		$isEntryUpdNull = "Delete From sv_NotenKurs where SchuelerID='$ID' and KursID ='$Kursname'";
 	mysqli_query( $con, $isEntryUpdNull );	
 
 		
@@ -194,7 +194,7 @@ $c=0;
 		
 		
 	
-		if ($a<9){
+		
 		
 				
 		$a++;
@@ -236,47 +236,14 @@ $c=0;
 			} );
 		}
 			if ($NoteAK){ 
-			switch ($a) {
-    case 1:
-      $isEntryUpd = "UPDATE sv_LernenderKurs SET Note1  = '$NoteAK' where SchuelerID='$ID' and KursID ='$Kursname'";
-	mysqli_query( $con, $isEntryUpd );	
-        break;
-    case 2:
-       $isEntryUpd = "UPDATE sv_LernenderKurs SET Note2  = '$NoteAK' where SchuelerID='$ID' and KursID ='$Kursname'";
-	mysqli_query( $con, $isEntryUpd );	
-        break;
-    case 3:
-       $isEntryUpd = "UPDATE sv_LernenderKurs SET Note3  = '$NoteAK' where SchuelerID='$ID' and KursID ='$Kursname'";
-	mysqli_query( $con, $isEntryUpd );	
-        break;
-	case 4:
-      $isEntryUpd = "UPDATE sv_LernenderKurs SET Note4  = '$NoteAK' where SchuelerID='$ID' and KursID ='$Kursname'";
-	mysqli_query( $con, $isEntryUpd );	
-        break;
-    case 5:
-       $isEntryUpd = "UPDATE sv_LernenderKurs SET Note5  = '$NoteAK' where SchuelerID='$ID' and KursID ='$Kursname'";
-	mysqli_query( $con, $isEntryUpd );	
-        break;
-    case 6:
-       $isEntryUpd = "UPDATE sv_LernenderKurs SET Note6  = '$NoteAK' where SchuelerID='$ID' and KursID ='$Kursname'";
-	mysqli_query( $con, $isEntryUpd );	
-        break;
-	case 7:
-      $isEntryUpd = "UPDATE sv_LernenderKurs SET Note7  = '$NoteAK' where SchuelerID='$ID' and KursID ='$Kursname'";
-	mysqli_query( $con, $isEntryUpd );	
-        break;
-    case 8:
-       $isEntryUpd = "UPDATE sv_LernenderKurs SET Note8  = '$NoteAK' where SchuelerID='$ID' and KursID ='$Kursname'";
-	mysqli_query( $con, $isEntryUpd );	
-        break;
-    case 9:
-       $isEntryUpd = "UPDATE sv_LernenderKurs SET Note9  = '$NoteAK' where SchuelerID='$ID' and KursID ='$Kursname'";
-	mysqli_query( $con, $isEntryUpd );	
-        break;
-}
-	
-		}
 		
+    
+      $isEntryUpd = "Insert Into sv_NotenKurs (SchuelerID,KursID,Note) Values ('$ID','$Kursname','$NoteAK')";
+	mysqli_query( $con, $isEntryUpd );	
+      
+   
+			}
+	
     }
 	}
 		
@@ -311,11 +278,11 @@ $c=0;
 		
 		$data[] = array_merge( $data0,$data11,$data10,$data12);
 			
-	}
 	
+}
 
 }
-}
+
 ?>
 	
 

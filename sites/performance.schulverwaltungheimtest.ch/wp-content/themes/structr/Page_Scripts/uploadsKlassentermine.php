@@ -1,6 +1,6 @@
 <?php
 
-$Klasse=$_POST['klasse'];
+$Klasse=$_POST['klasseupl'];
 
 $Semester=$_POST['semester'];
 

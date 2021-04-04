@@ -69,3 +69,9 @@ $q->or_where( 'sv_LernendeModule.Modul9',$_POST['Klasse'] );
  
  
 ->json();
+
+
+
+
+
+	

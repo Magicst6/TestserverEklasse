@@ -32,7 +32,8 @@ $isEntry2 = "SELECT  Klasse From sv_Kurse Group by Klasse";
                 $result2 = mysqli_query($con, $isEntry2);
 
                 while ($value1 = mysqli_fetch_array($result2)) {
-					
+					unset($KursID);
+					unset($Datum);
 					$Klasse=$value1['Klasse'];
 					$Klasse = stripslashes( preg_replace("/[^a-zA-Z0-9_äöüÄÖÜ ]/" , "_", $Klasse));
 					

@@ -1178,7 +1178,9 @@ get_currentuserinfo();
 												calendar.fullCalendar( 'refetchEvents' );
 											}
 
-											//rl();
+					tableshow();
+		
+		showCalendar();
 										},
 
 										"Löschen": function () {
@@ -1439,13 +1441,15 @@ get_currentuserinfo();
                               
 
 
+
 						
 							return;
 							
 							
-
 						}
-
+						tableshow();
+		
+		showCalendar();
 						
 					},
 
@@ -1685,7 +1689,9 @@ get_currentuserinfo();
 												
 											}
 
-											//rl();
+												tableshow();
+		
+		showCalendar();
 										},
 
 										"Löschen": function () {

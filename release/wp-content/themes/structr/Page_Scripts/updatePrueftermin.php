@@ -77,7 +77,7 @@ if(isset($_GET["f"]))
 
 if ($lp_id) {
 	
-	 $isEntry4 = "SELECT  Pruefungsname From sv_Pruefungen where id='$id'";
+	 $isEntry4 = "SELECT  * From sv_Pruefungen where id='$id'";
                 $result4 = mysqli_query($con, $isEntry4);
 
                 while ($value4 = mysqli_fetch_array($result4)) {
